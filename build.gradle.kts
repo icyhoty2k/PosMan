@@ -27,6 +27,7 @@ val ideaOutput = "$outputBuildDir\\ideaBuild"
 val ideaTest = "$ideaOutput\\test"
 //set gradle outbut build dir
 //setBuildDir(gradleOutput)
+val directoryOutputBuildDir = file(outputBuildDir.plus(defaultWorkingDir))
 layout.buildDirectory.set(file(gradleOutput))
 
 group = "net.silver"
@@ -127,9 +128,10 @@ tasks.register("ensureWorkingDir") {
 }
 tasks.register("clenaWorkingDir") {
     group = "[ivan]"
+    description = "Not  recursive for inner  dirs, just curren dir and files"
     try {
         // create a new file object
-        val directory = file(outputBuildDir.plus(defaultWorkingDir))
+        val directory = file(directoryOutputBuildDir)
 
         // list all the files in an array
         val files = directory.listFiles()
@@ -148,5 +150,27 @@ tasks.register("clenaWorkingDir") {
         }
     } catch (e: Exception) {
         e.stackTrace
+    }
+}
+tasks.register("clenaWorkingDirRecursivly") {
+    group = "[ivan]"
+    description = "Recursive for inner  dirs and sub dirs"
+    deleteDirectoryRecursivly(directoryOutputBuildDir)
+}
+fun deleteDirectoryRecursivly(directory: File) {
+    if (directory.isDirectory) {
+        val files = directory.listFiles()
+
+        if (files != null) {
+            for (file in files) {
+                deleteDirectoryRecursivly(file)
+            }
+        }
+    }
+
+    if (directory.delete()) {
+        println("$directory is deleted")
+    } else {
+        println("Directory not deleted")
     }
 }
