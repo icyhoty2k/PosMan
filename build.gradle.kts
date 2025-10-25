@@ -96,6 +96,21 @@ tasks.run {
     workingDir("$outputBuildDir$defaultWorkingDir")
 
 }
+
+tasks.clean {
+    dependsOn("clenaWorkingDir")
+}
+
+idea.module {
+    isDownloadJavadoc = true
+    isDownloadSources = true
+    inheritOutputDirs = false
+    inheritOutputDirs = false
+    outputDir = file(ideaOutput)
+    testOutputDir = file(ideaTest)
+}
+
+//own tasks
 tasks.register("ensureWorkingDir") {
     group = "[ivan]"
     if (!file(outputBuildDir.plus(defaultWorkingDir)).exists()) {
@@ -126,15 +141,4 @@ tasks.register("clenaWorkingDir") {
     } catch (e: Exception) {
         e.stackTrace
     }
-}
-tasks.clean {
-    dependsOn("clenaWorkingDir")
-}
-idea.module {
-    isDownloadJavadoc = true
-    isDownloadSources = true
-    inheritOutputDirs = false
-    inheritOutputDirs = false
-    outputDir = file(ideaOutput)
-    testOutputDir = file(ideaTest)
 }
