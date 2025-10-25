@@ -14,7 +14,7 @@ val devDrive = "I:\\"
 //If ramDrive is installed and configured to R:\
 val ramDrive = "R:\\"
 //workingDir
-val defaultWorkingDir = "12_JavaWorkingDir\\"
+val defaultWorkingDir = "${rootProject.name}WorkingDir\\"
 //JdkLocation = "I:\\14_JDKs\\Liberica\\bellsoft-liberica-vm-full-openjdk24+37-24.2.0+1-windows-amd64\\bellsoft-liberica-vm-full-openjdk24-24.2.0"
 val jdkLocation = project.property("org.gradle.java.home")
 //    JdkLocation = "I:\\14_JDKs\\EclipseAdopt Temurin\\jdk-21.0.5+11"
@@ -23,8 +23,9 @@ val outputBuildDir = "$mainBuildAndWorkingDrive${rootProject.name}\\"
 val gradleOutput = "$outputBuildDir\\gradleBuild\\"
 val ideaOutput = "$outputBuildDir\\ideaBuild"
 val ideaTest = "$ideaOutput\\test"
-
-layout.buildDirectory.dir(gradleOutput)
+//set gradle outbut build dir
+//setBuildDir(gradleOutput)
+layout.buildDirectory.set(file(gradleOutput))
 
 group = "net.silver"
 version = "1.0-SNAPSHOT"
@@ -61,6 +62,7 @@ application {
 javafx {
     version = "25.0.1"
     modules = listOf("javafx.controls", "javafx.fxml")
+    setPlatform("win")
 }
 
 dependencies {
@@ -71,6 +73,13 @@ dependencies {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+tasks.compileJava {
+    options.isIncremental = true
+    options.isFork = true
+    options.isFailOnError = true
+    options.forkOptions.executable = "$jdkLocation\\bin\\javac.exe"
+    options.isVerbose = true
+}
 
 jlink {
     imageZip.set(layout.buildDirectory.file("/distributions/app-${javafx.platform.classifier}.zip"))
@@ -80,20 +89,52 @@ jlink {
     }
 
 }
-tasks.named("run") {
 
+tasks.run {
+    dependsOn("ensureWorkingDir")
+
+    workingDir("$outputBuildDir$defaultWorkingDir")
+
+}
+tasks.register("ensureWorkingDir") {
+    group = "[ivan]"
     if (!file(outputBuildDir.plus(defaultWorkingDir)).exists()) {
         mkdir(file(outputBuildDir.plus(defaultWorkingDir)))
     }
-    tasks.run.get().workingDir("$outputBuildDir$defaultWorkingDir")
 }
-idea {
-    module {
-        //  downloadJavadoc = true
-        //     downloadSources = true
-        inheritOutputDirs = false
-        inheritOutputDirs = false
-        outputDir = file(ideaOutput)
-        testOutputDir = file(ideaTest)
+tasks.register("clenaWorkingDir") {
+    group = "[ivan]"
+    try {
+        // create a new file object
+        val directory = file(outputBuildDir.plus(defaultWorkingDir))
+
+        // list all the files in an array
+        val files = directory.listFiles()
+
+        // delete each file from the directory
+        for (file in files.orEmpty()) {
+            println(file.toString() + " deleted.")
+            file.delete()
+        }
+
+        // delete the directory
+        if (directory.delete()) {
+            println("Directory Deleted")
+        } else {
+            println("Directory not Found")
+        }
+    } catch (e: Exception) {
+        e.stackTrace
     }
+}
+tasks.clean {
+    dependsOn("clenaWorkingDir")
+}
+idea.module {
+    isDownloadJavadoc = true
+    isDownloadSources = true
+    inheritOutputDirs = false
+    inheritOutputDirs = false
+    outputDir = file(ideaOutput)
+    testOutputDir = file(ideaTest)
 }
