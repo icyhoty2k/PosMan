@@ -38,7 +38,7 @@ repositories {
 tasks.shadowJar {
     manifest {
         attributes["Main-Class"] = application.mainClass
-        
+        attributes["Description"] = "This is an application JAR"
     }
     destinationDirectory.set(file(System.getenv("appdata") + "\\Scene Builder\\Library"))
 }
