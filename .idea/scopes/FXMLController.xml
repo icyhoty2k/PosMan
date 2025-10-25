@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="FXMLController" pattern="file[PosMan.main]:*/c_*.java" />
+</component>

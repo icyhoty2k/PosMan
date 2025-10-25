@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="FXMLView" pattern="file[PosMan.main]:*/v_*.fxml" />
+</component>
