@@ -1,3 +1,5 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar.Companion.shadowJar
+
 plugins {
     java
     application
@@ -33,7 +35,13 @@ version = "1.0-SNAPSHOT"
 repositories {
     mavenCentral()
 }
-
+tasks.shadowJar {
+    manifest {
+        attributes["Main-Class"] = application.mainClass
+        
+    }
+    destinationDirectory.set(file(System.getenv("appdata") + "\\Scene Builder\\Library"))
+}
 val junitVersion = "5.12.1"
 
 java {
