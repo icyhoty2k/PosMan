@@ -109,7 +109,7 @@ idea.module {
     outputDir = file(ideaOutput)
     testOutputDir = file(ideaTest)
 }
-
+//
 //own tasks
 tasks.register("ensureWorkingDir") {
     group = "[ivan]"
