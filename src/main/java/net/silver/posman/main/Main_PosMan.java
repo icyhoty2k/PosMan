@@ -22,6 +22,7 @@ public class Main_PosMan extends Application {
     FXMLLoader fxmlLoader = new FXMLLoader(Main_PosMan.class.getResource("v_PosMan.fxml"));
     Scene scene = new Scene(fxmlLoader.load());
     stage.setScene(scene);
+    stage.centerOnScreen();
     stage.show();
     stage.setTitle(APP_TITLE + " - " + LocalDate.now().format(DateTimeFormatters.toCustomDate));
   }

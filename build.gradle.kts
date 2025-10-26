@@ -87,7 +87,7 @@ tasks.compileJava {
     options.isFork = true
     options.isFailOnError = true
     options.forkOptions.executable = "$jdkLocation\\bin\\javac.exe"
-    options.isVerbose = true
+    options.isVerbose = false
 }
 
 jlink {
