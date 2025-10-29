@@ -30,7 +30,7 @@ public class StageManager {
     }
     mainStage.setScene(mainScene);
     mainStage.centerOnScreen();
-    mainStage.setTitle(AppInfo.APP_TITLE + " v" + AppInfo.APP_VERSION);
+    mainStage.setTitle(AppInfo.APP_TITLE);
     mainStage.show();
     Log.trace("mainStage");
   }

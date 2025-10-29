@@ -1,5 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar.Companion.shadowJar
 import java.net.URLClassLoader
+import java.time.LocalDate
 
 
 plugins {
@@ -13,7 +14,7 @@ plugins {
     id("com.github.ben-manes.versions") version "0.53.0"
     id("com.dorongold.task-tree") version "2.1.1"
 }
-val debug = false
+val debug = true
 //Reference to devDrive
 val devDrive = "I:\\"
 //If ramDrive is installed and configured to R:\
@@ -36,7 +37,7 @@ val directoryOutputBuildDir = file(outputBuildDir.plus(defaultWorkingDir))
 layout.buildDirectory.set(file(gradleOutput))
 
 group = "net.silver"
-//[[AppInfo#APP_VERSION]]
+//[[AppInfo#APP_VERSION_FIRST_PART]]
 version = "1.0"//#[[gradleAppVersion]]
 
 repositories {
@@ -198,19 +199,22 @@ tasks.register("readVersionFromClass") {
             classLoader.loadClass("net.silver.posman.utils.AppInfo")
 
         // 6. Use reflection to get the static field
-        val appVersion = myConfigClass.getDeclaredField("APP_VERSION")
+        val appVersion = myConfigClass.getDeclaredField("APP_VERSION_FIRST_PART")
         val appBuildDate = myConfigClass.getDeclaredField("APP_BUILD_DATE")
+        appVersion.isAccessible = true
+        appBuildDate.isAccessible = true
         val appTitle = myConfigClass.getDeclaredField("APP_TITLE")
+        appVersion.isAccessible = true
+        appBuildDate.isAccessible = true
 
         // 7. Get the value of the static field
         val APP_VERSION = appVersion.get(null) as String // 'null' for static fields
-        val build = appBuildDate.get(null) as String // 'null' for static fields
+        val build = appBuildDate.get(null) as LocalDate // 'null' for static fields
         val title = appTitle.get(null) as String // 'null' for static fields
 
         if (debug) {
             println("========================================")
             println("Data read from: $myConfigClass")
-            println()
             println("Version read from .class file: $APP_VERSION")
             println("Build date read from .class file: $build")
             println("App title read from .class file: $title")
@@ -221,7 +225,7 @@ tasks.register("readVersionFromClass") {
             println("gradle.build version variable is=$version")
             println("AppInfo.java  version variable is=$APP_VERSION")
             println("Stopping execution please fix versions mismatch")
-            throw GradleException("\nStopping execution! Please fix versions mismatch: $version != $APP_VERSION\nbuild.gradle.kts:40=$version\nAppInfo.java:9=$APP_VERSION")
+            throw GradleException("\nStopping execution! Please fix versions mismatch: $version != $APP_VERSION\nbuild.gradle.kts:41=$version\nAppInfo.java:14=$APP_VERSION")
         }
     }
 }
