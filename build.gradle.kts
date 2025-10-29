@@ -1,4 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar.Companion.shadowJar
+import java.net.URLClassLoader
+
 
 plugins {
     java
@@ -9,6 +11,7 @@ plugins {
     id("org.beryx.jlink") version "3.1.4-rc"
     id("com.gradleup.shadow") version "9.2.2"
     id("com.github.ben-manes.versions") version "0.53.0"
+    id("com.dorongold.task-tree") version "2.1.1"
 }
 
 //Reference to devDrive
@@ -25,13 +28,15 @@ val outputBuildDir = "$mainBuildAndWorkingDrive${rootProject.name}\\"
 val gradleOutput = "$outputBuildDir\\gradleBuild\\"
 val ideaOutput = "$outputBuildDir\\ideaBuild"
 val ideaTest = "$ideaOutput\\test"
+
+
 //set gradle outbut build dir
 //setBuildDir(gradleOutput)
 val directoryOutputBuildDir = file(outputBuildDir.plus(defaultWorkingDir))
 layout.buildDirectory.set(file(gradleOutput))
 
 group = "net.silver"
-version = "1.0-SNAPSHOT"
+version = "0.1"
 
 repositories {
     mavenCentral()
@@ -75,6 +80,8 @@ javafx {
 }
 
 dependencies {
+    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    implementation("org.xerial:sqlite-jdbc:3.50.3.0")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
@@ -91,19 +98,17 @@ tasks.compileJava {
 }
 
 jlink {
-    imageZip.set(layout.buildDirectory.file("/distributions/app-${javafx.platform.classifier}.zip"))
-    options.set(listOf("--strip-debug", "--compress", "2", "--no-header-files", "--no-man-pages"))
+    imageZip.set(layout.buildDirectory.file("/distributions/${rootProject.name}-v$version-${javafx.platform.classifier}.zip"))
+    options.set(listOf("--strip-debug", "--compress", "zip-9", "--no-header-files", "--no-man-pages"))
     launcher {
-        name = "PosMan$version"
+        name = "${rootProject.name}-v$version"
     }
 
 }
 
 tasks.run {
     dependsOn("ensureWorkingDir")
-
     workingDir("$outputBuildDir$defaultWorkingDir")
-
 }
 
 tasks.clean {
@@ -173,4 +178,52 @@ fun deleteDirectoryRecursivly(directory: File) {
     } else {
         println("Directory not deleted")
     }
+}
+tasks.register("readVersionFromClass") {
+    group = "[ivan]"
+
+    // 2. Make this task run AFTER the code is compiled
+    dependsOn(tasks.named("compileJava"))
+
+    doLast {
+        // 3. Get the directory where compiled classes are
+        val classesDir = sourceSets.main.get().output.classesDirs.first()
+
+        // 4. Create a new ClassLoader that includes this directory
+        val classLoader = URLClassLoader(arrayOf(classesDir.toURI().toURL()))
+
+        // 5. Load the class using its full name
+        val myConfigClass =
+            classLoader.loadClass("net.silver.posman.utils.AppInfo")
+
+        // 6. Use reflection to get the static field
+        val appVersion = myConfigClass.getDeclaredField("APP_VERSION")
+        val appBuildDate = myConfigClass.getDeclaredField("APP_BUILD_DATE")
+        val appTitle = myConfigClass.getDeclaredField("APP_TITLE")
+
+        // 7. Get the value of the static field
+        val APP_VERSION = appVersion.get(null) as String // 'null' for static fields
+        val build = appBuildDate.get(null) as String // 'null' for static fields
+        val title = appTitle.get(null) as String // 'null' for static fields
+
+
+        println("========================================")
+        println("Data read from: $myConfigClass")
+        println()
+        println("Version read from .class file: $APP_VERSION")
+        println("Build date read from .class file: $build")
+        println("App title read from .class file: $title")
+        println("========================================")
+        if (version.equals(APP_VERSION)) {
+            println("yes")
+        } else {
+            println("gradle.build version variable is=$version")
+            println("AppInfo.java  version variable is=$APP_VERSION")
+            println("Stopping execution please fix versions mismatch")
+            throw GradleException("\nStopping execution! Please fix versions mismatch: $version != $APP_VERSION\nbuild.gradle.kts version=$version\nAppInfo.java.APP_VERSION=$APP_VERSION")
+        }
+    }
+}
+tasks.compileJava {
+    finalizedBy(tasks.named("readVersionFromClass"))
 }
