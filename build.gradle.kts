@@ -220,7 +220,7 @@ tasks.register("readVersionFromClass") {
             println("gradle.build version variable is=$version")
             println("AppInfo.java  version variable is=$APP_VERSION")
             println("Stopping execution please fix versions mismatch")
-            throw GradleException("\nStopping execution! Please fix versions mismatch: $version != $APP_VERSION\nbuild.gradle.kts version=$version\nAppInfo.java.APP_VERSION=$APP_VERSION")
+            throw GradleException("\nStopping execution! Please fix versions mismatch: $version != $APP_VERSION\nbuild.gradle.kts:39=$version\nAppInfo.java:5=$APP_VERSION")
         }
     }
 }

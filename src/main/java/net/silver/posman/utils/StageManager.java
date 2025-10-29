@@ -32,5 +32,6 @@ public class StageManager {
     mainStage.centerOnScreen();
     mainStage.setTitle(AppInfo.APP_TITLE + " v" + AppInfo.APP_VERSION);
     mainStage.show();
+    Log.trace("mainStage");
   }
 }
