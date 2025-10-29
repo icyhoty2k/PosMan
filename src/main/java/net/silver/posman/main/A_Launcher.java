@@ -2,8 +2,8 @@ package net.silver.posman.main;
 
 import javafx.application.Application;
 
-public class Launcher {
+public class A_Launcher {
   public static void main(String[] args) {
-    Application.launch(Main_PosMan.class, args);
+    Application.launch(B_PosMan.class, args);
   }
 }

@@ -64,7 +64,7 @@ tasks.withType<JavaCompile> {
 
 application {
     mainModule.set("net.silver.posman")
-    mainClass.set("net.silver.posman.main.Main_PosMan")
+    mainClass.set("net.silver.posman.main.A_Launcher")
     applicationDefaultJvmArgs = listOf("--enable-native-access=javafx.graphics")
 //    applicationDefaultJvmArgs = [
 //            "--add-opens=javafx.controls/javafx.scene.control.skin=com.pixelduke.fxskins"

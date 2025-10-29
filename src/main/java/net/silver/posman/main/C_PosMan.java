@@ -5,7 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 
-public class c_PosMan {
+public class C_PosMan {
 
   @FXML private Label lblCurrentDate;
   @FXML private Label lblCurrentTime;
