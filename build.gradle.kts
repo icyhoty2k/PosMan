@@ -14,7 +14,7 @@ plugins {
     id("com.github.ben-manes.versions") version "0.53.0"
     id("com.dorongold.task-tree") version "2.1.1"
 }
-val debug = true
+val debug = false
 //Reference to devDrive
 val devDrive = "I:\\"
 //If ramDrive is installed and configured to R:\

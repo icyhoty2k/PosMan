@@ -32,6 +32,5 @@ public class StageManager {
     mainStage.centerOnScreen();
     mainStage.setTitle(AppInfo.APP_TITLE);
     mainStage.show();
-    Log.trace("mainStage");
   }
 }
