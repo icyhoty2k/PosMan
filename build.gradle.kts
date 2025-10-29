@@ -103,7 +103,23 @@ jlink {
     imageZip.set(layout.buildDirectory.file("/distributions/${rootProject.name}-v$version-${javafx.platform.classifier}.zip"))
     options.set(listOf("--strip-debug", "--compress", "zip-9", "--no-header-files", "--no-man-pages"))
     launcher {
-        name = "${rootProject.name}-v$version"
+        name = "${rootProject.name}_v$version"
+    }
+    jpackage {
+//        jvmArgs = ['-splash:$APPDIR/splash.png']
+        icon = "src/main/resources/net/silver/posman/icons/appIcons/appIcon_v2.ico"
+//        jpackageHome = "${JdkLocation}"
+//        outputDir = file("${mainBuildAndWorkingDrive}\\${rootProject.name}_image")
+//        // imageOutputDir = file("$buildDir/my-packaging-image")
+//        // installerOutputDir = file("$buildDir/my-packaging-installer")
+//        imageName = "${rootProject.name} v${version}"
+////        imageOptions = ['--win-console']
+//        skipInstaller = false
+//        installerName = 'SilverStar'
+//        installerType = 'msi'
+////        installerOptions = ['--win-per-user-install', '--win-dir-chooser', '--win-menu','--win-menu-group', '--win-shortcut-prompt', '--app-version', version]
+//        installerOptions =
+//            ['--win-dir-chooser', '--win-menu', '--win-menu-group', '--win-shortcut', '--win-shortcut-prompt', '--app-version', version]
     }
 
 }
