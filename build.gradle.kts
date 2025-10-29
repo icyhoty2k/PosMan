@@ -13,7 +13,7 @@ plugins {
     id("com.github.ben-manes.versions") version "0.53.0"
     id("com.dorongold.task-tree") version "2.1.1"
 }
-
+val debug = false
 //Reference to devDrive
 val devDrive = "I:\\"
 //If ramDrive is installed and configured to R:\
@@ -36,7 +36,8 @@ val directoryOutputBuildDir = file(outputBuildDir.plus(defaultWorkingDir))
 layout.buildDirectory.set(file(gradleOutput))
 
 group = "net.silver"
-version = "0.1"
+//[[AppInfo#APP_VERSION]]
+version = "1.0"//#[[gradleAppVersion]]
 
 repositories {
     mavenCentral()
@@ -206,24 +207,28 @@ tasks.register("readVersionFromClass") {
         val build = appBuildDate.get(null) as String // 'null' for static fields
         val title = appTitle.get(null) as String // 'null' for static fields
 
-
-        println("========================================")
-        println("Data read from: $myConfigClass")
-        println()
-        println("Version read from .class file: $APP_VERSION")
-        println("Build date read from .class file: $build")
-        println("App title read from .class file: $title")
-        println("========================================")
-        if (version.equals(APP_VERSION)) {
-            println("yes")
-        } else {
+        if (debug) {
+            println("========================================")
+            println("Data read from: $myConfigClass")
+            println()
+            println("Version read from .class file: $APP_VERSION")
+            println("Build date read from .class file: $build")
+            println("App title read from .class file: $title")
+            println("========================================")
+        }
+        if (!(version.equals(APP_VERSION))) {
+            //  [[gradleAppVersion]]
             println("gradle.build version variable is=$version")
             println("AppInfo.java  version variable is=$APP_VERSION")
             println("Stopping execution please fix versions mismatch")
-            throw GradleException("\nStopping execution! Please fix versions mismatch: $version != $APP_VERSION\nbuild.gradle.kts:39=$version\nAppInfo.java:5=$APP_VERSION")
+            throw GradleException("\nStopping execution! Please fix versions mismatch: $version != $APP_VERSION\nbuild.gradle.kts:40=$version\nAppInfo.java:9=$APP_VERSION")
         }
     }
 }
 tasks.compileJava {
     finalizedBy(tasks.named("readVersionFromClass"))
+}
+val tt = " "
+fun test() {
+
 }
