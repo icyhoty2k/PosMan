@@ -2,11 +2,14 @@ package net.silver.posman.utils;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import net.silver.posman.main.B_PosMan;
 import net.silver.posman.main.C_PosMan;
 
 import java.io.IOException;
+
+import static net.silver.posman.utils.ResourceLoader.loadInputStream;
 
 public class StageManager {
 
@@ -23,11 +26,14 @@ public class StageManager {
     FXML_LOADER.setLocation(B_PosMan.class.getResource("v_PosMan.fxml"));
     try {
       mainScene = new Scene(FXML_LOADER.load());
-      mainController = FXML_LOADER.getController();
+
+
     } catch (
           IOException e) {
       throw new RuntimeException(e);
     }
+    mainController = FXML_LOADER.getController();
+    mainStage.getIcons().add(new Image(loadInputStream("images/appIcon_v2.png")));
     mainStage.setScene(mainScene);
     mainStage.centerOnScreen();
     mainStage.setTitle(AppInfo.APP_TITLE);
