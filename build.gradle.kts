@@ -66,7 +66,7 @@ tasks.withType<JavaCompile> {
 application {
     mainModule.set("net.silver.posman")
     mainClass.set("net.silver.posman.main.A_Launcher")
-    applicationDefaultJvmArgs = listOf("--enable-native-access=javafx.graphics")
+    applicationDefaultJvmArgs = listOf("--enable-native-access=javafx.graphics", "-Dfile.encoding=utf-8", "-client")
 //    applicationDefaultJvmArgs = [
 //            "--add-opens=javafx.controls/javafx.scene.control.skin=com.pixelduke.fxskins"
 //"--enable-native-access=javafx.graphics,javafx.media,javafx.web",
@@ -104,16 +104,18 @@ jlink {
     options.set(listOf("--strip-debug", "--compress", "zip-9", "--no-header-files", "--no-man-pages"))
     launcher {
         name = "${rootProject.name}_v$version"
+
     }
     jpackage {
 //        jvmArgs = ['-splash:$APPDIR/splash.png']
         icon = "src/main/resources/net/silver/posman/icons/appIcons/appIcon_v2.ico"
+
 //        jpackageHome = "${JdkLocation}"
 //        outputDir = file("${mainBuildAndWorkingDrive}\\${rootProject.name}_image")
 //        // imageOutputDir = file("$buildDir/my-packaging-image")
 //        // installerOutputDir = file("$buildDir/my-packaging-installer")
 //        imageName = "${rootProject.name} v${version}"
-////        imageOptions = ['--win-console']
+        //  imageOptions = listOf("-client")
 //        skipInstaller = false
 //        installerName = 'SilverStar'
 //        installerType = 'msi'
