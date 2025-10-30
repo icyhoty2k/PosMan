@@ -36,7 +36,20 @@ public class StageManager {
     mainStage.getIcons().add(new Image(loadInputStream("images/appIcon2.png")));
     mainStage.setScene(mainScene);
     mainStage.centerOnScreen();
-    mainStage.setTitle(AppInfo.APP_TITLE);
+    mainStage.setTitle(AppInfo.APP_TITLE_START);
+    ShortcutKeys.applyFullscreenShortcuts(mainStage);
+    //    mainStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+    //      if (KeyCode.F11.equals(event.getCode())) {
+    //        mainStage.setFullScreen(!mainStage.isFullScreen());
+    //      }
+    //    });
+    //    mainStage.setFullScreenExitHint("");
+    //
+    //    mainStage.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+    //      if (new KeyCodeCombination(KeyCode.ENTER, KeyCombination.ALT_DOWN).match(event)) {
+    //        mainStage.setFullScreen(!mainStage.isFullScreen());
+    //      }
+    //    });
     mainStage.show();
   }
 }

@@ -12,7 +12,7 @@ public final class AppInfo {
 
   // + <======================================== UPDATE ONLY THESE 3 FIELDS ========================================
   private static final String APP_VERSION_FIRST_PART = "1.0";
-  private static final String APP_TITLE_START = "PosManager";
+  public static final String APP_TITLE_START = "POS";
   private static final LocalDate APP_BUILD_DATE = LocalDate.of(2025, 10, 29);
   // + ======================================== UPDATE ONLY THESE 3 FIELDS ========================================>
 
