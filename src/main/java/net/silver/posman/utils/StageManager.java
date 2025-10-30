@@ -33,7 +33,7 @@ public class StageManager {
       throw new RuntimeException(e);
     }
     mainController = FXML_LOADER.getController();
-    mainStage.getIcons().add(new Image(loadInputStream("images/appIcon_v2.png")));
+    mainStage.getIcons().add(new Image(loadInputStream("images/appIcon2.png")));
     mainStage.setScene(mainScene);
     mainStage.centerOnScreen();
     mainStage.setTitle(AppInfo.APP_TITLE);

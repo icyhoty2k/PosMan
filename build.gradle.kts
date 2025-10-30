@@ -108,7 +108,7 @@ jlink {
     }
     jpackage {
 //        jvmArgs = ['-splash:$APPDIR/splash.png']
-        icon = "src/main/resources/net/silver/posman/icons/appIcons/appIcon_v2.ico"
+        icon = "src/main/resources/net/silver/posman/icons/appIcons/appIcon.ico"
 
 //        jpackageHome = "${JdkLocation}"
 //        outputDir = file("${mainBuildAndWorkingDrive}\\${rootProject.name}_image")
