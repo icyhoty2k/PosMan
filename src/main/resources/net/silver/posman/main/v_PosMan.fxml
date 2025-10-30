@@ -86,8 +86,8 @@
                         <Insets/>
                     </GridPane.margin>
                 </Button>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                        text="logout" GridPane.columnIndex="2">
+                <Button fx:id="btnLogout" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                        mnemonicParsing="false" onAction="#btnLogoutOnAction" text="logout" GridPane.columnIndex="2">
                     <GridPane.margin>
                         <Insets/>
                     </GridPane.margin>

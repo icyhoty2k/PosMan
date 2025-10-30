@@ -11,11 +11,12 @@ public final class AppInfo {
    * in form of major.minor
    * link:[[gradleAppVersion]] */
 
-  // + <======================================== UPDATE ONLY THESE 3 FIELDS ========================================
+  // + <======================================== UPDATE ONLY THESE  FIELDS ========================================
   private static final String APP_VERSION_FIRST_PART = "1.0";
   public static final String APP_TITLE_START = "POS";
+  public static final String APP_ICON = "images/appIcon2.png";
   private static final LocalDate APP_BUILD_DATE = LocalDate.of(2025, 10, 29);
-  // + ======================================== UPDATE ONLY THESE 3 FIELDS ========================================>
+  // + ======================================== UPDATE ONLY THESE  FIELDS ========================================>
 
 
   //!<========================================  DO not touch ========================================

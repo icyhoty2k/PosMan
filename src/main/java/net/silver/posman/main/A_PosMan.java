@@ -6,10 +6,14 @@ import net.silver.posman.utils.StageManager;
 
 import java.io.IOException;
 
-public class B_PosMan extends Application {
+public class A_PosMan extends Application {
 
   @Override
   public void start(Stage stage) throws IOException {
     StageManager.loadMainStage();
+  }
+
+  public void load() {
+
   }
 }
