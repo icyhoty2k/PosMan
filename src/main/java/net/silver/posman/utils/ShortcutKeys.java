@@ -21,17 +21,14 @@ public class ShortcutKeys {
   }
 
 
-  private static final class fullScreenShortcutEventHandler implements EventHandler<KeyEvent> {
-    private final Stage s;
+  private record fullScreenShortcutEventHandler(Stage s) implements EventHandler<KeyEvent> {
 
     @Override public void handle(KeyEvent event) {
       if (fullScreenKeyKey.equals(event.getCode()) || fullScreenKeyCodeCombination.match(event)) {
         s.setFullScreen(!s.isFullScreen());
       }
     }
-
-    private fullScreenShortcutEventHandler(Stage s) {
-      this.s = s;
-    }
   }
+
+
 }

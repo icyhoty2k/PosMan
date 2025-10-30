@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 public final class AppInfo {
+  // private static final double GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
   /*
    *APP_VERSION and build.gradle.kts-> version must be equal!
    *the gradle build will stop if the two variables are not equal!
