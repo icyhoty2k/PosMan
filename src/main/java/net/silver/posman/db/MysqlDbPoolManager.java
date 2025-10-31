@@ -58,6 +58,7 @@ public final class MysqlDbPoolManager {
     }
   }
 
+  //
   // --- getConnection() Method: Borrow a connection from the pool ---
   public static Connection getConnection() throws SQLException {
     // The pool handles connection reuse, creation, and thread safety.
