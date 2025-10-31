@@ -4,8 +4,10 @@ import java.io.InputStream;
 import java.net.URL;
 
 public class ResourceLoader {
+
   private static final ClassLoader classLoader = ResourceLoader.class.getClassLoader();
   private static final String rootOfClassPath = "net/silver/posman/";
+  private static final char DEFAULT_SEPARATOR = '/';
   private static final StringBuilder sb = new StringBuilder();
   private static InputStream inputStream;
 
