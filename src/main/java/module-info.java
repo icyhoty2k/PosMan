@@ -5,6 +5,7 @@ open module net.silver.posman {
   requires java.sql;
   requires java.naming;
   requires com.zaxxer.hikari;
+  requires org.slf4j.nop;
 
   exports net.silver.posman.main;
   exports net.silver.posman.login;

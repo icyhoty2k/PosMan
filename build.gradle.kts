@@ -104,6 +104,9 @@ tasks.compileJava {
 }
 
 jlink {
+    mergedModule {
+        excludeRequires("org.slf4j")
+    }
     imageZip.set(layout.buildDirectory.file("/distributions/${rootProject.name}-v$version-${javafx.platform.classifier}.zip"))
     options.set(listOf("--strip-debug", "--compress", "zip-9", "--no-header-files", "--no-man-pages"))
     launcher {
