@@ -19,6 +19,7 @@ public final class MysqlDbPoolManager {
   private static final HikariDataSource dataSource;
   private static final Properties PROPS = new Properties();
 
+  //
   // --- Static Initializer Block: Configure and Initialize the Pool ---
   static {
     // 1. Load Properties from file
