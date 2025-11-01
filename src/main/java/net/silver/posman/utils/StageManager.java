@@ -1,10 +1,10 @@
 package net.silver.posman.utils;
 
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import net.silver.posman.login.A_Login;
 import net.silver.posman.login.C_Login;
@@ -23,7 +23,8 @@ public class StageManager {
   public static final Stage mainStage = new Stage();
   public static Scene mainScene;
   public static C_PosMan mainController;
-  public static C_PosMan_Buttons mainController_Buttons;
+  public static C_PosMan_Buttons mainScene_Buttons;
+
 
   //Login Stage [[A_Login]]
   public static final Stage loginStage = new Stage();
@@ -33,6 +34,10 @@ public class StageManager {
   private StageManager() {
   }
 
+  private static <T extends Pane> void setMainStageButtons(T t) {
+
+
+  }
 
   public static void loadMainStage() {
     //use cached version
@@ -62,7 +67,7 @@ public class StageManager {
     ShortcutKeys.applyFullscreenShortcuts(mainStage);
     mainStage.show();
     loadMainStageButtons();
-    mainController.getGridPaneMain().add(mainController_Buttons, 2, 6);
+    setMainStageButtons(mainScene_Buttons);
 
   }
 
@@ -97,19 +102,19 @@ public class StageManager {
   }
 
   private static C_PosMan_Buttons loadMainStageButtons() {
-    if (mainController_Buttons != null) {
-      return mainController_Buttons;
+    if (mainScene_Buttons != null) {
+      return mainScene_Buttons;
     }
     init_FXML_LOADER();
     FXML_LOADER.setLocation(A_PosMan.class.getResource("v_PosMan_Buttons.fxml"));
     try {
-      mainController_Buttons = new C_PosMan_Buttons();
-      FXML_LOADER.setController(mainController_Buttons);
-      FXML_LOADER.setRoot(mainController_Buttons);
+      mainScene_Buttons = new C_PosMan_Buttons();
+      FXML_LOADER.setController(mainScene_Buttons);
+      FXML_LOADER.setRoot(mainScene_Buttons);
       FXML_LOADER.load();
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-    return mainController_Buttons;
+    return mainScene_Buttons;
   }
 }
