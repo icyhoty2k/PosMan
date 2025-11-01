@@ -13,6 +13,7 @@ public class C_PosMan {
   @FXML private Label lblCurrentTime;
   @FXML private Button btnLogout;
   @FXML private TextField test;
+  @FXML private GridPane gridPaneMain;
 
   @FXML public void testAction(ActionEvent actionEvent) {
 

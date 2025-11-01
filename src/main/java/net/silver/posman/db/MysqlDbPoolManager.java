@@ -62,10 +62,14 @@ public final class MysqlDbPoolManager {
 
   //
   // --- getConnection() Method: Borrow a connection from the pool ---
-  public static Connection getConnection() throws SQLException {
+  public static Connection getConnection() {
     // The pool handles connection reuse, creation, and thread safety.
     // This call is fast, even under heavy load.
-    return dataSource.getConnection();
+    try {
+      return dataSource.getConnection();
+    } catch (SQLException e) {
+      throw new RuntimeException("Cannot get connection", e);
+    }
   }
 
   // --- closeConnection() Method: Close the connection (return it to the pool) ---
