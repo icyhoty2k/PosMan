@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.GridPane;
 import net.silver.posman.utils.StageManager;
 
 public class C_PosMan {
@@ -23,5 +24,9 @@ public class C_PosMan {
   @FXML public void btnLogoutOnAction(ActionEvent actionEvent) {
     StageManager.loadLoginStage();
     StageManager.mainStage.close();
+  }
+
+  public GridPane getGridPaneMain() {
+    return gridPaneMain;
   }
 }

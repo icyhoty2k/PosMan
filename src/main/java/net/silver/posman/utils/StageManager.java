@@ -1,5 +1,6 @@
 package net.silver.posman.utils;
 
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,6 +10,7 @@ import net.silver.posman.login.A_Login;
 import net.silver.posman.login.C_Login;
 import net.silver.posman.main.A_PosMan;
 import net.silver.posman.main.C_PosMan;
+import net.silver.posman.main.C_PosMan_Buttons;
 
 import java.io.IOException;
 
@@ -21,6 +23,7 @@ public class StageManager {
   public static final Stage mainStage = new Stage();
   public static Scene mainScene;
   public static C_PosMan mainController;
+  public static C_PosMan_Buttons mainController_Buttons;
 
   //Login Stage [[A_Login]]
   public static final Stage loginStage = new Stage();
@@ -58,6 +61,8 @@ public class StageManager {
     mainStage.setTitle(AppInfo.APP_TITLE_START);
     ShortcutKeys.applyFullscreenShortcuts(mainStage);
     mainStage.show();
+    loadMainStageButtons();
+    mainController.getGridPaneMain().add(mainController_Buttons, 2, 6);
 
   }
 
@@ -89,5 +94,22 @@ public class StageManager {
   private static void init_FXML_LOADER() {
     FXML_LOADER.setRoot(null);
     FXML_LOADER.setController(null);
+  }
+
+  private static C_PosMan_Buttons loadMainStageButtons() {
+    if (mainController_Buttons != null) {
+      return mainController_Buttons;
+    }
+    init_FXML_LOADER();
+    FXML_LOADER.setLocation(A_PosMan.class.getResource("v_PosMan_Buttons.fxml"));
+    try {
+      mainController_Buttons = new C_PosMan_Buttons();
+      FXML_LOADER.setController(mainController_Buttons);
+      FXML_LOADER.setRoot(mainController_Buttons);
+      FXML_LOADER.load();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return mainController_Buttons;
   }
 }
