@@ -266,7 +266,7 @@ tasks.register<Exec>("dumbDatabase") {
     // The arguments:
     // 1. /c : Tells cmd.exe to execute the command string and then terminate.
     // 2. The path to your batch file (e.g., located in the project root).
-    args("/c", "dumpDatabase.bat")
+    args("/c", "mysqlDump_dumpDatabase.bat")
 
 }
 tasks.register<Exec>("importNewestDatabaseBackup") {
