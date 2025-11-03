@@ -7,7 +7,7 @@ plugins {
     java
     application
     idea
-    id("org.javamodularity.moduleplugin") version "1.8.15"
+    id("org.javamodularity.moduleplugin") version "2.0.0" apply true
     id("org.openjfx.javafxplugin") version "0.1.0"
     id("org.beryx.jlink") version "3.1.4-rc"
     id("com.gradleup.shadow") version "9.2.2"
@@ -23,7 +23,6 @@ val ramDrive = "R:\\"
 val defaultWorkingDir = "${rootProject.name}WorkingDir\\"
 //JdkLocation = "I:\\14_JDKs\\Liberica\\bellsoft-liberica-vm-full-openjdk24+37-24.2.0+1-windows-amd64\\bellsoft-liberica-vm-full-openjdk24-24.2.0"
 val jdkLocation = project.property("org.gradle.java.home")
-//    JdkLocation = "I:\\14_JDKs\\EclipseAdopt Temurin\\jdk-21.0.5+11"
 val mainBuildAndWorkingDrive = ramDrive
 val outputBuildDir = "$mainBuildAndWorkingDrive${rootProject.name}\\"
 val gradleOutput = "$outputBuildDir\\gradleBuild\\"
@@ -53,9 +52,11 @@ tasks.shadowJar {
 val junitVersion = "5.12.1"
 
 java {
+    modularity.inferModulePath.set(false)
     toolchain {
         languageVersion = JavaLanguageVersion.of(25)
-        vendor = JvmVendorSpec.BELLSOFT
+        vendor = JvmVendorSpec.IBM
+        implementation = JvmImplementation.J9
     }
 }
 
@@ -66,7 +67,8 @@ tasks.withType<JavaCompile> {
 application {
     mainModule.set("net.silver.posman")
     mainClass.set("net.silver.posman.main.A_Launcher")
-    applicationDefaultJvmArgs = listOf("--enable-native-access=javafx.graphics", "-Dfile.encoding=utf-8", "-client")
+//    applicationName.set("POS")
+    applicationDefaultJvmArgs = listOf("--enable-native-access=javafx.graphics", "-Dfile.encoding=utf-8", "-Xmx128m")
 //    applicationDefaultJvmArgs = [
 //            "--add-opens=javafx.controls/javafx.scene.control.skin=com.pixelduke.fxskins"
 //"--enable-native-access=javafx.graphics,javafx.media,javafx.web",
@@ -77,8 +79,10 @@ application {
 
 javafx {
     version = "25.0.1"
+    // Set this to the absolute path of your jmods directory = "/path/to/your/javafx-sdk-21/lib/jmods"
+//    sdk = "I:/14_JDKs/Liberica/bellsoft-jdk25+37-windows-amd64-full/jdk-25-full/jmods"
     modules = listOf("javafx.controls", "javafx.fxml")
-    setPlatform("win")
+    setPlatform("windows")
 }
 
 dependencies {
@@ -104,6 +108,8 @@ tasks.compileJava {
 }
 
 jlink {
+    // Set the path to your desired JDK installation directory
+    javaHome = "$jdkLocation"
     mergedModule {
         excludeRequires("org.slf4j")
     }
@@ -145,7 +151,6 @@ tasks.clean {
 idea.module {
     isDownloadJavadoc = true
     isDownloadSources = true
-    inheritOutputDirs = false
     inheritOutputDirs = false
     outputDir = file(ideaOutput)
     testOutputDir = file(ideaTest)
@@ -255,6 +260,9 @@ tasks.register("readVersionFromClass") {
     }
 }
 tasks.compileJava {
+    options.isIncremental = true
+    options.isFork = true
+    options.forkOptions.executable = "I:/14_JDKs/IBMsemeru/jdk-25.0.1+8/bin/javac.exe"
     finalizedBy(tasks.named("readVersionFromClass"))
 }
 tasks.register<Exec>("dumbDatabase") {
