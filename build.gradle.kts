@@ -59,11 +59,68 @@ java {
         implementation = JvmImplementation.J9
     }
 }
+tasks.register("readVersionFromClass") {
+    group = "[ivan]"
 
+    // 2. Make this task run AFTER the code is compiled
+    dependsOn(tasks.named("compileJava"))
+
+    doLast {
+        // 3. Get the directory where compiled classes are
+        val classesDir = sourceSets.main.get().output.classesDirs.first()
+
+        // 4. Create a new ClassLoader that includes this directory
+        val classLoader = URLClassLoader(arrayOf(classesDir.toURI().toURL()))
+
+        // 5. Load the class using its full name
+        val myConfigClass =
+            classLoader.loadClass("net.silver.posman.utils.AppInfo")
+
+        // 6. Use reflection to get the static field
+        val appVersion = myConfigClass.getDeclaredField("APP_VERSION_FIRST_PART")
+        val appBuildDate = myConfigClass.getDeclaredField("APP_BUILD_DATE")
+        appVersion.isAccessible = true
+        appBuildDate.isAccessible = true
+        val appTitle = myConfigClass.getDeclaredField("APP_TITLE")
+        appVersion.isAccessible = true
+        appBuildDate.isAccessible = true
+
+        // 7. Get the value of the static field
+        val APP_VERSION = appVersion.get(null) as String // 'null' for static fields
+        val build = appBuildDate.get(null) as LocalDate // 'null' for static fields
+        val title = appTitle.get(null) as String // 'null' for static fields
+
+        if (debug) {
+            println("========================================")
+            println("Data read from: $myConfigClass")
+            println("Version read from .class file: $APP_VERSION")
+            println("Build date read from .class file: $build")
+            println("App title read from .class file: $title")
+            println("========================================")
+        }
+        if (!(version.equals(APP_VERSION))) {
+            //  [[gradleAppVersion]]
+            println("gradle.build version variable is=$version")
+            println("AppInfo.java  version variable is=$APP_VERSION")
+            println("Stopping execution please fix versions mismatch")
+            throw GradleException("\nStopping execution! Please fix versions mismatch: $version != $APP_VERSION\nbuild.gradle.kts:41=$version\nAppInfo.java:14=$APP_VERSION")
+        }
+    }
+}
+tasks.compileJava {
+    options.isIncremental = true
+    options.isFork = true
+    options.isFailOnError = true
+    options.forkOptions.executable = "$jdkLocation\\bin\\javac.exe"
+    options.isVerbose = false
+    finalizedBy(tasks.named("readVersionFromClass"))
+}
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 }
-
+tasks.withType<JavaCompile>().configureEach {
+    options.isFork = true
+}
 application {
     mainModule.set("net.silver.posman")
     mainClass.set("net.silver.posman.main.A_Launcher")
@@ -99,13 +156,7 @@ dependencies {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
-tasks.compileJava {
-    options.isIncremental = true
-    options.isFork = true
-    options.isFailOnError = true
-    options.forkOptions.executable = "$jdkLocation\\bin\\javac.exe"
-    options.isVerbose = false
-}
+
 
 jlink {
     // Set the path to your desired JDK installation directory
@@ -148,12 +199,14 @@ tasks.clean {
     dependsOn("clenaWorkingDir")
 }
 
-idea.module {
-    isDownloadJavadoc = true
-    isDownloadSources = true
-    inheritOutputDirs = false
-    outputDir = file(ideaOutput)
-    testOutputDir = file(ideaTest)
+idea {
+    module {
+        isDownloadJavadoc = true
+        isDownloadSources = true
+        inheritOutputDirs = false
+        outputDir = file(ideaOutput)
+        testOutputDir = file(ideaTest)
+    }
 }
 
 //own tasks
@@ -210,60 +263,6 @@ fun deleteDirectoryRecursivly(directory: File) {
     } else {
         println("Directory not deleted")
     }
-}
-tasks.register("readVersionFromClass") {
-    group = "[ivan]"
-
-    // 2. Make this task run AFTER the code is compiled
-    dependsOn(tasks.named("compileJava"))
-
-    doLast {
-        // 3. Get the directory where compiled classes are
-        val classesDir = sourceSets.main.get().output.classesDirs.first()
-
-        // 4. Create a new ClassLoader that includes this directory
-        val classLoader = URLClassLoader(arrayOf(classesDir.toURI().toURL()))
-
-        // 5. Load the class using its full name
-        val myConfigClass =
-            classLoader.loadClass("net.silver.posman.utils.AppInfo")
-
-        // 6. Use reflection to get the static field
-        val appVersion = myConfigClass.getDeclaredField("APP_VERSION_FIRST_PART")
-        val appBuildDate = myConfigClass.getDeclaredField("APP_BUILD_DATE")
-        appVersion.isAccessible = true
-        appBuildDate.isAccessible = true
-        val appTitle = myConfigClass.getDeclaredField("APP_TITLE")
-        appVersion.isAccessible = true
-        appBuildDate.isAccessible = true
-
-        // 7. Get the value of the static field
-        val APP_VERSION = appVersion.get(null) as String // 'null' for static fields
-        val build = appBuildDate.get(null) as LocalDate // 'null' for static fields
-        val title = appTitle.get(null) as String // 'null' for static fields
-
-        if (debug) {
-            println("========================================")
-            println("Data read from: $myConfigClass")
-            println("Version read from .class file: $APP_VERSION")
-            println("Build date read from .class file: $build")
-            println("App title read from .class file: $title")
-            println("========================================")
-        }
-        if (!(version.equals(APP_VERSION))) {
-            //  [[gradleAppVersion]]
-            println("gradle.build version variable is=$version")
-            println("AppInfo.java  version variable is=$APP_VERSION")
-            println("Stopping execution please fix versions mismatch")
-            throw GradleException("\nStopping execution! Please fix versions mismatch: $version != $APP_VERSION\nbuild.gradle.kts:41=$version\nAppInfo.java:14=$APP_VERSION")
-        }
-    }
-}
-tasks.compileJava {
-    options.isIncremental = true
-    options.isFork = true
-    options.forkOptions.executable = "I:/14_JDKs/IBMsemeru/jdk-25.0.1+8/bin/javac.exe"
-    finalizedBy(tasks.named("readVersionFromClass"))
 }
 tasks.register<Exec>("dumbDatabase") {
     group = "[ivan]"
