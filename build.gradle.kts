@@ -107,6 +107,7 @@ tasks.register("readVersionFromClass") {
         }
     }
 }
+//
 tasks.compileJava {
     options.isIncremental = true
     options.isFork = true
