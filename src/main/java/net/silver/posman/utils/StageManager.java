@@ -68,6 +68,9 @@ public class StageManager {
     mainStage.show();
     loadMainStageButtons();
     setMainStageButtons(mainScene_Buttons);
+    mainStage.setAlwaysOnTop(true);
+    mainStage.setAlwaysOnTop(false);
+    mainStage.toFront();
 
   }
 
@@ -94,6 +97,9 @@ public class StageManager {
     loginStage.setTitle(AppInfo.APP_TITLE);
     ShortcutKeys.applyLoginScreenShortcuts(loginStage, loginController);
     loginStage.show();
+    loginStage.setAlwaysOnTop(true);
+    loginStage.setAlwaysOnTop(false);
+    loginStage.toFront();
   }
 
   private static void init_FXML_LOADER() {
