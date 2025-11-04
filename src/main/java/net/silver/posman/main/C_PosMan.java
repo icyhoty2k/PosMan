@@ -2,6 +2,7 @@ package net.silver.posman.main;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -36,8 +37,9 @@ public class C_PosMan {
     return gridPaneMain;
   }
 
-  public AnchorPane getAnchorPBottomButtonBar() {
-    return anchorPBottomButtonBar;
+  public void setMainAppBottomButtons(Node n) {
+    anchorPBottomButtonBar.getChildren().clear();
+    anchorPBottomButtonBar.getChildren().add(n);
   }
 
   public void setAnchorPBottomButtonBar(AnchorPane anchorPBottomButtonBar) {
@@ -46,6 +48,6 @@ public class C_PosMan {
 
   @FXML public void btnRestoOnAction(ActionEvent actionEvent) {
     System.out.println("btnRestoOnAction");
-    anchorPBottomButtonBar.getChildren().add(StageManager.bottomButtons_C_Pos_Man_ButtonsController.getParrent());
+    setMainAppBottomButtons(StageManager.bottomButtons_C_Pos_Man_ButtonsController);
   }
 }

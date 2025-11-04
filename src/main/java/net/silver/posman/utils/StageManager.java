@@ -63,8 +63,7 @@ public class StageManager {
     mainStage.setTitle(AppInfo.APP_TITLE_START);
     ShortcutKeys.applyFullscreenShortcuts(mainStage);
     mainStage.show();
-    //    loadMainStageButtons(); // used if fx:root component
-
+    mainController.setMainAppBottomButtons(loadMainStageButtons()); // used if fx:root component
     mainStage.setAlwaysOnTop(true);
     mainStage.setAlwaysOnTop(false);
     mainStage.toFront();
@@ -104,24 +103,25 @@ public class StageManager {
     FXML_LOADER.setController(null);
   }
 
-  /* used  if fx:root component
-    private static C_PosMan_Buttons loadMainStageButtons() {
-      if (mainScene_Buttons != null) {
-        return mainScene_Buttons;
-      }
-      init_FXML_LOADER();
-      FXML_LOADER.setLocation(A_PosMan.class.getResource("v_PosMan_Buttons.fxml"));
-      try {
-        mainScene_Buttons = new C_PosMan_Buttons();
-        FXML_LOADER.setController(mainScene_Buttons);
-        FXML_LOADER.setRoot(mainScene_Buttons);
-        FXML_LOADER.load();
-      } catch (IOException e) {
-        throw new RuntimeException(e);
-      }
-      return mainScene_Buttons;
+  // used  if fx:root component
+  private static C_PosMan_Buttons loadMainStageButtons() {
+    if (bottomButtons_C_Pos_Man_ButtonsController != null) {
+      return bottomButtons_C_Pos_Man_ButtonsController;
     }
-   */
+    init_FXML_LOADER();
+    FXML_LOADER.setLocation(A_PosMan.class.getResource("v_PosMan_Buttons.fxml"));
+    try {
+      bottomButtons_C_Pos_Man_ButtonsController = new C_PosMan_Buttons();
+      FXML_LOADER.setController(bottomButtons_C_Pos_Man_ButtonsController);
+      FXML_LOADER.setRoot(bottomButtons_C_Pos_Man_ButtonsController);
+      FXML_LOADER.load();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return bottomButtons_C_Pos_Man_ButtonsController;
+  }
+
+  //
   public static void setBottomButtons_C_Pos_Man_ButtonsController(C_PosMan_Buttons c) {
     bottomButtons_C_Pos_Man_ButtonsController = c;
     Log.trace("C_PosMan_ButtonsController has been set");

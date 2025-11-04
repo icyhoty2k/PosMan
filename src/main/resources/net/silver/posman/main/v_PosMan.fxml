@@ -404,11 +404,6 @@
             <GridPane.margin>
                 <Insets top="2.0"/>
             </GridPane.margin>
-            <children>
-                <fx:include source="v_PosMan_Buttons.fxml" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                            AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" GridPane.columnIndex="2"
-                            GridPane.rowIndex="6"/>
-            </children>
         </AnchorPane>
     </children>
 </GridPane>
