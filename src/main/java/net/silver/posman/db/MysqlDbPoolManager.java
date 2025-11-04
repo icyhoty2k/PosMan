@@ -20,7 +20,7 @@ import static net.silver.posman.utils.ResourceLoader.loadInputStream;
 public final class MysqlDbPoolManager {
 
   // Use HikariDataSource for the connection pool
-  private static final HikariDataSource dataSource;
+  public static final HikariDataSource dataSource;
   private static final Properties PROPS = new Properties();
 
   //

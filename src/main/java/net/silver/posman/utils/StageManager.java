@@ -41,7 +41,7 @@ public class StageManager {
     if (mainScene != null) {
       loginStage.close();
       mainStage.show();
-      Log.trace("Main stage has been loaded");
+      Log.trace("cached main stage");
       return;
     }
     init_FXML_LOADER();
@@ -76,7 +76,7 @@ public class StageManager {
     if (loginScene != null) {
       loginController.passFPassword.clear();
       loginStage.show();
-      Log.trace("Loading login stage");
+      Log.trace("cached login stage");
       return;
     }
     init_FXML_LOADER();
