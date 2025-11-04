@@ -3,7 +3,6 @@ package net.silver.posman.utils;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import net.silver.posman.login.A_Login;
 import net.silver.posman.login.C_Login;
@@ -32,8 +31,9 @@ public class StageManager {
   private StageManager() {
   }
 
-  private static <T extends Pane> void setMainStageButtons(T t) {
-
+  private static void init_FXML_LOADER() {
+    FXML_LOADER.setRoot(null);
+    FXML_LOADER.setController(null);
   }
 
   public static void loadMainStage() {
@@ -63,6 +63,7 @@ public class StageManager {
     mainStage.setTitle(AppInfo.APP_TITLE_START);
     ShortcutKeys.applyFullscreenShortcuts(mainStage);
     mainStage.show();
+    //load default main bottom buttons
     mainController.setMainAppBottomButtons(loadMainStageButtons()); // used if fx:root component
     mainStage.setAlwaysOnTop(true);
     mainStage.setAlwaysOnTop(false);
@@ -91,6 +92,7 @@ public class StageManager {
     loginStage.setScene(loginScene);
     loginStage.centerOnScreen();
     loginStage.setTitle(AppInfo.APP_TITLE);
+
     ShortcutKeys.applyLoginScreenShortcuts(loginStage, loginController);
     loginStage.show();
     loginStage.setAlwaysOnTop(true);
@@ -98,10 +100,6 @@ public class StageManager {
     loginStage.toFront();
   }
 
-  private static void init_FXML_LOADER() {
-    FXML_LOADER.setRoot(null);
-    FXML_LOADER.setController(null);
-  }
 
   // used  if fx:root component
   private static C_PosMan_Buttons loadMainStageButtons() {
@@ -119,11 +117,5 @@ public class StageManager {
       throw new RuntimeException(e);
     }
     return bottomButtons_C_Pos_Man_ButtonsController;
-  }
-
-  //
-  public static void setBottomButtons_C_Pos_Man_ButtonsController(C_PosMan_Buttons c) {
-    bottomButtons_C_Pos_Man_ButtonsController = c;
-    Log.trace("C_PosMan_ButtonsController has been set");
   }
 }

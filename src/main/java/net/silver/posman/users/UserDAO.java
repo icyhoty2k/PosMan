@@ -1,6 +1,5 @@
 package net.silver.posman.users;
 
-import com.mysql.cj.jdbc.MysqlDataSource;
 import net.silver.posman.db.MysqlDbPoolManager;
 
 import java.sql.Connection;
