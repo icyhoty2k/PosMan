@@ -42,10 +42,6 @@ public class C_PosMan {
     anchorPBottomButtonBar.getChildren().add(n);
   }
 
-  public void setAnchorPBottomButtonBar(AnchorPane anchorPBottomButtonBar) {
-    this.anchorPBottomButtonBar = anchorPBottomButtonBar;
-  }
-
   @FXML public void btnRestoOnAction(ActionEvent actionEvent) {
     System.out.println("btnRestoOnAction");
     setMainAppBottomButtons(StageManager.bottomButtons_C_Pos_Man_ButtonsController);
