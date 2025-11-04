@@ -53,6 +53,7 @@ public final class MysqlDbPoolManager {
     // Optional: Hikari-specific tuning properties
     config.setMaximumPoolSize(9);
     config.setMinimumIdle(3);
+
     config.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
     // Initialize the pool

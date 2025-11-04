@@ -124,7 +124,7 @@ tasks.withType<JavaCompile>().configureEach {
 }
 application {
     mainModule.set("net.silver.posman")
-    mainClass.set("net.silver.posman.main.A_Launcher")
+    mainClass.set("net.silver.posman.main.z_MainAppStart")
 //    applicationName.set("POS")
     applicationDefaultJvmArgs = listOf("--enable-native-access=javafx.graphics", "-Dfile.encoding=utf-8", "-Xmx128m")
 //    applicationDefaultJvmArgs = [
