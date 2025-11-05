@@ -21,6 +21,8 @@ public class C_PosMan {
 
 
   @FXML private AnchorPane anchorPBottomButtonBar;
+  @FXML private AnchorPane AnchorPMainContent;
+  @FXML private AnchorPane AnchorPMainContentButtons;
 
 
   @FXML public void testAction(ActionEvent actionEvent) {
