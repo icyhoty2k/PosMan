@@ -306,12 +306,11 @@
                <children>
                   <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Всички" GridPane.columnIndex="1" />
                   <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Върнати" />
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-                     <GridPane.margin>
-                        <Insets />
-                     </GridPane.margin></AnchorPane>
                       <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="С отстъпка" GridPane.columnIndex="2" />
                </children>
+               <GridPane.margin>
+                  <Insets top="1.0" />
+               </GridPane.margin>
             </GridPane>
             <GridPane hgap="2.0" vgap="2.0" GridPane.rowIndex="3">
               <columnConstraints>
