@@ -15,7 +15,6 @@ public class C_PosMan {
   @FXML private Label lblCurrentDate;
   @FXML private Label lblCurrentTime;
   @FXML private Button btnLogout;
-  @FXML private Button btnResto;
   @FXML private TextField test;
   @FXML private GridPane gridPaneMain;
 
@@ -39,13 +38,15 @@ public class C_PosMan {
     return gridPaneMain;
   }
 
-  public void setMainAppBottomButtons(Node n) {
+  public void setMainApp_BottomButtons(Node n) {
     anchorPBottomButtonBar.getChildren().clear();
     anchorPBottomButtonBar.getChildren().add(n);
   }
 
-  @FXML public void btnRestoOnAction(ActionEvent actionEvent) {
-    System.out.println("btnRestoOnAction");
-    setMainAppBottomButtons(StageManager.bottomButtons_C_Pos_Man_ButtonsController);
+  public void setMainApp_AfterStageButtons(Node n) {
+    AnchorPMainContentButtons.getChildren().clear();
+    AnchorPMainContentButtons.getChildren().add(n);
   }
+
+
 }

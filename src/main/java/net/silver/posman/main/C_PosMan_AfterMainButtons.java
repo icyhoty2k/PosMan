@@ -5,32 +5,26 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import net.silver.posman.utils.Log;
 import net.silver.posman.utils.StageManager;
 
-public class C_PosMan_Buttons extends GridPane {
-
-  @FXML private Button btnOtlagane;
+public class C_PosMan_AfterMainButtons extends GridPane {
 
   @FXML
   public void initialize() {
-    Log.trace("C_PosMan_Buttons initialize");
+    Log.trace("C_PosMan_AfterStageButtons initialize");
     AnchorPane.setTopAnchor(this, 0.0);
     AnchorPane.setLeftAnchor(this, 0.0);
     AnchorPane.setRightAnchor(this, 0.0);
     AnchorPane.setBottomAnchor(this, 0.0);
   }
 
-  @FXML private Button btnIztrivane;
+  @FXML
+  private Button btnResto;
 
-  @FXML void btnIztrivaneOnAction(ActionEvent event) {
-    Log.trace("C_PosMan_Buttons btnIztrivaneOnAction");
-    StageManager.mainController.setMainApp_BottomButtons(new Pane());
-
+  @FXML
+  void btnRestoOnAction(ActionEvent event) {
+    System.out.println("btnRestoOnAction");
+    StageManager.mainController.setMainApp_BottomButtons(StageManager.bottomButtons_C_Pos_Man_ButtonsController);
   }
-
-  @FXML public void btnOtlaganeOnAction(ActionEvent actionEvent) {
-  }
-
 }

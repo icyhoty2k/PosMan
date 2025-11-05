@@ -8,6 +8,7 @@ import net.silver.posman.login.A_Login;
 import net.silver.posman.login.C_Login;
 import net.silver.posman.main.A_PosMan;
 import net.silver.posman.main.C_PosMan;
+import net.silver.posman.main.C_PosMan_AfterMainButtons;
 import net.silver.posman.main.C_PosMan_Buttons;
 
 import java.io.IOException;
@@ -20,6 +21,7 @@ public class StageManager {
   public static final Stage mainStage = new Stage();
   public static Scene mainScene;
   public static C_PosMan mainController;
+  public static C_PosMan_AfterMainButtons buttonsAfterMainContentPane;
   public static C_PosMan_Buttons bottomButtons_C_Pos_Man_ButtonsController;
 
 
@@ -63,13 +65,52 @@ public class StageManager {
     mainStage.setTitle(AppInfo.APP_TITLE_START);
     ShortcutKeys.applyFullscreenShortcuts(mainStage);
     mainStage.show();
-    //load default main bottom buttons
-    mainController.setMainAppBottomButtons(loadMainStageButtons()); // used if fx:root component
+    //load default main AfterMainContentPaneButtons buttons
+    mainController.setMainApp_AfterStageButtons(loadMainStage_AfterMainContentButtons());
+    //load default main BOTTOM buttons
+    mainController.setMainApp_BottomButtons(loadMainStageBottomButtons()); // used if fx:root component
     mainStage.setAlwaysOnTop(true);
     mainStage.setAlwaysOnTop(false);
     mainStage.toFront();
 
   }
+
+  // used  if fx:root component
+  private static C_PosMan_AfterMainButtons loadMainStage_AfterMainContentButtons() {
+    if (buttonsAfterMainContentPane != null) {
+      return buttonsAfterMainContentPane;
+    }
+    init_FXML_LOADER();
+    FXML_LOADER.setLocation(A_PosMan.class.getResource("v_PosMan_AfterMainButtons.fxml"));
+    try {
+      buttonsAfterMainContentPane = new C_PosMan_AfterMainButtons();
+      FXML_LOADER.setController(buttonsAfterMainContentPane);
+      FXML_LOADER.setRoot(buttonsAfterMainContentPane);
+      FXML_LOADER.load();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return buttonsAfterMainContentPane;
+  }
+
+  // used  if fx:root component
+  private static C_PosMan_Buttons loadMainStageBottomButtons() {
+    if (bottomButtons_C_Pos_Man_ButtonsController != null) {
+      return bottomButtons_C_Pos_Man_ButtonsController;
+    }
+    init_FXML_LOADER();
+    FXML_LOADER.setLocation(A_PosMan.class.getResource("v_PosMan_Buttons.fxml"));
+    try {
+      bottomButtons_C_Pos_Man_ButtonsController = new C_PosMan_Buttons();
+      FXML_LOADER.setController(bottomButtons_C_Pos_Man_ButtonsController);
+      FXML_LOADER.setRoot(bottomButtons_C_Pos_Man_ButtonsController);
+      FXML_LOADER.load();
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+    return bottomButtons_C_Pos_Man_ButtonsController;
+  }
+
 
   public static void loadLoginStage() {
     //use cached version
@@ -101,21 +142,4 @@ public class StageManager {
   }
 
 
-  // used  if fx:root component
-  private static C_PosMan_Buttons loadMainStageButtons() {
-    if (bottomButtons_C_Pos_Man_ButtonsController != null) {
-      return bottomButtons_C_Pos_Man_ButtonsController;
-    }
-    init_FXML_LOADER();
-    FXML_LOADER.setLocation(A_PosMan.class.getResource("v_PosMan_Buttons.fxml"));
-    try {
-      bottomButtons_C_Pos_Man_ButtonsController = new C_PosMan_Buttons();
-      FXML_LOADER.setController(bottomButtons_C_Pos_Man_ButtonsController);
-      FXML_LOADER.setRoot(bottomButtons_C_Pos_Man_ButtonsController);
-      FXML_LOADER.load();
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-    return bottomButtons_C_Pos_Man_ButtonsController;
-  }
 }
