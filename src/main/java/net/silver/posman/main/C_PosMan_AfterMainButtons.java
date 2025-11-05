@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import net.silver.posman.utils.Log;
 import net.silver.posman.utils.StageManager;
 
@@ -19,12 +20,19 @@ public class C_PosMan_AfterMainButtons extends GridPane {
     AnchorPane.setBottomAnchor(this, 0.0);
   }
 
-  @FXML
-  private Button btnResto;
+  @FXML private Button btnResto;
+
+  @FXML private Button btnBroiArtikuli;
+
 
   @FXML
   void btnRestoOnAction(ActionEvent event) {
     System.out.println("btnRestoOnAction");
     StageManager.mainController.setMainApp_BottomButtons(StageManager.bottomButtons_C_Pos_Man_ButtonsController);
+  }
+
+  @FXML
+  void btnBroiArtikuliOnAction(ActionEvent event) {
+    StageManager.mainController.setMainApp_AfterStageButtons(new Pane());
   }
 }

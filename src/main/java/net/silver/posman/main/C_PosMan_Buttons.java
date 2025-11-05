@@ -31,6 +31,7 @@ public class C_PosMan_Buttons extends GridPane {
   }
 
   @FXML public void btnOtlaganeOnAction(ActionEvent actionEvent) {
+    StageManager.mainController.setMainApp_AfterStageButtons(StageManager.buttonsAfterMainContentPane);
   }
 
 }

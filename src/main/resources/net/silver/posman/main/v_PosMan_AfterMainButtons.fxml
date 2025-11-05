@@ -17,7 +17,7 @@
       <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="47.0" valignment="BOTTOM" vgrow="NEVER" />
    </rowConstraints>
    <children>
-      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="# БРОЙ АРТИКУЛИ" />
+      <Button fx:id="btnBroiArtikuli" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnBroiArtikuliOnAction" text="# БРОЙ АРТИКУЛИ" />
       <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="КРАЙНА ЦЕНА" GridPane.columnIndex="2" />
       <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="ОТСТЪПКА" GridPane.columnIndex="1" />
       <Button fx:id="btnResto" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#btnRestoOnAction" text="РЕСТО" GridPane.columnIndex="4" />
