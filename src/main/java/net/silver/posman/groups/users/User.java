@@ -1,4 +1,4 @@
-package net.silver.posman.users;
+package net.silver.posman.groups.users;
 
 public class User {
   private String userName;

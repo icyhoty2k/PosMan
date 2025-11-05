@@ -1,6 +1,7 @@
-package net.silver.posman.users;
+package net.silver.posman.groups.users;
 
 import net.silver.posman.db.MysqlDbPoolManager;
+
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

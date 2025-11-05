@@ -6,7 +6,7 @@ import net.silver.posman.login.A_Login;
 
 public class z_MainAppStart {
   public static void main(String[] args) {
-    Application.launch(A_Login.class, args);
+    Application.launch(A_PosMan.class, args);
     //Close database pool when app closes.
     MysqlDbPoolManager.shutdownPool();
 
