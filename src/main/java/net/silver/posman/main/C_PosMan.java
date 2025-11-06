@@ -3,13 +3,17 @@ package net.silver.posman.main;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import net.silver.posman.db.nastroiki.C_Nastroiki;
 import net.silver.posman.utils.StageManager;
 
 public class C_PosMan {
 
+  @FXML private Button btnLogo_Home;
+  @FXML private Button btnSettings;
   @FXML private TextField test;
   @FXML private GridPane gridPaneMain;
 
@@ -44,4 +48,12 @@ public class C_PosMan {
   }
 
 
+  @FXML public void btnSettingsOnAction(ActionEvent actionEvent) {
+    StageManager.loadFxRootNode(C_Nastroiki.class, false);
+
+  }
+
+  @FXML public void btnLogo_HomeOnAction(ActionEvent actionEvent) {
+
+  }
 }
