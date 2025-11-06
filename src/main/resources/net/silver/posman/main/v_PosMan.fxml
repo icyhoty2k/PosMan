@@ -4,34 +4,37 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<GridPane fx:id="gridPaneMain" prefHeight="971.0" prefWidth="1571.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.silver.posman.main.C_PosMan">
+<GridPane fx:id="gridPaneMain" prefHeight="971.0" prefWidth="1571.0" xmlns="http://javafx.com/javafx/25"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="net.silver.posman.main.C_PosMan">
     <columnConstraints>
-        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="5.0" />
-        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="371.0" />
-        <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308" />
-        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="371.0" />
-        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="5.0" />
+        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="5.0"/>
+        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity"
+                           prefWidth="371.0"/>
+        <ColumnConstraints hgrow="ALWAYS" maxWidth="1.7976931348623157E308"/>
+        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity"
+                           prefWidth="371.0"/>
+        <ColumnConstraints halignment="CENTER" hgrow="NEVER" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="5.0"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="3.0" vgrow="NEVER" />
-        <RowConstraints prefHeight="49.0" vgrow="NEVER" />
-        <RowConstraints minHeight="10.0" prefHeight="204.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="203.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="204.0" vgrow="ALWAYS" />
-        <RowConstraints minHeight="10.0" prefHeight="203.0" vgrow="ALWAYS" />
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="108.0" vgrow="NEVER" />
-        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="3.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="3.0" vgrow="NEVER"/>
+        <RowConstraints prefHeight="49.0" vgrow="NEVER"/>
+        <RowConstraints minHeight="10.0" prefHeight="204.0" vgrow="ALWAYS"/>
+        <RowConstraints minHeight="10.0" prefHeight="203.0" vgrow="ALWAYS"/>
+        <RowConstraints minHeight="10.0" prefHeight="204.0" vgrow="ALWAYS"/>
+        <RowConstraints minHeight="10.0" prefHeight="203.0" vgrow="ALWAYS"/>
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="108.0" vgrow="NEVER"/>
+        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="3.0" vgrow="NEVER"/>
     </rowConstraints>
     <children>
         <GridPane hgap="1.0" vgap="1.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" percentWidth="33.0" />
-                <ColumnConstraints hgrow="SOMETIMES" percentWidth="33.0" />
-                <ColumnConstraints hgrow="SOMETIMES" />
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="33.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" percentWidth="33.0"/>
+                <ColumnConstraints hgrow="SOMETIMES"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="NEVER"/>
             </rowConstraints>
             <children>
                 <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
@@ -49,7 +52,7 @@
                 <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
                         text="начало" textAlignment="CENTER" GridPane.columnIndex="1">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                     <font>
                         <Font size="10.0"/>
@@ -58,7 +61,7 @@
                 <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
                         text="край" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                     <font>
                         <Font size="10.0"/>
@@ -67,7 +70,7 @@
                 <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
                         text="отчет" GridPane.rowIndex="1">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                     <font>
                         <Font size="10.0"/>
@@ -109,157 +112,175 @@
                         text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
             </children>
             <GridPane.margin>
-                <Insets bottom="8.0" right="8.0" top="8.0" />
+                <Insets bottom="8.0" right="8.0" top="8.0"/>
             </GridPane.margin>
         </GridPane>
         <GridPane hgap="10.0" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
             <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="33.0"/>
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
+                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="бърз&#10;бутон1" textAlignment="CENTER">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="бърз&#10;бутон1" textAlignment="CENTER">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="1">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="Button" GridPane.columnIndex="1">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.rowIndex="1">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="Button" GridPane.rowIndex="1">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="2">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="Button" GridPane.columnIndex="2">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
             </children>
             <GridPane.margin>
-                <Insets bottom="8.0" right="8.0" top="8.0" />
+                <Insets bottom="8.0" right="8.0" top="8.0"/>
             </GridPane.margin>
         </GridPane>
         <GridPane hgap="10.0" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
             <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="33.0"/>
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
+                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="Button">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="1">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="Button" GridPane.columnIndex="1">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.rowIndex="1">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="Button" GridPane.rowIndex="1">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="2">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="Button" GridPane.columnIndex="2">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="Button" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
             </children>
             <GridPane.margin>
-                <Insets bottom="8.0" right="8.0" top="8.0" />
+                <Insets bottom="8.0" right="8.0" top="8.0"/>
             </GridPane.margin>
         </GridPane>
         <GridPane hgap="10.0" vgap="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
             <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" percentWidth="33.0"/>
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" />
+                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
+                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
             </rowConstraints>
             <children>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="Button">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="1">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="Button" GridPane.columnIndex="1">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.rowIndex="1">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="Button" GridPane.rowIndex="1">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="Button" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="2">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="Button" GridPane.columnIndex="2">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
-                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="бърз&#10;бутон18" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
+                        text="бърз&#10;бутон18" textAlignment="CENTER" GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </Button>
             </children>
             <GridPane.margin>
-                <Insets bottom="8.0" right="8.0" top="8.0" />
+                <Insets bottom="8.0" right="8.0" top="8.0"/>
             </GridPane.margin>
         </GridPane>
         <GridPane GridPane.columnIndex="1" GridPane.rowIndex="6">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
@@ -355,7 +376,7 @@
                        text="Label" GridPane.columnIndex="2" GridPane.rowIndex="4"/>
             </children>
             <GridPane.margin>
-                <Insets right="8.0" top="2.0" />
+                <Insets right="8.0" top="2.0"/>
             </GridPane.margin>
         </GridPane>
         <GridPane GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="6">
@@ -450,32 +471,40 @@
                 </GridPane>
             </children>
         </GridPane>
-        <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="5">
+        <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2"
+                  GridPane.rowIndex="1" GridPane.rowSpan="5">
             <columnConstraints>
-                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="100.0" />
+                <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308"
+                                   minWidth="-Infinity" prefWidth="100.0"/>
             </columnConstraints>
             <rowConstraints>
-                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="49.0" valignment="CENTER" vgrow="NEVER" />
-                <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" vgrow="ALWAYS" />
-                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="49.0" valignment="CENTER" vgrow="NEVER" />
+                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="49.0" valignment="CENTER"
+                                vgrow="NEVER"/>
+                <RowConstraints maxHeight="1.7976931348623157E308" valignment="CENTER" vgrow="ALWAYS"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="49.0" valignment="CENTER"
+                                vgrow="NEVER"/>
             </rowConstraints>
             <children>
                 <GridPane alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="50.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity"
+                                           prefWidth="50.0"/>
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="ALWAYS"/>
                     </rowConstraints>
                     <children>
-                        <TextField fx:id="test" alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" onAction="#testAction" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                        <TextField fx:id="test" alignment="CENTER" maxHeight="1.7976931348623157E308"
+                                   maxWidth="1.7976931348623157E308" onAction="#testAction" GridPane.columnIndex="1"
+                                   GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                             <GridPane.margin>
-                                <Insets />
+                                <Insets/>
                             </GridPane.margin>
                             <font>
-                                <Font size="18.0" />
+                                <Font size="18.0"/>
                             </font>
                         </TextField>
                         <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
@@ -484,24 +513,29 @@
                                 mnemonicParsing="false" text="Вид" GridPane.columnIndex="2"/>
                     </children>
                 </GridPane>
-                <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308"
+                            maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0"
+                            GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1"
+                            GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                     <content>
                         <AnchorPane fx:id="AnchorPMainContent"/>
                     </content>
                 </ScrollPane>
-                <AnchorPane fx:id="AnchorPMainContentButtons" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
+                <AnchorPane fx:id="AnchorPMainContentButtons" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS"
+                            GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                     <GridPane.margin>
-                        <Insets />
+                        <Insets/>
                     </GridPane.margin>
                 </AnchorPane>
             </children>
             <GridPane.margin>
-                <Insets bottom="8.0" />
+                <Insets bottom="8.0"/>
             </GridPane.margin>
         </GridPane>
-        <AnchorPane fx:id="anchorPBottomButtonBar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.hgrow="NEVER" GridPane.rowIndex="6" GridPane.vgrow="NEVER">
+        <AnchorPane fx:id="anchorPBottomButtonBar" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                    GridPane.columnIndex="2" GridPane.hgrow="NEVER" GridPane.rowIndex="6" GridPane.vgrow="NEVER">
             <GridPane.margin>
-                <Insets top="2.0" />
+                <Insets top="2.0"/>
             </GridPane.margin>
         </AnchorPane>
     </children>
