@@ -358,89 +358,98 @@
                 <Insets right="8.0" top="2.0" />
             </GridPane.margin>
         </GridPane>
-      <GridPane GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="6">
-         <GridPane.margin>
-            <Insets left="8.0" />
-         </GridPane.margin>
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="49.0" vgrow="NEVER" />
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="57.0" vgrow="NEVER" />
-            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="108.0" vgrow="NEVER" />
-         </rowConstraints>
-         <children>
-              <ScrollPane fitToHeight="true" fitToWidth="true" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin></ScrollPane>
-              <GridPane hgap="2.0" vgap="2.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
-                  <columnConstraints>
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                      <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  </columnConstraints>
-                  <rowConstraints>
-                      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="49.0" vgrow="NEVER" />
-                  </rowConstraints>
-                  <children>
-                      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="&lt;-" />
-                      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="-&gt;" GridPane.columnIndex="2" />
-                      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="data" GridPane.columnIndex="1" />
-                  </children>
-                  <GridPane.margin>
-                      <Insets />
-                  </GridPane.margin>
-              </GridPane>
-            <GridPane GridPane.rowIndex="2">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="47.0" vgrow="NEVER" />
-              </rowConstraints>
-               <children>
-                   <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                           text="С отстъпка" GridPane.columnIndex="1"/>
-                   <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                           text="Отворени" textAlignment="CENTER" GridPane.columnIndex="2"/>
-                   <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                           text="Сторнирани"/>
-               </children>
-               <GridPane.margin>
-                  <Insets top="1.0" />
-               </GridPane.margin>
-            </GridPane>
-            <GridPane hgap="2.0" vgap="2.0" GridPane.rowIndex="3">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Стоки" GridPane.columnIndex="1" />
-                      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Услуги" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                      <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Тренировки" GridPane.columnIndex="2" />
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Карти" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                   <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                           text="Всички" GridPane.rowIndex="1"/>
-                   <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                           text="Върнати"/>
-               </children>
-               <GridPane.margin>
-                  <Insets top="2.0" />
-               </GridPane.margin>
-            </GridPane>
-         </children>
-      </GridPane>
+        <GridPane GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="6">
+            <GridPane.margin>
+                <Insets left="8.0"/>
+            </GridPane.margin>
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0"/>
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="49.0" vgrow="NEVER"/>
+                <RowConstraints minHeight="10.0" vgrow="SOMETIMES"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="57.0" vgrow="NEVER"/>
+                <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="108.0" vgrow="NEVER"/>
+            </rowConstraints>
+            <children>
+                <ScrollPane fitToHeight="true" fitToWidth="true" GridPane.rowIndex="1">
+                    <GridPane.margin>
+                        <Insets/>
+                    </GridPane.margin>
+                </ScrollPane>
+                <GridPane hgap="2.0" vgap="2.0" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="49.0" vgrow="NEVER"/>
+                    </rowConstraints>
+                    <children>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" text="&lt;-"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" text="-&gt;" GridPane.columnIndex="2"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" text="data" GridPane.columnIndex="1"/>
+                    </children>
+                    <GridPane.margin>
+                        <Insets/>
+                    </GridPane.margin>
+                </GridPane>
+                <GridPane GridPane.rowIndex="2">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="47.0" vgrow="NEVER"/>
+                    </rowConstraints>
+                    <children>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" text="С отстъпка" GridPane.columnIndex="1"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" text="Отворени" textAlignment="CENTER"
+                                GridPane.columnIndex="2"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" text="Сторнирани"/>
+                    </children>
+                    <GridPane.margin>
+                        <Insets top="1.0"/>
+                    </GridPane.margin>
+                </GridPane>
+                <GridPane hgap="2.0" vgap="2.0" GridPane.rowIndex="3">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                    </rowConstraints>
+                    <children>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" text="Стоки" GridPane.columnIndex="1"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" text="Услуги" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" text="Тренировки" GridPane.columnIndex="2"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" text="Карти" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" text="Всички" GridPane.rowIndex="1"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" text="Върнати"/>
+                    </children>
+                    <GridPane.margin>
+                        <Insets top="2.0"/>
+                    </GridPane.margin>
+                </GridPane>
+            </children>
+        </GridPane>
         <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="1" GridPane.rowSpan="5">
             <columnConstraints>
                 <ColumnConstraints halignment="CENTER" hgrow="ALWAYS" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="100.0" />
@@ -469,13 +478,15 @@
                                 <Font size="18.0" />
                             </font>
                         </TextField>
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" />
-                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Button" GridPane.columnIndex="2" />
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" text="1х"/>
+                        <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
+                                mnemonicParsing="false" text="Вид" GridPane.columnIndex="2"/>
                     </children>
                 </GridPane>
                 <ScrollPane fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="200.0" prefWidth="200.0" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="1" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
                     <content>
-                  <AnchorPane fx:id="AnchorPMainContent" />
+                        <AnchorPane fx:id="AnchorPMainContent"/>
                     </content>
                 </ScrollPane>
                 <AnchorPane fx:id="AnchorPMainContentButtons" GridPane.halignment="CENTER" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" GridPane.valignment="CENTER" GridPane.vgrow="ALWAYS">
