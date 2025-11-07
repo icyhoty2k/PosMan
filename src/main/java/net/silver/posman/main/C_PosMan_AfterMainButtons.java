@@ -11,6 +11,7 @@ import net.silver.posman.utils.Log;
 import net.silver.posman.utils.StageManager;
 
 public class C_PosMan_AfterMainButtons extends GridPane implements Cacheable<C_PosMan_AfterMainButtons> {
+  private String name;
 
   @FXML
   public void initialize() {
@@ -28,7 +29,6 @@ public class C_PosMan_AfterMainButtons extends GridPane implements Cacheable<C_P
 
   @FXML
   void btnRestoOnAction(ActionEvent event) {
-    System.out.println("btnRestoOnAction");
     StageManager.getCachedController(C_PosMan.class, true).setMainApp_BottomButtons(StageManager.loadFxRootNode(C_PosMan_BottomButtons.class));
 
   }
@@ -39,10 +39,10 @@ public class C_PosMan_AfterMainButtons extends GridPane implements Cacheable<C_P
   }
 
   @Override public String getName() {
-    return "";
+    return this.name;
   }
 
   @Override public void setName(String name) {
-
+    this.name = name;
   }
 }

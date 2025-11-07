@@ -34,13 +34,13 @@ public class C_PosMan_BottomButtons extends GridPane implements Cacheable<C_PosM
   @FXML private Button btnIztrivane;
 
   @FXML void btnIztrivaneOnAction(ActionEvent event) {
-    Log.trace("C_PosMan_BottomButtons btnIztrivaneOnAction");
+
     StageManager.getCachedController(C_PosMan.class, true).setMainApp_BottomButtons(new Pane());
 
   }
 
   @FXML public void btnOtlaganeOnAction(ActionEvent actionEvent) {
-    StageManager.getCachedController(C_PosMan.class, true).setMainApp_AfterStageButtons(StageManager.loadFxRootNode(new C_PosMan_BottomButtons("test")));
+    StageManager.getCachedController(C_PosMan.class, true).setMainApp_AfterStageButtons(StageManager.loadFxRootNode(C_PosMan_AfterMainButtons.class));
   }
 
   public void test() {

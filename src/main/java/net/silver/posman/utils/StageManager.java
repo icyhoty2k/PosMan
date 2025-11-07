@@ -165,7 +165,7 @@ public class StageManager {
       if (CACHE_FX_ROOT_ITEMS.containsKey(cacheable.getName())) {
         @SuppressWarnings ("unchecked")
         T cachedController = (T) CACHE_FX_ROOT_ITEMS.get(cacheable.getName());
-        Log.trace("Returning cached controller=" + cachedController);
+        Log.trace("Returning cached controller=" + cacheable.getName());
         return cachedController;
       }
     } catch (Exception e) {}
@@ -211,13 +211,13 @@ public class StageManager {
     try {
 
       String key = clazz.getSimpleName();
-      if (key != null && StageManager.CACHE_FX_ROOT_ITEMS.containsKey(key)) {
+      if (StageManager.CACHE_FX_ROOT_ITEMS.containsKey(key)) {
 
         // Retrieve the cached item (it's already initialized with FXML)
         @SuppressWarnings ("unchecked")
         T cachedController = (T) StageManager.CACHE_FX_ROOT_ITEMS.get(key);
 
-        Log.trace("Returning cached controller (lazy factory): " + key);
+        Log.trace("Returning cached controller (lazy factory): " + cachedController.getName());
         return cachedController;
       }
     } catch (Exception e) {}
