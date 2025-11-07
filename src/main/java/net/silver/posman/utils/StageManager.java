@@ -67,8 +67,6 @@ public class StageManager {
   }
 
   private static void loadLoginStage() {
-    //use cached version
-
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(A_Login.class.getResource("v_Login.fxml"));
     try {

@@ -61,7 +61,7 @@ public class C_PosMan implements Cacheable<C_PosMan> {
   }
 
   @Override public String getName() {
-    return this.getClass().getSimpleName();
+    return C_PosMan.class.getSimpleName();
   }
 
   @Override public void setName(String name) {
