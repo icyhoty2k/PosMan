@@ -1,0 +1,57 @@
+package net.silver.posman.main;
+
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import net.silver.posman.utils.Cacheable;
+import net.silver.posman.utils.Log;
+import net.silver.posman.utils.StageManager;
+
+public class C_PosMan_BottomButtons extends GridPane implements Cacheable<C_PosMan_BottomButtons> {
+  private String name;
+  private C_PosMan_BottomButtons controller;
+  @FXML private Button btnOtlagane;
+
+  public C_PosMan_BottomButtons() {
+  }
+
+  public C_PosMan_BottomButtons(String name) {
+    this.name = name;
+  }
+
+  @FXML
+  public void initialize() {
+    Log.trace("C_PosMan_BottomButtons initialize");
+    AnchorPane.setTopAnchor(this, 0.0);
+    AnchorPane.setLeftAnchor(this, 0.0);
+    AnchorPane.setRightAnchor(this, 0.0);
+    AnchorPane.setBottomAnchor(this, 0.0);
+  }
+
+  @FXML private Button btnIztrivane;
+
+  @FXML void btnIztrivaneOnAction(ActionEvent event) {
+    Log.trace("C_PosMan_BottomButtons btnIztrivaneOnAction");
+    StageManager.getCachedController(C_PosMan.class, true).setMainApp_BottomButtons(new Pane());
+
+  }
+
+  @FXML public void btnOtlaganeOnAction(ActionEvent actionEvent) {
+    StageManager.getCachedController(C_PosMan.class, true).setMainApp_AfterStageButtons(StageManager.loadFxRootNode(new C_PosMan_BottomButtons("test")));
+  }
+
+  public void test() {
+    Log.trace("test works");
+  }
+
+  @Override public String getName() {
+    return this.name;
+  }
+
+  @Override public void setName(String name) {
+    this.name = name;
+  }
+}

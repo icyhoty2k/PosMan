@@ -8,12 +8,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import net.silver.posman.db.nastroiki.C_Nastroiki;
+import net.silver.posman.utils.Cacheable;
 import net.silver.posman.utils.StageManager;
 
-public class C_PosMan {
+public class C_PosMan implements Cacheable<C_PosMan> {
 
   @FXML private Button btnLogo_Home;
   @FXML private Button btnSettings;
+  @FXML private Button btnUserName;
   @FXML private TextField test;
   @FXML private GridPane gridPaneMain;
 
@@ -21,6 +23,7 @@ public class C_PosMan {
   @FXML private AnchorPane anchorPBottomButtonBar;
   @FXML private AnchorPane AnchorPMainContent;
   @FXML private AnchorPane AnchorPMainContentButtons;
+  private String name;
 
 
   @FXML public void testAction(ActionEvent actionEvent) {
@@ -28,13 +31,8 @@ public class C_PosMan {
     System.out.println("actionEvent = ");
   }
 
-  @Deprecated public void btnLogoutOnAction(ActionEvent actionEvent) {
-    StageManager.loadLoginStage();
-    StageManager.mainStage.close();
-  }
-
   public GridPane getGridPaneMain() {
-    return gridPaneMain;
+    return this.gridPaneMain;
   }
 
   public void setMainApp_BottomButtons(Node n) {
@@ -49,11 +47,29 @@ public class C_PosMan {
 
 
   @FXML public void btnSettingsOnAction(ActionEvent actionEvent) {
-    StageManager.loadFxRootNode(C_Nastroiki.class, false);
+    StageManager.loadFxRootNode(C_Nastroiki.class);
 
   }
 
   @FXML public void btnLogo_HomeOnAction(ActionEvent actionEvent) {
 
   }
+
+  @FXML public void btnUserNameOnAction(ActionEvent actionEvent) {
+    StageManager.loadLoginStage();
+    //    StageManager.getController(C_PosMan.class).getGridPaneMain().getScene().getWindow().hide();
+    gridPaneMain.getScene().getWindow().hide();
+
+
+  }
+
+  @Override public String getName() {
+    return this.getClass().getSimpleName();
+  }
+
+  @Override public void setName(String name) {
+    this.name = name;
+  }
+
+
 }

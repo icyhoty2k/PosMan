@@ -5,9 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import net.silver.posman.utils.Cacheable;
 import net.silver.posman.utils.StageManager;
 
-public class C_Login {
+public class C_Login implements Cacheable<C_Login> {
 
   @FXML private Label lblLogin;
   @FXML private Label lblPassword;
@@ -49,5 +50,13 @@ public class C_Login {
         lblPasswordMessage.setVisible(false);
       }
     });
+  }
+
+  @Override public String getName() {
+    return C_Login.class.getSimpleName();
+  }
+
+  @Override public void setName(String name) {
+
   }
 }
