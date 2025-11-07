@@ -36,15 +36,7 @@ public class StageManager {
   private StageManager() {
   }
 
-
-  public static void loadMainStage() {
-    //use cached version
-    if (getStage(C_PosMan.class) != null) {
-      loginStage.close();
-      mainStage.show();
-      Log.trace("Cached Main Stage");
-      return;
-    }
+  private static void loadMainStage() {
     FXMLLoader loader = new FXMLLoader();
     loader.setLocation(A_PosMan.class.getResource("v_PosMan.fxml"));
     try {
@@ -70,15 +62,56 @@ public class StageManager {
     mainStage.setAlwaysOnTop(true);
     mainStage.setAlwaysOnTop(false);
     mainStage.toFront();
+    Log.trace("mainStage loaded");
 
   }
 
-  @SuppressWarnings ("unchecked")
+  private static void loadLoginStage() {
+    //use cached version
+
+    FXMLLoader loader = new FXMLLoader();
+    loader.setLocation(A_Login.class.getResource("v_Login.fxml"));
+    try {
+      if (mainStage.isShowing()) {
+        mainStage.close();
+
+      }
+      loginStage.setScene(new Scene(loader.load()));
+    } catch (
+          IOException e) {
+      throw new RuntimeException(e);
+    }
+    loginStage.getIcons().add(new Image(loadInputStream(AppInfo.APP_ICON)));
+    loginStage.centerOnScreen();
+    loginStage.setTitle(AppInfo.APP_TITLE);
+    ShortcutKeys.applyLoginScreenShortcuts(loginStage, getStage(C_Login.class));
+    CACHE_FX_ROOT_ITEMS.put(C_Login.class.getSimpleName(), loader.getController());
+    loginStage.show();
+    loginStage.setAlwaysOnTop(true);
+    loginStage.setAlwaysOnTop(false);
+    loginStage.toFront();
+  }
+
   public static <T extends Cacheable<?>> T getStage(Class<T> clazz) {
     if (CACHE_FX_ROOT_ITEMS.containsKey(clazz.getSimpleName())) {
-      return (T) CACHE_FX_ROOT_ITEMS.get(clazz.getSimpleName());
+      return clazz.cast(CACHE_FX_ROOT_ITEMS.get(clazz.getSimpleName()));
     }
-    return null;
+    else {
+
+      switch (clazz.getSimpleName()) {
+        case
+            "C_PosMan": {
+          loadMainStage();
+          break;
+        }
+        case
+            "C_Login": {
+          loadLoginStage();
+          break;
+        }
+      }
+    }
+    return clazz.cast(CACHE_FX_ROOT_ITEMS.get(clazz.getSimpleName()));
   }
 
   //  @SuppressWarnings ("unchecked")
@@ -107,33 +140,6 @@ public class StageManager {
   //    // This will throw a RuntimeException if instantiation or FXML loading fails.
   //    return loadFxRootNode(controllerClass);
   //  }
-
-  public static void loadLoginStage() {
-    //use cached version
-    if (getStage(C_Login.class) != null) {
-      getStage(C_Login.class).passFPassword.clear();
-      loginStage.show();
-      Log.trace("cached login stage");
-      return;
-    }
-    FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(A_Login.class.getResource("v_Login.fxml"));
-    try {
-      loginStage.setScene(new Scene(loader.load()));
-    } catch (
-          IOException e) {
-      throw new RuntimeException(e);
-    }
-    loginStage.getIcons().add(new Image(loadInputStream(AppInfo.APP_ICON)));
-    loginStage.centerOnScreen();
-    loginStage.setTitle(AppInfo.APP_TITLE);
-    ShortcutKeys.applyLoginScreenShortcuts(loginStage, getStage(C_Login.class));
-    CACHE_FX_ROOT_ITEMS.put(C_Login.class.getSimpleName(), loader.getController());
-    loginStage.show();
-    loginStage.setAlwaysOnTop(true);
-    loginStage.setAlwaysOnTop(false);
-    loginStage.toFront();
-  }
 
 
   /**

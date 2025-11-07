@@ -12,7 +12,7 @@ public class A_PosMan extends Application {
 
   @Override
   public void start(Stage stage) throws IOException {
-    StageManager.loadMainStage();
+    StageManager.getStage(C_PosMan.class);
 
   }
 }

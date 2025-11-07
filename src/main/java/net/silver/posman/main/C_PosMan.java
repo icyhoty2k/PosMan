@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import net.silver.posman.db.nastroiki.C_Nastroiki;
+import net.silver.posman.login.C_Login;
 import net.silver.posman.utils.Cacheable;
 import net.silver.posman.utils.StageManager;
 
@@ -56,11 +57,7 @@ public class C_PosMan implements Cacheable<C_PosMan> {
   }
 
   @FXML public void btnUserNameOnAction(ActionEvent actionEvent) {
-    StageManager.loadLoginStage();
-    //    StageManager.getController(C_PosMan.class).getGridPaneMain().getScene().getWindow().hide();
-    gridPaneMain.getScene().getWindow().hide();
-
-
+    StageManager.getStage(C_Login.class);
   }
 
   @Override public String getName() {
