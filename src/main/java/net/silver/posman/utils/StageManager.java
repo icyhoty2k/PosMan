@@ -39,7 +39,7 @@ public class StageManager {
 
   public static void loadMainStage() {
     //use cached version
-    if (getCachedController(C_PosMan.class, true) != null) {
+    if (getStage(C_PosMan.class) != null) {
       loginStage.close();
       mainStage.show();
       Log.trace("Cached Main Stage");
@@ -64,9 +64,9 @@ public class StageManager {
     ShortcutKeys.applyFullscreenShortcuts(mainStage);
     mainStage.show();
     //load default main AfterMainContentPaneButtons buttons
-    getCachedController(C_PosMan.class, true).setMainApp_AfterStageButtons(loadFxRootNode(C_PosMan_AfterMainButtons.class));
+    getStage(C_PosMan.class).setMainApp_AfterStageButtons(loadFxRootNode(C_PosMan_AfterMainButtons.class));
     //load default main BOTTOM buttons
-    getCachedController(C_PosMan.class, true).setMainApp_BottomButtons(loadFxRootNode(C_PosMan_BottomButtons.class)); // used if fx:root component
+    getStage(C_PosMan.class).setMainApp_BottomButtons(loadFxRootNode(C_PosMan_BottomButtons.class)); // used if fx:root component
     mainStage.setAlwaysOnTop(true);
     mainStage.setAlwaysOnTop(false);
     mainStage.toFront();
@@ -74,7 +74,7 @@ public class StageManager {
   }
 
   @SuppressWarnings ("unchecked")
-  public static <T extends Cacheable<?>> T getCachedController(Class<T> clazz, boolean isStage) {
+  public static <T extends Cacheable<?>> T getStage(Class<T> clazz) {
     if (CACHE_FX_ROOT_ITEMS.containsKey(clazz.getSimpleName())) {
       return (T) CACHE_FX_ROOT_ITEMS.get(clazz.getSimpleName());
     }
@@ -83,7 +83,7 @@ public class StageManager {
 
   @SuppressWarnings ("unchecked")
   // Note: Added the required generic bounds for FXML loading and caching
-  public static <T extends javafx.scene.Node & Cacheable<?>> T getCachedController(Class<T> controllerClass) {
+  public static <T extends javafx.scene.Node & Cacheable<?>> T getNode(Class<T> controllerClass) {
 
     String key = controllerClass.getSimpleName();
 
@@ -110,8 +110,8 @@ public class StageManager {
 
   public static void loadLoginStage() {
     //use cached version
-    if (getCachedController(C_Login.class, true) != null) {
-      getCachedController(C_Login.class, true).passFPassword.clear();
+    if (getStage(C_Login.class) != null) {
+      getStage(C_Login.class).passFPassword.clear();
       loginStage.show();
       Log.trace("cached login stage");
       return;
@@ -127,7 +127,7 @@ public class StageManager {
     loginStage.getIcons().add(new Image(loadInputStream(AppInfo.APP_ICON)));
     loginStage.centerOnScreen();
     loginStage.setTitle(AppInfo.APP_TITLE);
-    ShortcutKeys.applyLoginScreenShortcuts(loginStage, getCachedController(C_Login.class, true));
+    ShortcutKeys.applyLoginScreenShortcuts(loginStage, getStage(C_Login.class));
     CACHE_FX_ROOT_ITEMS.put(C_Login.class.getSimpleName(), loader.getController());
     loginStage.show();
     loginStage.setAlwaysOnTop(true);
