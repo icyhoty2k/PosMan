@@ -64,9 +64,9 @@ public class StageManager {
     ShortcutKeys.applyFullscreenShortcuts(mainStage);
     mainStage.show();
     //load default main AfterMainContentPaneButtons buttons
-    getStage(C_PosMan.class).setMainApp_AfterStageButtons(loadFxRootNode(C_PosMan_AfterMainButtons.class));
+    getStage(C_PosMan.class).setMainApp_AfterStageButtons(getFxRootNode(C_PosMan_AfterMainButtons.class));
     //load default main BOTTOM buttons
-    getStage(C_PosMan.class).setMainApp_BottomButtons(loadFxRootNode(C_PosMan_BottomButtons.class)); // used if fx:root component
+    getStage(C_PosMan.class).setMainApp_BottomButtons(getFxRootNode(C_PosMan_BottomButtons.class)); // used if fx:root component
     mainStage.setAlwaysOnTop(true);
     mainStage.setAlwaysOnTop(false);
     mainStage.toFront();
@@ -81,32 +81,32 @@ public class StageManager {
     return null;
   }
 
-  @SuppressWarnings ("unchecked")
-  // Note: Added the required generic bounds for FXML loading and caching
-  public static <T extends javafx.scene.Node & Cacheable<?>> T getNode(Class<T> controllerClass) {
-
-    String key = controllerClass.getSimpleName();
-
-    // 1. CHECK CACHE
-    if (CACHE_FX_ROOT_ITEMS.containsKey(key)) {
-
-      // Retrieve the cached item (which is a Cacheable<?> in the map)
-      // The cast is necessary and suppressed.
-      T cachedController = (T) CACHE_FX_ROOT_ITEMS.get(key);
-
-      // Assuming Log.trace is available
-      // Log.trace("Returning cached controller: " + key);
-      return cachedController;
-    }
-
-    // 2. CACHE MISS: INSTANTIATE, INITIALIZE, AND CACHE
-    // Delegation to the factory method implemented previously:
-    // loadFxRootNode(Class<T> clazz) handles instantiation, FXML loading, and caching the result.
-    // It returns the fully initialized new instance (T).
-
-    // This will throw a RuntimeException if instantiation or FXML loading fails.
-    return loadFxRootNode(controllerClass);
-  }
+  //  @SuppressWarnings ("unchecked")
+  //  // Note: Added the required generic bounds for FXML loading and caching
+  //  public static <T extends javafx.scene.Node & Cacheable<?>> T getNode(Class<T> controllerClass) {
+  //
+  //    String key = controllerClass.getSimpleName();
+  //
+  //    // 1. CHECK CACHE
+  //    if (CACHE_FX_ROOT_ITEMS.containsKey(key)) {
+  //
+  //      // Retrieve the cached item (which is a Cacheable<?> in the map)
+  //      // The cast is necessary and suppressed.
+  //      T cachedController = (T) CACHE_FX_ROOT_ITEMS.get(key);
+  //
+  //      // Assuming Log.trace is available
+  //      // Log.trace("Returning cached controller: " + key);
+  //      return cachedController;
+  //    }
+  //
+  //    // 2. CACHE MISS: INSTANTIATE, INITIALIZE, AND CACHE
+  //    // Delegation to the factory method implemented previously:
+  //    // loadFxRootNode(Class<T> clazz) handles instantiation, FXML loading, and caching the result.
+  //    // It returns the fully initialized new instance (T).
+  //
+  //    // This will throw a RuntimeException if instantiation or FXML loading fails.
+  //    return loadFxRootNode(controllerClass);
+  //  }
 
   public static void loadLoginStage() {
     //use cached version
@@ -160,7 +160,7 @@ public class StageManager {
    *
    * @return the loaded or reused instance of type T
    */
-  public static <T extends javafx.scene.Node & Cacheable<?>> T loadFxRootNode(T cacheable, Locale locale, String name) {
+  public static <T extends javafx.scene.Node & Cacheable<?>> T getFxRootNode(T cacheable, Locale locale, String name) {
     try {
       if (CACHE_FX_ROOT_ITEMS.containsKey(cacheable.getName())) {
         @SuppressWarnings ("unchecked")
@@ -200,11 +200,11 @@ public class StageManager {
    * Convenience method: same as above but does not force new instance.
    * Default Lazy Load. Uses the cache, does not force a new instance, and uses the system's default locale. (Locale.getDefault())
    */
-  public static <T extends javafx.scene.Node & Cacheable<?>> T loadFxRootNode(T cacheable) {
-    return loadFxRootNode(cacheable, StageManager.getAppLocale(), cacheable.getClass().getSimpleName());
+  public static <T extends javafx.scene.Node & Cacheable<?>> T getFxRootNode(T cacheable) {
+    return getFxRootNode(cacheable, StageManager.getAppLocale(), cacheable.getClass().getSimpleName());
   }
 
-  public static <T extends javafx.scene.Node & Cacheable<?>> T loadFxRootNode(Class<T> clazz) {
+  public static <T extends javafx.scene.Node & Cacheable<?>> T getFxRootNode(Class<T> clazz) {
 
     // --- 1. CHECK CACHE FIRST (Requires a key) ---
 
@@ -228,7 +228,7 @@ public class StageManager {
 
       // 3. Call the initializer/loader method using the new instance and default locale.
       // The initializer method will load FXML into newController and store it in the cache.
-      return loadFxRootNode(newController);
+      return getFxRootNode(newController);
 
     } catch (InstantiationException e) {
       throw new RuntimeException("Failed to instantiate controller: " + clazz.getSimpleName() + ". Is it abstract?", e);

@@ -47,7 +47,7 @@ public class C_PosMan implements Cacheable<C_PosMan> {
 
 
   @FXML public void btnSettingsOnAction(ActionEvent actionEvent) {
-    StageManager.loadFxRootNode(C_Nastroiki.class);
+    StageManager.getFxRootNode(C_Nastroiki.class);
 
   }
 

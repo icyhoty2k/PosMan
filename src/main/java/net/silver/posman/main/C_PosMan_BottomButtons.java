@@ -40,7 +40,7 @@ public class C_PosMan_BottomButtons extends GridPane implements Cacheable<C_PosM
   }
 
   @FXML public void btnOtlaganeOnAction(ActionEvent actionEvent) {
-    StageManager.getStage(C_PosMan.class).setMainApp_AfterStageButtons(StageManager.loadFxRootNode(C_PosMan_AfterMainButtons.class));
+    StageManager.getStage(C_PosMan.class).setMainApp_AfterStageButtons(StageManager.getFxRootNode(C_PosMan_AfterMainButtons.class));
   }
 
   public void test() {

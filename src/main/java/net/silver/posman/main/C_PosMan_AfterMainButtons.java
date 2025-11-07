@@ -29,7 +29,7 @@ public class C_PosMan_AfterMainButtons extends GridPane implements Cacheable<C_P
 
   @FXML
   void btnRestoOnAction(ActionEvent event) {
-    StageManager.getStage(C_PosMan.class).setMainApp_BottomButtons(StageManager.loadFxRootNode(C_PosMan_BottomButtons.class));
+    StageManager.getStage(C_PosMan.class).setMainApp_BottomButtons(StageManager.getFxRootNode(C_PosMan_BottomButtons.class));
 
   }
 
