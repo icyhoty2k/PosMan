@@ -49,7 +49,7 @@ tasks.shadowJar {
     }
     destinationDirectory.set(file(System.getenv("appdata") + "\\Scene Builder\\Library"))
 }
-val junitVersion = "5.12.1"
+val junitVersion = "6.0.1"
 
 java {
     modularity.inferModulePath.set(false)
@@ -61,49 +61,58 @@ java {
 }
 tasks.register("readVersionFromClass") {
     group = "[ivan]"
+    description = "Verifies AppInfo.APP_VERSION_FIRST_PART matches Gradle project.version"
 
-    // 2. Make this task run AFTER the code is compiled
+    // Ensure code is compiled first
     dependsOn(tasks.named("compileJava"))
 
     doLast {
-        // 3. Get the directory where compiled classes are
-        val classesDir = sourceSets.main.get().output.classesDirs.first()
 
-        // 4. Create a new ClassLoader that includes this directory
+        val classesDir = sourceSets.main.get().output.classesDirs.first()
         val classLoader = URLClassLoader(arrayOf(classesDir.toURI().toURL()))
 
-        // 5. Load the class using its full name
-        val myConfigClass =
-            classLoader.loadClass("net.silver.posman.utils.AppInfo")
+        // Load your AppInfo class
+        val appInfoClass = Class.forName("net.silver.posman.utils.AppInfo", false, classLoader)
 
-        // 6. Use reflection to get the static field
-        val appVersion = myConfigClass.getDeclaredField("APP_VERSION_FIRST_PART")
-        val appBuildDate = myConfigClass.getDeclaredField("APP_BUILD_DATE")
-        appVersion.isAccessible = true
-        appBuildDate.isAccessible = true
-        val appTitle = myConfigClass.getDeclaredField("APP_TITLE")
-        appVersion.isAccessible = true
-        appBuildDate.isAccessible = true
+        // Reflectively read the static fields
+        val fVersion = appInfoClass.getDeclaredField("APP_VERSION_FIRST_PART")
+        val fBuildDate = appInfoClass.getDeclaredField("APP_BUILD_DATE")
+        val fTitle = appInfoClass.getDeclaredField("APP_TITLE")
 
-        // 7. Get the value of the static field
-        val APP_VERSION = appVersion.get(null) as String // 'null' for static fields
-        val build = appBuildDate.get(null) as LocalDate // 'null' for static fields
-        val title = appTitle.get(null) as String // 'null' for static fields
+        fVersion.isAccessible = true
+        fBuildDate.isAccessible = true
+        fTitle.isAccessible = true
 
-        if (debug) {
+        val appVersion = fVersion.get(null) as String
+        val appBuildDate = fBuildDate.get(null) as LocalDate
+        val appTitle = fTitle.get(null) as String
+
+        val gradleVersion = project.version.toString()
+
+        if (project.hasProperty("debug")) {
             println("========================================")
-            println("Data read from: $myConfigClass")
-            println("Version read from .class file: $APP_VERSION")
-            println("Build date read from .class file: $build")
-            println("App title read from .class file: $title")
+            println("Read from: $appInfoClass")
+            println("Version (AppInfo): $appVersion")
+            println("Build date: $appBuildDate")
+            println("App title: $appTitle")
+            println("Gradle version: $gradleVersion")
             println("========================================")
         }
-        if (!(version.equals(APP_VERSION))) {
-            //  [[gradleAppVersion]]
-            println("gradle.build version variable is=$version")
-            println("AppInfo.java  version variable is=$APP_VERSION")
-            println("Stopping execution please fix versions mismatch")
-            throw GradleException("\nStopping execution! Please fix versions mismatch: $version != $APP_VERSION\nbuild.gradle.kts:41=$version\nAppInfo.java:14=$APP_VERSION")
+
+        // Version check logic
+        if (gradleVersion != appVersion) {
+            println("gradle.build version variable is=$gradleVersion")
+            println("AppInfo.java version variable is=$appVersion")
+            throw GradleException(
+                """
+                🚫 Stopping execution! Version mismatch detected.
+                Please fix versions mismatch:
+                build.gradle.kts version = $gradleVersion
+                AppInfo.java APP_VERSION_FIRST_PART = $appVersion
+                """.trimIndent()
+            )
+        } else {
+            println("✅ Versions match: $gradleVersion == $appVersion")
         }
     }
 }
@@ -139,7 +148,7 @@ javafx {
     version = "25.0.1"
     // Set this to the absolute path of your jmods directory = "/path/to/your/javafx-sdk-21/lib/jmods"
 //    sdk = "I:/14_JDKs/Liberica/bellsoft-jdk25+37-windows-amd64-full/jdk-25-full/jmods"
-    modules = listOf("javafx.controls", "javafx.fxml")
+    modules = listOf("javafx.controls", "javafx.fxml", "javafx.graphics")
     setPlatform("windows")
 }
 
@@ -151,7 +160,7 @@ dependencies {
     implementation("com.zaxxer:HikariCP:7.0.2")
     implementation("org.slf4j:slf4j-nop:2.0.17")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+//    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
 
 tasks.withType<Test> {

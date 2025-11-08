@@ -5,12 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import net.silver.posman.utils.Cacheable;
 import net.silver.posman.utils.Log;
-import net.silver.posman.utils.StageManager;
 
-public class C_PosMan_AfterMainButtons extends GridPane implements Cacheable<C_PosMan_AfterMainButtons> {
+public class C_PosMan_AfterMainButtons extends GridPane implements Cacheable {
   private String name;
 
   @FXML
@@ -29,20 +27,14 @@ public class C_PosMan_AfterMainButtons extends GridPane implements Cacheable<C_P
 
   @FXML
   void btnRestoOnAction(ActionEvent event) {
-    StageManager.getStage(C_PosMan.class).setMainApp_BottomButtons(StageManager.getFxRootNode(C_PosMan_BottomButtons.class));
+    //    StageManager.getStage(C_PosMan.class).setMainApp_BottomButtons(StageManager.getFxRootNode(C_PosMan_BottomButtons.class));
 
   }
 
   @FXML
   void btnBroiArtikuliOnAction(ActionEvent event) {
-    StageManager.getStage(C_PosMan.class).setMainApp_AfterStageButtons(new Pane());
+    //    StageManager.getStage(C_PosMan.class).setMainApp_AfterStageButtons(new Pane());
   }
 
-  @Override public String getName() {
-    return this.name;
-  }
 
-  @Override public void setName(String name) {
-    this.name = name;
-  }
 }

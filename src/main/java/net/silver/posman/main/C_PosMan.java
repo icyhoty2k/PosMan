@@ -7,12 +7,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import net.silver.posman.db.nastroiki.C_Nastroiki;
-import net.silver.posman.login.C_Login;
 import net.silver.posman.utils.Cacheable;
 import net.silver.posman.utils.StageManager;
 
-public class C_PosMan implements Cacheable<C_PosMan> {
+public class C_PosMan implements Cacheable {
 
   @FXML private Button btnLogo_Home;
   @FXML private Button btnSettings;
@@ -48,7 +46,7 @@ public class C_PosMan implements Cacheable<C_PosMan> {
 
 
   @FXML public void btnSettingsOnAction(ActionEvent actionEvent) {
-    StageManager.getFxRootNode(C_Nastroiki.class);
+    //    StageManager.getFxRootNode(C_Nastroiki.class);
 
   }
 
@@ -57,15 +55,7 @@ public class C_PosMan implements Cacheable<C_PosMan> {
   }
 
   @FXML public void btnUserNameOnAction(ActionEvent actionEvent) {
-    StageManager.getStage(C_Login.class);
-  }
-
-  @Override public String getName() {
-    return C_PosMan.class.getSimpleName();
-  }
-
-  @Override public void setName(String name) {
-    this.name = name;
+    StageManager.loadLoginStage();
   }
 
 

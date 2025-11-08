@@ -14,7 +14,8 @@ public final class AppInfo {
   // + <======================================== UPDATE ONLY THESE  FIELDS ========================================
   private static final String APP_VERSION_FIRST_PART = "1.0";
   public static final String APP_TITLE_START = "POS";
-  public static final String APP_ICON = "images/appIcon2.png";
+  public static final String APP_ICON = "appIcon2.png";
+
   private static final LocalDate APP_BUILD_DATE = LocalDate.of(2025, 10, 29);
   // + ======================================== UPDATE ONLY THESE  FIELDS ========================================>
 
@@ -32,4 +33,29 @@ public final class AppInfo {
 
   //no objects required
   private AppInfo() {}
+
+  /*
+1️⃣ Class.getResourceAsStream(String path)
+
+Belongs to: java.lang.Class
+
+Looks for resources relative to the class or absolute from classpath root
+
+Path rules:
+
+Leading / → absolute path from classpath root
+
+No leading / → relative to the package of the class
+
+Example:
+
+// AppInfo is in package net.silver.posman.utils
+InputStream is1 = AppInfo.class.getResourceAsStream("/net/silver/posman/images/appIcon2.png"); // absolute
+InputStream is2 = AppInfo.class.getResourceAsStream("images/appIcon2.png"); // relative to net/silver/posman/utils
+
+
+Returns null if not found.
+
+Typical usage when a resource is “next to” a class or somewhere inside the package structure.
+   */
 }

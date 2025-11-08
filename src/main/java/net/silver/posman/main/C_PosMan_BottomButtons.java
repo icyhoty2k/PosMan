@@ -5,12 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import net.silver.posman.utils.Cacheable;
 import net.silver.posman.utils.Log;
-import net.silver.posman.utils.StageManager;
 
-public class C_PosMan_BottomButtons extends GridPane implements Cacheable<C_PosMan_BottomButtons> {
+public class C_PosMan_BottomButtons extends GridPane implements Cacheable {
   private String name;
   private C_PosMan_BottomButtons controller;
   @FXML private Button btnOtlagane;
@@ -35,23 +33,17 @@ public class C_PosMan_BottomButtons extends GridPane implements Cacheable<C_PosM
 
   @FXML void btnIztrivaneOnAction(ActionEvent event) {
 
-    StageManager.getStage(C_PosMan.class).setMainApp_BottomButtons(new Pane());
+    //    StageManager.getStage(C_PosMan.class).setMainApp_BottomButtons(new Pane());
 
   }
 
   @FXML public void btnOtlaganeOnAction(ActionEvent actionEvent) {
-    StageManager.getStage(C_PosMan.class).setMainApp_AfterStageButtons(StageManager.getFxRootNode(C_PosMan_AfterMainButtons.class));
+    //    StageManager.getStage(C_PosMan.class).setMainApp_AfterStageButtons(StageManager.getFxRootNode(C_PosMan_AfterMainButtons.class));
   }
 
   public void test() {
     Log.trace("test works");
   }
 
-  @Override public String getName() {
-    return this.name;
-  }
 
-  @Override public void setName(String name) {
-    this.name = name;
-  }
 }

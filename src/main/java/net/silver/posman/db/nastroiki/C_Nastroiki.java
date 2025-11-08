@@ -3,7 +3,7 @@ package net.silver.posman.db.nastroiki;
 import javafx.scene.layout.GridPane;
 import net.silver.posman.utils.Cacheable;
 
-public class C_Nastroiki extends GridPane implements Cacheable<C_Nastroiki> {
+public class C_Nastroiki extends GridPane implements Cacheable {
 
   public C_Nastroiki() {}
 
@@ -11,11 +11,4 @@ public class C_Nastroiki extends GridPane implements Cacheable<C_Nastroiki> {
 
   }
 
-  @Override public String getName() {
-    return "";
-  }
-
-  @Override public void setName(String name) {
-
-  }
 }

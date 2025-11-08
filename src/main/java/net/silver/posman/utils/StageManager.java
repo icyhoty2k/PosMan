@@ -1,328 +1,203 @@
 package net.silver.posman.utils;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import net.silver.posman.login.A_Login;
 import net.silver.posman.login.C_Login;
-import net.silver.posman.main.A_PosMan;
 import net.silver.posman.main.C_PosMan;
 import net.silver.posman.main.C_PosMan_AfterMainButtons;
 import net.silver.posman.main.C_PosMan_BottomButtons;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.util.Locale;
 import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
-
-import static net.silver.posman.utils.ResourceLoader.loadInputStream;
+import java.util.function.BiConsumer;
 
 public class StageManager {
-  /** The application-wide locale, defaults to the system locale. */
-  private static Locale appLocale = java.util.Locale.getDefault();
-  /** Cache control / lazy loading */
-  public static final Map<String, Cacheable<?>> CACHE_FX_ROOT_ITEMS = new ConcurrentHashMap<>();
+  /**
+   * Lazy loading is a design pattern where an object or resource is initialized or loaded only when it's first needed (on demand),
+   * rather than during the application's startup.
+   * <p>
+   * Your getView method implements this via the Cache-Aside Pattern:
+   * In short, controllers and their associated FXML views are loaded only at the precise moment they are requested through the getView method,
+   * making the application's startup faster and reducing initial memory consumption.
+   */
+  public static final Map<Class<? extends Cacheable>, Cacheable> FXML_CACHE = new ConcurrentHashMap<>();
+  public static final Image APP_ICON_IMAGE = new Image(Objects.requireNonNull(ResourceLoader.loadInputStream("images", AppInfo.APP_ICON)));
 
-  //Main Stage [[A_PosMan]]
+  //Main Stage [[A_PosMan]] ,need to pass C_PosMan to getView
   public static final Stage mainStage = new Stage();
-  //Login Stage [[A_Login]]
+  public static Scene mainScene;
+  //Login Stage [[A_Login]] ,need to pass C_Login to getView
   public static final Stage loginStage = new Stage();
+  public static Scene loginScene;
 
   private StageManager() {
   }
 
-  private static void loadMainStage() {
-    FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(A_PosMan.class.getResource("v_PosMan.fxml"));
-    try {
-      if (loginStage.isShowing()) {
-        loginStage.close();
-      }
-      loader.load();
-    } catch (
-          IOException e) {
-      throw new RuntimeException(e);
-    }
-    CACHE_FX_ROOT_ITEMS.put(C_PosMan.class.getSimpleName(), loader.getController());
-    mainStage.getIcons().add(new Image(loadInputStream(AppInfo.APP_ICON)));
-    mainStage.setScene(new Scene(loader.getRoot()));
-    mainStage.centerOnScreen();
-    mainStage.setTitle(AppInfo.APP_TITLE_START);
-    ShortcutKeys.applyFullscreenShortcuts(mainStage);
-    mainStage.show();
-    //load default main AfterMainContentPaneButtons buttons
-    getStage(C_PosMan.class).setMainApp_AfterStageButtons(getFxRootNode(C_PosMan_AfterMainButtons.class));
-    //load default main BOTTOM buttons
-    getStage(C_PosMan.class).setMainApp_BottomButtons(getFxRootNode(C_PosMan_BottomButtons.class)); // used if fx:root component
-    mainStage.setAlwaysOnTop(true);
-    mainStage.setAlwaysOnTop(false);
-    mainStage.toFront();
-    Log.trace("mainStage loaded");
+  public static void loadMainStage() {
+    loadStage(C_PosMan.class, mainStage, loginStage, AppInfo.APP_TITLE_START, true,
+        (controller, stage) -> {
+          // Dependency injection: post-load customization
+          controller.setMainApp_AfterStageButtons(getView(C_PosMan_AfterMainButtons.class));
+          controller.setMainApp_BottomButtons(getView(C_PosMan_BottomButtons.class));
+          ShortcutKeys.applyFullscreenShortcuts(stage);
+          mainScene = stage.getScene();
+        });
 
   }
 
-  private static void loadLoginStage() {
-    FXMLLoader loader = new FXMLLoader();
-    loader.setLocation(A_Login.class.getResource("v_Login.fxml"));
-    try {
-      if (mainStage.isShowing()) {
-        mainStage.close();
-
-      }
-      loginStage.setScene(new Scene(loader.load()));
-    } catch (
-          IOException e) {
-      throw new RuntimeException(e);
-    }
-    loginStage.getIcons().add(new Image(loadInputStream(AppInfo.APP_ICON)));
-    loginStage.centerOnScreen();
-    loginStage.setTitle(AppInfo.APP_TITLE);
-    ShortcutKeys.applyLoginScreenShortcuts(loginStage, getStage(C_Login.class));
-    CACHE_FX_ROOT_ITEMS.put(C_Login.class.getSimpleName(), loader.getController());
-    loginStage.show();
-    loginStage.setAlwaysOnTop(true);
-    loginStage.setAlwaysOnTop(false);
-    loginStage.toFront();
+  public static void loadLoginStage() {
+    loadStage(C_Login.class, loginStage, mainStage, AppInfo.APP_TITLE, false,
+        (controller, stage) -> {
+          ShortcutKeys.applyLoginScreenShortcuts(stage, controller);
+          loginScene = stage.getScene();
+        });
   }
 
-  public static <T extends Cacheable<?>> T getStage(Class<T> clazz) {
-    if (CACHE_FX_ROOT_ITEMS.containsKey(clazz.getSimpleName())) {
-      return clazz.cast(CACHE_FX_ROOT_ITEMS.get(clazz.getSimpleName()));
-    }
-    else {
-
-      switch (clazz.getSimpleName()) {
-        case
-            "C_PosMan": {
-          loadMainStage();
-          break;
-        }
-        case
-            "C_Login": {
-          loadLoginStage();
-          break;
-        }
+  //unified stage loader
+  private static <T extends Cacheable> void loadStage(
+      Class<T> controllerClass, Stage stageToShow, Stage stageToClose, String title, boolean centerOnScreen, BiConsumer<T, Stage> afterLoad) {
+    // If already cached, just show the stage
+    if (checkCache(controllerClass) != null) {
+      if (stageToClose != null && stageToClose.isShowing()) {
+        stageToClose.close();
       }
+      stageToShow.show();// Scene is already set on first load
+      return;
     }
-    return clazz.cast(CACHE_FX_ROOT_ITEMS.get(clazz.getSimpleName()));
-  }
-
-  //  @SuppressWarnings ("unchecked")
-  //  // Note: Added the required generic bounds for FXML loading and caching
-  //  public static <T extends javafx.scene.Node & Cacheable<?>> T getNode(Class<T> controllerClass) {
-  //
-  //    String key = controllerClass.getSimpleName();
-  //
-  //    // 1. CHECK CACHE
-  //    if (CACHE_FX_ROOT_ITEMS.containsKey(key)) {
-  //
-  //      // Retrieve the cached item (which is a Cacheable<?> in the map)
-  //      // The cast is necessary and suppressed.
-  //      T cachedController = (T) CACHE_FX_ROOT_ITEMS.get(key);
-  //
-  //      // Assuming Log.trace is available
-  //      // Log.trace("Returning cached controller: " + key);
-  //      return cachedController;
-  //    }
-  //
-  //    // 2. CACHE MISS: INSTANTIATE, INITIALIZE, AND CACHE
-  //    // Delegation to the factory method implemented previously:
-  //    // loadFxRootNode(Class<T> clazz) handles instantiation, FXML loading, and caching the result.
-  //    // It returns the fully initialized new instance (T).
-  //
-  //    // This will throw a RuntimeException if instantiation or FXML loading fails.
-  //    return loadFxRootNode(controllerClass);
-  //  }
-
-
-  /**
-   * <p>IMPORTANT: Must be invoked on the JavaFX Application Thread.</p>
-   * Lazily loads a JavaFX {@link Node} from its corresponding FXML file, leveraging a static cache.
-   *
-   * <p>If {@code forceNew} is {@code false} and the item already exists in the cache
-   * ({@code CACHE_FX_ROOT_ITEMS}), the existing instance is returned immediately.
-   * If the item is not found, a new instance is created, loaded from FXML, and added to the cache.</p>
-   * <p> Naming convention for FXML resource:</p>
-   * <p>For controller class C_Login -> FXML file must be named v_Login.fxml and placed next to the controller class in the same package.</p>
-   * <p>The expected FXML filename follows the convention: A_Login.class → v_Login.fxml</p>
-   *
-   * <p>Usage examples:</p>
-   * <pre>
-   * // Lazy loading (standard call, uses cache)
-   * C_Nastroiki instance1 = loadFxRootNode(C_Nastroiki.class);
-   *
-   * // Force new instance (bypasses cache and creates a new one)
-   * C_Nastroiki instance2 = loadFxRootNode(C_Nastroiki.class, true);
-   * </pre>
-   *
-   * @param cacheable the class of the Node to load
-   *
-   * @return the loaded or reused instance of type T
-   */
-  public static <T extends javafx.scene.Node & Cacheable<?>> T getFxRootNode(T cacheable, Locale locale, String name) {
-    try {
-      if (CACHE_FX_ROOT_ITEMS.containsKey(cacheable.getName())) {
-        @SuppressWarnings ("unchecked")
-        T cachedController = (T) CACHE_FX_ROOT_ITEMS.get(cacheable.getName());
-        Log.trace("Returning cached controller=" + cacheable.getName());
-        return cachedController;
-      }
-    } catch (Exception e) {}
     FXMLLoader loader = new FXMLLoader();
-    String resourceName = "v" + cacheable.getClass().getSimpleName().substring(1) + ".fxml";
+    URL location = Cacheable.getFxmlLocation(controllerClass);
+
+    if (location == null) {
+      String expectedResource = controllerClass.getSimpleName()
+                                    .replaceFirst(Cacheable.CONTROLLER_PREFIX, Cacheable.FXML_VIEW_PREFIX)
+                                    + Cacheable.FXML_EXTENSION;
+      throw new RuntimeException("FXML resource not found for " + controllerClass.getSimpleName()
+                                     + ". Expected: " + expectedResource);
+    }
+    loader.setLocation(location);
+
     try {
-      URL fxmlUrl = cacheable.getClass().getResource(resourceName);
-      if (fxmlUrl == null) {
-        throw new RuntimeException("FXML not found for: " + cacheable.getClass().getSimpleName() +
-                                       " (" + resourceName + ")");
+      if (stageToClose != null && stageToClose.isShowing()) {
+        stageToClose.close();
       }
-      Log.trace("Resolved FXML path: " + fxmlUrl);
-      //      T newController = (T) cacheable.getClass().getDeclaredConstructor().newInstance();
-      loader.setLocation(fxmlUrl);
-      loader.setRoot(cacheable);
-      loader.setController(cacheable);
-      // I18N INTEGRATION: Set resource bundle before loading
-      ResourceBundle resources = getI18nResources(locale);
-      if (resources != null) {
-        loader.setResources(resources);
+
+      // Load root & controller safely (support both fx:root and @FXML root cases)
+      Parent root = loader.load();
+      T controller = loader.getController();
+
+      if (controller == null) {
+        throw new RuntimeException("No controller found for " + controllerClass.getSimpleName()
+                                       + ". Ensure the FXML has fx:controller or uses fx:root correctly.");
       }
-      loader.load();
-      cacheable.setName(name);
-      CACHE_FX_ROOT_ITEMS.put(cacheable.getName(), cacheable);
-      return cacheable;
+
+      // Cache controller
+      FXML_CACHE.put(controllerClass, controller);
+
+      // Configure stage
+      if (stageToShow.getIcons().isEmpty()) {
+        stageToShow.getIcons().add(APP_ICON_IMAGE);
+      }
+
+      stageToShow.setScene(new Scene(root));
+      stageToShow.setTitle(title);
+      if (centerOnScreen) {
+        stageToShow.centerOnScreen();
+      }
+
+      // Apply shortcuts, dependency injection, etc.
+      if (afterLoad != null) {
+        afterLoad.accept(controller, stageToShow);
+      }
+
+      // Show and focus
+      stageToShow.show();
+      stageToShow.setAlwaysOnTop(true);
+      stageToShow.setAlwaysOnTop(false);
+      stageToShow.toFront();
+
+      Log.trace(stageToShow.getTitle() + " loaded successfully");
+
     } catch (IOException e) {
-      throw new RuntimeException("Unable to load resource: " + resourceName, e);
+      throw new RuntimeException("Failed to load FXML resource for " + controllerClass.getSimpleName(), e);
     }
   }
 
-  /**
-   * Convenience method: same as above but does not force new instance.
-   * Default Lazy Load. Uses the cache, does not force a new instance, and uses the system's default locale. (Locale.getDefault())
-   */
-  public static <T extends javafx.scene.Node & Cacheable<?>> T getFxRootNode(T cacheable) {
-    return getFxRootNode(cacheable, StageManager.getAppLocale(), cacheable.getClass().getSimpleName());
+  public static <T extends Cacheable> T getView(Class<T> cacheableClass) {
+    return getView(cacheableClass, false);
   }
 
-  public static <T extends javafx.scene.Node & Cacheable<?>> T getFxRootNode(Class<T> clazz) {
+  //Cache control
+  public static <T extends Cacheable> T getView(Class<T> cacheableClass, boolean forceNew) {
+    // 1. Check Cache Safely
+    // We call checkCache once; it handles the lookup and safe casting.
+    T cachedInstance = checkCache(cacheableClass);
+    if (cachedInstance != null && !forceNew) {
+      return cachedInstance;
+    }
 
-    // --- 1. CHECK CACHE FIRST (Requires a key) ---
+    // 2. Setup Loader and Create Instance
+    FXMLLoader fxmlLoader = new FXMLLoader();
 
+    T newInstance = Cacheable.createNewInstance(cacheableClass);
     try {
-
-      String key = clazz.getSimpleName();
-      if (StageManager.CACHE_FX_ROOT_ITEMS.containsKey(key)) {
-
-        // Retrieve the cached item (it's already initialized with FXML)
-        @SuppressWarnings ("unchecked")
-        T cachedController = (T) StageManager.CACHE_FX_ROOT_ITEMS.get(key);
-
-        Log.trace("Returning cached controller (lazy factory): " + cachedController.getName());
-        return cachedController;
+      // 3. Configure Loader
+      URL location = Cacheable.getFxmlLocation(cacheableClass);
+      if (location == null) {
+        // Provides a clearer error if getFxmlLocation returns null
+        throw new RuntimeException("FXML resource not found for: " + cacheableClass.getSimpleName());
       }
-    } catch (Exception e) {}
-    // --- 2. INSTANTIATE IF CACHE MISSES ---
-    try {
-      // Instantiate the new controller using reflection
-      T newController = clazz.getDeclaredConstructor().newInstance();
+      fxmlLoader.setLocation(location);
+      // Tells the loader which controller instance to inject into
 
-      // 3. Call the initializer/loader method using the new instance and default locale.
-      // The initializer method will load FXML into newController and store it in the cache.
-      return getFxRootNode(newController);
-
-    } catch (InstantiationException e) {
-      throw new RuntimeException("Failed to instantiate controller: " + clazz.getSimpleName() + ". Is it abstract?", e);
-    } catch (IllegalAccessException e) {
-      throw new RuntimeException("Failed to access controller constructor: " + clazz.getSimpleName() + ". Is the constructor public?", e);
-    } catch (NoSuchMethodException e) {
-      throw new RuntimeException("Controller " + clazz.getSimpleName() + " is missing a public no-argument constructor.", e);
-    } catch (InvocationTargetException e) {
-      // Thrown if the constructor itself throws an exception
-      throw new RuntimeException("Controller constructor for " + clazz.getSimpleName() + " threw an exception.", e.getTargetException());
+      fxmlLoader.setController(newInstance);
+      fxmlLoader.setRoot(newInstance);
+      // 4. Load FXML (This triggers component creation and @FXML injection)
+      fxmlLoader.load();
+      FXML_CACHE.put(cacheableClass, newInstance);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
-  }
-
-
-  // --- New Helper Method for Dynamic Resource Bundle Loading ---
-
-  /**
-   * Dynamically loads the application's ResourceBundle.
-   *
-   * <p>NOTE: The base name ("messages") must match your .properties file names
-   * (e.g., messages.properties, messages_en.properties).</p>
-   * <p>
-   * Put messages.properties, messages_bg.properties, messages_en.properties etc. on your classpath (usually resources/).
-   * </p>
-   * <p>Keys used in FXML should reference them, e.g. fx:text="%label.username".</p>
-   *
-   * @return The active ResourceBundle, or null if loading fails.
-   */
-  private static ResourceBundle getI18nResources(Locale locale) {
-    // Relying on the loadItem convenience methods to ensure locale is not null.
-    // If the primary loadItem is called directly with a null locale, this will throw
-    // an exception, which is usually preferable to silently loading the wrong language.
-    try {
-      return ResourceBundle.getBundle("messages", locale);
-    } catch (Exception e) {
-      // Log.warn("Error loading resource bundle for locale: " + locale);
-      return null;
-    }
-  }
-
-  public static void clearCache() {
-    CACHE_FX_ROOT_ITEMS.clear();
-  }
-
-  public static <T extends Node> void removeFromCache(Class<T> clazz) {
-    CACHE_FX_ROOT_ITEMS.remove(clazz);
-  }
-
-  public static int getCacheSize() {
-    return CACHE_FX_ROOT_ITEMS.size();
-  }
-
-  public static void printCacheState() {
-    Log.info("StageManager cache size: " + getCacheSize());
-    CACHE_FX_ROOT_ITEMS.forEach((k, v) -> Log.info("Cached: " + k + " -> " + v));
+    return newInstance;
   }
 
   /**
+   * Retrieves a cached instance of the specified controller class.
    *
-   * @return the locale of the app
+   * @param <T>             The type of the class being retrieved (must extend Cacheable)
+   * @param controllerClass The Class object (key) to look up in the cache.
+   *
+   * @return The cached instance of type T, or null if not found.
    */
-  public static Locale getAppLocale() {
-    return appLocale;
+  private static <T extends Cacheable> T checkCache(Class<T> controllerClass) {
+
+    // 1. Check if the key exists in the cache
+    if (!FXML_CACHE.containsKey(controllerClass)) {
+      Log.trace("getView() -> : " + controllerClass.getSimpleName() + " - cacheMiss");
+      return null; // Return null if not found, adhering to common cache behavior
+    }
+    Log.trace("getView() -> : " + controllerClass.getSimpleName() + " - cacheHit");
+    // 2. Retrieve the object and perform a safe cast
+    // The cast() method performs a type-safe check against the Class object.
+    return controllerClass.cast(FXML_CACHE.get(controllerClass));
   }
 
-  /**
-   * Set application locale. Clears the FXML cache so new nodes will be loaded with the new ResourceBundle.
-   *
-   * @param newLocale set A new Locale ex:newLocale =Locale.*
-   *                  <p></p> Button switchLocaleButton = new Button("Switch Locale -> bg (force reload)");
-   *                  switchLocaleButton.setOnAction(e -> {
-   *                  // Change locale (this will clear cache)
-   *                  StageManager.setAppLocale(new Locale("bg"));
-   *                  // Now force new load to ensure new ResourceBundle is used:
-   *                  Node settingsNode = StageManager.loadFxRootNode(C_Nastroiki.class, true);
-   *                  ((BorderPane) StageManager.mainScene.getRoot()).setCenter(settingsNode);
-   *                  });</p>
-   *                  <p>
-   *                  Put messages.properties, messages_bg.properties, messages_en.properties etc. on your classpath (usually resources/).
-   *                  </p>
-   *                  <p>Keys used in FXML should reference them, e.g. fx:text="%label.username".</p>
-   */
-  public static void setAppLocale(Locale newLocale) {
-    if (newLocale == null) {
-      throw new IllegalArgumentException("newLocale must not be null");
+
+  //Cache Invalidation Utility
+  public static void clearCache(Class<? extends Cacheable>... targets) {
+    if (targets.length == 0) {
+      FXML_CACHE.clear();
+      Log.trace("FXML cache fully cleared");
+      return;
     }
-    if (!newLocale.equals(appLocale)) {
-      appLocale = newLocale;
-      clearCache();
-      Log.info("Application locale changed to: " + newLocale);
+    for (Class<? extends Cacheable> clazz : targets) {
+      FXML_CACHE.remove(clazz);
+      Log.trace("FXML cache cleared for: " + clazz.getSimpleName());
     }
   }
 }
