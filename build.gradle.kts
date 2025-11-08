@@ -12,9 +12,10 @@ plugins {
     id("org.beryx.jlink") version "3.1.4-rc"
     id("com.gradleup.shadow") version "9.2.2"
     id("com.github.ben-manes.versions") version "0.53.0"
-    id("com.dorongold.task-tree") version "2.1.1"
+    id("com.dorongold.task-tree") version "4.0.1"
 }
-
+val junitVersion = "5.14.1"
+val junitPlatformVersion = "1.14.1" // For the launcher (modular projects)
 val debug = false
 //Reference to devDrive
 val devDrive = "I:\\"
@@ -42,6 +43,7 @@ version = "1.0"//#[[gradleAppVersion]]
 
 repositories {
     mavenCentral()
+
 }
 tasks.shadowJar {
     manifest {
@@ -131,11 +133,17 @@ tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 //    options.compilerArgs.add("-Xlint:all")
     options.compilerArgs.add("-Xlint:unchecked")
+    // Only for test compilation
+
 
 }
-tasks.withType<JavaCompile>().configureEach {
-    options.isFork = true
+tasks.named<JavaCompile>("compileTestJava") {
+    modularity.inferModulePath.set(true)
+    options.encoding = "UTF-8"
 }
+//tasks.withType<JavaCompile>().configureEach {
+//    options.isFork = true
+//}
 application {
     mainModule.set("net.silver.posman")
     mainClass.set("net.silver.posman.main.z_MainAppStart")
@@ -158,40 +166,30 @@ javafx {
 }
 
 dependencies {
-    // https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
+    // SQLite, MySQL, HikariCP, SLF4J
     implementation("org.xerial:sqlite-jdbc:3.50.3.0")
-    // https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
     implementation("com.mysql:mysql-connector-j:9.5.0")
     implementation("com.zaxxer:HikariCP:7.0.2")
     implementation("org.slf4j:slf4j-nop:2.0.17")
-    testImplementation("junit:junit:4.13.2")
 
-// RE-ADD THIS CRITICAL DEPENDENCY
-//    testRuntimeOnly("org.junit.platform:junit-platform-launcher:${platformVersion}")
+    // JUnit 5 API for compiling tests
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+
+    // JUnit 5 Engine for running tests (runtime only)
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+
+    // Critical for modular projects – allows Gradle to launch tests correctly
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
 
 }
-// ADD THIS BLOCK (It targets the compiler task specifically)
+
 tasks.test {
-    // Use JUnit 4
-    useJUnit()
-
-    // Avoid failing if no tests are found
+    useJUnitPlatform()
+    modularity.inferModulePath.set(true) // Run tests on module path
     failOnNoDiscoveredTests = false
-
-
-    // Avoid module-path issues (important when using JavaFX and modular projects)
-    modularity.inferModulePath.set(false)
-
-    // JVM arguments (optional)
-    jvmArgs = listOf("-Dfile.encoding=UTF-8")
-
-    // Test logging
     testLogging {
         events("passed", "skipped", "failed")
         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
-        showExceptions = true
-        showCauses = true
-        showStackTraces = true
     }
 }
 

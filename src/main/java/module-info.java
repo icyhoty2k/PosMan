@@ -7,7 +7,7 @@ open module net.silver.posman {
 
   requires com.zaxxer.hikari; // HikariCP
   requires org.slf4j.nop;
-
+  // For testing
 
   // Export your packages
   exports net.silver.posman.main;
@@ -18,5 +18,6 @@ open module net.silver.posman {
   exports net.silver.posman.settings;
   exports net.silver.posman.db;
   exports net.silver.posman.db.nastroiki;
+
 
 }
