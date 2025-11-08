@@ -141,6 +141,15 @@ tasks.named<JavaCompile>("compileTestJava") {
     modularity.inferModulePath.set(true)
     options.encoding = "UTF-8"
 }
+tasks.named<JavaExec>("run") {
+// Ensure output goes to IntelliJ console
+    standardOutput = System.out
+    errorOutput = System.err
+
+    // Optional: enable UTF-8 encoding if needed
+    jvmArgs("-Dfile.encoding=UTF-8")
+//    isIgnoreExitValue = false
+}
 //tasks.withType<JavaCompile>().configureEach {
 //    options.isFork = true
 //}
