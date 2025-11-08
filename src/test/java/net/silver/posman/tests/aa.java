@@ -1,4 +1,4 @@
-package tests;
+package net.silver.posman.tests;
 
 import net.silver.posman.utils.Log;
 

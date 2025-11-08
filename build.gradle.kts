@@ -7,13 +7,14 @@ plugins {
     java
     application
     idea
-    id("org.javamodularity.moduleplugin") version "2.0.0" apply true
+    id("org.javamodularity.moduleplugin") version "2.0.0"
     id("org.openjfx.javafxplugin") version "0.1.0"
     id("org.beryx.jlink") version "3.1.4-rc"
     id("com.gradleup.shadow") version "9.2.2"
     id("com.github.ben-manes.versions") version "0.53.0"
     id("com.dorongold.task-tree") version "2.1.1"
 }
+
 val debug = false
 //Reference to devDrive
 val devDrive = "I:\\"
@@ -49,11 +50,10 @@ tasks.shadowJar {
     }
     destinationDirectory.set(file(System.getenv("appdata") + "\\Scene Builder\\Library"))
 }
-val junitVersion = "6.0.1"
-val platformVersion = junitVersion
+
 
 java {
-    modularity.inferModulePath.set(false)
+    modularity.inferModulePath.set(true)
     toolchain {
         languageVersion = JavaLanguageVersion.of(25)
         vendor = JvmVendorSpec.IBM
@@ -131,6 +131,7 @@ tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
 //    options.compilerArgs.add("-Xlint:all")
     options.compilerArgs.add("-Xlint:unchecked")
+
 }
 tasks.withType<JavaCompile>().configureEach {
     options.isFork = true
@@ -163,18 +164,36 @@ dependencies {
     implementation("com.mysql:mysql-connector-j:9.5.0")
     implementation("com.zaxxer:HikariCP:7.0.2")
     implementation("org.slf4j:slf4j-nop:2.0.17")
-    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
-// ❗ ADD THIS CRITICAL DEPENDENCY ❗
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:${platformVersion}")
-}
+    testImplementation("junit:junit:4.13.2")
 
-tasks.withType<Test> {
-
-    useJUnitPlatform()
+// RE-ADD THIS CRITICAL DEPENDENCY
+//    testRuntimeOnly("org.junit.platform:junit-platform-launcher:${platformVersion}")
 
 }
+// ADD THIS BLOCK (It targets the compiler task specifically)
+tasks.test {
+    // Use JUnit 4
+    useJUnit()
 
+    // Avoid failing if no tests are found
+    failOnNoDiscoveredTests = false
+
+
+    // Avoid module-path issues (important when using JavaFX and modular projects)
+    modularity.inferModulePath.set(false)
+
+    // JVM arguments (optional)
+    jvmArgs = listOf("-Dfile.encoding=UTF-8")
+
+    // Test logging
+    testLogging {
+        events("passed", "skipped", "failed")
+        exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
+        showExceptions = true
+        showCauses = true
+        showStackTraces = true
+    }
+}
 
 jlink {
     // Set the path to your desired JDK installation directory
