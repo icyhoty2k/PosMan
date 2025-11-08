@@ -91,7 +91,7 @@ Use Objects.requireNonNull to catch missing resources immediately
 
   public static InputStream loadInputStream(String resourceDir, String resourceName) {
     sb.setLength(0);
-    sb.append(rootOfClassPath).append(resourceDir).append(DEFAULT_SEPARATOR).append(resourceName);
+    sb.append(rootOfClassPath).append(resourceDir).append(resourceName);
     return classLoader.getResourceAsStream(sb.toString());
   }
 }

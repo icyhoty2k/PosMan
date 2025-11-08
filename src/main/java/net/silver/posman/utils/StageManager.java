@@ -27,7 +27,7 @@ public class StageManager {
    * making the application's startup faster and reducing initial memory consumption.
    */
   public static final Map<Class<? extends Cacheable>, Cacheable> FXML_CACHE = new ConcurrentHashMap<>();
-  public static final Image APP_ICON_IMAGE = new Image(Objects.requireNonNull(ResourceLoader.loadInputStream("images", AppInfo.APP_ICON)));
+  public static final Image APP_ICON_IMAGE = new Image(Objects.requireNonNull(ResourceLoader.loadInputStream("images/", AppInfo.APP_ICON)));
 
   //Main Stage [[A_PosMan]] ,need to pass C_PosMan to getView
   public static final Stage mainStage = new Stage();
