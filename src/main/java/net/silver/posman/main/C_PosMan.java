@@ -1,5 +1,6 @@
 package net.silver.posman.main;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -51,7 +52,7 @@ public class C_PosMan implements Cacheable {
   }
 
   @FXML public void btnLogo_HomeOnAction(ActionEvent actionEvent) {
-
+    Platform.exit();
   }
 
   @FXML public void btnUserNameOnAction(ActionEvent actionEvent) {
