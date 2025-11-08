@@ -50,6 +50,7 @@ tasks.shadowJar {
     destinationDirectory.set(file(System.getenv("appdata") + "\\Scene Builder\\Library"))
 }
 val junitVersion = "6.0.1"
+val platformVersion = junitVersion
 
 java {
     modularity.inferModulePath.set(false)
@@ -163,11 +164,15 @@ dependencies {
     implementation("com.zaxxer:HikariCP:7.0.2")
     implementation("org.slf4j:slf4j-nop:2.0.17")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-//    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+// ❗ ADD THIS CRITICAL DEPENDENCY ❗
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:${platformVersion}")
 }
 
 tasks.withType<Test> {
-    useJUnitPlatform()
+
+useJUnitPlatform()
+
 }
 
 

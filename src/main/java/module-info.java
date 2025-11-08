@@ -8,6 +8,7 @@ open module net.silver.posman {
   requires org.slf4j.nop;
   requires javafx.graphics;
 
+
   exports net.silver.posman.main;
   exports net.silver.posman.login;
 
