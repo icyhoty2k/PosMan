@@ -70,29 +70,29 @@ tasks.register("readVersionFromClass") {
     dependsOn(tasks.named("compileJava"))
 
     doLast {
+        if (project.property("debug") == "true") {
+            val classesDir = sourceSets.main.get().output.classesDirs.first()
+            val classLoader = URLClassLoader(arrayOf(classesDir.toURI().toURL()))
 
-        val classesDir = sourceSets.main.get().output.classesDirs.first()
-        val classLoader = URLClassLoader(arrayOf(classesDir.toURI().toURL()))
+            // Load your AppInfo class
+            val appInfoClass = Class.forName("net.silver.posman.utils.AppInfo", false, classLoader)
 
-        // Load your AppInfo class
-        val appInfoClass = Class.forName("net.silver.posman.utils.AppInfo", false, classLoader)
+            // Reflectively read the static fields
+            val fVersion = appInfoClass.getDeclaredField("APP_VERSION_FIRST_PART")
+            val fBuildDate = appInfoClass.getDeclaredField("APP_BUILD_DATE")
+            val fTitle = appInfoClass.getDeclaredField("APP_TITLE")
 
-        // Reflectively read the static fields
-        val fVersion = appInfoClass.getDeclaredField("APP_VERSION_FIRST_PART")
-        val fBuildDate = appInfoClass.getDeclaredField("APP_BUILD_DATE")
-        val fTitle = appInfoClass.getDeclaredField("APP_TITLE")
+            fVersion.isAccessible = true
+            fBuildDate.isAccessible = true
+            fTitle.isAccessible = true
 
-        fVersion.isAccessible = true
-        fBuildDate.isAccessible = true
-        fTitle.isAccessible = true
+            val appVersion = fVersion.get(null) as String
+            val appBuildDate = fBuildDate.get(null) as LocalDate
+            val appTitle = fTitle.get(null) as String
 
-        val appVersion = fVersion.get(null) as String
-        val appBuildDate = fBuildDate.get(null) as LocalDate
-        val appTitle = fTitle.get(null) as String
+            val gradleVersion = project.version.toString()
 
-        val gradleVersion = project.version.toString()
 
-        if (project.hasProperty("debug")) {
             println("========================================")
             println("Read from: $appInfoClass")
             println("Version (AppInfo): $appVersion")
@@ -100,22 +100,23 @@ tasks.register("readVersionFromClass") {
             println("App title: $appTitle")
             println("Gradle version: $gradleVersion")
             println("========================================")
-        }
 
-        // Version check logic
-        if (gradleVersion != appVersion) {
-            println("gradle.build version variable is=$gradleVersion")
-            println("AppInfo.java version variable is=$appVersion")
-            throw GradleException(
-                """
+
+            // Version check logic
+            if (gradleVersion != appVersion) {
+                println("gradle.build version variable is=$gradleVersion")
+                println("AppInfo.java version variable is=$appVersion")
+                throw GradleException(
+                    """
                 🚫 Stopping execution! Version mismatch detected.
                 Please fix versions mismatch:
                 build.gradle.kts version = $gradleVersion
                 AppInfo.java APP_VERSION_FIRST_PART = $appVersion
                 """.trimIndent()
-            )
-        } else {
-            println("✅ Versions match: $gradleVersion == $appVersion")
+                )
+            } else {
+                println("✅ Versions match: $gradleVersion == $appVersion")
+            }
         }
     }
 }
