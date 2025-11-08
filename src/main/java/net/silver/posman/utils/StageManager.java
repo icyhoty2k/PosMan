@@ -89,7 +89,8 @@ public class StageManager {
 
       // Load root & controller safely (support both fx:root and @FXML root cases)
       Parent root = loader.load();
-      T controller = loader.getController();
+      // Perform a safe, checked cast using the Class object
+      T controller = controllerClass.cast(loader.getController());
 
       if (controller == null) {
         throw new RuntimeException("No controller found for " + controllerClass.getSimpleName()
@@ -188,13 +189,18 @@ public class StageManager {
   }
 
 
-  //Cache Invalidation Utility
+  // Corrected to use varargs for user convenience
+  @SafeVarargs
+  // This annotation eliminates the "Possible heap pollution" warning
   public static void clearCache(Class<? extends Cacheable>... targets) {
+    // Check if no arguments were passed (targets array is empty)
     if (targets.length == 0) {
       FXML_CACHE.clear();
       Log.trace("FXML cache fully cleared");
       return;
     }
+
+    // If arguments were passed, iterate through them and remove each one
     for (Class<? extends Cacheable> clazz : targets) {
       FXML_CACHE.remove(clazz);
       Log.trace("FXML cache cleared for: " + clazz.getSimpleName());

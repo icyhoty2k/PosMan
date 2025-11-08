@@ -123,10 +123,13 @@ tasks.compileJava {
     options.isFailOnError = true
     options.forkOptions.executable = "$jdkLocation\\bin\\javac.exe"
     options.isVerbose = false
+
     finalizedBy(tasks.named("readVersionFromClass"))
 }
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
+//    options.compilerArgs.add("-Xlint:all")
+    options.compilerArgs.add("-Xlint:unchecked")
 }
 tasks.withType<JavaCompile>().configureEach {
     options.isFork = true
