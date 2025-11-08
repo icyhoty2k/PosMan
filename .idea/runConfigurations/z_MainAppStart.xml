@@ -1,0 +1,11 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="z_MainAppStart" type="Application" factoryName="Application" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="net.silver.posman.main.z_MainAppStart" />
+    <module name="PosMan.main" />
+    <option name="VM_PARAMETERS" value="--enable-native-access=javafx.graphics --module-path R:/PosMan/ideaBuild;$PROJECT_DIR$/../../14_JDKs/JavaFX/javafx-sdk-25.0.1/lib;I:\63_GradleLocalRepo\caches\modules-2\files-2.1\org.slf4j\slf4j-nop\2.0.17\b41773047e10359aa409e7197c7624aeabfd377c;I:\63_GradleLocalRepo\caches\modules-2\files-2.1\com.zaxxer\HikariCP\7.0.2\c2b43c946b86a14a96342379e22b004c56c6166d;I:\63_GradleLocalRepo\caches\modules-2\files-2.1\org.slf4j\slf4j-api\2.0.17\d9e58ac9c7779ba3bf8142aff6c830617a7fe60f;I:\63_GradleLocalRepo\caches\modules-2\files-2.1\com.mysql\mysql-connector-j\9.5.0\64153d7488bbf25c040f3b0f004177bc05b36b22 --add-modules javafx.controls,javafx.fxml -m net.silver.posman/net.silver.posman.main.z_MainAppStart" />
+    <option name="WORKING_DIRECTORY" value="R:/PosMan/PosManWorkingDir" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
