@@ -37,6 +37,8 @@ abstract class ReadVersionTask : DefaultTask() {
         val classLoader = URLClassLoader(urls)
 
         try {
+
+
             // Load your AppInfo class
             val appInfoClass = Class.forName("net.silver.posman.utils.AppInfo", false, classLoader)
 
@@ -79,9 +81,13 @@ abstract class ReadVersionTask : DefaultTask() {
             } else {
                 println("✅ Versions match: $gradleVersion == $appVersion")
             }
+
         } catch (e: Exception) {
             throw GradleException("Failed to read version from class", e)
+        } finally {
+            classLoader.close()
         }
+
     }
 }
 
@@ -162,16 +168,11 @@ java {
         implementation.set(JvmImplementation.VENDOR_SPECIFIC)
     }
 }
-val cdsArchiveName = "classes.jsa"
 val myJvmArgs = listOf(
     // -------------------------------
     // Startup Optimization (AppCDS)
     // -------------------------------
-    // Inject the AppCDS file path. $APPDIR is a placeholder used by jpackage/launchers.
-    // NOTE: This assumes the archive file is manually copied to 'runtime/lib/'
-    // Using standard classes.jsa
 
-    "-XX:SharedArchiveFile=\$APPDIR/lib/$cdsArchiveName",
     // -------------------------------
     // Memory / Heap
     // -------------------------------
@@ -211,7 +212,6 @@ val myJvmArgs = listOf(
     "-XX:+UnlockExperimentalVMOptions", // Required for low-level optimizations
     "-XX:+AlwaysPreTouch",           // Touch memory early to reduce page faults
     "-XX:CodeEntryAlignment=64",  // CPU cache alignment
-
 //    "--illegal-access=deny"          // Security & compatibility java8-16
 )
 /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -272,9 +272,6 @@ jlink {
 //            "--disable-service-loader",
             "--bind-services",
             "--ignore-signing-information",
-            // FIX: Removed the deprecated/removed '--archive-data' flag.
-            // When using --generate-cds-archive, the archive is named 'classes.jsa' by default.
-            "--generate-cds-archive"
         )
     )
 
@@ -306,12 +303,14 @@ jlink {
         // JVM args - Maximally Tuned for Startup Speed
         jvmArgs = myJvmArgs
 
+
         // Installer Options (Windows specific flags)
         installerOptions = listOf(
             "--win-menu",
             "--win-dir-chooser",
             "--win-per-user-install",
             "--win-shortcut",
+            "--win-console",
             "--install-dir", rootProject.name,// Installation path inside the program files directory
             "--win-upgrade-uuid", "783f982d-0a12-4e00-84c2-9e9f65c697c1"
         )
