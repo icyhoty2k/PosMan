@@ -2,6 +2,12 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar.Companion.shad
 import java.net.URLClassLoader
 import java.time.LocalDate
 
+// Base task to define the common input property
+abstract class WorkingDirTask : DefaultTask() {
+    @get:Input
+    abstract val targetDir: Property<File>
+}
+
 // This is the cache-safe definition of your task
 abstract class ReadVersionTask : DefaultTask() {
 
@@ -109,17 +115,24 @@ val devDrive = "I:\\"
 val ramDrive = "R:\\"
 //workingDir
 val defaultWorkingDir = "${rootProject.name}WorkingDir\\"
-//JdkLocation = "I:\\14_JDKs\\Liberica\\bellsoft-liberica-vm-full-openjdk24+37-24.2.0+1-windows-amd64\\bellsoft-liberica-vm-full-openjdk24-24.2.0"
+
+// JdkLocation is now a Provider
 val jdkLocationProvider = project.providers.gradleProperty("org.gradle.java.home")
+
 val mainBuildAndWorkingDrive = ramDrive
 val outputBuildDir = "$mainBuildAndWorkingDrive${rootProject.name}\\"
 val gradleOutput = "$outputBuildDir\\gradleBuild\\"
 val ideaOutput = "$outputBuildDir\\ideaBuild"
-val ideaTest = "$ideaOutput\\test"
+val ideaTest = "$outputBuildDir\\ideaBuild\\test"
 
-//set gradle outbut build dir
-//setBuildDir(gradleOutput)
-val directoryOutputBuildDir = file(outputBuildDir.plus(defaultWorkingDir))
+// 🚀 FIX: Define the directory output build dir as a cache-safe Provider
+// 'toProvider()' is now available due to the correct import
+val directoryOutputBuildDirProvider: Provider<File> = project.providers.provider {
+    file(outputBuildDir.plus(defaultWorkingDir))
+}
+// Resolve the File object only for use in the recursive function where a simple File is needed.
+val directoryOutputBuildDir = directoryOutputBuildDirProvider.get()
+
 layout.buildDirectory.set(file(gradleOutput))
 
 repositories {
@@ -144,27 +157,16 @@ application {
         "-Dfile.encoding=UTF-8",
         "-Xmx2048m"
     )
-//    applicationDefaultJvmArgs = [
-//            "--add-opens=javafx.controls/javafx.scene.control.skin=com.pixelduke.fxskins"
-//"--enable-native-access=javafx.graphics,javafx.media,javafx.web",
-//"--enable-native-access=javafx.base,javafx.controls,javafx.fxml,javafx.graphics,javafx.media,javafx.swing,javafx.web,com.sun.jna",
-//"--sun-misc-unsafe-memory-access=allow"
-//    ]
 }
 javafx {
     version = javaFXVersion
-    // Set this to the absolute path of your jmods directory = "/path/to/your/javafx-sdk-21/lib/jmods"
-//    sdk = "I:/14_JDKs/Liberica/bellsoft-jdk25+37-windows-amd64-full/jdk-25-full/jmods"
     modules = javaFXModules
     setPlatform("windows")
 }
 
-//
-
 tasks.named<JavaCompile>("compileTestJava") {
     modularity.inferModulePath.set(true)
     options.encoding = "UTF-8"
-    //    options.isFork = true
 }
 
 dependencies {
@@ -195,7 +197,7 @@ tasks.test {
 
 jlink {
     // Set the path to your desired JDK installation directory
-    javaHome = jdkLocationProvider.get()
+    javaHome = jdkLocationProvider.get() // Correctly uses the provider's value
     mergedModule {
         excludeRequires("org.slf4j")
     }
@@ -203,30 +205,24 @@ jlink {
     options.set(listOf("--strip-debug", "--compress", "zip-9", "--no-header-files", "--no-man-pages"))
     launcher {
         name = "${rootProject.name}_v$version"
-
     }
     jpackage {
-//        jvmArgs = ['-splash:$APPDIR/splash.png']
         icon = "src/main/resources/net/silver/posman/icons/appIcons/appIcon.ico"
-
-//        jpackageHome = "${JdkLocation}"
-//        outputDir = file("${mainBuildAndWorkingDrive}\\${rootProject.name}_image")
-//        // imageOutputDir = file("$buildDir/my-packaging-image")
-//        // installerOutputDir = file("$buildDir/my-packaging-installer")
-//        imageName = "${rootProject.name} v${version}"
-        //  imageOptions = listOf("-client")
-//        skipInstaller = false
-//        installerName = 'SilverStar'
-//        installerType = 'msi'
-////        installerOptions = ['--win-per-user-install', '--win-dir-chooser', '--win-menu','--win-menu-group', '--win-shortcut-prompt', '--app-version', version]
-//        installerOptions =
-//            ['--win-dir-chooser', '--win-menu', '--win-menu-group', '--win-shortcut', '--win-shortcut-prompt', '--app-version', version]
     }
 }
+val runWorkingDir = "$outputBuildDir$defaultWorkingDir"
+val runClasspath = sourceSets.main.get().runtimeClasspath
+val runMainModule = application.mainModule.get()
+val runMainClass = application.mainClass.get()
+val runJvmArgs = application.applicationDefaultJvmArgs.toList() // immutable copy
 
-tasks.run {
+tasks.named<JavaExec>("run") {
     dependsOn("ensureWorkingDir")
-    workingDir("$outputBuildDir$defaultWorkingDir")
+    workingDir = file(runWorkingDir)
+    classpath = runClasspath
+    mainModule.set(runMainModule)
+    mainClass.set(runMainClass)
+    jvmArgs = runJvmArgs
 }
 
 tasks.clean {
@@ -234,10 +230,9 @@ tasks.clean {
 }
 tasks.shadowJar {
     manifest {
-        attributes["Main-Class"] = application.mainClass
+        attributes["Main-Class"] = application.mainClass.get()
         attributes["Description"] = "This is an application JAR"
     }
-    destinationDirectory.set(file(System.getenv("appdata") + "\\Scene Builder\\Library"))
 }
 idea {
     module {
@@ -250,27 +245,31 @@ idea {
 }
 
 //own tasks
-tasks.register("ensureWorkingDir") {
+// 🚀 FIX: Using WorkingDirTask and wiring the Provider input
+tasks.register<WorkingDirTask>("ensureWorkingDir") {
     group = "[ivan]"
+    targetDir.set(directoryOutputBuildDirProvider) // Wire safe Provider
     doLast {
         try {
-            if (!file(outputBuildDir.plus(defaultWorkingDir)).exists()) {
-                mkdir(file(outputBuildDir.plus(defaultWorkingDir)))
+            if (!targetDir.get().exists()) { // Use safe property
+                targetDir.get().mkdir()
             }
         } catch (e: Exception) {
             e.stackTrace
         }
     }
 }
-tasks.register("clenaWorkingDir") {
+
+// 🚀 FIX: Using WorkingDirTask and wiring the Provider input
+tasks.register<WorkingDirTask>("clenaWorkingDir") {
     group = "[ivan]"
     description = "Not recursive for inner dirs, just curren dir and files"
+    targetDir.set(directoryOutputBuildDirProvider) // Wire safe Provider
 
-    // Add this doLast block
     doLast {
         try {
             // !! This logic now runs at EXECUTION time !!
-            val directory = file(directoryOutputBuildDir)
+            val directory = targetDir.get() // Use safe property
             val files = directory.listFiles()
             for (file in files.orEmpty()) {
                 println(file.toString() + " deleted.")
@@ -287,12 +286,16 @@ tasks.register("clenaWorkingDir") {
         }
     }
 }
-tasks.register("clenaWorkingDirRecursivly") {
+
+// 🚀 FIX: Using WorkingDirTask and wiring the Provider input
+tasks.register<WorkingDirTask>("clenaWorkingDirRecursivly") {
     group = "[ivan]"
     description = "Recursive for inner  dirs and sub dirs"
+    targetDir.set(directoryOutputBuildDirProvider) // Wire safe Provider
+
     doLast {
         try {
-            deleteDirectoryRecursivly(directoryOutputBuildDir)
+            deleteDirectoryRecursivly(targetDir.get()) // Use safe property
         } catch (e: Exception) {
             e.stackTrace
         }
@@ -350,39 +353,38 @@ tasks.register<Exec>("viewNewestDatabaseBackupFile") {
     args("/c", "mysql_ViewNewestDatabaseBackup.bat")
 }
 // This replaces your old 'readVersionFromClass' task
+// This replaces your old 'readVersionFromClass' task registration
 tasks.register<ReadVersionTask>("readVersionFromClass") {
     group = "[ivan]"
     description = "Verifies AppInfo.APP_VERSION_FIRST_PART matches Gradle project.version"
 
-    // Ensure code is compiled first
     dependsOn(tasks.named("compileJava"))
 
-    // --- This is the new, cache-safe part ---
-    // It "captures" project state at CONFIGURATION time
-
-    // 1. Wire the project's version into the task's property
     projectVersion.set(project.version.toString())
 
-    // 2. Wire the 'debug' property in a cache-safe way
     debugEnabled.set(
         project.providers.gradleProperty("debug").map { it.toBoolean() }.orElse(false)
     )
 
-    // 3. Wire the compiled classes and dependencies into the task's classpath
-    taskClasspath.from(sourceSets.main.get().output, sourceSets.main.get().runtimeClasspath)
+    // 🚀 Configuration Cache FIX for SourceSet capture:
+    // Use provider methods to lazily supply the files.
+    taskClasspath.from(
+        project.provider { project.sourceSets.main.get().output },
+        project.provider { project.sourceSets.main.get().runtimeClasspath }
+    )
 }
 tasks.compileJava {
     options.isIncremental = true
     options.isFork = true
     options.isFailOnError = true
-    options.forkOptions.executable = jdkLocationProvider.map { it ->
-        // 'it' is the JDK root path. Build the full path to javac.exe
-        "$it\\bin\\javac.exe"
-    }.get() // <-- FIXED
+    options.forkOptions.executable =
+        jdkLocationProvider.map { "$it\\bin\\javac.exe" }.get()// <-- Use .get() ONLY at the end
     options.isVerbose = false
     options.release.set(javaVersion)
     options.encoding = "UTF-8"
 //    options.compilerArgs.add("-Xlint:all")
     options.compilerArgs.add("-Xlint:unchecked")
     finalizedBy(tasks.named("readVersionFromClass"))
+    // 🛑 NEW FIX: Directly set the executable using the mapped provider.
+
 }
