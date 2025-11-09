@@ -202,7 +202,7 @@ val myJvmArgs = listOf(
     "-XX:+AlwaysPreTouch",           // Touch memory early to reduce page faults
     "-XX:CodeEntryAlignment=64",  // CPU cache alignment
 
-    "--illegal-access=deny"          // Security & compatibility
+//    "--illegal-access=deny"          // Security & compatibility
 )
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 application {
