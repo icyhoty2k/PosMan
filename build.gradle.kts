@@ -2,78 +2,36 @@ import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar.Companion.shad
 import java.net.URLClassLoader
 import java.time.LocalDate
 
+// This is the cache-safe definition of your task
+abstract class ReadVersionTask : DefaultTask() {
 
-plugins {
-    java
-    application
-    idea
-    id("org.javamodularity.moduleplugin") version "2.0.0"
-    id("org.openjfx.javafxplugin") version "0.1.0"
-    id("org.beryx.jlink") version "3.1.4-rc"
-    id("com.gradleup.shadow") version "9.2.2"
-    id("com.github.ben-manes.versions") version "0.53.0"
-    id("com.dorongold.task-tree") version "4.0.1"
-}
-val junitVersion = "5.14.1"
-val junitPlatformVersion = "1.14.1" // For the launcher (modular projects)
-val debug = false
-//Reference to devDrive
-val devDrive = "I:\\"
-//If ramDrive is installed and configured to R:\
-val ramDrive = "R:\\"
-//workingDir
-val defaultWorkingDir = "${rootProject.name}WorkingDir\\"
-//JdkLocation = "I:\\14_JDKs\\Liberica\\bellsoft-liberica-vm-full-openjdk24+37-24.2.0+1-windows-amd64\\bellsoft-liberica-vm-full-openjdk24-24.2.0"
-val jdkLocation = project.property("org.gradle.java.home")
-val mainBuildAndWorkingDrive = ramDrive
-val outputBuildDir = "$mainBuildAndWorkingDrive${rootProject.name}\\"
-val gradleOutput = "$outputBuildDir\\gradleBuild\\"
-val ideaOutput = "$outputBuildDir\\ideaBuild"
-val ideaTest = "$ideaOutput\\test"
+    // 1. A cache-safe "input" to hold the project version
+    @get:Input
+    abstract val projectVersion: Property<String>
 
+    // 2. A cache-safe "input" to hold the debug flag
+    @get:Input
+    abstract val debugEnabled: Property<Boolean>
 
-//set gradle outbut build dir
-//setBuildDir(gradleOutput)
-val directoryOutputBuildDir = file(outputBuildDir.plus(defaultWorkingDir))
-layout.buildDirectory.set(file(gradleOutput))
+    // 3. A cache-safe "input" for the files needed to load the class
+    @get:InputFiles
+    @get:Classpath
+    abstract val taskClasspath: ConfigurableFileCollection
 
-group = "net.silver"
-//[[AppInfo#APP_VERSION_FIRST_PART]]
-version = "1.0"//#[[gradleAppVersion]]
+    // 4. This is the task's action, which runs at execution time
+    @TaskAction
+    fun verifyVersion() {
+        // 5. Only run if the debug property was set to true
+        if (!debugEnabled.getOrElse(false)) {
+            println("Skipping version check (debug property not 'true')")
+            return
+        }
 
-repositories {
-    mavenCentral()
+        // Create a classloader from the safe input files
+        val urls = taskClasspath.files.map { it.toURI().toURL() }.toTypedArray()
+        val classLoader = URLClassLoader(urls)
 
-}
-tasks.shadowJar {
-    manifest {
-        attributes["Main-Class"] = application.mainClass
-        attributes["Description"] = "This is an application JAR"
-    }
-    destinationDirectory.set(file(System.getenv("appdata") + "\\Scene Builder\\Library"))
-}
-
-
-java {
-    modularity.inferModulePath.set(true)
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(25)
-        vendor = JvmVendorSpec.IBM
-        implementation = JvmImplementation.J9
-    }
-}
-tasks.register("readVersionFromClass") {
-    group = "[ivan]"
-    description = "Verifies AppInfo.APP_VERSION_FIRST_PART matches Gradle project.version"
-
-    // Ensure code is compiled first
-    dependsOn(tasks.named("compileJava"))
-
-    doLast {
-        if (project.property("debug") == "true") {
-            val classesDir = sourceSets.main.get().output.classesDirs.first()
-            val classLoader = URLClassLoader(arrayOf(classesDir.toURI().toURL()))
-
+        try {
             // Load your AppInfo class
             val appInfoClass = Class.forName("net.silver.posman.utils.AppInfo", false, classLoader)
 
@@ -90,8 +48,8 @@ tasks.register("readVersionFromClass") {
             val appBuildDate = fBuildDate.get(null) as LocalDate
             val appTitle = fTitle.get(null) as String
 
-            val gradleVersion = project.version.toString()
-
+            // 6. Get the version from the cache-safe property
+            val gradleVersion = projectVersion.get()
 
             println("========================================")
             println("Read from: $appInfoClass")
@@ -100,7 +58,6 @@ tasks.register("readVersionFromClass") {
             println("App title: $appTitle")
             println("Gradle version: $gradleVersion")
             println("========================================")
-
 
             // Version check logic
             if (gradleVersion != appVersion) {
@@ -117,35 +74,67 @@ tasks.register("readVersionFromClass") {
             } else {
                 println("✅ Versions match: $gradleVersion == $appVersion")
             }
+        } catch (e: Exception) {
+            throw GradleException("Failed to read version from class", e)
         }
     }
 }
-//
-tasks.compileJava {
-    options.isIncremental = true
-    options.isFork = true
-    options.isFailOnError = true
-    options.forkOptions.executable = "$jdkLocation\\bin\\javac.exe"
-    options.isVerbose = false
 
-    finalizedBy(tasks.named("readVersionFromClass"))
+plugins {
+    java
+    application
+    idea
+    id("org.javamodularity.moduleplugin") version "2.0.0"
+    id("org.openjfx.javafxplugin") version "0.1.0"
+    id("org.beryx.jlink") version "3.1.4-rc"
+    id("com.gradleup.shadow") version "9.2.2"
+    id("com.github.ben-manes.versions") version "0.53.0"
+    id("com.dorongold.task-tree") version "4.0.1"
+    id("com.osacky.doctor") version "0.12.0"
 }
-tasks.withType<JavaCompile> {
-    options.encoding = "UTF-8"
-//    options.compilerArgs.add("-Xlint:all")
-    options.compilerArgs.add("-Xlint:unchecked")
-    // Only for test compilation
 
+group = "net.silver"
+//[[AppInfo#APP_VERSION_FIRST_PART]]
+version = "1.0"//#[[gradleAppVersion]]
+val javaVersion = 25
+val javaFXVersion = "25.0.1"
+val javaFXModules = listOf("javafx.controls", "javafx.fxml", "javafx.graphics")
+//test frameworks
+val junitVersion = "5.14.1"
+val junitPlatformVersion = "1.14.1" // For the launcher (modular projects)
 
+//Reference to devDrive
+val devDrive = "I:\\"
+//If ramDrive is installed and configured to R:\
+val ramDrive = "R:\\"
+//workingDir
+val defaultWorkingDir = "${rootProject.name}WorkingDir\\"
+//JdkLocation = "I:\\14_JDKs\\Liberica\\bellsoft-liberica-vm-full-openjdk24+37-24.2.0+1-windows-amd64\\bellsoft-liberica-vm-full-openjdk24-24.2.0"
+val jdkLocationProvider = project.providers.gradleProperty("org.gradle.java.home")
+val mainBuildAndWorkingDrive = ramDrive
+val outputBuildDir = "$mainBuildAndWorkingDrive${rootProject.name}\\"
+val gradleOutput = "$outputBuildDir\\gradleBuild\\"
+val ideaOutput = "$outputBuildDir\\ideaBuild"
+val ideaTest = "$ideaOutput\\test"
+
+//set gradle outbut build dir
+//setBuildDir(gradleOutput)
+val directoryOutputBuildDir = file(outputBuildDir.plus(defaultWorkingDir))
+layout.buildDirectory.set(file(gradleOutput))
+
+repositories {
+    mavenCentral()
 }
-tasks.named<JavaCompile>("compileTestJava") {
+
+
+java {
     modularity.inferModulePath.set(true)
-    options.encoding = "UTF-8"
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(javaVersion)
+        vendor = JvmVendorSpec.IBM
+        implementation = JvmImplementation.J9
+    }
 }
-
-//tasks.withType<JavaCompile>().configureEach {
-//    options.isFork = true
-//}
 application {
     mainModule.set("net.silver.posman")
     mainClass.set("net.silver.posman.main.z_MainAppStart")
@@ -153,7 +142,7 @@ application {
     applicationDefaultJvmArgs = listOf(
         "--enable-native-access=javafx.graphics",
         "-Dfile.encoding=UTF-8",
-        "-Xmx128m"
+        "-Xmx2048m"
     )
 //    applicationDefaultJvmArgs = [
 //            "--add-opens=javafx.controls/javafx.scene.control.skin=com.pixelduke.fxskins"
@@ -162,13 +151,20 @@ application {
 //"--sun-misc-unsafe-memory-access=allow"
 //    ]
 }
-
 javafx {
-    version = "25.0.1"
+    version = javaFXVersion
     // Set this to the absolute path of your jmods directory = "/path/to/your/javafx-sdk-21/lib/jmods"
 //    sdk = "I:/14_JDKs/Liberica/bellsoft-jdk25+37-windows-amd64-full/jdk-25-full/jmods"
-    modules = listOf("javafx.controls", "javafx.fxml", "javafx.graphics")
+    modules = javaFXModules
     setPlatform("windows")
+}
+
+//
+
+tasks.named<JavaCompile>("compileTestJava") {
+    modularity.inferModulePath.set(true)
+    options.encoding = "UTF-8"
+    //    options.isFork = true
 }
 
 dependencies {
@@ -186,9 +182,7 @@ dependencies {
 
     // Critical for modular projects – allows Gradle to launch tests correctly
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
-
 }
-
 tasks.test {
     useJUnitPlatform()
     modularity.inferModulePath.set(true) // Run tests on module path
@@ -201,7 +195,7 @@ tasks.test {
 
 jlink {
     // Set the path to your desired JDK installation directory
-    javaHome = "$jdkLocation"
+    javaHome = jdkLocationProvider.get()
     mergedModule {
         excludeRequires("org.slf4j")
     }
@@ -228,7 +222,6 @@ jlink {
 //        installerOptions =
 //            ['--win-dir-chooser', '--win-menu', '--win-menu-group', '--win-shortcut', '--win-shortcut-prompt', '--app-version', version]
     }
-
 }
 
 tasks.run {
@@ -239,7 +232,13 @@ tasks.run {
 tasks.clean {
     dependsOn("clenaWorkingDir")
 }
-
+tasks.shadowJar {
+    manifest {
+        attributes["Main-Class"] = application.mainClass
+        attributes["Description"] = "This is an application JAR"
+    }
+    destinationDirectory.set(file(System.getenv("appdata") + "\\Scene Builder\\Library"))
+}
 idea {
     module {
         isDownloadJavadoc = true
@@ -253,40 +252,51 @@ idea {
 //own tasks
 tasks.register("ensureWorkingDir") {
     group = "[ivan]"
-    if (!file(outputBuildDir.plus(defaultWorkingDir)).exists()) {
-        mkdir(file(outputBuildDir.plus(defaultWorkingDir)))
+    doLast {
+        try {
+            if (!file(outputBuildDir.plus(defaultWorkingDir)).exists()) {
+                mkdir(file(outputBuildDir.plus(defaultWorkingDir)))
+            }
+        } catch (e: Exception) {
+            e.stackTrace
+        }
     }
 }
 tasks.register("clenaWorkingDir") {
     group = "[ivan]"
-    description = "Not  recursive for inner  dirs, just curren dir and files"
-    try {
-        // create a new file object
-        val directory = file(directoryOutputBuildDir)
+    description = "Not recursive for inner dirs, just curren dir and files"
 
-        // list all the files in an array
-        val files = directory.listFiles()
+    // Add this doLast block
+    doLast {
+        try {
+            // !! This logic now runs at EXECUTION time !!
+            val directory = file(directoryOutputBuildDir)
+            val files = directory.listFiles()
+            for (file in files.orEmpty()) {
+                println(file.toString() + " deleted.")
+                file.delete()
+            }
 
-        // delete each file from the directory
-        for (file in files.orEmpty()) {
-            println(file.toString() + " deleted.")
-            file.delete()
+            if (directory.delete()) {
+                println("Directory Deleted")
+            } else {
+                println("Directory not Found")
+            }
+        } catch (e: Exception) {
+            e.stackTrace
         }
-
-        // delete the directory
-        if (directory.delete()) {
-            println("Directory Deleted")
-        } else {
-            println("Directory not Found")
-        }
-    } catch (e: Exception) {
-        e.stackTrace
     }
 }
 tasks.register("clenaWorkingDirRecursivly") {
     group = "[ivan]"
     description = "Recursive for inner  dirs and sub dirs"
-    deleteDirectoryRecursivly(directoryOutputBuildDir)
+    doLast {
+        try {
+            deleteDirectoryRecursivly(directoryOutputBuildDir)
+        } catch (e: Exception) {
+            e.stackTrace
+        }
+    }
 }
 fun deleteDirectoryRecursivly(directory: File) {
     if (directory.isDirectory) {
@@ -338,4 +348,41 @@ tasks.register<Exec>("viewNewestDatabaseBackupFile") {
     // 1. /c : Tells cmd.exe to execute the command string and then terminate.
     // 2. The path to your batch file (e.g., located in the project root).
     args("/c", "mysql_ViewNewestDatabaseBackup.bat")
+}
+// This replaces your old 'readVersionFromClass' task
+tasks.register<ReadVersionTask>("readVersionFromClass") {
+    group = "[ivan]"
+    description = "Verifies AppInfo.APP_VERSION_FIRST_PART matches Gradle project.version"
+
+    // Ensure code is compiled first
+    dependsOn(tasks.named("compileJava"))
+
+    // --- This is the new, cache-safe part ---
+    // It "captures" project state at CONFIGURATION time
+
+    // 1. Wire the project's version into the task's property
+    projectVersion.set(project.version.toString())
+
+    // 2. Wire the 'debug' property in a cache-safe way
+    debugEnabled.set(
+        project.providers.gradleProperty("debug").map { it.toBoolean() }.orElse(false)
+    )
+
+    // 3. Wire the compiled classes and dependencies into the task's classpath
+    taskClasspath.from(sourceSets.main.get().output, sourceSets.main.get().runtimeClasspath)
+}
+tasks.compileJava {
+    options.isIncremental = true
+    options.isFork = true
+    options.isFailOnError = true
+    options.forkOptions.executable = jdkLocationProvider.map { it ->
+        // 'it' is the JDK root path. Build the full path to javac.exe
+        "$it\\bin\\javac.exe"
+    }.get() // <-- FIXED
+    options.isVerbose = false
+    options.release.set(javaVersion)
+    options.encoding = "UTF-8"
+//    options.compilerArgs.add("-Xlint:all")
+    options.compilerArgs.add("-Xlint:unchecked")
+    finalizedBy(tasks.named("readVersionFromClass"))
 }
