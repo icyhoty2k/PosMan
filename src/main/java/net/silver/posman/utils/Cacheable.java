@@ -52,7 +52,7 @@ public interface Cacheable {
     return false;
   }
 
-  default <T extends Cacheable> Cacheable performLoad(T newInstance) {
+  default <T extends Cacheable> Cacheable performCustomCacheableLoad(T newInstance) {
 
     return newInstance;
   }

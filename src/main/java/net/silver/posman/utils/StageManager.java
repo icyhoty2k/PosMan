@@ -145,7 +145,7 @@ public class StageManager {
     }
     T newInstance = Cacheable.createNewInstance(cacheableClass);
     if (newInstance.isCustomCacheableLoadingRequired()) {
-      FXML_CACHE.put(cacheableClass, newInstance.performLoad(newInstance));
+      FXML_CACHE.put(cacheableClass, newInstance.performCustomCacheableLoad(newInstance));
       return checkCache(cacheableClass);
     }
 
