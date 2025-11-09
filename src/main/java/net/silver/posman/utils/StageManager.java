@@ -40,7 +40,7 @@ public class StageManager {
   }
 
   public static <T extends Cacheable> Cacheable loadMainStage() {
-    return loadStage(C_PosMan.class, mainStage, loginStage, AppInfo.APP_TITLE_START, true,
+    return customLoading(C_PosMan.class, mainStage, mainScene, loginStage, AppInfo.APP_TITLE_START, true,
         (controller, stage) -> {
           // Dependency injection: post-load customization
           controller.setMainApp_AfterStageButtons(getView(C_PosMan_AfterMainButtons.class));
@@ -52,7 +52,7 @@ public class StageManager {
   }
 
   public static Cacheable loadLoginStage() {
-    return loadStage(C_Login.class, loginStage, mainStage, AppInfo.APP_TITLE, false,
+    return customLoading(C_Login.class, loginStage, loginScene, mainStage, AppInfo.APP_TITLE, false,
         (controller, stage) -> {
           ShortcutKeys.applyLoginScreenShortcuts(stage, controller);
           loginScene = stage.getScene();
@@ -60,11 +60,11 @@ public class StageManager {
   }
 
   //unified stage loader
-  private static <T extends Cacheable> Cacheable loadStage(
-      Class<T> controllerClass, Stage stageToShow, Stage stageToClose, String title, boolean centerOnScreen, BiConsumer<T, Stage> afterLoad) {
+  private static <T extends Cacheable> Cacheable customLoading(
+      Class<T> controllerClass, Stage stageToShow, Scene stageScene, Stage stageToClose, String title, boolean centerOnScreen, BiConsumer<T, Stage> afterLoad) {
     // If already cached, just show the stage
 
-    if (checkCache(controllerClass) != null) {
+    if (stageScene != null) {
       if (stageToClose != null && stageToClose.isShowing()) {
         stageToClose.close();
       }
@@ -135,6 +135,8 @@ public class StageManager {
 
   //Cache control
   public static <T extends Cacheable> T getView(Class<T> cacheableClass, boolean forceNew) {
+    //delegate to
+
     // 1. Check Cache Safely
     // We call checkCache once; it handles the lookup and safe casting.
     T cachedInstance = checkCache(cacheableClass);
@@ -143,34 +145,34 @@ public class StageManager {
     }
     T newInstance = Cacheable.createNewInstance(cacheableClass);
     if (newInstance.isCustomCacheableLoadingRequired()) {
-      FXML_CACHE.put(cacheableClass, newInstance.performLoad(cachedInstance));
+      FXML_CACHE.put(cacheableClass, newInstance.performLoad(newInstance));
       return checkCache(cacheableClass);
     }
-    else {
-      // 2. Setup Loader and Create Instance
-      FXMLLoader fxmlLoader = new FXMLLoader();
+
+    // 2. Setup Loader and Create Instance
+    FXMLLoader fxmlLoader = new FXMLLoader();
 
 
-      try {
-        // 3. Configure Loader
-        URL location = Cacheable.getFxmlLocation(cacheableClass);
-        if (location == null) {
-          // Provides a clearer error if getFxmlLocation returns null
-          throw new RuntimeException("FXML resource not found for: " + cacheableClass.getSimpleName());
-        }
-        fxmlLoader.setLocation(location);
-        // Tells the loader which controller instance to inject into
-
-        fxmlLoader.setController(newInstance);
-        fxmlLoader.setRoot(newInstance);
-        // 4. Load FXML (This triggers component creation and @FXML injection)
-        fxmlLoader.load();
-        FXML_CACHE.put(cacheableClass, newInstance);
-      } catch (IOException e) {
-        throw new RuntimeException(e);
+    try {
+      // 3. Configure Loader
+      URL location = Cacheable.getFxmlLocation(cacheableClass);
+      if (location == null) {
+        // Provides a clearer error if getFxmlLocation returns null
+        throw new RuntimeException("FXML resource not found for: " + cacheableClass.getSimpleName());
       }
-      return newInstance;
+      fxmlLoader.setLocation(location);
+      // Tells the loader which controller instance to inject into
+
+      fxmlLoader.setController(newInstance);
+      fxmlLoader.setRoot(newInstance);
+      // 4. Load FXML (This triggers component creation and @FXML injection)
+      fxmlLoader.load();
+      FXML_CACHE.put(cacheableClass, newInstance);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
     }
+    return newInstance;
+
   }
 
   /**
