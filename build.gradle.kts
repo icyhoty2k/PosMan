@@ -28,7 +28,7 @@ abstract class ReadVersionTask : DefaultTask() {
     fun verifyVersion() {
         // 5. Only run if the debug property was set to true
         if (!debugEnabled.getOrElse(false)) {
-            println("Skipping version check (debug property not 'true')")
+//            println("Skipping version check (debug property not 'true')")
             return
         }
 
@@ -169,7 +169,7 @@ val myJvmArgs = listOf(
     "-Xms128m",                     // Minimal initial heap for fast startup
     "-Xmx1024m",                    // Max heap suitable for medium-sized app
     "-Xss2m",                       // Thread stack size per thread
-
+    "-XX:+UnlockExperimentalVMOptions", // Required for low-level optimizations
     // -------------------------------
     // JavaFX / Application tuning
     // -------------------------------
@@ -191,7 +191,7 @@ val myJvmArgs = listOf(
     "-XX:+TieredCompilation",        // Enable tiered JIT
     "-XX:TieredStopAtLevel=1",       // Minimal compilation for ultra-fast startup
 //    "-XX:CompileThreshold=1",        // Compile critical methods immediately
-    "-XX:+UseFastAccessorMethods",   // Optimize getter/setter methods
+//    "-XX:+UseFastAccessorMethods",   // Optimize getter/setter methods
     "-XX:CICompilerCount=2",         // Reduced compiler threads for faster startup
 
     // -------------------------------
@@ -200,8 +200,8 @@ val myJvmArgs = listOf(
     "-XX:+UseCompressedOops",        // Standard memory optimization
     "-XX:+UseStringDeduplication",   // Reduce memory footprint
     "-XX:+AlwaysPreTouch",           // Touch memory early to reduce page faults
-    "-XX:NmethodEntryAlignment=64",  // CPU cache alignment
-    "-XX:+UnlockExperimentalVMOptions", // Required for low-level optimizations
+    "-XX:CodeEntryAlignment=64",  // CPU cache alignment
+
     "--illegal-access=deny"          // Security & compatibility
 )
 /////////////////////////////////////////////////////////////////////////////////////////////////////
