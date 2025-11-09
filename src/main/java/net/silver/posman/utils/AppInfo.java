@@ -12,6 +12,11 @@ public final class AppInfo {
    * link:[[gradleAppVersion]] */
 
   // + <======================================== UPDATE ONLY THESE  FIELDS ========================================
+  //this is the version that gradle version need to be the same
+  // its Major.minor.buildDate(fixes only)
+  //Major - breaking changes
+  //Minor - gui enhancements and additions/removals and new functionality without braking changes
+  //buildDate - only fixes and bug removal
   private static final String APP_VERSION_FIRST_PART = "1.0";
   public static final String APP_TITLE_START = "POS";
   public static final String APP_ICON = "appIcon2.png";

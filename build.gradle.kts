@@ -1,4 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar.Companion.shadowJar
 import java.net.URLClassLoader
 import java.time.LocalDate
 
@@ -144,19 +143,37 @@ java {
     modularity.inferModulePath.set(true)
     toolchain {
         languageVersion = JavaLanguageVersion.of(javaVersion)
-        vendor = JvmVendorSpec.IBM
-        implementation = JvmImplementation.J9
+        vendor.set(JvmVendorSpec.ADOPTIUM) // Eclipse Temurin
+        implementation.set(JvmImplementation.VENDOR_SPECIFIC)
     }
 }
+val myJvmArgs = listOf(
+    "-Djavafx.animation.fullspeed=true",   // Makes JavaFX timeline updates more responsive
+    "-XX:CompileThreshold=1",            // Force almost immediate JIT compilation for critical methods
+    "--enable-native-access=javafx.graphics", // Required for JavaFX + JDK 25
+    "-Xmx1024m",                               // Max heap (adjust if needed)
+    "-Xss2m",                                  // Stack size per thread
+    "-XX:+UseCompressedOops",                  // Standard optimization
+    "-XX:+UseStringDeduplication",             // Reduce memory footprint
+    "-XX:+UseG1GC",                            // G1GC for predictable performance
+    "-XX:ParallelGCThreads=2",                 // Aggressive, minimal GC threads GC for quick startup
+    "-XX:ConcGCThreads=2",                      // Concurrency threads for G1
+    // Compiler Tuning (Fast Startup)
+    "-XX:+TieredCompilation",                  // Enable tiered JIT
+    "-XX:TieredStopAtLevel=1",                 // Minimal compilation for faster startup
+    "-XX:+UseFastAccessorMethods",             // Optimizes getter/setter bytecode
+    // Low-Level Optimization
+    "-XX:+AlwaysPreTouch",                     // Touch memory early to reduce page faults
+    "-XX:NmethodEntryAlignment=64",            // CPU cache alignment
+    "--illegal-access=deny",                   // Security & compatibility
+    "-XX:+UnlockExperimentalVMOptions"        // Needed for some low-level optimizations
+
+)
 application {
     mainModule.set("net.silver.posman")
     mainClass.set("net.silver.posman.main.z_MainAppStart")
 //    applicationName.set("POS")
-    applicationDefaultJvmArgs = listOf(
-        "--enable-native-access=javafx.graphics",
-        "-Dfile.encoding=UTF-8",
-        "-Xmx2048m"
-    )
+    applicationDefaultJvmArgs = myJvmArgs
 }
 javafx {
     version = javaFXVersion
@@ -197,19 +214,75 @@ tasks.test {
 
 jlink {
     // Set the path to your desired JDK installation directory
-    javaHome = jdkLocationProvider.get() // Correctly uses the provider's value
+    javaHome = jdkLocationProvider.get()
+
+    // --- 1. Module Exclusions (Optimized for Size & Startup) ---
     mergedModule {
-        excludeRequires("org.slf4j")
+        excludeRequires(
+            "org.slf4j",
+            "javafx.media",
+            "javafx.web",
+            "javafx.swing"
+        )
     }
+
     imageZip.set(layout.buildDirectory.file("/distributions/${rootProject.name}-v$version-${javafx.platform.classifier}.zip"))
-    options.set(listOf("--strip-debug", "--compress", "zip-9", "--no-header-files", "--no-man-pages"))
+
+    // --- 2. JLink Options (Maximizing Stripping and Optimization) ---
+    options.set(
+        listOf(
+            "--strip-debug",
+//            "--compress", "0", // Fast compression level comment to use 0
+            "--no-header-files",
+            "--no-man-pages",
+            "--strip-java-debug-attributes",
+            "--optimize",
+            "--disable-service-loader",
+            "--bind-services",
+            "--ignore-signing-information"
+        )
+    )
+
+
     launcher {
         name = "${rootProject.name}_v$version"
     }
+
+    // --- 3. JPackage Configuration (Metadata and Max Speed JVM Args) ---
     jpackage {
+        // Required Installer Metadata
+        installerType = "msi"
+        installerName = "${rootProject.name}-v$version-setup"
         icon = "src/main/resources/net/silver/posman/icons/appIcons/appIcon.ico"
+        outputDir = "$outputBuildDir/Jpackage" // Output directory
+
+        // **Required Metadata Properties (Working Syntax)**
+        vendor = "SilverSolutions"
+        appVersion = project.version.toString() // Safe conversion
+        description = "POS Management Application"
+//        copyright = "© 2025 SilverSolutions"
+
+        // **Required Path and Resources (Working Syntax)**
+
+        // Installation path inside the program files directory
+        resourceDir = file("src/main/resources/config") // Bundled configuration files
+
+        // JVM args - Maximally Tuned for Startup Speed
+        jvmArgs = myJvmArgs
+
+        // Installer Options (Windows specific flags)
+        installerOptions = listOf(
+            "--win-menu",
+            "--win-dir-chooser",
+            "--win-per-user-install",
+            "--win-shortcut",
+            "--install-dir", rootProject.name,// Installation path inside the program files directory
+            "--win-upgrade-uuid", "783f982d-0a12-4e00-84c2-9e9f65c697c1"
+        )
     }
 }
+
+
 val runWorkingDir = "$outputBuildDir$defaultWorkingDir"
 val runClasspath = sourceSets.main.get().runtimeClasspath
 val runMainModule = application.mainModule.get()
