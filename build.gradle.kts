@@ -158,7 +158,7 @@ java {
     modularity.inferModulePath.set(true)
     toolchain {
         languageVersion = JavaLanguageVersion.of(javaVersion)
-        vendor.set(JvmVendorSpec.ADOPTIUM) // Eclipse Temurin
+        vendor.set(JvmVendorSpec.MICROSOFT) // Eclipse Temurin
         implementation.set(JvmImplementation.VENDOR_SPECIFIC)
     }
 }
@@ -169,7 +169,7 @@ val myJvmArgs = listOf(
     "-Xms128m",                     // Minimal initial heap for fast startup
     "-Xmx1024m",                    // Max heap suitable for medium-sized app
     "-Xss2m",                       // Thread stack size per thread
-    "-XX:+UnlockExperimentalVMOptions", // Required for low-level optimizations
+
     // -------------------------------
     // JavaFX / Application tuning
     // -------------------------------
@@ -199,10 +199,11 @@ val myJvmArgs = listOf(
     // -------------------------------
     "-XX:+UseCompressedOops",        // Standard memory optimization
     "-XX:+UseStringDeduplication",   // Reduce memory footprint
+    "-XX:+UnlockExperimentalVMOptions", // Required for low-level optimizations
     "-XX:+AlwaysPreTouch",           // Touch memory early to reduce page faults
     "-XX:CodeEntryAlignment=64",  // CPU cache alignment
 
-//    "--illegal-access=deny"          // Security & compatibility
+//    "--illegal-access=deny"          // Security & compatibility java8-16
 )
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 application {
@@ -215,11 +216,7 @@ javafx {
     version = javaFXVersion
     modules = javaFXModules
     setPlatform("windows")
-    modules = listOf(
-        "javafx.controls",
-        "javafx.fxml",
-        "javafx.graphics"
-    )
+
 }
 
 
@@ -252,6 +249,7 @@ jlink {
             "javafx.web",
             "javafx.swing"
         )
+
     }
     // --- 2. JLink Options (Maximizing Stripping and Optimization) ---
     options.set(
@@ -261,8 +259,8 @@ jlink {
             "--no-header-files",
             "--no-man-pages",
             "--strip-java-debug-attributes",
-            "--optimize",
-            "--disable-service-loader",
+//            "--optimize",
+//            "--disable-service-loader",
             "--bind-services",
             "--ignore-signing-information"
         )
@@ -278,8 +276,9 @@ jlink {
         // Required Installer Metadata
         installerType = "msi"
         installerName = "${rootProject.name}-v$version-setup"
-        icon = "src/main/resources/net/silver/posman/icons/appIcons/appIcon.ico"
-        outputDir = "$outputBuildDir/Jpackage" // Output directory
+        icon = project.file("src/main/resources/net/silver/posman/icons/appIcons/appIcon.ico").toString()
+        outputDir =
+            project.layout.buildDirectory.dir("Jpackage").map { it.asFile.absolutePath }.get() // Output directory
 
         // **Required Metadata Properties (Working Syntax)**
         vendor = "SilverSolutions"
@@ -290,7 +289,7 @@ jlink {
         // **Required Path and Resources (Working Syntax)**
 
         // Installation path inside the program files directory
-        resourceDir = file("src/main/resources/config") // Bundled configuration files
+//        resourceDir = project.file("src/main/resources/config") // Bundled configuration files
 
         // JVM args - Maximally Tuned for Startup Speed
         jvmArgs = myJvmArgs
