@@ -39,8 +39,8 @@ public class StageManager {
   private StageManager() {
   }
 
-  public static void loadMainStage() {
-    loadStage(C_PosMan.class, mainStage, loginStage, AppInfo.APP_TITLE_START, true,
+  public static <T extends Cacheable> Cacheable loadMainStage() {
+    return loadStage(C_PosMan.class, mainStage, loginStage, AppInfo.APP_TITLE_START, true,
         (controller, stage) -> {
           // Dependency injection: post-load customization
           controller.setMainApp_AfterStageButtons(getView(C_PosMan_AfterMainButtons.class));
@@ -51,8 +51,8 @@ public class StageManager {
 
   }
 
-  public static void loadLoginStage() {
-    loadStage(C_Login.class, loginStage, mainStage, AppInfo.APP_TITLE, false,
+  public static Cacheable loadLoginStage() {
+    return loadStage(C_Login.class, loginStage, mainStage, AppInfo.APP_TITLE, false,
         (controller, stage) -> {
           ShortcutKeys.applyLoginScreenShortcuts(stage, controller);
           loginScene = stage.getScene();
@@ -60,15 +60,16 @@ public class StageManager {
   }
 
   //unified stage loader
-  private static <T extends Cacheable> void loadStage(
+  private static <T extends Cacheable> Cacheable loadStage(
       Class<T> controllerClass, Stage stageToShow, Stage stageToClose, String title, boolean centerOnScreen, BiConsumer<T, Stage> afterLoad) {
     // If already cached, just show the stage
+
     if (checkCache(controllerClass) != null) {
       if (stageToClose != null && stageToClose.isShowing()) {
         stageToClose.close();
       }
       stageToShow.show();// Scene is already set on first load
-      return;
+      return FXML_CACHE.get(controllerClass);
     }
     FXMLLoader loader = new FXMLLoader();
     URL location = Cacheable.getFxmlLocation(controllerClass);
@@ -81,7 +82,7 @@ public class StageManager {
                                      + ". Expected: " + expectedResource);
     }
     loader.setLocation(location);
-
+    T controller;
     try {
       if (stageToClose != null && stageToClose.isShowing()) {
         stageToClose.close();
@@ -90,15 +91,13 @@ public class StageManager {
       // Load root & controller safely (support both fx:root and @FXML root cases)
       Parent root = loader.load();
       // Perform a safe, checked cast using the Class object
-      T controller = controllerClass.cast(loader.getController());
+      controller = controllerClass.cast(loader.getController());
 
       if (controller == null) {
         throw new RuntimeException("No controller found for " + controllerClass.getSimpleName()
                                        + ". Ensure the FXML has fx:controller or uses fx:root correctly.");
       }
 
-      // Cache controller
-      FXML_CACHE.put(controllerClass, controller);
 
       // Configure stage
       if (stageToShow.getIcons().isEmpty()) {
@@ -127,6 +126,7 @@ public class StageManager {
     } catch (IOException e) {
       throw new RuntimeException("Failed to load FXML resource for " + controllerClass.getSimpleName(), e);
     }
+    return controller;
   }
 
   public static <T extends Cacheable> T getView(Class<T> cacheableClass) {
@@ -138,33 +138,39 @@ public class StageManager {
     // 1. Check Cache Safely
     // We call checkCache once; it handles the lookup and safe casting.
     T cachedInstance = checkCache(cacheableClass);
-    if (cachedInstance != null && !forceNew) {
+    if (cachedInstance != null && !forceNew && !cachedInstance.isCustomCacheableLoadingRequired()) {
       return cachedInstance;
     }
-
-    // 2. Setup Loader and Create Instance
-    FXMLLoader fxmlLoader = new FXMLLoader();
-
     T newInstance = Cacheable.createNewInstance(cacheableClass);
-    try {
-      // 3. Configure Loader
-      URL location = Cacheable.getFxmlLocation(cacheableClass);
-      if (location == null) {
-        // Provides a clearer error if getFxmlLocation returns null
-        throw new RuntimeException("FXML resource not found for: " + cacheableClass.getSimpleName());
-      }
-      fxmlLoader.setLocation(location);
-      // Tells the loader which controller instance to inject into
-
-      fxmlLoader.setController(newInstance);
-      fxmlLoader.setRoot(newInstance);
-      // 4. Load FXML (This triggers component creation and @FXML injection)
-      fxmlLoader.load();
-      FXML_CACHE.put(cacheableClass, newInstance);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
+    if (newInstance.isCustomCacheableLoadingRequired()) {
+      FXML_CACHE.put(cacheableClass, newInstance.performLoad(cachedInstance));
+      return checkCache(cacheableClass);
     }
-    return newInstance;
+    else {
+      // 2. Setup Loader and Create Instance
+      FXMLLoader fxmlLoader = new FXMLLoader();
+
+
+      try {
+        // 3. Configure Loader
+        URL location = Cacheable.getFxmlLocation(cacheableClass);
+        if (location == null) {
+          // Provides a clearer error if getFxmlLocation returns null
+          throw new RuntimeException("FXML resource not found for: " + cacheableClass.getSimpleName());
+        }
+        fxmlLoader.setLocation(location);
+        // Tells the loader which controller instance to inject into
+
+        fxmlLoader.setController(newInstance);
+        fxmlLoader.setRoot(newInstance);
+        // 4. Load FXML (This triggers component creation and @FXML injection)
+        fxmlLoader.load();
+        FXML_CACHE.put(cacheableClass, newInstance);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      }
+      return newInstance;
+    }
   }
 
   /**

@@ -8,7 +8,9 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import net.silver.posman.login.C_Login;
 import net.silver.posman.utils.Cacheable;
+import net.silver.posman.utils.Log;
 import net.silver.posman.utils.StageManager;
 
 public class C_PosMan implements Cacheable {
@@ -56,8 +58,17 @@ public class C_PosMan implements Cacheable {
   }
 
   @FXML public void btnUserNameOnAction(ActionEvent actionEvent) {
-    StageManager.loadLoginStage();
+    StageManager.getView(C_Login.class);
   }
 
 
+  @Override public boolean isCustomCacheableLoadingRequired() {
+    Log.trace("C_posMan YES custom loading");
+    return true;
+  }
+
+  @Override public <T extends Cacheable> Cacheable performLoad(T newInstance) {
+    return StageManager.loadMainStage();
+
+  }
 }

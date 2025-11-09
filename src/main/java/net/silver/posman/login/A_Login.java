@@ -7,6 +7,6 @@ import net.silver.posman.utils.StageManager;
 
 public class A_Login extends Application {
   @Override public void start(Stage primaryStage) throws Exception {
-    StageManager.loadLoginStage();
+    StageManager.getView(C_Login.class);
   }
 }

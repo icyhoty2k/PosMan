@@ -46,4 +46,16 @@ public interface Cacheable {
     }
   }
 
+  //if you need overwrite this to load as stage or to provide custom load logic
+  default boolean isCustomCacheableLoadingRequired() {
+    Log.trace("no no custom loading");
+    return false;
+  }
+
+  default <T extends Cacheable> Cacheable performLoad(T newInstance) {
+
+    return newInstance;
+  }
+
+
 }

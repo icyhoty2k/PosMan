@@ -5,7 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import net.silver.posman.main.C_PosMan;
 import net.silver.posman.utils.Cacheable;
+import net.silver.posman.utils.Log;
 import net.silver.posman.utils.StageManager;
 
 public class C_Login implements Cacheable {
@@ -33,8 +35,9 @@ public class C_Login implements Cacheable {
     }
   }
 
+
   @FXML public void btnLoginOnAction(ActionEvent actionEvent) {
-    StageManager.loadMainStage();
+    StageManager.getView(C_PosMan.class);
   }
 
   private void initPasswordField() {
@@ -52,5 +55,14 @@ public class C_Login implements Cacheable {
     });
   }
 
+  @Override public boolean isCustomCacheableLoadingRequired() {
+    Log.trace("C_Login YES custom loading");
+    return true;
+  }
 
+  @Override public <T extends Cacheable> Cacheable performLoad(T newInstance) {
+
+    return StageManager.loadLoginStage();
+
+  }
 }
