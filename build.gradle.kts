@@ -91,7 +91,7 @@ plugins {
     idea
     id("org.javamodularity.moduleplugin") version "2.0.0"
     id("org.openjfx.javafxplugin") version "0.1.0"
-    id("org.beryx.jlink") version "3.1.4-rc"
+    id("org.beryx.jlink") version "3.1.3"
     id("com.gradleup.shadow") version "9.2.2"
     id("com.github.ben-manes.versions") version "0.53.0"
     id("com.dorongold.task-tree") version "4.0.1"
@@ -162,7 +162,16 @@ java {
         implementation.set(JvmImplementation.VENDOR_SPECIFIC)
     }
 }
+val cdsArchiveName = "classes.jsa"
 val myJvmArgs = listOf(
+    // -------------------------------
+    // Startup Optimization (AppCDS)
+    // -------------------------------
+    // Inject the AppCDS file path. $APPDIR is a placeholder used by jpackage/launchers.
+    // NOTE: This assumes the archive file is manually copied to 'runtime/lib/'
+    // Using standard classes.jsa
+
+    "-XX:SharedArchiveFile=\$APPDIR/lib/$cdsArchiveName",
     // -------------------------------
     // Memory / Heap
     // -------------------------------
@@ -251,7 +260,7 @@ jlink {
         )
 
     }
-    // --- 2. JLink Options (Maximizing Stripping and Optimization) ---
+    // --- 2. JLink Options (Maximizing Stripping, Optimization, and CDS) ---
     options.set(
         listOf(
             "--strip-debug",
@@ -262,7 +271,10 @@ jlink {
 //            "--optimize",
 //            "--disable-service-loader",
             "--bind-services",
-            "--ignore-signing-information"
+            "--ignore-signing-information",
+            // FIX: Removed the deprecated/removed '--archive-data' flag.
+            // When using --generate-cds-archive, the archive is named 'classes.jsa' by default.
+            "--generate-cds-archive"
         )
     )
 
