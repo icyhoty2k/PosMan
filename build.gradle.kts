@@ -137,55 +137,6 @@ layout.buildDirectory.set(file(gradleOutput))
 repositories {
     mavenCentral()
 }
-
-
-java {
-    modularity.inferModulePath.set(true)
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(javaVersion)
-        vendor.set(JvmVendorSpec.ADOPTIUM) // Eclipse Temurin
-        implementation.set(JvmImplementation.VENDOR_SPECIFIC)
-    }
-}
-val myJvmArgs = listOf(
-    "-Djavafx.animation.fullspeed=true",   // Makes JavaFX timeline updates more responsive
-    "-XX:CompileThreshold=1",            // Force almost immediate JIT compilation for critical methods
-    "--enable-native-access=javafx.graphics", // Required for JavaFX + JDK 25
-    "-Xmx1024m",                               // Max heap (adjust if needed)
-    "-Xss2m",                                  // Stack size per thread
-    "-XX:+UseCompressedOops",                  // Standard optimization
-    "-XX:+UseStringDeduplication",             // Reduce memory footprint
-    "-XX:+UseG1GC",                            // G1GC for predictable performance
-    "-XX:ParallelGCThreads=2",                 // Aggressive, minimal GC threads GC for quick startup
-    "-XX:ConcGCThreads=2",                      // Concurrency threads for G1
-    // Compiler Tuning (Fast Startup)
-    "-XX:+TieredCompilation",                  // Enable tiered JIT
-    "-XX:TieredStopAtLevel=1",                 // Minimal compilation for faster startup
-    "-XX:+UseFastAccessorMethods",             // Optimizes getter/setter bytecode
-    // Low-Level Optimization
-    "-XX:+AlwaysPreTouch",                     // Touch memory early to reduce page faults
-    "-XX:NmethodEntryAlignment=64",            // CPU cache alignment
-    "--illegal-access=deny",                   // Security & compatibility
-    "-XX:+UnlockExperimentalVMOptions"        // Needed for some low-level optimizations
-
-)
-application {
-    mainModule.set("net.silver.posman")
-    mainClass.set("net.silver.posman.main.z_MainAppStart")
-//    applicationName.set("POS")
-    applicationDefaultJvmArgs = myJvmArgs
-}
-javafx {
-    version = javaFXVersion
-    modules = javaFXModules
-    setPlatform("windows")
-}
-
-tasks.named<JavaCompile>("compileTestJava") {
-    modularity.inferModulePath.set(true)
-    options.encoding = "UTF-8"
-}
-
 dependencies {
     // SQLite, MySQL, HikariCP, SLF4J
     implementation("org.xerial:sqlite-jdbc:3.50.3.0")
@@ -202,6 +153,82 @@ dependencies {
     // Critical for modular projects – allows Gradle to launch tests correctly
     testRuntimeOnly("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
 }
+
+java {
+    modularity.inferModulePath.set(true)
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(javaVersion)
+        vendor.set(JvmVendorSpec.ADOPTIUM) // Eclipse Temurin
+        implementation.set(JvmImplementation.VENDOR_SPECIFIC)
+    }
+}
+val myJvmArgs = listOf(
+    // -------------------------------
+    // Memory / Heap
+    // -------------------------------
+    "-Xms128m",                     // Minimal initial heap for fast startup
+    "-Xmx1024m",                    // Max heap suitable for medium-sized app
+    "-Xss2m",                       // Thread stack size per thread
+
+    // -------------------------------
+    // JavaFX / Application tuning
+    // -------------------------------
+    "-Djavafx.animation.fullspeed=true",  // JavaFX animations run at full speed
+    "--enable-native-access=javafx.graphics", // Required for JavaFX + JDK 25
+
+    // -------------------------------
+    // Garbage Collection (fast UI response)
+    // -------------------------------
+    "-XX:+UseG1GC",                  // G1GC for predictable pause times
+    "-XX:MaxGCPauseMillis=20",       // Aggressive, minimal GC pause
+    "-XX:InitiatingHeapOccupancyPercent=50", // Start concurrent GC earlier
+    "-XX:ParallelGCThreads=2",       // Minimal GC threads for fast startup
+    "-XX:ConcGCThreads=2",           // Concurrency threads for G1GC
+
+    // -------------------------------
+    // JIT / Compiler tuning (fast startup)
+    // -------------------------------
+    "-XX:+TieredCompilation",        // Enable tiered JIT
+    "-XX:TieredStopAtLevel=1",       // Minimal compilation for ultra-fast startup
+//    "-XX:CompileThreshold=1",        // Compile critical methods immediately
+    "-XX:+UseFastAccessorMethods",   // Optimize getter/setter methods
+    "-XX:CICompilerCount=2",         // Reduced compiler threads for faster startup
+
+    // -------------------------------
+    // Low-level / Miscellaneous optimizations
+    // -------------------------------
+    "-XX:+UseCompressedOops",        // Standard memory optimization
+    "-XX:+UseStringDeduplication",   // Reduce memory footprint
+    "-XX:+AlwaysPreTouch",           // Touch memory early to reduce page faults
+    "-XX:NmethodEntryAlignment=64",  // CPU cache alignment
+    "-XX:+UnlockExperimentalVMOptions", // Required for low-level optimizations
+    "--illegal-access=deny"          // Security & compatibility
+)
+/////////////////////////////////////////////////////////////////////////////////////////////////////
+application {
+    mainModule.set("net.silver.posman")
+    mainClass.set("net.silver.posman.main.z_MainAppStart")
+//    applicationName.set("POS")
+    applicationDefaultJvmArgs = myJvmArgs
+}
+javafx {
+    version = javaFXVersion
+    modules = javaFXModules
+    setPlatform("windows")
+    modules = listOf(
+        "javafx.controls",
+        "javafx.fxml",
+        "javafx.graphics"
+    )
+}
+
+
+tasks.named<JavaCompile>("compileTestJava") {
+    modularity.inferModulePath.set(true)
+    options.encoding = "UTF-8"
+}
+
+
 tasks.test {
     useJUnitPlatform()
     modularity.inferModulePath.set(true) // Run tests on module path
@@ -215,6 +242,7 @@ tasks.test {
 jlink {
     // Set the path to your desired JDK installation directory
     javaHome = jdkLocationProvider.get()
+    imageZip.set(layout.buildDirectory.file("/distributions/${rootProject.name}-v$version-${javafx.platform.classifier}.zip"))
 
     // --- 1. Module Exclusions (Optimized for Size & Startup) ---
     mergedModule {
@@ -225,9 +253,6 @@ jlink {
             "javafx.swing"
         )
     }
-
-    imageZip.set(layout.buildDirectory.file("/distributions/${rootProject.name}-v$version-${javafx.platform.classifier}.zip"))
-
     // --- 2. JLink Options (Maximizing Stripping and Optimization) ---
     options.set(
         listOf(
