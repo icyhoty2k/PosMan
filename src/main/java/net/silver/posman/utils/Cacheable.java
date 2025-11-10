@@ -36,6 +36,7 @@ public interface Cacheable {
    */
   static <T extends Cacheable> T createNewInstance(Class<T> clazz) {
     try {
+
       // Use T as the return type for better type safety
       return clazz.getDeclaredConstructor().newInstance();
     } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
@@ -46,13 +47,14 @@ public interface Cacheable {
     }
   }
 
+
   //if you need overwrite this to load as stage or to provide custom load logic
   default boolean isCustomCacheableLoadingRequired() {
     Log.trace("no no custom loading");
     return false;
   }
 
-  default <T extends Cacheable> Cacheable performCustomCacheableLoad(T newInstance) {
+  default Cacheable performCustomCacheableLoad(Cacheable newInstance) {
 
     return newInstance;
   }

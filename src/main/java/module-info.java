@@ -41,6 +41,7 @@ open module net.silver.posman {
   exports net.silver.posman.utils;
   exports net.silver.posman.db;
   exports net.silver.posman.db.nastroiki;
+  exports net.silver.posman.login;
 
   // Note: No need to export 'login', 'groups', 'settings' if they only contain controllers/views.
 }

@@ -39,7 +39,7 @@ public class StageManager {
   private StageManager() {
   }
 
-  public static <T extends Cacheable> Cacheable loadMainStage() {
+  public static C_PosMan loadMainStage() {
     return customLoading(C_PosMan.class, mainStage, mainScene, loginStage, AppInfo.APP_TITLE_START, true,
         (controller, stage) -> {
           // Dependency injection: post-load customization
@@ -51,7 +51,7 @@ public class StageManager {
 
   }
 
-  public static Cacheable loadLoginStage() {
+  public static C_Login loadLoginStage() {
     return customLoading(C_Login.class, loginStage, loginScene, mainStage, AppInfo.APP_TITLE, false,
         (controller, stage) -> {
           ShortcutKeys.applyLoginScreenShortcuts(stage, controller);
@@ -60,7 +60,7 @@ public class StageManager {
   }
 
   //unified stage loader
-  private static <T extends Cacheable> Cacheable customLoading(
+  private static <T extends Cacheable> T customLoading(
       Class<T> controllerClass, Stage stageToShow, Scene stageScene, Stage stageToClose, String title, boolean centerOnScreen, BiConsumer<T, Stage> afterLoad) {
     // If already cached, just show the stage
 
@@ -69,7 +69,7 @@ public class StageManager {
         stageToClose.close();
       }
       stageToShow.show();// Scene is already set on first load
-      return FXML_CACHE.get(controllerClass);
+      return controllerClass.cast(FXML_CACHE.get(controllerClass));
     }
     FXMLLoader loader = new FXMLLoader();
     URL location = Cacheable.getFxmlLocation(controllerClass);
@@ -98,7 +98,7 @@ public class StageManager {
                                        + ". Ensure the FXML has fx:controller or uses fx:root correctly.");
       }
 
-
+      FXML_CACHE.put(controllerClass, controller);
       // Configure stage
       if (stageToShow.getIcons().isEmpty()) {
         stageToShow.getIcons().add(APP_ICON_IMAGE);
@@ -145,8 +145,8 @@ public class StageManager {
     }
     T newInstance = Cacheable.createNewInstance(cacheableClass);
     if (newInstance.isCustomCacheableLoadingRequired()) {
-      FXML_CACHE.put(cacheableClass, newInstance.performCustomCacheableLoad(newInstance));
-      return checkCache(cacheableClass);
+
+      return cacheableClass.cast(newInstance.performCustomCacheableLoad(newInstance));
     }
 
     // 2. Setup Loader and Create Instance

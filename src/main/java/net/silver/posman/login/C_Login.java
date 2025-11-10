@@ -60,7 +60,7 @@ public class C_Login implements Cacheable {
     return true;
   }
 
-  @Override public <T extends Cacheable> Cacheable performCustomCacheableLoad(T newInstance) {
+  @Override public Cacheable performCustomCacheableLoad(Cacheable newInstance) {
 
     return StageManager.loadLoginStage();
 

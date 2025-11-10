@@ -67,7 +67,7 @@ public class C_PosMan implements Cacheable {
     return true;
   }
 
-  @Override public <T extends Cacheable> Cacheable performCustomCacheableLoad(T newInstance) {
+  @Override public Cacheable performCustomCacheableLoad(Cacheable newInstance) {
     return StageManager.loadMainStage();
 
   }
