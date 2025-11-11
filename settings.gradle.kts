@@ -1,13 +1,12 @@
-plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-    id("com.gradle.develocity") version "3.17" // Use the latest version
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        mavenCentral() // Often needed for dependencies, sometimes for plugins
+        // Add any other custom repositories for plugins here
+    }
+    // You might also have a resolutionStrategy block here
 }
+
 rootProject.name = "PosMan"
 
-develocity {
-    buildScan {
-        termsOfUseUrl = "https://gradle.com/help/legal-terms-of-use"
-        termsOfUseAgree = "yes"
-    }
-}
 gradle.startParameter.projectCacheDir = file("R:/PosMan/.gradlePosManCache")

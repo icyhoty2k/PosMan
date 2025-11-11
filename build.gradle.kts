@@ -94,13 +94,13 @@ abstract class ReadVersionTask : DefaultTask() {
 plugins {
     java
     application
-    idea
+//    idea
     id("org.javamodularity.moduleplugin") version "2.0.0"
     id("org.openjfx.javafxplugin") version "0.1.0"
-    id("org.beryx.jlink") version "3.1.3"
+    id("org.beryx.jlink") version "3.1.4-rc"
     id("com.gradleup.shadow") version "9.2.2"
     id("com.github.ben-manes.versions") version "0.53.0"
-    id("com.dorongold.task-tree") version "4.0.1"
+//    id("com.dorongold.task-tree") version "4.0.1"
     id("com.osacky.doctor") version "0.12.0"
 }
 
@@ -192,16 +192,21 @@ val myJvmArgs = listOf(
     "-XX:+AlwaysPreTouch",           // Touch memory early to reduce page faults
     "-XX:CodeEntryAlignment=64",  // CPU cache alignment
 //    "--illegal-access=deny"          // Security & compatibility java8-16
-    "-XX:+IgnoreUnrecognizedVMOptions"
+    "-XX:+IgnoreUnrecognizedVMOptions",
+    "-Dsun.io.useCanonCaches=true"
 )
 /////////////////////////////////////////////////////////////////////////////////////////////////////
-idea {
-    module {
-        inheritOutputDirs = false
-        outputDir = ideaBuildDirProvider.map { it }.get() // maps Provider<File> to File
-        testOutputDir = ideaTestDirProvider.map { it }.get()
-    }
-}
+//idea {
+//    module {
+//        isDownloadJavadoc = true
+//        isDownloadSources = true
+//        inheritOutputDirs = false
+//        outputDir = file(ideaOutput)
+//        testOutputDir = file(ideaTest)
+//        inheritOutputDirs = false
+//        outputDir = ideaBuildDirProvider.map { it }.get() // maps Provider<File> to File
+//        testOutputDir = ideaTestDirProvider.map { it }.get()
+//}
 
 tasks.register<WorkingDirTask>("ensureWorkingDir") {
     group = "[ivan]"
@@ -265,9 +270,13 @@ val directoryOutputBuildDir = directoryOutputBuildDirProvider.get()
 
 
 
+
+
 repositories {
-    mavenCentral()
+    gradlePluginPortal()
+    mavenCentral()// is typically used for dependencies, but not always for plugins
 }
+
 val osName = org.gradle.internal.os.OperatingSystem.current()
 val platform = when {
     osName.isWindows -> "win"
@@ -283,6 +292,7 @@ dependencies {
     implementation("org.openjfx:javafx-controls:$javaFXVersion:$platform")
     implementation("org.openjfx:javafx-fxml:$javaFXVersion:$platform")
     implementation("org.openjfx:javafx-graphics:$javaFXVersion:$platform")
+
     // JUnit 5 API for compiling tests
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
 
@@ -420,9 +430,33 @@ tasks.named<JavaExec>("run") {
 tasks.clean {
     dependsOn("cleanWorkingDir")
 }
+// ✅ CORRECT: Gets the existing task registered by the Shadow plugin and configures it
+val shadowJarTask = tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar")
+val javaFXModulesJvmArgs = javaFXModules.map { "--add-modules=$it" }
+tasks.named<JavaExec>("runShadow") {
+    group = "application"
+    description = "Runs the application from the output of the shadowJar (Classpath)."
+
+
+    // 🛑 CRITICAL 2: Set the main class (REPLACE with your actual FQCN)
+    mainClass.set("net.silver.posman.main.z_MainAppStart")
+
+    // 🛑 CRITICAL 3: CLEAR the module configuration and JVM Args
+    // This removes the unwanted `--module` and `--module-path` flags.
+    mainModule.set(project.provider { null }) // Force clear the main module property
+
+    jvmArgs = mutableListOf(
+        "-XX:+IgnoreUnrecognizedVMOptions",
+        "--enable-native-access=ALL-UNNAMED",
+
+        )                 // Clear all injected JVM args
+
+}
 tasks.shadowJar {
+
     archiveBaseName.set("PosMan")
     archiveVersion.set("1.0")
+    mainClass.set(application.mainClass.get())
     archiveClassifier.set("") // produce PosMan-1.0.jar (no "-all")
     mergeServiceFiles() // ensures JavaFX services work correctly
     manifest {
@@ -430,15 +464,7 @@ tasks.shadowJar {
         attributes["Description"] = "This is an application JAR"
     }
 }
-idea {
-    module {
-        isDownloadJavadoc = true
-        isDownloadSources = true
-        inheritOutputDirs = false
-        outputDir = file(ideaOutput)
-        testOutputDir = file(ideaTest)
-    }
-}
+
 
 //own tasks
 // 🚀 FIX: Using WorkingDirTask and wiring the Provider input
