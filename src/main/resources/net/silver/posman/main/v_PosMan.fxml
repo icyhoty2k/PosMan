@@ -26,11 +26,11 @@
         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="3.0" vgrow="NEVER"/>
     </rowConstraints>
     <children>
-        <GridPane hgap="1.0" vgap="1.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+        <GridPane hgap="10.0" vgap="1.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
             <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" percentWidth="33.0"/>
-                <ColumnConstraints hgrow="SOMETIMES" percentWidth="33.0"/>
-                <ColumnConstraints hgrow="SOMETIMES"/>
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="33.0"/>
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="33.0"/>
+                <ColumnConstraints hgrow="ALWAYS" percentWidth="33.0"/>
             </columnConstraints>
             <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
@@ -51,7 +51,7 @@
                     </font>
                 </Button>
                 <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                        text="начало" textAlignment="CENTER" GridPane.columnIndex="1">
+                        text="Начало смяна" textAlignment="CENTER" GridPane.columnIndex="1">
                     <GridPane.margin>
                         <Insets/>
                     </GridPane.margin>
@@ -60,7 +60,7 @@
                     </font>
                 </Button>
                 <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                        text="край" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        text="Край смяна" textAlignment="CENTER" GridPane.columnIndex="1" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets/>
                     </GridPane.margin>
@@ -69,7 +69,7 @@
                     </font>
                 </Button>
                 <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                        text="отчет" GridPane.rowIndex="1">
+                        text="Отчет" GridPane.rowIndex="1">
                     <GridPane.margin>
                         <Insets/>
                     </GridPane.margin>
@@ -78,7 +78,7 @@
                     </font>
                 </Button>
                 <Button fx:id="btnSettings" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308"
-                        mnemonicParsing="false" onAction="#btnSettingsOnAction" text="настройки"
+                        mnemonicParsing="false" onAction="#btnSettingsOnAction" text="конфигурация"
                         GridPane.columnIndex="2" GridPane.rowIndex="1">
                     <font>
                         <Font size="10.0"/>
@@ -291,7 +291,7 @@
                 <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
                         text="Приход" GridPane.columnIndex="1"/>
                 <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false"
-                        text="Зареждане" GridPane.columnIndex="2"/>
+                        text="Администрация" GridPane.columnIndex="2"/>
             </children>
         </GridPane>
         <GridPane GridPane.columnIndex="3" GridPane.rowIndex="1" GridPane.rowSpan="6">

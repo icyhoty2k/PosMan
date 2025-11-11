@@ -6,7 +6,8 @@ rootProject.name = "PosMan"
 
 develocity {
     buildScan {
-        termsOfUseUrl = "https://gradle.com/terms-of-use"
+        termsOfUseUrl = "https://gradle.com/help/legal-terms-of-use"
         termsOfUseAgree = "yes"
     }
 }
+gradle.startParameter.projectCacheDir = file("R:/PosMan/.gradlePosManCache")

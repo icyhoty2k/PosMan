@@ -117,57 +117,36 @@ val junitPlatformVersion = "1.14.1" // For the launcher (modular projects)
 //Reference to devDrive
 val devDrive = "I:\\"
 //If ramDrive is installed and configured to R:\
+
 val ramDrive = "R:\\"
-//workingDir
-val defaultWorkingDir = "${rootProject.name}WorkingDir\\"
+val projectWorkingDirProvider: Provider<File> = project.providers.provider {
+    file("$ramDrive${rootProject.name}\\WorkingDir\\")
+}
 
-// JdkLocation is now a Provider
-val jdkLocationProvider = project.providers.gradleProperty("org.gradle.java.home")
-
+val gradleBuildDirProvider: Provider<File> = project.providers.provider {
+    file("$ramDrive${rootProject.name}\\gradleBuild\\")
+}
+val ideaBuildDirProvider: Provider<File> = project.providers.provider {
+    file("$ramDrive${rootProject.name}\\ideaBuild\\")
+}
+val ideaTestDirProvider: Provider<File> = project.providers.provider {
+    file("$ramDrive${rootProject.name}\\ideaBuild\\test\\")
+}
 val mainBuildAndWorkingDrive = ramDrive
+//workingDir
+val defaultWorkingDir = "WorkingDir"
 val outputBuildDir = "$mainBuildAndWorkingDrive${rootProject.name}\\"
 val gradleOutput = "$outputBuildDir\\gradleBuild\\"
 val ideaOutput = "$outputBuildDir\\ideaBuild"
 val ideaTest = "$outputBuildDir\\ideaBuild\\test"
+val runWorkingDirProvider: DirectoryProperty = project.objects.directoryProperty()
+runWorkingDirProvider.set(layout.projectDirectory.dir("$outputBuildDir$defaultWorkingDir"))
+val runClasspathProvider: Provider<FileCollection> = project.provider { sourceSets.main.get().runtimeClasspath }
+val runMainModuleProvider: Provider<String> = project.provider { application.mainModule.get() }
+val runMainClassProvider: Provider<String> = project.provider { application.mainClass.get() }
+val runJvmArgsProvider: Provider<List<String>> = project.provider { application.applicationDefaultJvmArgs.toList() }
 
-// 🚀 FIX: Define the directory output build dir as a cache-safe Provider
-// 'toProvider()' is now available due to the correct import
-val directoryOutputBuildDirProvider: Provider<File> = project.providers.provider {
-    file(outputBuildDir.plus(defaultWorkingDir))
-}
-// Resolve the File object only for use in the recursive function where a simple File is needed.
-val directoryOutputBuildDir = directoryOutputBuildDirProvider.get()
-
-layout.buildDirectory.set(file(gradleOutput))
-
-repositories {
-    mavenCentral()
-}
-dependencies {
-    // SQLite, MySQL, HikariCP, SLF4J
-    implementation("org.xerial:sqlite-jdbc:3.50.3.0")
-    implementation("com.mysql:mysql-connector-j:9.5.0")
-    implementation("com.zaxxer:HikariCP:7.0.2")
-    implementation("org.slf4j:slf4j-nop:2.0.17")
-
-    // JUnit 5 API for compiling tests
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
-
-    // JUnit 5 Engine for running tests (runtime only)
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
-
-    // Critical for modular projects – allows Gradle to launch tests correctly
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
-}
-
-java {
-    modularity.inferModulePath.set(true)
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(javaVersion)
-        vendor.set(JvmVendorSpec.MICROSOFT) // Eclipse Temurin
-        implementation.set(JvmImplementation.VENDOR_SPECIFIC)
-    }
-}
+layout.buildDirectory.set(gradleBuildDirProvider.map { layout.projectDirectory.dir(it.path) })
 val myJvmArgs = listOf(
     // -------------------------------
     // Startup Optimization (AppCDS)
@@ -215,6 +194,34 @@ val myJvmArgs = listOf(
 //    "--illegal-access=deny"          // Security & compatibility java8-16
 )
 /////////////////////////////////////////////////////////////////////////////////////////////////////
+idea {
+    module {
+        inheritOutputDirs = false
+        outputDir = ideaBuildDirProvider.map { it }.get() // maps Provider<File> to File
+        testOutputDir = ideaTestDirProvider.map { it }.get()
+    }
+}
+
+tasks.register<WorkingDirTask>("ensureWorkingDir") {
+    group = "[ivan]"
+    targetDir.set(projectWorkingDirProvider)
+    doLast {
+        val dir = targetDir.get()
+        if (!dir.exists()) dir.mkdirs()
+    }
+}
+
+tasks.register<WorkingDirTask>("cleanWorkingDir") {
+    group = "[ivan]"
+    targetDir.set(projectWorkingDirProvider)
+    doLast {
+        val dir = targetDir.get()
+        if (dir.exists()) {
+            dir.listFiles()?.forEach { it.deleteRecursively() }
+            dir.delete()
+        }
+    }
+}
 application {
     mainModule.set("net.silver.posman")
     mainClass.set("net.silver.posman.main.z_MainAppStart")
@@ -227,6 +234,86 @@ javafx {
     setPlatform("windows")
 
 }
+val runClasspath: FileCollection = sourceSets.main.get().runtimeClasspath
+val runMainClassName: String = application.mainClass.get()
+val runWorkingDirFile: File = projectWorkingDirProvider.get()
+val runJvmArgsList: List<String> = application.applicationDefaultJvmArgs.toList()
+
+
+tasks.named<JavaExec>("run") {
+    dependsOn("ensureWorkingDir")
+    // Lazy resolution: safe for configuration cache
+    workingDir = projectWorkingDirProvider.get()
+    classpath = sourceSets.main.get().runtimeClasspath
+    mainClass.set(application.mainClass) // do NOT call .get()
+    jvmArgs = application.applicationDefaultJvmArgs.toList()
+
+}
+
+// JdkLocation is now a Provider
+val jdkLocationProvider = project.providers.gradleProperty("org.gradle.java.home")
+
+
+// 🚀 FIX: Define the directory output build dir as a cache-safe Provider
+// 'toProvider()' is now available due to the correct import
+val directoryOutputBuildDirProvider: Provider<File> = project.providers.provider {
+    file(outputBuildDir.plus(defaultWorkingDir))
+}
+// Resolve the File object only for use in the recursive function where a simple File is needed.
+val directoryOutputBuildDir = directoryOutputBuildDirProvider.get()
+
+
+
+repositories {
+    mavenCentral()
+}
+val osName = org.gradle.internal.os.OperatingSystem.current()
+val platform = when {
+    osName.isWindows -> "win"
+    osName.isMacOsX -> "mac"
+    else -> "linux"
+}
+dependencies {
+    // SQLite, MySQL, HikariCP, SLF4J
+    implementation("org.xerial:sqlite-jdbc:3.50.3.0")
+    implementation("com.mysql:mysql-connector-j:9.5.0")
+    implementation("com.zaxxer:HikariCP:7.0.2")
+    implementation("org.slf4j:slf4j-nop:2.0.17")
+    implementation("org.openjfx:javafx-controls:$javaFXVersion:$platform")
+    implementation("org.openjfx:javafx-fxml:$javaFXVersion:$platform")
+    implementation("org.openjfx:javafx-graphics:$javaFXVersion:$platform")
+    // JUnit 5 API for compiling tests
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+
+    // JUnit 5 Engine for running tests (runtime only)
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+
+    // Critical for modular projects – allows Gradle to launch tests correctly
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
+}
+tasks.register<Exec>("createAppCDS") {
+    group = "[ivan]"
+    description = "Create an AppCDS archive for faster startup"
+
+    dependsOn(tasks.shadowJar)
+    commandLine(
+        "java",
+        "-Xshare:dump",
+        "-XX:SharedArchiveFile=${layout.buildDirectory.get()}/PosMan.jsa",
+        "-XX:SharedClassListFile=${layout.buildDirectory.get()}/PosMan.classlist",
+        "-jar", "build/libs/PosMan-1.0.jar"
+    )
+}
+
+java {
+    modularity.inferModulePath.set(true)
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(javaVersion)
+        vendor.set(JvmVendorSpec.MICROSOFT) // Eclipse Temurin
+        implementation.set(JvmImplementation.VENDOR_SPECIFIC)
+    }
+}
+
 
 
 tasks.named<JavaCompile>("compileTestJava") {
@@ -318,25 +405,25 @@ jlink {
 }
 
 
-val runWorkingDir = "$outputBuildDir$defaultWorkingDir"
-val runClasspath = sourceSets.main.get().runtimeClasspath
-val runMainModule = application.mainModule.get()
-val runMainClass = application.mainClass.get()
-val runJvmArgs = application.applicationDefaultJvmArgs.toList() // immutable copy
+
 
 tasks.named<JavaExec>("run") {
     dependsOn("ensureWorkingDir")
-    workingDir = file(runWorkingDir)
-    classpath = runClasspath
-    mainModule.set(runMainModule)
-    mainClass.set(runMainClass)
-    jvmArgs = runJvmArgs
+    workingDir = runWorkingDirProvider.asFile.get()
+    classpath = runClasspathProvider.get()
+    mainModule.set(runMainModuleProvider)
+    mainClass.set(runMainClassProvider)
+    jvmArgs = runJvmArgsProvider.get()
 }
 
 tasks.clean {
-    dependsOn("clenaWorkingDir")
+    dependsOn("cleanWorkingDir")
 }
 tasks.shadowJar {
+    archiveBaseName.set("PosMan")
+    archiveVersion.set("1.0")
+    archiveClassifier.set("") // produce PosMan-1.0.jar (no "-all")
+    mergeServiceFiles() // ensures JavaFX services work correctly
     manifest {
         attributes["Main-Class"] = application.mainClass.get()
         attributes["Description"] = "This is an application JAR"
@@ -354,49 +441,13 @@ idea {
 
 //own tasks
 // 🚀 FIX: Using WorkingDirTask and wiring the Provider input
-tasks.register<WorkingDirTask>("ensureWorkingDir") {
-    group = "[ivan]"
-    targetDir.set(directoryOutputBuildDirProvider) // Wire safe Provider
-    doLast {
-        try {
-            if (!targetDir.get().exists()) { // Use safe property
-                targetDir.get().mkdir()
-            }
-        } catch (e: Exception) {
-            e.stackTrace
-        }
-    }
-}
+
 
 // 🚀 FIX: Using WorkingDirTask and wiring the Provider input
-tasks.register<WorkingDirTask>("clenaWorkingDir") {
-    group = "[ivan]"
-    description = "Not recursive for inner dirs, just curren dir and files"
-    targetDir.set(directoryOutputBuildDirProvider) // Wire safe Provider
 
-    doLast {
-        try {
-            // !! This logic now runs at EXECUTION time !!
-            val directory = targetDir.get() // Use safe property
-            val files = directory.listFiles()
-            for (file in files.orEmpty()) {
-                println(file.toString() + " deleted.")
-                file.delete()
-            }
-
-            if (directory.delete()) {
-                println("Directory Deleted")
-            } else {
-                println("Directory not Found")
-            }
-        } catch (e: Exception) {
-            e.stackTrace
-        }
-    }
-}
 
 // 🚀 FIX: Using WorkingDirTask and wiring the Provider input
-tasks.register<WorkingDirTask>("clenaWorkingDirRecursivly") {
+tasks.register<WorkingDirTask>("cleanWorkingDirRecursivly") {
     group = "[ivan]"
     description = "Recursive for inner  dirs and sub dirs"
     targetDir.set(directoryOutputBuildDirProvider) // Wire safe Provider
@@ -495,4 +546,24 @@ tasks.compileJava {
     finalizedBy(tasks.named("readVersionFromClass"))
     // 🛑 NEW FIX: Directly set the executable using the mapped provider.
 
+}
+tasks.jar {
+    manifest {
+        attributes["Main-Class"] = application.mainClass.get()
+    }
+}
+tasks.named("distZip") {
+    dependsOn("shadowJar")
+}
+tasks.named("distTar") {
+    dependsOn("shadowJar")
+}
+tasks.named("startScripts") {
+    dependsOn("shadowJar")
+}
+tasks.named("startShadowScripts") {
+    dependsOn("shadowJar")
+}
+tasks.named("startShadowScripts") {
+    dependsOn("jar") // ensures the JAR is built before creating scripts
 }
