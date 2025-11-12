@@ -155,8 +155,8 @@ val myJvmArgs = listOf(
     // -------------------------------
     // Memory / Heap
     // -------------------------------
-    "-Xms128m",                     // Minimal initial heap for fast startup
-    "-Xmx1024m",                    // Max heap suitable for medium-sized app
+    "-Xms256m",                     // Minimal initial heap for fast startup
+    "-Xmx2048m",                    // Max heap suitable for medium-sized app
     "-Xss2m",                       // Thread stack size per thread
 
     // -------------------------------
@@ -169,7 +169,7 @@ val myJvmArgs = listOf(
     // Garbage Collection (fast UI response)
     // -------------------------------
     "-XX:+UseG1GC",                  // G1GC for predictable pause times
-    "-XX:MaxGCPauseMillis=20",       // Aggressive, minimal GC pause
+    "-XX:MaxGCPauseMillis=50",       // Aggressive, minimal GC pause
     "-XX:InitiatingHeapOccupancyPercent=50", // Start concurrent GC earlier
     "-XX:ParallelGCThreads=2",       // Minimal GC threads for fast startup
     "-XX:ConcGCThreads=2",           // Concurrency threads for G1GC
@@ -277,7 +277,7 @@ repositories {
     mavenCentral()// is typically used for dependencies, but not always for plugins
 }
 
-val osName = org.gradle.internal.os.OperatingSystem.current()
+val osName = org.gradle.internal.os.OperatingSystem.current()!!
 val platform = when {
     osName.isWindows -> "win"
     osName.isMacOsX -> "mac"
