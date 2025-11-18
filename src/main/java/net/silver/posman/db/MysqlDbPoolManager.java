@@ -53,8 +53,15 @@ public final class MysqlDbPoolManager {
     // Optional: Hikari-specific tuning properties
     config.setMaximumPoolSize(9);
     config.setMinimumIdle(3);
+    config.setConnectionTimeout(2000); // 2 seconds timeout (fast)
+    config.setIdleTimeout(300000); // 5 minutes idle before closing
 
     config.setDriverClassName("com.mysql.cj.jdbc.Driver");
+
+    // 3. MySQL Driver Optimization (Low Latency Properties)
+    config.addDataSourceProperty("cachePrepStmts", "true"); // Cache prepared statements
+    config.addDataSourceProperty("prepStmtCacheSize", "250"); // Max 250 statements
+    config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048"); // Max SQL length to cache
 
     // Initialize the pool
     try {
