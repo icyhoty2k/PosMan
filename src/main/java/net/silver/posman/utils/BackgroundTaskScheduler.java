@@ -7,7 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
-public final class TaskScheduler {
+public final class BackgroundTaskScheduler {
 
   // Initialize a pool with a size equal to the available physical CPU cores.
   // This allows the scheduler to fully utilize the Ryzen 9 9950X's power.
