@@ -58,10 +58,13 @@ public final class MysqlDbPoolManager {
 
     config.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
-    // 3. MySQL Driver Optimization (Low Latency Properties)
+    //  MySQL Driver Optimization (Low Latency Properties)
     config.addDataSourceProperty("cachePrepStmts", "true"); // Cache prepared statements
     config.addDataSourceProperty("prepStmtCacheSize", "250"); // Max 250 statements
     config.addDataSourceProperty("prepStmtCacheSqlLimit", "2048"); // Max SQL length to cache
+    config.setLeakDetectionThreshold(2000); // Detect leaked connections quickly
+    config.setPoolName("MysqlPool");   // Easier debugging
+    config.setAutoCommit(false); // CRITICAL: Enables explicit transaction control.
 
     // Initialize the pool
     try {
@@ -75,7 +78,7 @@ public final class MysqlDbPoolManager {
 
   // 1. Create schema if not exists (raw JDBC)
   private static void createDefaultShema() {
-    try (Connection conn = DriverManager.getConnection("jdbc:mysql://" + PROPS.getProperty("db.server") + ":" + PROPS.getProperty("db.port") + ",/?useSSL=true", PROPS.getProperty("db.user"), PROPS.getProperty("db.password"));
+    try (Connection conn = DriverManager.getConnection("jdbc:mysql://" + PROPS.getProperty("db.server") + ":" + PROPS.getProperty("db.port") + "/?useSSL=true", PROPS.getProperty("db.user"), PROPS.getProperty("db.password"));
          Statement stmt = conn.createStatement()) {
       DatabaseMetaData metaData = conn.getMetaData();
       stmt.execute("CREATE DATABASE IF NOT EXISTS " + PROPS.getProperty("db.name"));
