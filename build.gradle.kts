@@ -102,7 +102,8 @@ plugins {
     id("com.gradleup.shadow") version "9.2.2"
     id("com.github.ben-manes.versions") version "0.53.0"
 //    id("com.dorongold.task-tree") version "4.0.1"
-    id("com.osacky.doctor") version "0.12.0"
+    id("com.osacky.doctor") version "0.12.1"
+
 }
 
 group = "net.silver"
