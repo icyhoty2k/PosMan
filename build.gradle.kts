@@ -1,3 +1,4 @@
+import org.gradle.plugins.ide.idea.model.IdeaLanguageLevel
 import java.net.URLClassLoader
 import java.time.LocalDate
 
@@ -94,7 +95,7 @@ abstract class ReadVersionTask : DefaultTask() {
 plugins {
     java
     application
-//    idea
+    idea
     id("org.javamodularity.moduleplugin") version "2.0.0"
     id("org.openjfx.javafxplugin") version "0.1.0"
     id("org.beryx.jlink") version "3.1.4-rc"
@@ -207,7 +208,24 @@ val myJvmArgs = listOf(
 //        outputDir = ideaBuildDirProvider.map { it }.get() // maps Provider<File> to File
 //        testOutputDir = ideaTestDirProvider.map { it }.get()
 //}
+idea {
+    project {
+        languageLevel = IdeaLanguageLevel(javaVersion)
+        // Use the project JDK (instead of Gradle JVM)
+        jdkName = javaVersion.toString()
+        vcs = "Git"
+    }
 
+    module {
+        isDownloadSources = true // defaults to false
+        isDownloadJavadoc = true
+        excludeDirs = excludeDirs + listOf(
+            file("out"),
+            file("build"),
+            file(".gradle")
+        )
+    }
+}
 tasks.register<WorkingDirTask>("ensureWorkingDir") {
     group = "[ivan]"
     targetDir.set(projectWorkingDirProvider)
