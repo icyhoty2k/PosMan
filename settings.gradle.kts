@@ -8,5 +8,3 @@ pluginManagement {
 }
 
 rootProject.name = "PosMan"
-
-gradle.startParameter.projectCacheDir = file("R:/PosMan/.gradlePosManCache")
