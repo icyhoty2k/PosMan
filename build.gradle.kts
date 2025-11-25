@@ -1,3 +1,4 @@
+import org.gradle.api.internal.artifacts.dsl.dependencies.DependenciesExtensionModule.module
 import org.gradle.plugins.ide.idea.model.IdeaLanguageLevel
 import java.net.URLClassLoader
 import java.time.LocalDate
@@ -100,9 +101,9 @@ plugins {
     id("org.openjfx.javafxplugin") version "0.1.0"
     id("org.beryx.jlink") version "3.1.4-rc"
     id("com.gradleup.shadow") version "9.2.2"
-    id("com.github.ben-manes.versions") version "0.53.0"
+//    id("com.github.ben-manes.versions") version "0.53.0"
 //    id("com.dorongold.task-tree") version "4.0.1"
-    id("com.osacky.doctor") version "0.12.1"
+//    id("com.osacky.doctor") version "0.12.1"
 
 }
 
