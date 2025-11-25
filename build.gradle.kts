@@ -1,4 +1,3 @@
-import org.gradle.api.internal.artifacts.dsl.dependencies.DependenciesExtensionModule.module
 import org.gradle.plugins.ide.idea.model.IdeaLanguageLevel
 import java.net.URLClassLoader
 import java.time.LocalDate
@@ -210,6 +209,9 @@ val myJvmArgs = listOf(
 //        outputDir = ideaBuildDirProvider.map { it }.get() // maps Provider<File> to File
 //        testOutputDir = ideaTestDirProvider.map { it }.get()
 //}
+//}
+
+
 idea {
     project {
         languageLevel = IdeaLanguageLevel(javaVersion)
@@ -228,6 +230,7 @@ idea {
         )
     }
 }
+
 tasks.register<WorkingDirTask>("ensureWorkingDir") {
     group = "[ivan]"
     targetDir.set(projectWorkingDirProvider)
@@ -303,25 +306,7 @@ val platform = when {
     osName.isMacOsX -> "mac"
     else -> "linux"
 }
-dependencies {
-    // SQLite, MySQL, HikariCP, SLF4J
-    implementation("org.xerial:sqlite-jdbc:3.50.3.0")
-    implementation("com.mysql:mysql-connector-j:9.5.0")
-    implementation("com.zaxxer:HikariCP:7.0.2")
-    implementation("org.slf4j:slf4j-nop:2.0.17")
-    implementation("org.openjfx:javafx-controls:$javaFXVersion:$platform")
-    implementation("org.openjfx:javafx-fxml:$javaFXVersion:$platform")
-    implementation("org.openjfx:javafx-graphics:$javaFXVersion:$platform")
 
-    // JUnit 5 API for compiling tests
-    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
-
-    // JUnit 5 Engine for running tests (runtime only)
-    testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
-
-    // Critical for modular projects – allows Gradle to launch tests correctly
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
-}
 tasks.register<Exec>("createAppCDS") {
     group = "[ivan]"
     description = "Create an AppCDS archive for faster startup"
@@ -613,4 +598,22 @@ tasks.named("startShadowScripts") {
 }
 tasks.named("startShadowScripts") {
     dependsOn("jar") // ensures the JAR is built before creating scripts
+}
+dependencies {
+    // SQLite, MySQL, HikariCP, SLF4J
+    implementation("org.xerial:sqlite-jdbc:3.50.3.0")
+    implementation("com.mysql:mysql-connector-j:9.5.0")
+    implementation("com.zaxxer:HikariCP:7.0.2")
+    implementation("org.slf4j:slf4j-nop:2.0.17")
+    implementation("org.openjfx:javafx-controls:$javaFXVersion:$platform")
+    implementation("org.openjfx:javafx-fxml:$javaFXVersion:$platform")
+    implementation("org.openjfx:javafx-graphics:$javaFXVersion:$platform")
+    // JUnit 5 API for compiling tests
+    testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
+
+    // JUnit 5 Engine for running tests (runtime only)
+    testImplementation("org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+
+    // Critical for modular projects – allows Gradle to launch tests correctly
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher:$junitPlatformVersion")
 }
