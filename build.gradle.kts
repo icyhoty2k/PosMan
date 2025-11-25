@@ -336,7 +336,7 @@ tasks.register<Exec>("createAppCDS") {
 }
 
 java {
-    modularity.inferModulePath.set(true)
+    modularity.inferModulePath.set(false)
     toolchain {
         languageVersion = JavaLanguageVersion.of(javaVersion)
         vendor.set(JvmVendorSpec.MICROSOFT) // Eclipse Temurin
