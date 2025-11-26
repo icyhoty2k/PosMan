@@ -1,3 +1,4 @@
+import org.apache.tools.ant.taskdefs.DependSet
 import org.gradle.plugins.ide.idea.model.IdeaLanguageLevel
 import java.net.URLClassLoader
 import java.time.LocalDate
@@ -266,7 +267,7 @@ val runJvmArgsList: List<String> = application.applicationDefaultJvmArgs.toList(
 
 
 tasks.named<JavaExec>("run") {
-    dependsOn("ensureWorkingDir")
+//    dependsOn("ensureWorkingDir")
     // Lazy resolution: safe for configuration cache
     workingDir = projectWorkingDirProvider.get()
     classpath = sourceSets.main.get().runtimeClasspath
@@ -598,18 +599,6 @@ tasks.jar {
         attributes["Main-Class"] = application.mainClass.get()
     }
 }
-tasks.named("distZip") {
-    dependsOn("shadowJar")
-}
-tasks.named("distTar") {
-    dependsOn("shadowJar")
-}
-tasks.named("startScripts") {
-    dependsOn("shadowJar")
-}
-tasks.named("startShadowScripts") {
-    dependsOn("shadowJar")
-}
-tasks.named("startShadowScripts") {
-    dependsOn("jar") // ensures the JAR is built before creating scripts
+tasks.named<org.beryx.jlink.JlinkTask>("jlink") {
+    dependsOn(tasks.named("jar"))
 }

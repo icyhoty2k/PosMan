@@ -1,10 +1,18 @@
 pluginManagement {
     repositories {
         gradlePluginPortal()
-        mavenCentral() // Often needed for dependencies, sometimes for plugins
-        // Add any other custom repositories for plugins here
+        mavenCentral()
     }
-    // You might also have a resolutionStrategy block here
 }
 
 rootProject.name = "PosMan"
+
+// ------------------------------------------------------------
+// ⚡ RAM Disk Build Cache (Global Cache Location)
+// ------------------------------------------------------------
+buildCache {
+    local {
+        directory = file("R:/PosMan/build-cache")
+        isEnabled = true
+    }
+}
