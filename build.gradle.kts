@@ -382,7 +382,7 @@ jlink {
     options.set(
         listOf(
             "--strip-debug",
-//            "--compress", "0", // Fast compression level comment to use 0
+//           "--compress", "1", // Fast compression level comment to use 0
             "--no-header-files",
             "--no-man-pages",
             "--strip-java-debug-attributes",
