@@ -1,7 +1,5 @@
-import org.apache.tools.ant.taskdefs.DependSet
 import org.gradle.plugins.ide.idea.model.IdeaLanguageLevel
 import java.net.URLClassLoader
-import java.time.LocalDate
 
 // Base task to define the common input property
 abstract class WorkingDirTask : DefaultTask() {
@@ -11,71 +9,39 @@ abstract class WorkingDirTask : DefaultTask() {
 
 // This is the cache-safe definition of your task
 abstract class ReadVersionTask : DefaultTask() {
-
-    // 1. A cache-safe "input" to hold the project version
     @get:Input
     abstract val projectVersion: Property<String>
 
-    // 2. A cache-safe "input" to hold the debug flag
     @get:Input
     abstract val debugEnabled: Property<Boolean>
 
-    // 3. A cache-safe "input" for the files needed to load the class
     @get:InputFiles
     @get:Classpath
     abstract val taskClasspath: ConfigurableFileCollection
 
-    // 4. This is the task's action, which runs at execution time
     @TaskAction
     fun verifyVersion() {
-        // 5. Only run if the debug property was set to true
-        if (!debugEnabled.getOrElse(false)) {
-//            println("Skipping version check (debug property not 'true')")
-            return
-        }
-
-        // Create a classloader from the safe input files
+        if (!debugEnabled.getOrElse(false)) return
         val urls = taskClasspath.files.map { it.toURI().toURL() }.toTypedArray()
         val classLoader = URLClassLoader(urls)
-
         try {
-
-
-            // Load your AppInfo class
             val appInfoClass = Class.forName("net.silver.posman.utils.AppInfo", false, classLoader)
-
-            // Reflectively read the static fields
             val fVersion = appInfoClass.getDeclaredField("APP_VERSION_FIRST_PART")
             val fBuildDate = appInfoClass.getDeclaredField("APP_BUILD_DATE")
             val fTitle = appInfoClass.getDeclaredField("APP_TITLE")
-
-            fVersion.isAccessible = true
-            fBuildDate.isAccessible = true
-            fTitle.isAccessible = true
-
+            fVersion.isAccessible = true; fBuildDate.isAccessible = true; fTitle.isAccessible = true
             val appVersion = fVersion.get(null) as String
-            val appBuildDate = fBuildDate.get(null) as LocalDate
-            val appTitle = fTitle.get(null) as String
-
-            // 6. Get the version from the cache-safe property
             val gradleVersion = projectVersion.get()
 
             println("========================================")
-            println("Read from: $appInfoClass")
             println("Version (AppInfo): $appVersion")
-            println("Build date: $appBuildDate")
-            println("App title: $appTitle")
             println("Gradle version: $gradleVersion")
             println("========================================")
 
-            // Version check logic
             if (gradleVersion != appVersion) {
-                println("gradle.build version variable is=$gradleVersion")
-                println("AppInfo.java version variable is=$appVersion")
                 throw GradleException(
                     """
                 🚫 Stopping execution! Version mismatch detected.
-                Please fix versions mismatch:
                 build.gradle.kts version = $gradleVersion
                 AppInfo.java APP_VERSION_FIRST_PART = $appVersion
                 """.trimIndent()
@@ -83,16 +49,14 @@ abstract class ReadVersionTask : DefaultTask() {
             } else {
                 println("✅ Versions match: $gradleVersion == $appVersion")
             }
-
         } catch (e: Exception) {
             throw GradleException("Failed to read version from class", e)
         } finally {
             classLoader.close()
         }
-
     }
 }
-
+// --- PLUGINS ---
 plugins {
     java
     application
@@ -104,7 +68,6 @@ plugins {
 //    id("com.github.ben-manes.versions") version "0.53.0"
 //    id("com.dorongold.task-tree") version "4.0.1"
 //    id("com.osacky.doctor") version "0.12.1"
-
 }
 
 group = "net.silver"
@@ -116,40 +79,20 @@ val javaFXModules = listOf("javafx.controls", "javafx.fxml", "javafx.graphics")
 //test frameworks
 val junitVersion = "5.14.1"
 val junitPlatformVersion = "1.14.1" // For the launcher (modular projects)
-
+val mainAppModule = "net.silver.posman"
 //Reference to devDrive
 val devDrive = "I:\\"
 //If ramDrive is installed and configured to R:\
-
 val ramDrive = "R:\\"
-val projectWorkingDirProvider: Provider<File> = project.providers.provider {
-    file("$ramDrive${rootProject.name}\\WorkingDir\\")
-}
-
-val gradleBuildDirProvider: Provider<File> = project.providers.provider {
-    file("$ramDrive${rootProject.name}\\gradleBuild\\")
-}
-val ideaBuildDirProvider: Provider<File> = project.providers.provider {
-    file("$ramDrive${rootProject.name}\\ideaBuild\\")
-}
-val ideaTestDirProvider: Provider<File> = project.providers.provider {
-    file("$ramDrive${rootProject.name}\\ideaBuild\\test\\")
-}
 val mainBuildAndWorkingDrive = ramDrive
 //workingDir
 val defaultWorkingDir = "WorkingDir"
 val outputBuildDir = "$mainBuildAndWorkingDrive${rootProject.name}\\"
-val gradleOutput = "$outputBuildDir\\gradleBuild\\"
-val ideaOutput = "$outputBuildDir\\ideaBuild"
-val ideaTest = "$outputBuildDir\\ideaBuild\\test"
-val runWorkingDirProvider: DirectoryProperty = project.objects.directoryProperty()
-runWorkingDirProvider.set(layout.projectDirectory.dir("$outputBuildDir$defaultWorkingDir"))
-val runClasspathProvider: Provider<FileCollection> = project.provider { sourceSets.main.get().runtimeClasspath }
-val runMainModuleProvider: Provider<String> = project.provider { application.mainModule.get() }
-val runMainClassProvider: Provider<String> = project.provider { application.mainClass.get() }
-val runJvmArgsProvider: Provider<List<String>> = project.provider { application.applicationDefaultJvmArgs.toList() }
-
-layout.buildDirectory.set(gradleBuildDirProvider.map { layout.projectDirectory.dir(it.path) })
+val outputWorkingDir: File = file("$outputBuildDir\\$defaultWorkingDir\\")
+val gradleOutput: File = File("$outputBuildDir\\gradleBuild\\")
+val ideaOutput: File = File("$outputBuildDir\\ideaBuild")
+val ideaTest: File = File("$outputBuildDir\\ideaBuild\\test")
+val jdkLocation: String = System.getProperty("org.gradle.java.home") ?: System.getenv("JAVA_HOME") ?: ""
 val myJvmArgs = listOf(
     // -------------------------------
     // Startup Optimization (AppCDS)
@@ -198,18 +141,8 @@ val myJvmArgs = listOf(
     "-XX:+IgnoreUnrecognizedVMOptions",
     "-Dsun.io.useCanonCaches=true"
 )
-/////////////////////////////////////////////////////////////////////////////////////////////////////
-//idea {
-//    module {
-//        isDownloadJavadoc = true
-//        isDownloadSources = true
-//        inheritOutputDirs = false
-//        outputDir = file(ideaOutput)
-//        testOutputDir = file(ideaTest)
-//        inheritOutputDirs = false
-//        outputDir = ideaBuildDirProvider.map { it }.get() // maps Provider<File> to File
-//        testOutputDir = ideaTestDirProvider.map { it }.get()
-//}
+layout.buildDirectory.set(gradleOutput)
+
 idea {
     project {
         languageLevel = IdeaLanguageLevel(javaVersion)
@@ -217,10 +150,12 @@ idea {
         jdkName = javaVersion.toString()
         vcs = "Git"
     }
-
     module {
         isDownloadSources = true // defaults to false
         isDownloadJavadoc = true
+        inheritOutputDirs = false
+        outputDir = ideaOutput
+        testOutputDir = ideaTest
         excludeDirs = excludeDirs + listOf(
             file("out"),
             file("build"),
@@ -230,7 +165,7 @@ idea {
 }
 tasks.register<WorkingDirTask>("ensureWorkingDir") {
     group = "[ivan]"
-    targetDir.set(projectWorkingDirProvider)
+    targetDir.set(outputWorkingDir)
     doLast {
         val dir = targetDir.get()
         if (!dir.exists()) dir.mkdirs()
@@ -239,7 +174,7 @@ tasks.register<WorkingDirTask>("ensureWorkingDir") {
 
 tasks.register<WorkingDirTask>("cleanWorkingDir") {
     group = "[ivan]"
-    targetDir.set(projectWorkingDirProvider)
+    targetDir.set(outputWorkingDir)
     doLast {
         val dir = targetDir.get()
         if (dir.exists()) {
@@ -249,7 +184,7 @@ tasks.register<WorkingDirTask>("cleanWorkingDir") {
     }
 }
 application {
-    mainModule.set("net.silver.posman")
+    mainModule.set(mainAppModule)
     mainClass.set("net.silver.posman.main.z_MainAppStart")
 //    applicationName.set("POS")
     applicationDefaultJvmArgs = myJvmArgs
@@ -258,51 +193,24 @@ javafx {
     version = javaFXVersion
     modules = javaFXModules
     setPlatform("windows")
-
 }
-val runClasspath: FileCollection = sourceSets.main.get().runtimeClasspath
-val runMainClassName: String = application.mainClass.get()
-val runWorkingDirFile: File = projectWorkingDirProvider.get()
-val runJvmArgsList: List<String> = application.applicationDefaultJvmArgs.toList()
-
+val platform = "win"
 
 tasks.named<JavaExec>("run") {
-//    dependsOn("ensureWorkingDir")
+    dependsOn("ensureWorkingDir")
     // Lazy resolution: safe for configuration cache
-    workingDir = projectWorkingDirProvider.get()
-    classpath = sourceSets.main.get().runtimeClasspath
-    mainClass.set(application.mainClass) // do NOT call .get()
-    jvmArgs = application.applicationDefaultJvmArgs.toList()
-
+    mainModule.set(mainAppModule)
+    mainClass.set(application.mainClass)
+    workingDir = outputWorkingDir
+//    classpath = sourceSets.main.get().runtimeClasspath
+    jvmArgs = myJvmArgs
 }
-
-// JdkLocation is now a Provider
-val jdkLocationProvider = project.providers.gradleProperty("org.gradle.java.home")
-
-
-// 🚀 FIX: Define the directory output build dir as a cache-safe Provider
-// 'toProvider()' is now available due to the correct import
-val directoryOutputBuildDirProvider: Provider<File> = project.providers.provider {
-    file(outputBuildDir.plus(defaultWorkingDir))
-}
-// Resolve the File object only for use in the recursive function where a simple File is needed.
-val directoryOutputBuildDir = directoryOutputBuildDirProvider.get()
-
-
-
-
 
 repositories {
     gradlePluginPortal()
     mavenCentral()// is typically used for dependencies, but not always for plugins
 }
 
-val osName = org.gradle.internal.os.OperatingSystem.current()!!
-val platform = when {
-    osName.isWindows -> "win"
-    osName.isMacOsX -> "mac"
-    else -> "linux"
-}
 dependencies {
     // SQLite, MySQL, HikariCP, SLF4J
     implementation("org.xerial:sqlite-jdbc:3.50.3.0")
@@ -335,7 +243,6 @@ tasks.register<Exec>("createAppCDS") {
         "-jar", "build/libs/PosMan-1.0.jar"
     )
 }
-
 java {
     modularity.inferModulePath.set(false)
     toolchain {
@@ -344,15 +251,10 @@ java {
         implementation.set(JvmImplementation.VENDOR_SPECIFIC)
     }
 }
-
-
-
 tasks.named<JavaCompile>("compileTestJava") {
     modularity.inferModulePath.set(true)
     options.encoding = "UTF-8"
 }
-
-
 tasks.test {
     useJUnitPlatform()
     modularity.inferModulePath.set(true) // Run tests on module path
@@ -362,10 +264,9 @@ tasks.test {
         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
     }
 }
-
 jlink {
     // Set the path to your desired JDK installation directory
-    javaHome = jdkLocationProvider.get()
+    javaHome = jdkLocation
     imageZip.set(layout.buildDirectory.file("/distributions/${rootProject.name}-v$version-${javafx.platform.classifier}.zip"))
 
     // --- 1. Module Exclusions (Optimized for Size & Startup) ---
@@ -376,7 +277,6 @@ jlink {
             "javafx.web",
             "javafx.swing"
         )
-
     }
     // --- 2. JLink Options (Maximizing Stripping, Optimization, and CDS) ---
     options.set(
@@ -392,8 +292,6 @@ jlink {
             "--ignore-signing-information",
         )
     )
-
-
     launcher {
         name = "${rootProject.name}_v$version"
     }
@@ -421,7 +319,6 @@ jlink {
         // JVM args - Maximally Tuned for Startup Speed
         jvmArgs = myJvmArgs
 
-
         // Installer Options (Windows specific flags)
         installerOptions = listOf(
             "--win-menu",
@@ -434,25 +331,9 @@ jlink {
         )
     }
 }
-
-
-
-
-tasks.named<JavaExec>("run") {
-    dependsOn("ensureWorkingDir")
-    workingDir = runWorkingDirProvider.asFile.get()
-    classpath = runClasspathProvider.get()
-    mainModule.set(runMainModuleProvider)
-    mainClass.set(runMainClassProvider)
-    jvmArgs = runJvmArgsProvider.get()
-}
-
 tasks.clean {
     dependsOn("cleanWorkingDir")
 }
-// ✅ CORRECT: Gets the existing task registered by the Shadow plugin and configures it
-val shadowJarTask = tasks.named<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>("shadowJar")
-val javaFXModulesJvmArgs = javaFXModules.map { "--add-modules=$it" }
 tasks.named<JavaExec>("runShadow") {
     group = "application"
     description = "Runs the application from the output of the shadowJar (Classpath)."
@@ -468,9 +349,7 @@ tasks.named<JavaExec>("runShadow") {
     jvmArgs = mutableListOf(
         "-XX:+IgnoreUnrecognizedVMOptions",
         "--enable-native-access=ALL-UNNAMED",
-
-        )                 // Clear all injected JVM args
-
+    )                 // Clear all injected JVM args
 }
 tasks.shadowJar {
 
@@ -485,19 +364,10 @@ tasks.shadowJar {
     }
 }
 
-
-//own tasks
-// 🚀 FIX: Using WorkingDirTask and wiring the Provider input
-
-
-// 🚀 FIX: Using WorkingDirTask and wiring the Provider input
-
-
-// 🚀 FIX: Using WorkingDirTask and wiring the Provider input
 tasks.register<WorkingDirTask>("cleanWorkingDirRecursivly") {
     group = "[ivan]"
     description = "Recursive for inner  dirs and sub dirs"
-    targetDir.set(directoryOutputBuildDirProvider) // Wire safe Provider
+    targetDir.set(outputWorkingDir)// Wire safe Provider
 
     doLast {
         try {
@@ -528,19 +398,16 @@ tasks.register<Exec>("dumbDatabase") {
     group = "[ivan]"
     // Set the executable to the Windows command processor
     executable = "cmd.exe"
-
     workingDir = project.rootDir
     // The arguments:
     // 1. /c : Tells cmd.exe to execute the command string and then terminate.
     // 2. The path to your batch file (e.g., located in the project root).
     args("/c", "mysqlDump_dumpDatabase.bat")
-
 }
 tasks.register<Exec>("importNewestDatabaseBackup") {
     group = "[ivan]"
     // Set the executable to the Windows command processor
     executable = "cmd.exe"
-
     workingDir = project.rootDir
     // The arguments:
     // 1. /c : Tells cmd.exe to execute the command string and then terminate.
@@ -551,29 +418,20 @@ tasks.register<Exec>("viewNewestDatabaseBackupFile") {
     group = "[ivan]"
     // Set the executable to the Windows command processor
     executable = "cmd.exe"
-
     workingDir = project.rootDir
     // The arguments:
     // 1. /c : Tells cmd.exe to execute the command string and then terminate.
     // 2. The path to your batch file (e.g., located in the project root).
     args("/c", "mysql_ViewNewestDatabaseBackup.bat")
 }
-// This replaces your old 'readVersionFromClass' task
-// This replaces your old 'readVersionFromClass' task registration
 tasks.register<ReadVersionTask>("readVersionFromClass") {
     group = "[ivan]"
     description = "Verifies AppInfo.APP_VERSION_FIRST_PART matches Gradle project.version"
-
     dependsOn(tasks.named("compileJava"))
-
     projectVersion.set(project.version.toString())
-
     debugEnabled.set(
         project.providers.gradleProperty("debug").map { it.toBoolean() }.orElse(false)
     )
-
-    // 🚀 Configuration Cache FIX for SourceSet capture:
-    // Use provider methods to lazily supply the files.
     taskClasspath.from(
         project.provider { project.sourceSets.main.get().output },
         project.provider { project.sourceSets.main.get().runtimeClasspath }
@@ -583,16 +441,13 @@ tasks.compileJava {
     options.isIncremental = true
     options.isFork = true
     options.isFailOnError = true
-    options.forkOptions.executable =
-        jdkLocationProvider.map { "$it\\bin\\javac.exe" }.get()// <-- Use .get() ONLY at the end
+    options.forkOptions.executable = file("$jdkLocation/bin/javac.exe").absolutePath
     options.isVerbose = false
     options.release.set(javaVersion)
     options.encoding = "UTF-8"
 //    options.compilerArgs.add("-Xlint:all")
     options.compilerArgs.add("-Xlint:unchecked")
     finalizedBy(tasks.named("readVersionFromClass"))
-    // 🛑 NEW FIX: Directly set the executable using the mapped provider.
-
 }
 tasks.jar {
     manifest {
