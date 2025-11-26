@@ -428,7 +428,7 @@ jlink {
             "--win-dir-chooser",
             "--win-per-user-install",
             "--win-shortcut",
-            "--win-console",
+//          "--win-console",
             "--install-dir", rootProject.name,// Installation path inside the program files directory
             "--win-upgrade-uuid", "783f982d-0a12-4e00-84c2-9e9f65c697c1"
         )
