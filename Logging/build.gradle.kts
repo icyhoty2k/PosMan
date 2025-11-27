@@ -1,7 +1,5 @@
 import org.gradle.external.javadoc.StandardJavadocDocletOptions
-import java.time.LocalDate
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
+
 
 plugins {
     java
@@ -32,12 +30,9 @@ dependencies {
 }
 
 tasks.jar {
-    val buildDate = LocalDate.now().format(DateTimeFormatter.ISO_DATE)
     archiveBaseName.set("Logging")
     archiveVersion.set("1.0")
     archiveClassifier.set("")
-    val timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
-
 }
 
 
