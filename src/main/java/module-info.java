@@ -5,6 +5,7 @@ open module net.silver.posman {
   // -------------------------------
   requires java.sql;                  // ✅ FIX: Required for JDBC API (java.sql.Driver)
   requires java.logging;              // Used by many libraries (e.g., HikariCP/JDBC logging)
+  requires iLoggin;
 
   // -------------------------------
   // JavaFX Modules

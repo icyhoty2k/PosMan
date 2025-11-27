@@ -1,5 +1,7 @@
 package net.silver.posman.utils;
 
+import net.silver.log.Log;
+
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 

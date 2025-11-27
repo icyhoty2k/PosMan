@@ -1,7 +1,6 @@
 package net.silver.posman.utils;
 
-import javafx.concurrent.Task;
-import javafx.scene.control.ProgressBar;
+import net.silver.log.Log;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;

@@ -2,7 +2,8 @@ package net.silver.posman.login;
 
 // ... (imports for SecureRandom, Base64, etc.)
 
-import net.silver.posman.utils.Log;
+
+import net.silver.log.Log;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;

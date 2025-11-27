@@ -5,8 +5,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import net.silver.log.Log;
 import net.silver.posman.utils.Cacheable;
-import net.silver.posman.utils.Log;
+
 
 public class C_PosMan_AfterMainButtons extends GridPane implements Cacheable {
   private String name;

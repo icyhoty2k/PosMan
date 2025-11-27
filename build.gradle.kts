@@ -220,7 +220,7 @@ dependencies {
     implementation("org.openjfx:javafx-controls:$javaFXVersion:$platform")
     implementation("org.openjfx:javafx-fxml:$javaFXVersion:$platform")
     implementation("org.openjfx:javafx-graphics:$javaFXVersion:$platform")
-
+    implementation(project(":Logging"))
     // JUnit 5 API for compiling tests
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
 

@@ -16,3 +16,5 @@ buildCache {
         isEnabled = true
     }
 }
+
+include("Logging")

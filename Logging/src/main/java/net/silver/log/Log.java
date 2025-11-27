@@ -1,4 +1,4 @@
-package net.silver.posman.utils;
+package net.silver.log;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

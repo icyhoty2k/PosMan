@@ -2,7 +2,7 @@ package net.silver.posman.db;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import net.silver.posman.utils.Log;
+import net.silver.log.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -69,7 +69,9 @@ public final class MysqlDbPoolManager {
     // Initialize the pool
     try {
       dataSource = new HikariDataSource(config);
+
       Log.trace("Database Connection Pool initialized successfully.");
+
     } catch (Exception e) {
       createDefaultShema();
       throw new ExceptionInInitializerError("FATAL: Failed to initialize HikariCP pool: " + System.lineSeparator() + e.getMessage());

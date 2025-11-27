@@ -8,9 +8,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import net.silver.log.Log;
 import net.silver.posman.login.C_Login;
 import net.silver.posman.utils.Cacheable;
-import net.silver.posman.utils.Log;
+
 import net.silver.posman.utils.StageManager;
 
 public class C_PosMan implements Cacheable {
