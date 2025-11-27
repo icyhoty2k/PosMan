@@ -1,4 +1,4 @@
-package net.silver.utils;
+package net.silver.resources;
 
 import java.io.InputStream;
 import java.net.URL;

@@ -13,6 +13,7 @@
             <option value="$PROJECT_DIR$/Gui" />
             <option value="$PROJECT_DIR$/Logging" />
             <option value="$PROJECT_DIR$/Persistence" />
+            <option value="$PROJECT_DIR$/Resources" />
             <option value="$PROJECT_DIR$/Utils" />
           </set>
         </option>
