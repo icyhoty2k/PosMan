@@ -225,6 +225,9 @@ dependencies {
     implementation(project(":Logging"))
     implementation(project(":Utils"))
     implementation(project(":Persistence"))
+    implementation(project(":App"))
+    implementation(project(":Gui"))
+    implementation(project(":Resources"))
 
     // JUnit 5 API for compiling tests
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
