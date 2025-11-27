@@ -38,27 +38,6 @@ tasks.jar {
     archiveClassifier.set("")
     val timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))
 
-    manifest {
-        attributes(
-            // ------ Basic Module Info ------
-            "Implementation-Title" to "Logging Module",
-            "Implementation-Version" to version,
-            "Implementation-Vendor" to "Ivan Yanev",
-            "Implementation-URL" to "https://github.com/your-repo",
-
-            // ------ Build Info ------
-            "Built-Timestamp" to timestamp,
-            "Built-By" to System.getProperty("user.name"),
-            "Build-OS" to System.getProperty("os.name"),
-            "Build-Java-Version" to System.getProperty("java.version"),
-            "Build-Gradle-Version" to gradle.gradleVersion,
-
-            // ------ Optional ------
-            "Author" to "Ivan Yanev",
-            "License" to "MIT",
-            "Copyright" to "© ${LocalDateTime.now().year} Ivan Yanev"
-        )
-    }
 }
 
 

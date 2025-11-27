@@ -69,6 +69,7 @@ plugins {
 //    id("com.dorongold.task-tree") version "4.0.1"
 //    id("com.osacky.doctor") version "0.12.1"
 }
+apply(from = "gradle/globalManifest.gradle.kts")
 
 group = "net.silver"
 //[[AppInfo#APP_VERSION_FIRST_PART]]
