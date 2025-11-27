@@ -18,3 +18,5 @@ buildCache {
 }
 
 include(":Logging")
+include(":Utils")
+include("Persistance")

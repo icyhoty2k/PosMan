@@ -221,7 +221,11 @@ dependencies {
     implementation("org.openjfx:javafx-controls:$javaFXVersion:$platform")
     implementation("org.openjfx:javafx-fxml:$javaFXVersion:$platform")
     implementation("org.openjfx:javafx-graphics:$javaFXVersion:$platform")
+    // Modules of Project
     implementation(project(":Logging"))
+    implementation(project(":Utils"))
+    implementation(project(":Persistance"))
+
     // JUnit 5 API for compiling tests
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
 
