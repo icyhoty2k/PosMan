@@ -5,11 +5,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import net.silver.app.AppInfo;
+import net.silver.app.ShortcutKeys;
+import net.silver.gui.login.C_Login;
 import net.silver.log.Log;
-import net.silver.posman.login.C_Login;
 import net.silver.gui.main.C_PosMan;
 import net.silver.gui.main.C_PosMan_AfterMainButtons;
 import net.silver.gui.main.C_PosMan_BottomButtons;
+import net.silver.resources.ResourceLoader;
 
 import java.io.IOException;
 import java.net.URL;

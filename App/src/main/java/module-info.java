@@ -1,4 +1,4 @@
-module iApp {
+module net.silver.app {
 
-
+  exports net.silver.app;
 }

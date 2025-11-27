@@ -2,6 +2,8 @@ package net.silver.resources;
 
 import java.io.InputStream;
 import java.net.URL;
+import java.util.Objects;
+
 
 public class ResourceLoader {
   /*
@@ -74,24 +76,56 @@ Use Objects.requireNonNull to catch missing resources immediately
    */
 
   private static final ClassLoader classLoader = ResourceLoader.class.getClassLoader();
-  private static final String rootOfClassPath = "net/silver/posman/";
+  private static final String ROOT_OF_CLASSPATH = "net/silver/posman/";
   private static final char DEFAULT_SEPARATOR = '/';
   private static final StringBuilder sb = new StringBuilder();
   private static InputStream inputStream;
 
+  /**
+   * Load a resource as a URL.
+   *
+   * @param resource relative path from net/silver/posman/
+   *
+   * @return URL to the resource
+   *
+   * @throws IllegalArgumentException if resource is not found
+   */
   public static URL loadURL(String resource) {
-    sb.setLength(0);
-    sb.append(rootOfClassPath).append(resource);
-    return classLoader.getResource(sb.toString());
+    Objects.requireNonNull(resource, "Resource path cannot be null");
+    URL url = classLoader.getResource(ROOT_OF_CLASSPATH + resource);
+    if (url == null) {
+      throw new IllegalArgumentException("Resource not found: " + ROOT_OF_CLASSPATH + resource);
+    }
+    return url;
   }
 
+
+  /**
+   * Load a resource as an InputStream.
+   *
+   * @param resourceName name of the resource
+   *
+   * @return InputStream for the resource
+   */
   public static InputStream loadInputStream(String resourceName) {
-    return loadInputStream(resourceName, "");
+    return loadInputStream("", resourceName);
   }
 
+  /**
+   * Load a resource as an InputStream from a subdirectory.
+   *
+   * @param resourceDir  subdirectory under net/silver/posman/
+   * @param resourceName resource name
+   *
+   * @return InputStream for the resource
+   */
   public static InputStream loadInputStream(String resourceDir, String resourceName) {
-    sb.setLength(0);
-    sb.append(rootOfClassPath).append(resourceDir).append(resourceName);
-    return classLoader.getResourceAsStream(sb.toString());
+    Objects.requireNonNull(resourceName, "Resource name cannot be null");
+    String path = ROOT_OF_CLASSPATH + resourceDir + resourceName;
+    InputStream stream = classLoader.getResourceAsStream(path);
+    if (stream == null) {
+      throw new IllegalArgumentException("Resource not found: " + path);
+    }
+    return stream;
   }
 }
