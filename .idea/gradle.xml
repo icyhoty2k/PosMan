@@ -9,6 +9,8 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/App" />
+            <option value="$PROJECT_DIR$/Gui" />
             <option value="$PROJECT_DIR$/Logging" />
             <option value="$PROJECT_DIR$/Persistence" />
             <option value="$PROJECT_DIR$/Utils" />

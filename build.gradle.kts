@@ -186,7 +186,7 @@ tasks.register<WorkingDirTask>("cleanWorkingDir") {
 }
 application {
     mainModule.set(mainAppModule)
-    mainClass.set("net.silver.posman.main.z_MainAppStart")
+    mainClass.set("net.silver.gui.main.z_MainAppStart")
 //    applicationName.set("POS")
     applicationDefaultJvmArgs = myJvmArgs
 }
@@ -345,7 +345,7 @@ tasks.named<JavaExec>("runShadow") {
 
 
     // 🛑 CRITICAL 2: Set the main class (REPLACE with your actual FQCN)
-    mainClass.set("net.silver.posman.main.z_MainAppStart")
+    mainClass.set("net.silver.gui.main.z_MainAppStart")
 
     // 🛑 CRITICAL 3: CLEAR the module configuration and JVM Args
     // This removes the unwanted `--module` and `--module-path` flags.

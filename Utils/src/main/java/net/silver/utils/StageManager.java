@@ -7,9 +7,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import net.silver.log.Log;
 import net.silver.posman.login.C_Login;
-import net.silver.posman.main.C_PosMan;
-import net.silver.posman.main.C_PosMan_AfterMainButtons;
-import net.silver.posman.main.C_PosMan_BottomButtons;
+import net.silver.gui.main.C_PosMan;
+import net.silver.gui.main.C_PosMan_AfterMainButtons;
+import net.silver.gui.main.C_PosMan_BottomButtons;
 
 import java.io.IOException;
 import java.net.URL;

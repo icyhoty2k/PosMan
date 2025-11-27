@@ -20,3 +20,5 @@ buildCache {
 include(":Logging")
 include(":Utils")
 include(":Persistence")
+include(":Gui")
+include("App")
