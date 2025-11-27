@@ -1,4 +1,4 @@
-package net.silver.app;
+package net.silver.gui.shortcuts;
 
 import javafx.event.EventHandler;
 import javafx.scene.input.KeyCode;
@@ -6,7 +6,8 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-import net.silver.posman.login.C_Login;
+import net.silver.gui.login.C_Login;
+
 
 public class ShortcutKeys {
   //mainStage keyboard shortcuts[[A_PosMan]]
@@ -37,12 +38,12 @@ public class ShortcutKeys {
     @Override public void handle(KeyEvent event) {
       switch (event.getCode()) {
         case //#[[switch]]
-            KeyCode.ESCAPE: {
+            ESCAPE: {
           c.passFPassword.clear();
           break;
         }
         case
-            KeyCode.ENTER: {
+            ENTER: {
           c.passFPassword.setText("a");
           break;
         }

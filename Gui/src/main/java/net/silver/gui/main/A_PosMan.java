@@ -2,7 +2,7 @@ package net.silver.gui.main;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import net.silver.posman.utils.StageManager;
+import net.silver.gui.cache.StageManager;
 
 import java.io.IOException;
 

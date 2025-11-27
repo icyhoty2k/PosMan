@@ -4,6 +4,7 @@ import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import net.silver.log.Log;
 
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -13,7 +14,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-import static net.silver.utils.ResourceLoader.loadInputStream;
+import static net.silver.resources.ResourceLoader.loadInputStream;
 
 
 // NOTE: This class is no longer managing a Singleton *Connection*, but a Singleton *Pool*.

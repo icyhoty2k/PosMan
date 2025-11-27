@@ -3,7 +3,7 @@ plugins {
 }
 
 group = "net.silver"
-version = "1.0"
+version = rootProject.version
 
 repositories {
     mavenCentral()
@@ -11,4 +11,7 @@ repositories {
 
 dependencies {
     implementation("com.zaxxer:HikariCP:7.0.2")
+    implementation(":Logging")
+    implementation(":Resources")
+
 }

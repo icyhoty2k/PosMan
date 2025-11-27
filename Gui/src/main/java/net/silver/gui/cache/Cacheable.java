@@ -1,4 +1,4 @@
-package net.silver.utils;
+package net.silver.gui.cache;
 
 import net.silver.log.Log;
 

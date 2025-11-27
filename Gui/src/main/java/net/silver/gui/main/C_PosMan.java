@@ -9,6 +9,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import net.silver.gui.login.C_Login;
+import net.silver.gui.cache.Cacheable;
+import net.silver.gui.cache.StageManager;
 import net.silver.log.Log;
 
 

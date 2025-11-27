@@ -1,4 +1,4 @@
-package net.silver.utils;
+package net.silver.gui.cache;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -6,8 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import net.silver.app.AppInfo;
-import net.silver.app.ShortcutKeys;
 import net.silver.gui.login.C_Login;
+import net.silver.gui.shortcuts.ShortcutKeys;
 import net.silver.log.Log;
 import net.silver.gui.main.C_PosMan;
 import net.silver.gui.main.C_PosMan_AfterMainButtons;

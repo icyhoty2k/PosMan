@@ -5,10 +5,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import net.silver.gui.cache.Cacheable;
+import net.silver.gui.cache.StageManager;
 import net.silver.log.Log;
 import net.silver.gui.main.C_PosMan;
-import net.silver.posman.utils.Cacheable;
-import net.silver.posman.utils.StageManager;
+
 
 public class C_Login implements Cacheable {
 
