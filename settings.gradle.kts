@@ -17,4 +17,4 @@ buildCache {
     }
 }
 
-include("Logging")
+include(":Logging")

@@ -43,6 +43,11 @@ public class Log {
   public static boolean TRACE = level <= LEVEL_TRACE;
 
 
+  /**
+   * Gets level.
+   *
+   * @return the level
+   */
   public static int getLevel() {
     return level;
   }
@@ -58,150 +63,288 @@ public class Log {
     TRACE = level <= LEVEL_TRACE;
   }
 
+  /**
+   * None.
+   */
   public static void NONE() {
     setLevel(LEVEL_NONE);
   }
 
+  /**
+   * Error.
+   */
   public static void ERROR() {
     setLevel(LEVEL_ERROR);
   }
 
+  /**
+   * Warn.
+   */
   public static void WARN() {
     setLevel(LEVEL_WARN);
   }
 
+  /**
+   * Info.
+   */
   public static void INFO() {
     setLevel(LEVEL_INFO);
   }
 
+  /**
+   * Debug.
+   */
   public static void DEBUG() {
     setLevel(LEVEL_DEBUG);
   }
 
+  /**
+   * Trace.
+   */
   public static void TRACE() {
     setLevel(LEVEL_TRACE);
   }
 
-  /** Sets the logger that will write the log messages. */
+  /** Sets the logger that will write the log messages.  @param logger the logger */
   public static void setLogger(Logger logger) {
     Log.logger = logger;
   }
 
 
+  /**
+   * Error.
+   *
+   * @param message the message
+   * @param ex      the ex
+   */
   public static void error(String message, Throwable ex) {
     if (ERROR) {
       logger.log(LEVEL_ERROR, null, message, ex);
     }
   }
 
+  /**
+   * Error.
+   *
+   * @param category the category
+   * @param message  the message
+   * @param ex       the ex
+   */
   public static void error(String category, String message, Throwable ex) {
     if (ERROR) {
       logger.log(LEVEL_ERROR, category, message, ex);
     }
   }
 
+  /**
+   * Error.
+   *
+   * @param message the message
+   */
   public static void error(String message) {
     if (ERROR) {
       logger.log(LEVEL_ERROR, null, message, null);
     }
   }
 
+  /**
+   * Error.
+   *
+   * @param category the category
+   * @param message  the message
+   */
   public static void error(String category, String message) {
     if (ERROR) {
       logger.log(LEVEL_ERROR, category, message, null);
     }
   }
 
+  /**
+   * Warn.
+   *
+   * @param message the message
+   * @param ex      the ex
+   */
   public static void warn(String message, Throwable ex) {
     if (WARN) {
       logger.log(LEVEL_WARN, null, message, ex);
     }
   }
 
+  /**
+   * Warn.
+   *
+   * @param category the category
+   * @param message  the message
+   * @param ex       the ex
+   */
   public static void warn(String category, String message, Throwable ex) {
     if (WARN) {
       logger.log(LEVEL_WARN, category, message, ex);
     }
   }
 
+  /**
+   * Warn.
+   *
+   * @param message the message
+   */
   public static void warn(String message) {
     if (WARN) {
       logger.log(LEVEL_WARN, null, message, null);
     }
   }
 
+  /**
+   * Warn.
+   *
+   * @param category the category
+   * @param message  the message
+   */
   public static void warn(String category, String message) {
     if (WARN) {
       logger.log(LEVEL_WARN, category, message, null);
     }
   }
 
+  /**
+   * Info.
+   *
+   * @param message the message
+   * @param ex      the ex
+   */
   public static void info(String message, Throwable ex) {
     if (INFO) {
       logger.log(LEVEL_INFO, null, message, ex);
     }
   }
 
+  /**
+   * Info.
+   *
+   * @param category the category
+   * @param message  the message
+   * @param ex       the ex
+   */
   public static void info(String category, String message, Throwable ex) {
     if (INFO) {
       logger.log(LEVEL_INFO, category, message, ex);
     }
   }
 
+  /**
+   * Info.
+   *
+   * @param message the message
+   */
   public static void info(String message) {
     if (INFO) {
       logger.log(LEVEL_INFO, null, message, null);
     }
   }
 
+  /**
+   * Info.
+   *
+   * @param category the category
+   * @param message  the message
+   */
   public static void info(String category, String message) {
     if (INFO) {
       logger.log(LEVEL_INFO, category, message, null);
     }
   }
 
+  /**
+   * Debug.
+   *
+   * @param message the message
+   * @param ex      the ex
+   */
   public static void debug(String message, Throwable ex) {
     if (DEBUG) {
       logger.log(LEVEL_DEBUG, null, message, ex);
     }
   }
 
+  /**
+   * Debug.
+   *
+   * @param category the category
+   * @param message  the message
+   * @param ex       the ex
+   */
   public static void debug(String category, String message, Throwable ex) {
     if (DEBUG) {
       logger.log(LEVEL_DEBUG, category, message, ex);
     }
   }
 
+  /**
+   * Debug.
+   *
+   * @param message the message
+   */
   public static void debug(String message) {
     if (DEBUG) {
       logger.log(LEVEL_DEBUG, null, message, null);
     }
   }
 
+  /**
+   * Debug.
+   *
+   * @param category the category
+   * @param message  the message
+   */
   public static void debug(String category, String message) {
     if (DEBUG) {
       logger.log(LEVEL_DEBUG, category, message, null);
     }
   }
 
+  /**
+   * Trace.
+   *
+   * @param message the message
+   * @param ex      the ex
+   */
   public static void trace(String message, Throwable ex) {
     if (TRACE) {
       logger.log(LEVEL_TRACE, null, message, ex);
     }
   }
 
+  /**
+   * Trace.
+   *
+   * @param category the category
+   * @param message  the message
+   * @param ex       the ex
+   */
   public static void trace(String category, String message, Throwable ex) {
     if (TRACE) {
       logger.log(LEVEL_TRACE, category, message, ex);
     }
   }
 
+  /**
+   * Trace.
+   *
+   * @param message the message
+   */
   public static void trace(String message) {
     if (TRACE) {
       logger.log(LEVEL_TRACE, null, message, null);
     }
   }
 
+  /**
+   * Trace.
+   *
+   * @param category the category
+   * @param message  the message
+   */
   public static void trace(String category, String message) {
     if (TRACE) {
       logger.log(LEVEL_TRACE, category, message, null);
@@ -221,6 +364,14 @@ public class Log {
     private static long previousLogTime;
     private static long currentLogTime;
 
+    /**
+     * Log.
+     *
+     * @param level    the level
+     * @param category the category
+     * @param message  the message
+     * @param ex       the ex
+     */
     public void log(int level, String category, String message, Throwable ex) {
       final StringBuilder stringBuilder = new StringBuilder(256);
       counter++;
@@ -277,7 +428,7 @@ public class Log {
       print(stringBuilder.toString());
     }
 
-    /** Prints the message to System.out. Called by the default implementation of {@link #log(int, String, String, Throwable)}. */
+    /** Prints the message to System.out. Called by the default implementation of {@link #log(int, String, String, Throwable)}.  @param message the message */
     protected void print(String message) {
       System.out.println(message);
     }
