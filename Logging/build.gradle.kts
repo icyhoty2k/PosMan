@@ -7,22 +7,14 @@ plugins {
 }
 
 group = "net.silver.log"
-version = "1.0"
+version = project.version
 
 java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(25))
-    }
-
     // Gradle auto-generates:
     // - Logging-1.0-sources.jar
     // - Logging-1.0-javadoc.jar
     withSourcesJar()
     withJavadocJar()
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
@@ -31,7 +23,7 @@ dependencies {
 
 tasks.jar {
     archiveBaseName.set("Logging")
-    archiveVersion.set("1.0")
+    archiveVersion.set("$version")
     archiveClassifier.set("")
 }
 

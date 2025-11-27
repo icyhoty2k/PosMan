@@ -1,22 +1,14 @@
 plugins {
     `java-library`
-    idea
 }
 
 group = "net.silver.app"
 version = rootProject.version
 
 java {
-    toolchain {
-        languageVersion.set(JavaLanguageVersion.of(25))
-    }
     withSourcesJar()  // generates -sources.jar
     withJavadocJar()  // generates -javadoc.jar
     modularity.inferModulePath.set(true) // enable module path
-}
-
-repositories {
-    mavenCentral()
 }
 
 dependencies {
@@ -26,7 +18,7 @@ dependencies {
 
 tasks.jar {
     archiveBaseName.set("App")
-    archiveVersion.set("1.0")
+    archiveVersion.set("$version")
     archiveClassifier.set("")
 }
 

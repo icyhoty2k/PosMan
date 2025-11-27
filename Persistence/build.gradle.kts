@@ -11,7 +11,7 @@ repositories {
 
 dependencies {
     implementation("com.zaxxer:HikariCP:7.0.2")
-    implementation(":Logging")
-    implementation(":Resources")
+    implementation(project(":Logging"))
+    implementation(project(":Resources"))
 
 }

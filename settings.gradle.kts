@@ -17,9 +17,9 @@ buildCache {
     }
 }
 
-include(":Logging")
-include(":Utils")
-include(":Persistence")
-include(":Gui")
-include(":App")
-include(":Resources")
+include("Logging")
+include("Utils")
+include("Persistence")
+include("Gui")
+include("App")
+include("Resources")

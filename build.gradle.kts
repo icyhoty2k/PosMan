@@ -69,12 +69,35 @@ plugins {
 //    id("com.dorongold.task-tree") version "4.0.1"
 //    id("com.osacky.doctor") version "0.12.1"
 }
+val javaVersion = 25
 apply(from = "gradle/globalManifest.gradle.kts")
 
-group = "net.silver"
-//[[AppInfo#APP_VERSION_FIRST_PART]]
-version = "1.0"//#[[gradleAppVersion]]
-val javaVersion = 25
+allprojects {
+    // Global group (each module overrides if needed)
+    group = "net.silver"
+
+    // Global version (modules can inherit or override)
+    //[[AppInfo#APP_VERSION_FIRST_PART]]
+    version = "1.0"//#[[gradleAppVersion]]
+}
+
+subprojects {
+    apply(plugin = "java")
+    repositories {
+        mavenCentral()
+    }
+    java {
+        modularity.inferModulePath.set(true)
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(javaVersion)
+            vendor.set(JvmVendorSpec.MICROSOFT) // Microsoft JDK
+//            implementation.set(JvmImplementation.VENDOR_SPECIFIC)
+        }
+        modularity.inferModulePath.set(true)
+    }
+}
+
+
 val javaFXVersion = "25.0.1"
 val javaFXModules = listOf("javafx.controls", "javafx.fxml", "javafx.graphics")
 //test frameworks
@@ -251,14 +274,7 @@ tasks.register<Exec>("createAppCDS") {
         "-jar", "build/libs/PosMan-1.0.jar"
     )
 }
-java {
-    modularity.inferModulePath.set(false)
-    toolchain {
-        languageVersion = JavaLanguageVersion.of(javaVersion)
-        vendor.set(JvmVendorSpec.MICROSOFT) // Eclipse Temurin
-        implementation.set(JvmImplementation.VENDOR_SPECIFIC)
-    }
-}
+
 tasks.named<JavaCompile>("compileTestJava") {
     modularity.inferModulePath.set(true)
     options.encoding = "UTF-8"
