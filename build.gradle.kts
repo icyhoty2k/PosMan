@@ -216,7 +216,7 @@ dependencies {
     // SQLite, MySQL, HikariCP, SLF4J
     implementation("org.xerial:sqlite-jdbc:3.50.3.0")
     implementation("com.mysql:mysql-connector-j:9.5.0")
-    implementation("com.zaxxer:HikariCP:7.0.2")
+//    implementation("com.zaxxer:HikariCP:7.0.2")
     implementation("org.slf4j:slf4j-nop:2.0.17")
     implementation("org.openjfx:javafx-controls:$javaFXVersion:$platform")
     implementation("org.openjfx:javafx-fxml:$javaFXVersion:$platform")
@@ -224,7 +224,7 @@ dependencies {
     // Modules of Project
     implementation(project(":Logging"))
     implementation(project(":Utils"))
-    implementation(project(":Persistance"))
+    implementation(project(":Persistence"))
 
     // JUnit 5 API for compiling tests
     testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")

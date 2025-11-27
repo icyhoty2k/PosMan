@@ -1,4 +1,4 @@
-package net.silver.posman.db;
+package net.silver.persistance;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -13,7 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
 
-import static net.silver.posman.utils.ResourceLoader.loadInputStream;
+import static net.silver.utils.ResourceLoader.loadInputStream;
 
 
 // NOTE: This class is no longer managing a Singleton *Connection*, but a Singleton *Pool*.

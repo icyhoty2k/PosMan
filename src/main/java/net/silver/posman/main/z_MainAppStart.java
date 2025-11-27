@@ -1,8 +1,7 @@
 package net.silver.posman.main;
 
 import javafx.application.Application;
-import net.silver.posman.db.MysqlDbPoolManager;
-import net.silver.posman.login.A_Login;
+import net.silver.persistance.MysqlDbPoolManager;
 
 public class z_MainAppStart {
   public static void main(String[] args) {

@@ -10,7 +10,7 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/Logging" />
-            <option value="$PROJECT_DIR$/Persistance" />
+            <option value="$PROJECT_DIR$/Persistence" />
             <option value="$PROJECT_DIR$/Utils" />
           </set>
         </option>
