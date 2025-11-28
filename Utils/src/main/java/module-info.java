@@ -1,6 +1,6 @@
 module net.silver.utils {
 
-  requires net.silver.logging;
+  requires net.silver.log;
 
 
   exports net.silver.utils;
