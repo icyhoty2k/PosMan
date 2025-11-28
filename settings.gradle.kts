@@ -1,11 +1,11 @@
+rootProject.name = "PosMan"
+
 pluginManagement {
     repositories {
         gradlePluginPortal()
         mavenCentral()
     }
 }
-
-rootProject.name = "PosMan"
 
 // ------------------------------------------------------------
 // ⚡ RAM Disk Build Cache (Global Cache Location)
