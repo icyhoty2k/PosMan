@@ -17,7 +17,7 @@ dependencies {
     // No backend here — your log module is standalone
     // SLF4J API only; your custom logger will be used at runtime
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    implementation("org.slf4j:slf4j-api:2.0.17")
+    api("org.slf4j:slf4j-api:2.0.17")
 
 }
 
