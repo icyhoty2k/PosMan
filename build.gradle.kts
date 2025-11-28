@@ -70,6 +70,8 @@ plugins {
 //    id("com.osacky.doctor") version "0.12.1"
 }
 val javaVersion = 25
+val hikariCpVersion = "7.0.2"
+extra["hikariCpVersion"] = "com.zaxxer:HikariCP:$hikariCpVersion"
 apply(from = "gradle/globalManifest.gradle.kts")
 
 allprojects {
@@ -80,7 +82,6 @@ allprojects {
     //[[AppInfo#APP_VERSION_FIRST_PART]]
     version = "1.0"//#[[gradleAppVersion]]
 }
-
 subprojects {
     apply(plugin = "java")
     repositories {
@@ -91,9 +92,29 @@ subprojects {
         toolchain {
             languageVersion = JavaLanguageVersion.of(javaVersion)
             vendor.set(JvmVendorSpec.MICROSOFT) // Microsoft JDK
-//            implementation.set(JvmImplementation.VENDOR_SPECIFIC)
+            implementation.set(JvmImplementation.VENDOR_SPECIFIC)
         }
         modularity.inferModulePath.set(true)
+    }
+    /**
+     * Classic Javadoc task configuration (this affects BOTH:
+     *  - the HTML docs in build/docs/javadoc
+     *  - the generated javadoc JAR)
+     */
+    tasks.javadoc {
+        val opts = options as StandardJavadocDocletOptions
+
+        // disable strict JavaDoc checking
+        opts.addStringOption("Xdoclint:none", "-quiet")
+
+        opts.encoding = "UTF-8"
+        opts.memberLevel = JavadocMemberLevel.PUBLIC
+
+        // Gradle 8/9 compliant path
+        destinationDir = layout.buildDirectory
+            .dir("docs/javadoc")
+            .get()
+            .asFile
     }
 }
 

@@ -76,7 +76,7 @@ Use Objects.requireNonNull to catch missing resources immediately
    */
 
   private static final ClassLoader classLoader = ResourceLoader.class.getClassLoader();
-  private static final String ROOT_OF_CLASSPATH = "net/silver/posman/";
+  private static final String ROOT_OF_CLASSPATH = "net/silver/";
   private static final char DEFAULT_SEPARATOR = '/';
   private static final StringBuilder sb = new StringBuilder();
   private static InputStream inputStream;

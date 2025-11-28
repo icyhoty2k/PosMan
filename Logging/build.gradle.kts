@@ -1,8 +1,4 @@
-import org.gradle.external.javadoc.StandardJavadocDocletOptions
-
-
 plugins {
-    java
     `java-library`
 }
 
@@ -25,28 +21,6 @@ tasks.jar {
     archiveBaseName.set("Logging")
     archiveVersion.set("$version")
     archiveClassifier.set("")
-}
-
-
-/**
- * Classic Javadoc task configuration (this affects BOTH:
- *  - the HTML docs in build/docs/javadoc
- *  - the generated javadoc JAR)
- */
-tasks.javadoc {
-    val opts = options as StandardJavadocDocletOptions
-
-    // disable strict JavaDoc checking
-    opts.addStringOption("Xdoclint:none", "-quiet")
-
-    opts.encoding = "UTF-8"
-    opts.memberLevel = JavadocMemberLevel.PUBLIC
-
-    // Gradle 8/9 compliant path
-    destinationDir = layout.buildDirectory
-        .dir("docs/javadoc")
-        .get()
-        .asFile
 }
 
 /**

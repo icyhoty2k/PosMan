@@ -6,8 +6,8 @@ group = "net.silver.app"
 version = rootProject.version
 
 java {
-    withSourcesJar()  // generates -sources.jar
-    withJavadocJar()  // generates -javadoc.jar
+//    withSourcesJar()  // generates -sources.jar
+//    withJavadocJar()  // generates -javadoc.jar
     modularity.inferModulePath.set(true) // enable module path
 }
 
@@ -22,18 +22,13 @@ tasks.jar {
     archiveClassifier.set("")
 }
 
-tasks.javadoc {
-    options.encoding = "UTF-8"
-    (options as? org.gradle.external.javadoc.StandardJavadocDocletOptions)?.memberLevel =
-        org.gradle.external.javadoc.JavadocMemberLevel.PUBLIC
-}
 
 // Optional: check module-info.class presence
 tasks.register("showModuleInfo") {
     group = "help"
     description = "Shows module-info presence in App.jar"
     doLast {
-        val jarFile = layout.buildDirectory.file("libs/App-1.0.jar").get().asFile
+        val jarFile = layout.buildDirectory.file("libs/App-$version.jar").get().asFile
         println("JAR file: $jarFile")
         println(
             "Contains module-info.class: " +

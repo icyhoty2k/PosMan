@@ -1,20 +1,37 @@
 plugins {
-    id("java")
+    `java-library`
 }
 
-group = "net.silver"
-version = "1.0"
+group = "net.silver.resources"
+version = rootProject.version
 
-repositories {
-    mavenCentral()
+java {
+//    withSourcesJar()   // generates -sources.jar
+//    withJavadocJar()   // generates -javadoc.jar
+    modularity.inferModulePath.set(true)  // enable module path
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    // Usually resources don't depend on other modules,
+    // but if needed, add dependencies here
 }
 
-tasks.test {
-    useJUnitPlatform()
+tasks.jar {
+    archiveBaseName.set("Resources")
+    archiveVersion.set("$version")
+    archiveClassifier.set("")
+}
+
+// Optional: check module-info.class presence
+tasks.register("showModuleInfo") {
+    group = "help"
+    description = "Shows module-info presence in Resources.jar"
+    doLast {
+        val jarFile = layout.buildDirectory.file("libs/Resources-$version.jar").get().asFile
+        println("JAR file: $jarFile")
+        println(
+            "Contains module-info.class: " +
+                    zipTree(jarFile).files.any { it.name == "module-info.class" }
+        )
+    }
 }

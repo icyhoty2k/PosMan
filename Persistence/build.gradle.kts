@@ -1,17 +1,38 @@
 plugins {
-    id("java")
+    `java-library`
 }
 
-group = "net.silver"
+group = "net.silver.persistence"
 version = rootProject.version
 
-repositories {
-    mavenCentral()
+java {
+//    withSourcesJar()
+//    withJavadocJar()
+    modularity.inferModulePath.set(true)
 }
 
 dependencies {
-    implementation("com.zaxxer:HikariCP:7.0.2")
+    implementation(rootProject.extra["hikariCpVersion"] as String)
     implementation(project(":Logging"))
     implementation(project(":Resources"))
+}
 
+tasks.jar {
+    archiveBaseName.set("Persistence")
+    archiveVersion.set("$version")
+    archiveClassifier.set("")
+}
+
+// Optional: verify module-info.class presence
+tasks.register("showModuleInfo") {
+    group = "help"
+    description = "Shows module-info presence in Persistence.jar"
+    doLast {
+        val jarFile = layout.buildDirectory.file("libs/Persistence-$version.jar").get().asFile
+        println("JAR file: $jarFile")
+        println(
+            "Contains module-info.class: " +
+                    zipTree(jarFile).files.any { it.name == "module-info.class" }
+        )
+    }
 }
