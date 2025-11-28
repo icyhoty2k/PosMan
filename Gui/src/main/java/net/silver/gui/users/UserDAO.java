@@ -1,6 +1,6 @@
 package net.silver.gui.users;
 
-import net.silver.persistance.MysqlDbPoolManager;
+import net.silver.persistence.MysqlDbPoolManager;
 
 
 import java.sql.Connection;

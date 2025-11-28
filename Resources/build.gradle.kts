@@ -14,6 +14,7 @@ java {
 dependencies {
     // Usually resources don't depend on other modules,
     // but if needed, add dependencies here
+    implementation(project(":Logging"))
 }
 
 tasks.jar {

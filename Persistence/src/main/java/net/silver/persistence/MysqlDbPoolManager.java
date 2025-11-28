@@ -1,4 +1,4 @@
-package net.silver.persistance;
+package net.silver.persistence;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -28,7 +28,7 @@ public final class MysqlDbPoolManager {
   // --- Static Initializer Block: Configure and Initialize the Pool ---
   static {
     // 1. Load Properties from file
-    try (InputStream input = loadInputStream("db/", "db.properties")) {
+    try (InputStream input = loadInputStream("db.properties", MysqlDbPoolManager.class)) {
       if (input == null) {
         throw new IOException("Unable to find db.properties. Please ensure it is in the classpath.");
       }

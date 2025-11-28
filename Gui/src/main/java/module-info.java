@@ -1,15 +1,14 @@
-module net.silver.gui {
-  requires java.sql;
+open module net.silver.gui {
   requires javafx.controls;
   requires javafx.fxml;
-  requires net.silver.logging;
-  requires net.silver.resources;
-  requires net.silver.app;
+  requires javafx.graphics;
 
+  requires net.silver.logging;
+  requires net.silver.utils;
+  requires net.silver.persistence;
+  requires net.silver.app;
+  requires net.silver.resources;
+  requires java.sql;
 
   exports net.silver.gui.main;
-  exports net.silver.gui.login;
-  exports net.silver.gui.groups;
-  exports net.silver.gui.cache;
-  exports net.silver.gui.shortcuts;
 }

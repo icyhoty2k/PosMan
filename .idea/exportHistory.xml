@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ExportHistory">
+    <option name="exports">
+      <list>
+        <ExportEntry>
+          <option name="sizeBytes" value="425" />
+          <option name="summary" value="0 files, 0.4 KB, ~131 tokens" />
+          <option name="timestamp" value="1764302818457" />
+          <option name="tokens" value="131" />
+        </ExportEntry>
+        <ExportEntry>
+          <option name="sizeBytes" value="425" />
+          <option name="summary" value="0 files, 0.4 KB, ~131 tokens" />
+          <option name="timestamp" value="1764302686685" />
+          <option name="tokens" value="131" />
+        </ExportEntry>
+        <ExportEntry>
+          <option name="fileCount" value="3" />
+          <option name="filePaths">
+            <list>
+              <option value="ResourceLoader.java" />
+              <option value="build.gradle.kts" />
+              <option value="module-info.java" />
+            </list>
+          </option>
+          <option name="sizeBytes" value="8082" />
+          <option name="summary" value="3 files, 7.9 KB, ~2,234 tokens" />
+          <option name="timestamp" value="1764302652923" />
+          <option name="tokens" value="2234" />
+        </ExportEntry>
+        <ExportEntry>
+          <option name="fileCount" value="9" />
+          <option name="filePaths">
+            <list>
+              <option value=".gitignore" />
+              <option value="ResourceLoader.java" />
+              <option value="build.gradle.kts" />
+              <option value="gradle.properties" />
+              <option value="gradlew" />
+              <option value="gradlew.bat" />
+              <option value="module-info.java" />
+              <option value="settings.gradle.kts" />
+            </list>
+          </option>
+          <option name="sizeBytes" value="26573" />
+          <option name="summary" value="9 files, 26.0 KB, ~7,550 tokens" />
+          <option name="timestamp" value="1764302559145" />
+          <option name="tokens" value="7550" />
+        </ExportEntry>
+        <ExportEntry>
+          <option name="fileCount" value="25" />
+          <option name="filePaths">
+            <list>
+              <option value="A_Login.java" />
+              <option value="A_PosMan.java" />
+              <option value="C_Groups.java" />
+              <option value="C_Login.java" />
+              <option value="C_PosMan.java" />
+              <option value="C_PosMan_AfterMainButtons.java" />
+              <option value="C_PosMan_BottomButtons.java" />
+              <option value="Cacheable.java" />
+              <option value="Groups.java" />
+              <option value="GroupsDao.java" />
+              <option value="ShortcutKeys.java" />
+              <option value="StageManager.java" />
+              <option value="User.java" />
+              <option value="UserDAO.java" />
+              <option value="build.gradle.kts" />
+              <option value="module-info.java" />
+              <option value="v_Groups.fxml" />
+              <option value="v_Login.fxml" />
+              <option value="v_Nastroiki.fxml" />
+              <option value="v_Nastroiki_Buttons.fxml" />
+              <option value="v_Nastroiki_Buttons_Bottom.fxml" />
+              <option value="v_PosMan.fxml" />
+              <option value="v_PosMan_AfterMainButtons.fxml" />
+              <option value="v_PosMan_BottomButtons.fxml" />
+              <option value="z_MainAppStart.java" />
+            </list>
+          </option>
+          <option name="sizeBytes" value="75785" />
+          <option name="summary" value="25 files, 74.0 KB, ~20,118 tokens" />
+          <option name="timestamp" value="1764298480554" />
+          <option name="tokens" value="20118" />
+        </ExportEntry>
+        <ExportEntry>
+          <option name="fileCount" value="31" />
+          <option name="filePaths">
+            <list>
+              <option value=".gitignore" />
+              <option value="A_Login.java" />
+              <option value="A_PosMan.java" />
+              <option value="C_Groups.java" />
+              <option value="C_Login.java" />
+              <option value="C_PosMan.java" />
+              <option value="C_PosMan_AfterMainButtons.java" />
+              <option value="C_PosMan_BottomButtons.java" />
+              <option value="Cacheable.java" />
+              <option value="Groups.java" />
+              <option value="GroupsDao.java" />
+              <option value="ShortcutKeys.java" />
+              <option value="StageManager.java" />
+              <option value="User.java" />
+              <option value="UserDAO.java" />
+              <option value="build.gradle.kts" />
+              <option value="gradle.properties" />
+              <option value="gradlew" />
+              <option value="gradlew.bat" />
+              <option value="module-info.java" />
+              <option value="settings.gradle.kts" />
+              <option value="v_Groups.fxml" />
+              <option value="v_Login.fxml" />
+              <option value="v_Nastroiki.fxml" />
+              <option value="v_Nastroiki_Buttons.fxml" />
+              <option value="v_Nastroiki_Buttons_Bottom.fxml" />
+              <option value="v_PosMan.fxml" />
+              <option value="v_PosMan_AfterMainButtons.fxml" />
+              <option value="v_PosMan_BottomButtons.fxml" />
+              <option value="z_MainAppStart.java" />
+            </list>
+          </option>
+          <option name="sizeBytes" value="113737" />
+          <option name="summary" value="31 files, 111.1 KB, ~30,484 tokens" />
+          <option name="timestamp" value="1764298403113" />
+          <option name="tokens" value="30484" />
+        </ExportEntry>
+        <ExportEntry>
+          <option name="fileCount" value="25" />
+          <option name="filePaths">
+            <list>
+              <option value="A_Login.java" />
+              <option value="A_PosMan.java" />
+              <option value="C_Groups.java" />
+              <option value="C_Login.java" />
+              <option value="C_PosMan.java" />
+              <option value="C_PosMan_AfterMainButtons.java" />
+              <option value="C_PosMan_BottomButtons.java" />
+              <option value="Cacheable.java" />
+              <option value="Groups.java" />
+              <option value="GroupsDao.java" />
+              <option value="ShortcutKeys.java" />
+              <option value="StageManager.java" />
+              <option value="User.java" />
+              <option value="UserDAO.java" />
+              <option value="build.gradle.kts" />
+              <option value="module-info.java" />
+              <option value="v_Groups.fxml" />
+              <option value="v_Login.fxml" />
+              <option value="v_Nastroiki.fxml" />
+              <option value="v_Nastroiki_Buttons.fxml" />
+              <option value="v_Nastroiki_Buttons_Bottom.fxml" />
+              <option value="v_PosMan.fxml" />
+              <option value="v_PosMan_AfterMainButtons.fxml" />
+              <option value="v_PosMan_BottomButtons.fxml" />
+              <option value="z_MainAppStart.java" />
+            </list>
+          </option>
+          <option name="sizeBytes" value="75785" />
+          <option name="summary" value="25 files, 74.0 KB, ~20,118 tokens" />
+          <option name="timestamp" value="1764298353173" />
+          <option name="tokens" value="20118" />
+        </ExportEntry>
+      </list>
+    </option>
+  </component>
+</project>

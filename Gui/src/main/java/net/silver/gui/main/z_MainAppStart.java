@@ -1,7 +1,7 @@
 package net.silver.gui.main;
 
 import javafx.application.Application;
-import net.silver.persistance.MysqlDbPoolManager;
+import net.silver.persistence.MysqlDbPoolManager;
 
 public class z_MainAppStart {
   public static void main(String[] args) {

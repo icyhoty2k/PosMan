@@ -1,5 +1,7 @@
 package net.silver.resources;
 
+import net.silver.log.Log;
+
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Objects;
@@ -75,16 +77,13 @@ Use Objects.requireNonNull to catch missing resources immediately
 "net/silver/posman/images/..." App.getClassLoader           classes/net/silver/posman/images/...
    */
 
-  private static final ClassLoader classLoader = ResourceLoader.class.getClassLoader();
-  private static final String ROOT_OF_CLASSPATH = "net/silver/";
-  private static final char DEFAULT_SEPARATOR = '/';
-  private static final StringBuilder sb = new StringBuilder();
-  private static InputStream inputStream;
+  private static final String ROOT_OF_RESOURCES = "/net/silver/resources/";
+
 
   /**
-   * Load a resource as a URL.
+   * Load a resource as a URL from this module.
    *
-   * @param resource relative path from net/silver/posman/
+   * @param resource relative path from /net/silver/resources/
    *
    * @return URL to the resource
    *
@@ -92,13 +91,13 @@ Use Objects.requireNonNull to catch missing resources immediately
    */
   public static URL loadURL(String resource) {
     Objects.requireNonNull(resource, "Resource path cannot be null");
-    URL url = classLoader.getResource(ROOT_OF_CLASSPATH + resource);
+    URL url = ResourceLoader.class.getResource(ROOT_OF_RESOURCES + resource);
     if (url == null) {
-      throw new IllegalArgumentException("Resource not found: " + ROOT_OF_CLASSPATH + resource);
+      Log.info("Resource not found: " + ROOT_OF_RESOURCES + resource);
+      throw new IllegalArgumentException("Resource not found: " + ROOT_OF_RESOURCES + resource);
     }
     return url;
   }
-
 
   /**
    * Load a resource as an InputStream.
@@ -120,9 +119,19 @@ Use Objects.requireNonNull to catch missing resources immediately
    * @return InputStream for the resource
    */
   public static InputStream loadInputStream(String resourceDir, String resourceName) {
+    return loadInputStream(resourceDir, resourceName, ResourceLoader.class);
+  }
+
+  public static InputStream loadInputStream(String resourceName, Class<?> clazz) {
+    return loadInputStream("", resourceName, clazz);
+  }
+
+  public static InputStream loadInputStream(String resourceDir, String resourceName, Class<?> c) {
     Objects.requireNonNull(resourceName, "Resource name cannot be null");
-    String path = ROOT_OF_CLASSPATH + resourceDir + resourceName;
-    InputStream stream = classLoader.getResourceAsStream(path);
+
+    String path = resourceDir + resourceName;
+
+    InputStream stream = c.getResourceAsStream(path);
     if (stream == null) {
       throw new IllegalArgumentException("Resource not found: " + path);
     }
