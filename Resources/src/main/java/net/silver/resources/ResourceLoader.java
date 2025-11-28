@@ -2,6 +2,7 @@ package net.silver.resources;
 
 import net.silver.log.Log;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.util.Objects;
@@ -107,7 +108,7 @@ Use Objects.requireNonNull to catch missing resources immediately
    * @return InputStream for the resource
    */
   public static InputStream loadInputStream(String resourceName) {
-    return loadInputStream("", resourceName);
+    return loadInputStream(ROOT_OF_RESOURCES, resourceName);
   }
 
   /**
@@ -119,7 +120,7 @@ Use Objects.requireNonNull to catch missing resources immediately
    * @return InputStream for the resource
    */
   public static InputStream loadInputStream(String resourceDir, String resourceName) {
-    return loadInputStream(resourceDir, resourceName, ResourceLoader.class);
+    return loadInputStream(ROOT_OF_RESOURCES + resourceDir, resourceName, ResourceLoader.class);
   }
 
   public static InputStream loadInputStream(String resourceName, Class<?> clazz) {
@@ -131,9 +132,20 @@ Use Objects.requireNonNull to catch missing resources immediately
 
     String path = resourceDir + resourceName;
 
-    InputStream stream = c.getResourceAsStream(path);
-    if (stream == null) {
+    InputStream stream = null;
+    try {
+      stream = c.getModule().getResourceAsStream(path);
+      if (stream == null) {
+        // fallback for non-modular classpath
+        stream = c.getClassLoader().getResourceAsStream(path);
+      }
+    } catch (IOException e) {
       throw new IllegalArgumentException("Resource not found: " + path);
+    }
+    if (stream == null) {
+      throw new IllegalArgumentException(
+          "FATAL: Could not load resource: " + path
+      );
     }
     return stream;
   }

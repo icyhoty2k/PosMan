@@ -3,6 +3,7 @@ package net.silver.persistence;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import net.silver.log.Log;
+import net.silver.resources.ResourceLoader;
 
 
 import java.io.IOException;
@@ -13,8 +14,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Properties;
-
-import static net.silver.resources.ResourceLoader.loadInputStream;
 
 
 // NOTE: This class is no longer managing a Singleton *Connection*, but a Singleton *Pool*.
@@ -27,8 +26,10 @@ public final class MysqlDbPoolManager {
   //
   // --- Static Initializer Block: Configure and Initialize the Pool ---
   static {
+
+
     // 1. Load Properties from file
-    try (InputStream input = loadInputStream("db.properties", MysqlDbPoolManager.class)) {
+    try (InputStream input = ResourceLoader.loadInputStream("net/silver/persistence/db.properties", MysqlDbPoolManager.class)) {
       if (input == null) {
         throw new IOException("Unable to find db.properties. Please ensure it is in the classpath.");
       }

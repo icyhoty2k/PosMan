@@ -15,6 +15,7 @@ dependencies {
     implementation(rootProject.extra["hikariCpVersion"] as String)
     implementation(project(":Logging"))
     implementation(project(":Resources"))
+    implementation("com.mysql:mysql-connector-j:9.5.0")
 }
 
 tasks.jar {

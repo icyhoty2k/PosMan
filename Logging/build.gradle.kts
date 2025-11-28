@@ -15,6 +15,10 @@ java {
 
 dependencies {
     // No backend here — your log module is standalone
+    // SLF4J API only; your custom logger will be used at runtime
+    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
+    implementation("org.slf4j:slf4j-api:2.0.17")
+
 }
 
 tasks.jar {
@@ -37,4 +41,10 @@ tasks.register("showModuleInfo") {
                     zipTree(jarFile).files.any { it.name == "module-info.class" }
         )
     }
+}
+tasks.processResources {
+    from("src/main/resources")
+}
+tasks.withType<ProcessResources> {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 }
