@@ -51,14 +51,16 @@ public final class MysqlDbPoolManager {
     config.setJdbcUrl(url);
     config.setUsername(PROPS.getProperty("db.user"));
     config.setPassword(PROPS.getProperty("db.password"));
+    config.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
     // Optional: Hikari-specific tuning properties
-    config.setMaximumPoolSize(9);
-    config.setMinimumIdle(3);
+    config.setMaximumPoolSize(6);
+    config.setMinimumIdle(2);
+    config.setKeepaliveTime(60_000); // 60_000 is 60 seconds
+    config.setInitializationFailTimeout(5000);
     config.setConnectionTimeout(2000); // 2 seconds timeout (fast)
-    config.setIdleTimeout(300000); // 5 minutes idle before closing
+    config.setIdleTimeout(300_000); // 5 minutes idle before closing
 
-    config.setDriverClassName("com.mysql.cj.jdbc.Driver");
 
     //  MySQL Driver Optimization (Low Latency Properties)
     config.addDataSourceProperty("cachePrepStmts", "true"); // Cache prepared statements
