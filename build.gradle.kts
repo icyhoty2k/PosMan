@@ -67,7 +67,7 @@ plugins {
 val javaVersion = 25
 val hikariCpVersion = "7.0.2"
 extra["hikariCpVersion"] = "com.zaxxer:HikariCP:$hikariCpVersion"
-apply(from = "gradle/globalManifest.gradle.kts")
+apply(from = "gradle/myScripts/globalManifest.gradle.kts")
 
 allprojects {
     // Global group (each module overrides if needed)

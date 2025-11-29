@@ -1,6 +1,9 @@
 plugins {
     `java-library`
+    idea
 }
+//disable tests and hide test dirs src-test nd resources-test
+apply(from = rootDir.resolve("gradle/myScripts/disableTestDirAndTests.gradle.kts"))
 
 group = "net.silver.app"
 version = rootProject.version
@@ -12,6 +15,7 @@ java {
 }
 
 dependencies {
+
     // If App needs anything from utils, logging, or resources, add here:
 
 }

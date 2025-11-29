@@ -122,6 +122,7 @@ dependencies {
     implementation(project(":Persistence"))
     implementation(project(":App"))
     implementation(project(":Resources"))
+    implementation(project(":Config"))
 
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")

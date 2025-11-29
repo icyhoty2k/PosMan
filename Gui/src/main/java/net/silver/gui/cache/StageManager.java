@@ -5,7 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import net.silver.app.AppMetadata;
+import net.silver.config.AppMetadata;
 import net.silver.gui.login.C_Login;
 import net.silver.gui.shortcuts.ShortcutKeys;
 import net.silver.log.Log;

@@ -1,20 +1,42 @@
 plugins {
-    id("java")
+    `java-library`
+    idea
 }
+//disable tests and hide test dirs src-test nd resources-test
+apply(from = rootDir.resolve("gradle/myScripts/disableTestDirAndTests.gradle.kts"))
 
-group = "net.silver"
-version = "1.0"
+group = "net.silver.app"
+version = rootProject.version
 
-repositories {
-    mavenCentral()
+java {
+//    withSourcesJar()  // generates -sources.jar
+//    withJavadocJar()  // generates -javadoc.jar
+    modularity.inferModulePath.set(true) // enable module path
 }
 
 dependencies {
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    // If App needs anything from utils, logging, or resources, add here:
+
 }
 
-tasks.test {
-    useJUnitPlatform()
+tasks.jar {
+    archiveBaseName.set("App")
+    archiveVersion.set("$version")
+    archiveClassifier.set("")
+}
+
+
+// Optional: check module-info.class presence
+tasks.register("showModuleInfo") {
+    group = "help"
+    description = "Shows module-info presence in App.jar"
+    doLast {
+        val jarFile = layout.buildDirectory.file("libs/App-$version.jar").get().asFile
+        println("JAR file: $jarFile")
+        println(
+            "Contains module-info.class: " +
+                    zipTree(jarFile).files.any { it.name == "module-info.class" }
+        )
+    }
 }
