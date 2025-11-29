@@ -1,6 +1,5 @@
 plugins {
     `java-library`
-    idea
 }
 //disable tests and hide test dirs src-test nd resources-test
 apply(from = rootDir.resolve("gradle/myScripts/disableTestDirAndTests.gradle.kts"))

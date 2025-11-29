@@ -76,9 +76,11 @@ allprojects {
     // Global version (modules can inherit or override)
     //[[AppInfo#APP_VERSION_FIRST_PART]]
     version = "1.0"//#[[gradleAppVersion]]
+
 }
 subprojects {
     apply(plugin = "java")
+    apply(from = rootDir.resolve("gradle/myScripts/downloadSourcesAndJavadoc.gradle.kts"))
     repositories {
         mavenCentral()
     }
