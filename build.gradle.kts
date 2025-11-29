@@ -259,6 +259,7 @@ tasks.register<ReadVersionTask>("readVersionFromClass") {
         project.provider { project.sourceSets.main.get().output },
         project.provider { project.sourceSets.main.get().runtimeClasspath }
     )
+
 }
 tasks.compileJava {
     options.isIncremental = true
