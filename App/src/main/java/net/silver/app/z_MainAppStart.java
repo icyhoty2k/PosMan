@@ -1,4 +1,4 @@
-package net.silver.gui.main;
+package net.silver.app;
 
 import javafx.application.Application;
 import net.silver.persistence.MysqlDbPoolManager;

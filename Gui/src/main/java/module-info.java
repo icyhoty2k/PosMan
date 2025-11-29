@@ -6,7 +6,6 @@ open module net.silver.gui {
   requires net.silver.log;
   requires net.silver.utils;
   requires net.silver.persistence;
-  requires net.silver.app;
   requires net.silver.resources;
   requires java.sql;
 

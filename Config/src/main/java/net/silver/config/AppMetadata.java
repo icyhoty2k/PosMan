@@ -1,9 +1,9 @@
-package net.silver.app;
+package net.silver.config;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-public final class AppInfo {
+public final class AppMetadata {
   // private static final double GOLDEN_RATIO = (1 + Math.sqrt(5)) / 2;
   /*
    *APP_VERSION and build.gradle.kts-> version must be equal!
@@ -37,7 +37,7 @@ public final class AppInfo {
   //!========================================  DO not touch ========================================>
 
   //no objects required
-  private AppInfo() {}
+  private AppMetadata() {}
 
   /*
 1️⃣ Class.getResourceAsStream(String path)
@@ -54,9 +54,9 @@ No leading / → relative to the package of the class
 
 Example:
 
-// AppInfo is in package net.silver.posman.utils
-InputStream is1 = AppInfo.class.getResourceAsStream("/net/silver/posman/images/appIcon2.png"); // absolute
-InputStream is2 = AppInfo.class.getResourceAsStream("images/appIcon2.png"); // relative to net/silver/posman/utils
+// AppMetadata is in package net.silver.posman.utils
+InputStream is1 = AppMetadata.class.getResourceAsStream("/net/silver/posman/images/appIcon2.png"); // absolute
+InputStream is2 = AppMetadata.class.getResourceAsStream("images/appIcon2.png"); // relative to net/silver/posman/utils
 
 
 Returns null if not found.

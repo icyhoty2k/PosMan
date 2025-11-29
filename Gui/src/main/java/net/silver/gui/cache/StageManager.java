@@ -5,7 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import net.silver.app.AppInfo;
+import net.silver.app.AppMetadata;
 import net.silver.gui.login.C_Login;
 import net.silver.gui.shortcuts.ShortcutKeys;
 import net.silver.log.Log;
@@ -31,7 +31,7 @@ public class StageManager {
    * making the application's startup faster and reducing initial memory consumption.
    */
   public static final Map<Class<? extends Cacheable>, Cacheable> FXML_CACHE = new ConcurrentHashMap<>();
-  public static final Image APP_ICON_IMAGE = new Image(Objects.requireNonNull(ResourceLoader.loadInputStream("images/", AppInfo.APP_ICON)));
+  public static final Image APP_ICON_IMAGE = new Image(Objects.requireNonNull(ResourceLoader.loadInputStream("images/", AppMetadata.APP_ICON)));
 
   //Main Stage [[A_PosMan]] ,need to pass C_PosMan to getView
   public static final Stage mainStage = new Stage();
@@ -44,7 +44,7 @@ public class StageManager {
   }
 
   public static C_PosMan loadMainStage() {
-    return customLoading(C_PosMan.class, mainStage, mainScene, loginStage, AppInfo.APP_TITLE_START, true,
+    return customLoading(C_PosMan.class, mainStage, mainScene, loginStage, AppMetadata.APP_TITLE_START, true,
         (controller, stage) -> {
           // Dependency injection: post-load customization
           controller.setMainApp_AfterStageButtons(getView(C_PosMan_AfterMainButtons.class));
@@ -56,7 +56,7 @@ public class StageManager {
   }
 
   public static C_Login loadLoginStage() {
-    return customLoading(C_Login.class, loginStage, loginScene, mainStage, AppInfo.APP_TITLE, false,
+    return customLoading(C_Login.class, loginStage, loginScene, mainStage, AppMetadata.APP_TITLE, false,
         (controller, stage) -> {
           ShortcutKeys.applyLoginScreenShortcuts(stage, controller);
           loginScene = stage.getScene();
