@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
-import net.silver.buildsrc.BuildMeta;
 import net.silver.config.AppMetadata;
 import net.silver.gui.login.C_Login;
 import net.silver.gui.shortcuts.ShortcutKeys;
@@ -47,7 +46,7 @@ public class StageManager {
   }
 
   public static C_PosMan loadMainStage() {
-    return customLoading(C_PosMan.class, mainStage, mainScene, loginStage, BuildMeta., true,
+    return customLoading(C_PosMan.class, mainStage, mainScene, loginStage, "BuildMeta", true,
         (controller, stage) -> {
           // Dependency injection: post-load customization
           controller.setMainApp_AfterStageButtons(getView(C_PosMan_AfterMainButtons.class));
