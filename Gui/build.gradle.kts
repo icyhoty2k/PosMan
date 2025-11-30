@@ -105,7 +105,7 @@ dependencies {
     implementation(project(":App"))
     implementation(project(":Resources"))
     implementation(project(":Config"))
-    implementation(project(":buildSrc"))
+    compileOnly(project(":buildSrc"))
 
 }
 jlink {
