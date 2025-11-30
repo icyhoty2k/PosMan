@@ -3,28 +3,7 @@ import org.gradle.kotlin.dsl.register
 import platform
 
 // Base task to define the common input property
-abstract class WorkingDirTask : DefaultTask() {
-    @get:Input
-    abstract val targetDir: Property<File>
-}
 
-fun deleteDirectoryRecursivly(directory: File) {
-    if (directory.isDirectory) {
-        val files = directory.listFiles()
-
-        if (files != null) {
-            for (file in files) {
-                deleteDirectoryRecursivly(file)
-            }
-        }
-    }
-
-    if (directory.delete()) {
-        println("$directory is deleted")
-    } else {
-        println("Directory not deleted")
-    }
-}
 
 plugins {
     java
@@ -103,10 +82,13 @@ javafx {
     setPlatform("windows")
 }
 tasks.named<JavaExec>("run") {
-    dependsOn("ensureWorkingDir")
+
+
     // Lazy resolution: safe for configuration cache
     mainModule.set(mainAppModule)
-    mainClass.set(application.mainClass)
+    mainClass.set("net.silver.gui.main.z_MainAppStart")
+
+
 //    workingDir = outputWorkingDir
 //    classpath = sourceSets.main.get().runtimeClasspath
     jvmArgs = myJvmArgs
@@ -123,10 +105,8 @@ dependencies {
     implementation(project(":App"))
     implementation(project(":Resources"))
     implementation(project(":Config"))
+    implementation(project(":buildSrc"))
 
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 }
 jlink {
     // Set the path to your desired JDK installation directory
@@ -203,70 +183,11 @@ tasks.jar {
         attributes["Main-Class"] = application.mainClass.get()
     }
 }
-tasks.shadowJar {
-
-    archiveBaseName.set(name)
-    archiveVersion.set("1.0")
-    mainClass.set(application.mainClass.get())
-    archiveClassifier.set("") // produce PosMan-1.0.jar (no "-all")
-    mergeServiceFiles() // ensures JavaFX services work correctly
-    manifest {
-        attributes["Main-Class"] = application.mainClass.get()
-        attributes["Description"] = "This is an application JAR"
-    }
-}
-tasks.named<JavaExec>("runShadow") {
-    group = "application"
-    description = "Runs the application from the output of the shadowJar (Classpath)."
 
 
-    // 🛑 CRITICAL 2: Set the main class (REPLACE with your actual FQCN)
-    mainClass.set("net.silver.gui.main.z_MainAppStart")
 
-    // 🛑 CRITICAL 3: CLEAR the module configuration and JVM Args
-    // This removes the unwanted `--module` and `--module-path` flags.
-    mainModule.set(project.provider { null }) // Force clear the main module property
 
-    jvmArgs = myJvmArgs + mutableListOf(
-        "-XX:+IgnoreUnrecognizedVMOptions",
-        "--enable-native-access=ALL-UNNAMED",
-    )                 // Clear all injected JVM args
-}
-tasks.register<WorkingDirTask>("ensureWorkingDir") {
-    group = "[ivan]"
-//    targetDir.set(outputWorkingDir)
-    doLast {
-        val dir = targetDir.get()
-        if (!dir.exists()) dir.mkdirs()
-    }
-}
-tasks.register<WorkingDirTask>("cleanWorkingDir") {
-    group = "[ivan]"
-//    targetDir.set(outputWorkingDir)
-    doLast {
-        val dir = targetDir.get()
-        if (dir.exists()) {
-            dir.listFiles()?.forEach { it.deleteRecursively() }
-            dir.delete()
-        }
-    }
-}
-tasks.register<WorkingDirTask>("cleanWorkingDirRecursivly") {
-    group = "[ivan]"
-    description = "Recursive for inner  dirs and sub dirs"
-//    targetDir.set(outputWorkingDir)// Wire safe Provider
 
-    doLast {
-        try {
-            deleteDirectoryRecursivly(targetDir.get()) // Use safe property
-        } catch (e: Exception) {
-            e.stackTrace
-        }
-    }
-}
-tasks.clean {
-    dependsOn("cleanWorkingDir")
-}
 tasks.test {
     useJUnitPlatform()
 }

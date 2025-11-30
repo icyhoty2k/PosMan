@@ -5,6 +5,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
+
 import net.silver.config.AppMetadata;
 import net.silver.gui.login.C_Login;
 import net.silver.gui.shortcuts.ShortcutKeys;
@@ -44,7 +46,7 @@ public class StageManager {
   }
 
   public static C_PosMan loadMainStage() {
-    return customLoading(C_PosMan.class, mainStage, mainScene, loginStage, AppMetadata.APP_TITLE_START, true,
+    return customLoading(C_PosMan.class, mainStage, mainScene, loginStage, "BuildMeta.APP_Title", true,
         (controller, stage) -> {
           // Dependency injection: post-load customization
           controller.setMainApp_AfterStageButtons(getView(C_PosMan_AfterMainButtons.class));
@@ -56,7 +58,7 @@ public class StageManager {
   }
 
   public static C_Login loadLoginStage() {
-    return customLoading(C_Login.class, loginStage, loginScene, mainStage, AppMetadata.APP_TITLE, false,
+    return customLoading(C_Login.class, loginStage, loginScene, mainStage, "BuildMeta.APP_Title", false,
         (controller, stage) -> {
           ShortcutKeys.applyLoginScreenShortcuts(stage, controller);
           loginScene = stage.getScene();

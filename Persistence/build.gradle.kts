@@ -17,7 +17,12 @@ dependencies {
     implementation(BuildMeta.Libs.HIKARICP)
     implementation(project(":Logging"))
     implementation(project(":Resources"))
-    implementation("com.mysql:mysql-connector-j:9.5.0")
+    implementation("com.mysql:mysql-connector-j:9.5.0") {
+        exclude(group = "org.apache.groovy", module = "groovy")
+        exclude(group = "org.apache.groovy", module = "groovy-antlr")
+        exclude(group = "org.apache.groovy", module = "groovy-groovydoc")
+
+    }
 }
 
 tasks.jar {

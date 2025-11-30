@@ -21,7 +21,7 @@ dependencies {
 }
 
 tasks.jar {
-    archiveBaseName.set("App")
+
     archiveVersion.set("$version")
     archiveClassifier.set("")
 }

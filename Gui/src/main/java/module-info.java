@@ -9,7 +9,9 @@ open module net.silver.gui {
   requires net.silver.persistence;
   requires net.silver.resources;
 
+
   requires java.sql;
+
 
   exports net.silver.gui.main;
 }

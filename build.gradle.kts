@@ -18,17 +18,17 @@ plugins {
 apply(from = "gradle/myScripts/globalManifest.gradle.kts")
 
 allprojects {
+
     // Global group (each module overrides if needed)
     group = BuildMeta.MAIN_GROUP
     version = BuildMeta.VERSION_PARTIAL_NO_BUILD_NUMBER
-    layout.buildDirectory.set(file("${rootDir}/out/${project.name}"))
+    layout.buildDirectory.set(file(BuildMeta.Paths.OUTPUT_BUILD_DIR + project.name))
+
 }
 subprojects {
     apply(plugin = "java")
     apply(from = rootDir.resolve("gradle/myScripts/downloadSourcesAndJavadoc.gradle.kts"))
-    repositories {
-        mavenCentral()
-    }
+
     java {
         modularity.inferModulePath.set(true)
         toolchain {
@@ -64,15 +64,7 @@ subprojects {
 //test frameworks
 
 
-//workingDir
-//val defaultWorkingDir = "WorkingDir"
-//val outputBuildDir = "$mainBuildAndWorkingDrive${rootProject.name}\\"
-//val outputWorkingDir: File = file("$outputBuildDir\\$defaultWorkingDir\\")
-//extra["outputWorkingDir"] = outputWorkingDir;
-//val gradleOutput: File = File("$outputBuildDir\\gradleBuild\\")
-//val ideaOutput: File = File("$outputBuildDir\\ideaBuild")
-//val ideaTest: File = File("$outputBuildDir\\ideaBuild\\test")
-//val jdkLocation: String = System.getProperty("org.gradle.java.home") ?: System.getenv("JAVA_HOME") ?: ""
+val jdkLocation: String = System.getProperty("org.gradle.java.home") ?: System.getenv("JAVA_HOME") ?: ""
 
 
 idea {
@@ -96,16 +88,12 @@ idea {
     }
 }
 
-repositories {
-    gradlePluginPortal()
-    mavenCentral()// is typically used for dependencies, but not always for plugins
-}
 
 dependencies {
     // SQLite, MySQL, HikariCP, SLF4J
-    implementation("org.xerial:sqlite-jdbc:3.50.3.0")
-    implementation("com.mysql:mysql-connector-j:9.5.0")
-    implementation("org.slf4j:slf4j-api:2.0.17")
+//    implementation("org.xerial:sqlite-jdbc:3.50.3.0")
+
+//    implementation("org.slf4j:slf4j-api:2.0.17")
     // Modules of Project
     implementation(project(":Logging"))
     implementation(project(":Utils"))
@@ -118,19 +106,7 @@ dependencies {
     testImplementation(BuildMeta.Libs.JUNIT_JUPITER)// JUnit 5 Engine for running tests (runtime only)
     testRuntimeOnly(BuildMeta.Libs.JUNIT_PLATFORM)    // Critical for modular projects – allows Gradle to launch tests correctly
 }
-//tasks.register<Exec>("createAppCDS") {
-//    group = "[ivan]"
-//    description = "Create an AppCDS archive for faster startup"
-//
-//    dependsOn(tasks.shadowJar)
-//    commandLine(
-//        "java",
-//        "-Xshare:dump",
-//        "-XX:SharedArchiveFile=${layout.buildDirectory.get()}/PosMan.jsa",
-//        "-XX:SharedClassListFile=${layout.buildDirectory.get()}/PosMan.classlist",
-//        "-jar", "build/libs/PosMan-1.0.jar"
-//    )
-//}
+
 
 tasks.named<JavaCompile>("compileTestJava") {
     modularity.inferModulePath.set(true)

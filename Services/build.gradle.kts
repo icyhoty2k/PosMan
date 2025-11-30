@@ -5,9 +5,6 @@ plugins {
 group = "net.silver"
 version = "1.0"
 
-repositories {
-    mavenCentral()
-}
 
 dependencies {
     testImplementation(platform("org.junit:junit-bom:5.10.0"))

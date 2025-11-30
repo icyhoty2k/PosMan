@@ -47,11 +47,11 @@ public final class BuildMeta {
   }
 
   public static final class Paths {
-    public static final String DEV_DRIVE = "I:\\";//Reference to devDrive
-    public static final String RAM_DRIVE = "R:\\"; //If ramDrive is installed and configured to R:\
-    public static final String MAIN_BUILD_AND_WORKING_DRIVE = RAM_DRIVE; //If ramDrive is installed and configured to R:\
-    public static final String DEFAULT_WORKING_DIR = "WorkingDir"; //If ramDrive is installed and configured to R:\
-    public static final String outputBuildDir = MAIN_BUILD_AND_WORKING_DRIVE + "WorkingDir"; //If ramDrive is installed and configured to R:\
+    private static final String DEV_DRIVE = "I:\\";//Reference to devDrive
+    private static final String RAM_DRIVE = "R:\\"; //If ramDrive is installed and configured to R:\
+    private static final String MAIN_BUILD_AND_WORKING_DRIVE = RAM_DRIVE; //If ramDrive is installed and configured to R:\
+    private static final String DEFAULT_WORKING_DIR = "WorkingDir"; //If ramDrive is installed and configured to R:\
+    public static final String OUTPUT_BUILD_DIR = MAIN_BUILD_AND_WORKING_DRIVE + APP_NAME; //If ramDrive is installed and configured to R:\
     //    public static final File IDEA_OUTPUT = File("outputBuildDir\\ideaBuild");
   }
 }
