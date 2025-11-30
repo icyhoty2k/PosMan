@@ -42,7 +42,7 @@ val javaFXVersion = "25.0.1"
 val platform = "win"
 val javaFXModules = listOf("javafx.controls", "javafx.fxml", "javafx.graphics")
 val jdkLocation: String = System.getProperty("org.gradle.java.home") ?: System.getenv("JAVA_HOME") ?: ""
-val outputWorkingDir: File by rootProject.extra
+//val outputWorkingDir: File by rootProject.extra
 val myJvmArgs = listOf(
     // -------------------------------
     // Startup Optimization (AppCDS)
@@ -107,7 +107,7 @@ tasks.named<JavaExec>("run") {
     // Lazy resolution: safe for configuration cache
     mainModule.set(mainAppModule)
     mainClass.set(application.mainClass)
-    workingDir = outputWorkingDir
+//    workingDir = outputWorkingDir
 //    classpath = sourceSets.main.get().runtimeClasspath
     jvmArgs = myJvmArgs
 }
@@ -234,7 +234,7 @@ tasks.named<JavaExec>("runShadow") {
 }
 tasks.register<WorkingDirTask>("ensureWorkingDir") {
     group = "[ivan]"
-    targetDir.set(outputWorkingDir)
+//    targetDir.set(outputWorkingDir)
     doLast {
         val dir = targetDir.get()
         if (!dir.exists()) dir.mkdirs()
@@ -242,7 +242,7 @@ tasks.register<WorkingDirTask>("ensureWorkingDir") {
 }
 tasks.register<WorkingDirTask>("cleanWorkingDir") {
     group = "[ivan]"
-    targetDir.set(outputWorkingDir)
+//    targetDir.set(outputWorkingDir)
     doLast {
         val dir = targetDir.get()
         if (dir.exists()) {
@@ -254,7 +254,7 @@ tasks.register<WorkingDirTask>("cleanWorkingDir") {
 tasks.register<WorkingDirTask>("cleanWorkingDirRecursivly") {
     group = "[ivan]"
     description = "Recursive for inner  dirs and sub dirs"
-    targetDir.set(outputWorkingDir)// Wire safe Provider
+//    targetDir.set(outputWorkingDir)// Wire safe Provider
 
     doLast {
         try {

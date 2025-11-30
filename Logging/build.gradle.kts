@@ -1,4 +1,5 @@
 import net.silver.buildsrc.BuildMeta
+import org.gradle.kotlin.dsl.api
 
 plugins {
     `java-library`

@@ -34,7 +34,7 @@ public final class BuildMeta {
   }
 
   public static final class Libs {
-    public static final String SLF4J = "org.SLF4J:SLF4J-api:" + Versions.SLF4J;
+    public static final String SLF4J = "org.slf4j:slf4j-api:" + Versions.SLF4J;
     public static final String JUNIT_API = "org.junit.jupiter:junit-jupiter-api:" + Versions.JUNIT;
     public static final String JUNIT_JUPITER = "org.junit.jupiter:junit-jupiter-engine:" + Versions.JUNIT;
     public static final String JUNIT_PLATFORM = "org.junit.platform:junit-platform-launcher:" + Versions.JUNIT_PLATFORM;
@@ -52,5 +52,6 @@ public final class BuildMeta {
     public static final String MAIN_BUILD_AND_WORKING_DRIVE = RAM_DRIVE; //If ramDrive is installed and configured to R:\
     public static final String DEFAULT_WORKING_DIR = "WorkingDir"; //If ramDrive is installed and configured to R:\
     public static final String outputBuildDir = MAIN_BUILD_AND_WORKING_DRIVE + "WorkingDir"; //If ramDrive is installed and configured to R:\
+    //    public static final File IDEA_OUTPUT = File("outputBuildDir\\ideaBuild");
   }
 }

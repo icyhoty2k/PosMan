@@ -21,7 +21,7 @@ allprojects {
     // Global group (each module overrides if needed)
     group = BuildMeta.MAIN_GROUP
     version = BuildMeta.VERSION_PARTIAL_NO_BUILD_NUMBER
-
+    layout.buildDirectory.set(file("${rootDir}/out/${project.name}"))
 }
 subprojects {
     apply(plugin = "java")
@@ -65,16 +65,15 @@ subprojects {
 
 
 //workingDir
-val defaultWorkingDir = "WorkingDir"
-val outputBuildDir = "$mainBuildAndWorkingDrive${rootProject.name}\\"
-val outputWorkingDir: File = file("$outputBuildDir\\$defaultWorkingDir\\")
-extra["outputWorkingDir"] = outputWorkingDir;
-val gradleOutput: File = File("$outputBuildDir\\gradleBuild\\")
-val ideaOutput: File = File("$outputBuildDir\\ideaBuild")
-val ideaTest: File = File("$outputBuildDir\\ideaBuild\\test")
-val jdkLocation: String = System.getProperty("org.gradle.java.home") ?: System.getenv("JAVA_HOME") ?: ""
+//val defaultWorkingDir = "WorkingDir"
+//val outputBuildDir = "$mainBuildAndWorkingDrive${rootProject.name}\\"
+//val outputWorkingDir: File = file("$outputBuildDir\\$defaultWorkingDir\\")
+//extra["outputWorkingDir"] = outputWorkingDir;
+//val gradleOutput: File = File("$outputBuildDir\\gradleBuild\\")
+//val ideaOutput: File = File("$outputBuildDir\\ideaBuild")
+//val ideaTest: File = File("$outputBuildDir\\ideaBuild\\test")
+//val jdkLocation: String = System.getProperty("org.gradle.java.home") ?: System.getenv("JAVA_HOME") ?: ""
 
-layout.buildDirectory.set(gradleOutput)
 
 idea {
     project {
@@ -87,8 +86,8 @@ idea {
         isDownloadSources = true // defaults to false
         isDownloadJavadoc = true
         inheritOutputDirs = false
-        outputDir = ideaOutput
-        testOutputDir = ideaTest
+//        outputDir = BuildMeta.Paths.IDEA_OUTPUT
+//        testOutputDir = ideaTest
         excludeDirs = excludeDirs + listOf(
             file("out"),
             file("build"),
@@ -184,7 +183,7 @@ tasks.compileJava {
     options.isIncremental = true
     options.isFork = true
     options.isFailOnError = true
-    options.forkOptions.executable = file("$jdkLocation/bin/javac.exe").absolutePath
+//    options.forkOptions.executable = file("$jdkLocation/bin/javac.exe").absolutePath
     options.isVerbose = false
     options.release.set(BuildMeta.JAVA_VERSION)
     options.encoding = BuildMeta.ENCODING
