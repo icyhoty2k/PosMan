@@ -1,3 +1,5 @@
+import net.silver.buildsrc.BuildMeta
+
 plugins {
     `java-library`
 }
@@ -12,7 +14,7 @@ java {
 }
 
 dependencies {
-    implementation(rootProject.extra["hikariCpVersion"] as String)
+    implementation(BuildMeta.Libs.HIKARICP)
     implementation(project(":Logging"))
     implementation(project(":Resources"))
     implementation("com.mysql:mysql-connector-j:9.5.0")

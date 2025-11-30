@@ -1,11 +1,11 @@
-[versions]
-java = "25"
-kotlin = "2.2.21"
-javafx = "25.0.1"
-logback = "1.5.6"
-#println(libs.versions.java.get())
-#file myst be named libs.versions.toml and placed in gradle directory in main root module
-[bundles]
+#[versions]
+#java = "25"
+#kotlin = "2.2.21"
+#javafx = "25.0.1"
+#logback = "1.5.6"
+##println(libs.versions.java.get())
+##file myst be named libs.versions.toml and placed in gradle directory in main root module
+#[bundles]
 
 #========================================================================================================
 #[versions]

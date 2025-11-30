@@ -1,9 +1,11 @@
+import net.silver.buildsrc.BuildMeta
+
 plugins {
     `java-library`
 }
 
 group = "net.silver.log"
-version = project.version
+version = "1.0"
 
 java {
     // Gradle auto-generates:
@@ -17,7 +19,7 @@ dependencies {
     // No backend here — your log module is standalone
     // SLF4J API only; your custom logger will be used at runtime
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    api("org.slf4j:slf4j-api:2.0.17")
+    api(BuildMeta.Libs.SLF4J)
 
 }
 
