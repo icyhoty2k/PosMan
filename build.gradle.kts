@@ -5,8 +5,9 @@ import net.silver.buildsrc.BuildMeta
 // --- PLUGINS ---
 plugins {
     java
+    application
     id(net.silver.buildsrc.BuildMeta.PluginVersions.JAVA_MODULARITY_ID) version net.silver.buildsrc.BuildMeta.PluginVersions.JAVA_MODULARITY_VERSION
-    id(net.silver.buildsrc.BuildMeta.PluginVersions.JAVAFX_PLUGIN_ID) version net.silver.buildsrc.BuildMeta.PluginVersions.JAVAFX_PLUGIN_VERSION
+//    id(net.silver.buildsrc.BuildMeta.PluginVersions.JAVAFX_PLUGIN_ID) version net.silver.buildsrc.BuildMeta.PluginVersions.JAVAFX_PLUGIN_VERSION
     id(net.silver.buildsrc.BuildMeta.PluginVersions.JLINK_ID) version net.silver.buildsrc.BuildMeta.PluginVersions.JLINK_VERSION
     id(net.silver.buildsrc.BuildMeta.PluginVersions.SHADOW_ID) version net.silver.buildsrc.BuildMeta.PluginVersions.SHADOW_VERSION
 
@@ -166,11 +167,11 @@ tasks.compileJava {
     options.compilerArgs.add("-Xlint:unchecked")
 
 }
-javafx {
-    version = BuildMeta.JAVA_FX_VERSION
-    modules = BuildMeta.Libs.JAVA_FX_MODULES
-    setPlatform(BuildMeta.PLATFORM)
-}
+//javafx {
+//    version = BuildMeta.JAVA_FX_VERSION
+//    modules = BuildMeta.Libs.JAVA_FX_MODULES
+//    setPlatform(BuildMeta.PLATFORM)
+//}
 application {
 //    mainModule.set(mainAppModule)
     mainClass.set(BuildMeta.MAIN_CLASS)
@@ -180,7 +181,8 @@ application {
 jlink {
     // Set the path to your desired JDK installation directory
     javaHome = BuildMeta.JDK_LOCATION
-    imageZip.set(layout.buildDirectory.file("/distributions/${rootProject.name}-v$version-${javafx.platform.classifier}.zip"))
+//    imageZip.set(layout.buildDirectory.file("/distributions/${rootProject.name}-v$version-${javafx.platform.classifier}.zip"))
+    imageZip.set(layout.buildDirectory.file("/distributions/${rootProject.name}-v$version-.zip"))
 
     // --- 1. Module Exclusions (Optimized for Size & Startup) ---
     mergedModule {
