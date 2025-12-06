@@ -153,8 +153,8 @@
       <recent name="net.silver.app" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.PosMan [createWindowsInstaller]">
-    <configuration name="PosMan [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.PosMan [packageOptimized]">
+    <configuration name="PosMan [help]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -165,7 +165,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="clean" />
+            <option value="help" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -176,7 +176,7 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="PosMan [createJPackageImage]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="PosMan [javaToolchains]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -187,7 +187,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="createJPackageImage" />
+            <option value="javaToolchains" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -198,7 +198,7 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="PosMan [createWindowsInstaller]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="PosMan [kotlinDslAccessorsReport]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -209,7 +209,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="createWindowsInstaller" />
+            <option value="kotlinDslAccessorsReport" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -220,7 +220,7 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="PosMan [generateCDSArchive]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="PosMan [listRuntimeDependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -231,7 +231,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="generateCDSArchive" />
+            <option value="listRuntimeDependencies" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -265,19 +265,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gradle.PosMan [createWindowsInstaller]" />
-      <item itemvalue="Gradle.PosMan [createJPackageImage]" />
-      <item itemvalue="Gradle.PosMan [generateCDSArchive]" />
+      <item itemvalue="Gradle.PosMan [help]" />
+      <item itemvalue="Gradle.PosMan [javaToolchains]" />
+      <item itemvalue="Gradle.PosMan [kotlinDslAccessorsReport]" />
+      <item itemvalue="Gradle.PosMan [listRuntimeDependencies]" />
       <item itemvalue="Gradle.PosMan [packageOptimized]" />
-      <item itemvalue="Gradle.PosMan [clean]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.PosMan [createWindowsInstaller]" />
-        <item itemvalue="Gradle.PosMan [clean]" />
         <item itemvalue="Gradle.PosMan [packageOptimized]" />
-        <item itemvalue="Gradle.PosMan [generateCDSArchive]" />
-        <item itemvalue="Gradle.PosMan [createJPackageImage]" />
+        <item itemvalue="Gradle.PosMan [listRuntimeDependencies]" />
+        <item itemvalue="Gradle.PosMan [kotlinDslAccessorsReport]" />
+        <item itemvalue="Gradle.PosMan [javaToolchains]" />
+        <item itemvalue="Gradle.PosMan [help]" />
       </list>
     </recent_temporary>
   </component>
