@@ -1,11 +1,10 @@
 import org.gradle.plugins.ide.idea.model.IdeaLanguageLevel
-import net.silver.buildsrc.BuildMeta;
+import net.silver.buildsrc.BuildMeta
 
 
 // --- PLUGINS ---
 plugins {
     java
-    idea
     id(net.silver.buildsrc.BuildMeta.PluginVersions.JAVA_MODULARITY_ID) version net.silver.buildsrc.BuildMeta.PluginVersions.JAVA_MODULARITY_VERSION
     id(net.silver.buildsrc.BuildMeta.PluginVersions.JAVAFX_PLUGIN_ID) version net.silver.buildsrc.BuildMeta.PluginVersions.JAVAFX_PLUGIN_VERSION
     id(net.silver.buildsrc.BuildMeta.PluginVersions.JLINK_ID) version net.silver.buildsrc.BuildMeta.PluginVersions.JLINK_VERSION
@@ -67,26 +66,26 @@ subprojects {
 val jdkLocation: String = System.getProperty("org.gradle.java.home") ?: System.getenv("JAVA_HOME") ?: ""
 
 
-idea {
-    project {
-        languageLevel = IdeaLanguageLevel(BuildMeta.JAVA_VERSION)
-        // Use the project JDK (instead of Gradle JVM)
-        jdkName = BuildMeta.JAVA_VERSION.toString()
-        vcs = "Git"
-    }
-    module {
-        isDownloadSources = true // defaults to false
-        isDownloadJavadoc = true
-        inheritOutputDirs = false
-//        outputDir = BuildMeta.Paths.IDEA_OUTPUT
-//        testOutputDir = ideaTest
-        excludeDirs = excludeDirs + listOf(
-            file("out"),
-            file("build"),
-            file(".gradle")
-        )
-    }
-}
+//idea {
+//    project {
+//        languageLevel = IdeaLanguageLevel(BuildMeta.JAVA_VERSION)
+//        // Use the project JDK (instead of Gradle JVM)
+//        jdkName = BuildMeta.JAVA_VERSION.toString()
+//        vcs = "Git"
+//    }
+//    module {
+//        isDownloadSources = true // defaults to false
+//        isDownloadJavadoc = true
+//        inheritOutputDirs = false
+////        outputDir = BuildMeta.Paths.IDEA_OUTPUT
+////        testOutputDir = ideaTest
+//        excludeDirs = excludeDirs + listOf(
+//            file("out"),
+//            file("build"),
+//            file(".gradle")
+//        )
+//    }
+//}
 
 
 dependencies {
@@ -245,20 +244,12 @@ jlink {
         )
     }
 }
-tasks.named<JavaExec>("run") {
-//    mainModule.set(mainAppModule)
-    mainClass.set(BuildMeta.MAIN_CLASS)
-//    workingDir = outputWorkingDir
-//    classpath = sourceSets.main.get().runtimeClasspath
-    jvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS;
-}
-
-
-
-
-
-
-
+//tasks.named<JavaExec>("run") {
+//
+//    mainClass.set(BuildMeta.MAIN_CLASS)
+//
+//    jvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS;
+//}
 
 
 tasks.named<org.beryx.jlink.JlinkTask>("jlink") {

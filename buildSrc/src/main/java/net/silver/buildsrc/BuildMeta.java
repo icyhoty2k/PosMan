@@ -41,7 +41,7 @@ public final class BuildMeta {
 
     // Plugin Versions
     public static final String JAVA_MODULARITY_VERSION = "2.0.0";
-    public static final String JAVAFX_PLUGIN_VERSION = "0.1.0";
+    public static final String JAVAFX_PLUGIN_VERSION = "0.0.21";
     public static final String JLINK_VERSION = "3.1.4-rc";
     public static final String SHADOW_VERSION = "9.2.2";
   }
