@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+Implementation-Title: Utils
+Implementation-Version: 1.0
+Implementation-Vendor: Ivan Hristov Yanev
+Implementation-URL: https://github.com/icyhoty2k
+Built-Timestamp: 2025-12-06 19:18:13
+Built-Time-Millis: 1765048693567
+Built-By: computerUserName -> jules
+Build-Hostname: devbox
+Build-OS: Linux/amd64 v.6.8.0
+Build-OS-Data-Model: 64
+Build-Java-Version: Microsoft 25.0.1/25.0.1+8-LTS
+Build-JVM-Name: OpenJDK 64-Bit Server VM
+Build-Gradle-Version: 9.2.1
+Build-Source-Encoding: UTF-8
+Build-Is-Snapshot: false
+Author: Ivan Hristov Yanev
+License: MIT
+Copyright: © 2025 Ivan Hristov Yanev
