@@ -7,8 +7,6 @@
     <list default="true" id="36acf23f-eb1d-401e-b55c-27ed8439cc21" name="Changes" comment="1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +81,9 @@
   }
 }</component>
   <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="I:\63_GradleLocalRepo\wrapper\dists\gradle-9.2.1-bin\2t0n5ozlw9xmuyvbp7dnzaxug\gradle-9.2.1" javaHome="D:\07_Programs\JetBrains\ideaIU-2025.2.5.win\jbr" gradleVersion="9.2.1" />
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 2
@@ -97,32 +98,33 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Gradle.PosMan [:App:net.silver.app.z_MainAppStart.main()].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PosMan [:Gui:run].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PosMan [:Utils:build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PosMan [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PosMan [classes].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PosMan [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PosMan [jar].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PosMan [jlink].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PosMan [jpackageImage].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PosMan [jpackage].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PosMan [runShadow].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PosMan [run].executor&quot;: &quot;Run&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Gradle.PosMan [:App:net.silver.app.z_MainAppStart.main()].executor": "Run",
+    "Gradle.PosMan [:Gui:run].executor": "Run",
+    "Gradle.PosMan [:Utils:build].executor": "Run",
+    "Gradle.PosMan [build].executor": "Run",
+    "Gradle.PosMan [classes].executor": "Run",
+    "Gradle.PosMan [clean].executor": "Run",
+    "Gradle.PosMan [jar].executor": "Run",
+    "Gradle.PosMan [jlinkZip].executor": "Run",
+    "Gradle.PosMan [jlink].executor": "Run",
+    "Gradle.PosMan [jpackageImage].executor": "Run",
+    "Gradle.PosMan [jpackage].executor": "Run",
+    "Gradle.PosMan [runShadow].executor": "Run",
+    "Gradle.PosMan [run].executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "settings.editor.selected.configurable": "actions.on.save"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="net.silver.app" />
@@ -321,7 +323,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764995650192</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="1">
+      <option name="closed" value="true" />
+      <created>1765015495488</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1765015495488</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -367,6 +377,12 @@
           <option name="totalLines" value="11737" />
           <option name="info" value="1" />
         </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765015495523" />
+          <option name="linesCode" value="6164" />
+          <option name="totalLines" value="20953" />
+          <option name="info" value="1" />
+        </TimePoint>
       </list>
     </option>
     <option name="genericTimePoints">
@@ -375,6 +391,12 @@
           <option name="timestamp" value="1764995650213" />
           <option name="linesCode" value="3710" />
           <option name="totalLines" value="11737" />
+          <option name="info" value="Dec 6, 2025" />
+        </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765015495523" />
+          <option name="linesCode" value="6164" />
+          <option name="totalLines" value="20953" />
           <option name="info" value="Dec 6, 2025" />
         </TimePoint>
       </list>

@@ -137,7 +137,7 @@ application {
 //    mainModule.set(mainAppModule)
     mainClass.set(BuildMeta.MAIN_CLASS)
     mainModule.set(BuildMeta.MAIN_MODULE)
-    applicationDefaultJvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS;
+    applicationDefaultJvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS
 }
 jlink {
     // Set the path to your desired JDK installation directory
@@ -192,7 +192,7 @@ jlink {
 //        resourceDir = project.file("src/main/resources/config") // Bundled configuration files
 
         // JVM args - Maximally Tuned for Startup Speed
-        jvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS;
+        jvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS
 
         // Installer Options (Windows specific flags)
         installerOptions = listOf(
@@ -210,5 +210,5 @@ tasks.named<JavaExec>("run") {
 
     mainClass.set(BuildMeta.MAIN_CLASS)
 
-    jvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS;
+    jvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS
 }
