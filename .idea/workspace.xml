@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="36acf23f-eb1d-401e-b55c-27ed8439cc21" name="Changes" comment="1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,51 +110,51 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.PosMan [:App:net.silver.app.z_MainAppStart.main()].executor": "Run",
-    "Gradle.PosMan [:Gui:run].executor": "Run",
-    "Gradle.PosMan [:Utils:build].executor": "Run",
-    "Gradle.PosMan [artifactTransforms].executor": "Run",
-    "Gradle.PosMan [buildEnvironment].executor": "Run",
-    "Gradle.PosMan [build].executor": "Run",
-    "Gradle.PosMan [classes].executor": "Run",
-    "Gradle.PosMan [clean].executor": "Run",
-    "Gradle.PosMan [copyAppModules].executor": "Run",
-    "Gradle.PosMan [createCustomRuntime].executor": "Run",
-    "Gradle.PosMan [createJPackageImage].executor": "Run",
-    "Gradle.PosMan [createMergedModuleJar].executor": "Run",
-    "Gradle.PosMan [createWindowsInstaller].executor": "Run",
-    "Gradle.PosMan [dependencies].executor": "Run",
-    "Gradle.PosMan [dependencyInsight].executor": "Run",
-    "Gradle.PosMan [generateCDSArchive].executor": "Run",
-    "Gradle.PosMan [help].executor": "Run",
-    "Gradle.PosMan [jar].executor": "Run",
-    "Gradle.PosMan [javaToolchains].executor": "Run",
-    "Gradle.PosMan [jlinkZip].executor": "Run",
-    "Gradle.PosMan [jlink].executor": "Run",
-    "Gradle.PosMan [jpackageImage].executor": "Run",
-    "Gradle.PosMan [jpackage].executor": "Run",
-    "Gradle.PosMan [kotlinDslAccessorsReport].executor": "Run",
-    "Gradle.PosMan [listRuntimeDependencies].executor": "Run",
-    "Gradle.PosMan [outgoingVariants].executor": "Run",
-    "Gradle.PosMan [packageComplete].executor": "Run",
-    "Gradle.PosMan [packageOptimized].executor": "Run",
-    "Gradle.PosMan [runShadow].executor": "Run",
-    "Gradle.PosMan [run].executor": "Run",
-    "Gradle.PosMan [verifyPackageStructure].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "actions.on.save"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.PosMan [:App:net.silver.app.z_MainAppStart.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [:Gui:run].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [:Utils:build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [artifactTransforms].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [buildEnvironment].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [classes].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [copyAppModules].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [createCustomRuntime].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [createJPackageImage].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [createMergedModuleJar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [createWindowsInstaller].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [dependencies].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [dependencyInsight].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [generateCDSArchive].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [help].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [javaToolchains].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [jlinkZip].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [jlink].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [jpackageImage].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [jpackage].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [kotlinDslAccessorsReport].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [listRuntimeDependencies].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [outgoingVariants].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [packageComplete].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [packageOptimized].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [runShadow].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [run].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [verifyPackageStructure].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="net.silver.app" />
