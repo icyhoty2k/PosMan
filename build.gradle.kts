@@ -95,7 +95,7 @@ dependencies {
     implementation(project(":Services"))
     implementation(project(":Utils"))
 
-    implementation(net.silver.buildsrc.BuildMeta.Libs.SLF4J)
+    implementation(BuildMeta.Libs.SLF4J)
 
     testImplementation(BuildMeta.Libs.JUNIT_API)
     testImplementation(BuildMeta.Libs.JUNIT_JUPITER)
