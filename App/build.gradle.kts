@@ -2,7 +2,7 @@ import net.silver.buildsrc.BuildMeta
 
 plugins {
     `java-library`
-    id(net.silver.buildsrc.BuildMeta.PluginVersions.JAVA_MODULARITY_ID)
+
 }
 //disable tests and hide test dirs src-test nd resources-test
 apply(from = rootDir.resolve("gradle/myScripts/disableTestDirAndTests.gradle.kts"))

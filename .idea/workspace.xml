@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="36acf23f-eb1d-401e-b55c-27ed8439cc21" name="Changes" comment="1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/App/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,13 +41,13 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="PosMan" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="application" type="c8890929:TasksNode$1" />
+                <item name="package" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="PosMan" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="build" type="c8890929:TasksNode$1" />
+                <item name="verification" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -92,6 +93,7 @@
   <component name="ProjectViewState">
     <option name="abbreviatePackageNames" value="true" />
     <option name="compactDirectories" value="true" />
+    <option name="flattenModules" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showExcludedFiles" value="false" />
     <option name="showModules" value="false" />
@@ -106,13 +108,20 @@
     "Gradle.PosMan [build].executor": "Run",
     "Gradle.PosMan [classes].executor": "Run",
     "Gradle.PosMan [clean].executor": "Run",
+    "Gradle.PosMan [copyAppModules].executor": "Run",
+    "Gradle.PosMan [createCustomRuntime].executor": "Run",
+    "Gradle.PosMan [createJPackageImage].executor": "Run",
+    "Gradle.PosMan [createMergedModuleJar].executor": "Run",
+    "Gradle.PosMan [createWindowsInstaller].executor": "Run",
     "Gradle.PosMan [jar].executor": "Run",
     "Gradle.PosMan [jlinkZip].executor": "Run",
     "Gradle.PosMan [jlink].executor": "Run",
     "Gradle.PosMan [jpackageImage].executor": "Run",
     "Gradle.PosMan [jpackage].executor": "Run",
+    "Gradle.PosMan [packageComplete].executor": "Run",
     "Gradle.PosMan [runShadow].executor": "Run",
     "Gradle.PosMan [run].executor": "Run",
+    "Gradle.PosMan [verifyPackageStructure].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
@@ -130,8 +139,8 @@
       <recent name="net.silver.app" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.PosMan [jlinkZip]">
-    <configuration name="PosMan [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.PosMan [createJPackageImage]">
+    <configuration name="PosMan [createCustomRuntime]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -142,7 +151,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="clean" />
+            <option value="createCustomRuntime" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -153,7 +162,7 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="PosMan [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="PosMan [createJPackageImage]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -164,7 +173,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="jar" />
+            <option value="createJPackageImage" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -175,7 +184,7 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="PosMan [jlinkZip]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="PosMan [createWindowsInstaller]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -186,7 +195,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="jlinkZip" />
+            <option value="createWindowsInstaller" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -197,7 +206,7 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="PosMan [jpackageImage]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="PosMan [packageComplete]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -208,7 +217,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="jpackageImage" />
+            <option value="packageComplete" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -219,7 +228,7 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="PosMan [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="PosMan [verifyPackageStructure]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -230,7 +239,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="run" />
+            <option value="verifyPackageStructure" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -242,19 +251,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gradle.PosMan [jar]" />
-      <item itemvalue="Gradle.PosMan [jlinkZip]" />
-      <item itemvalue="Gradle.PosMan [clean]" />
-      <item itemvalue="Gradle.PosMan [jpackageImage]" />
-      <item itemvalue="Gradle.PosMan [run]" />
+      <item itemvalue="Gradle.PosMan [createCustomRuntime]" />
+      <item itemvalue="Gradle.PosMan [createJPackageImage]" />
+      <item itemvalue="Gradle.PosMan [createWindowsInstaller]" />
+      <item itemvalue="Gradle.PosMan [packageComplete]" />
+      <item itemvalue="Gradle.PosMan [verifyPackageStructure]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.PosMan [jlinkZip]" />
-        <item itemvalue="Gradle.PosMan [jpackageImage]" />
-        <item itemvalue="Gradle.PosMan [jar]" />
-        <item itemvalue="Gradle.PosMan [clean]" />
-        <item itemvalue="Gradle.PosMan [run]" />
+        <item itemvalue="Gradle.PosMan [createJPackageImage]" />
+        <item itemvalue="Gradle.PosMan [createWindowsInstaller]" />
+        <item itemvalue="Gradle.PosMan [verifyPackageStructure]" />
+        <item itemvalue="Gradle.PosMan [packageComplete]" />
+        <item itemvalue="Gradle.PosMan [createCustomRuntime]" />
       </list>
     </recent_temporary>
   </component>
@@ -331,7 +340,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765015495488</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="1">
+      <option name="closed" value="true" />
+      <created>1765015630852</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1765015630852</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -383,6 +400,12 @@
           <option name="totalLines" value="20953" />
           <option name="info" value="1" />
         </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765015630879" />
+          <option name="linesCode" value="6164" />
+          <option name="totalLines" value="20953" />
+          <option name="info" value="1" />
+        </TimePoint>
       </list>
     </option>
     <option name="genericTimePoints">
@@ -394,7 +417,7 @@
           <option name="info" value="Dec 6, 2025" />
         </TimePoint>
         <TimePoint>
-          <option name="timestamp" value="1765015495523" />
+          <option name="timestamp" value="1765015630879" />
           <option name="linesCode" value="6164" />
           <option name="totalLines" value="20953" />
           <option name="info" value="Dec 6, 2025" />
