@@ -84,6 +84,8 @@ public final class BuildMeta {
     private static final String MAIN_BUILD_AND_WORKING_DRIVE = RAM_DRIVE; //If ramDrive is installed and configured to R:\
     private static final String DEFAULT_WORKING_DIR = "WorkingDir"; //If ramDrive is installed and configured to R:\
     public static final String OUTPUT_BUILD_DIR = MAIN_BUILD_AND_WORKING_DRIVE + APP_NAME + "\\"; //If ramDrive is installed and configured to R:\
+    public static final String OUTPUT_IMAGE_DIR = MAIN_BUILD_AND_WORKING_DRIVE + APP_NAME + "\\Build"; //If ramDrive is installed and configured to R:\
+
     //    public static final File IDEA_OUTPUT = File("outputBuildDir\\ideaBuild");
   }
 

@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36acf23f-eb1d-401e-b55c-27ed8439cc21" name="Changes" comment="1">
-      <change afterPath="$PROJECT_DIR$/buildSrc/src/main/kotlin/net/silver/buildsrc/java-conventions.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/App/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Config/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Config/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Gui/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Persistence/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Persistence/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Resources/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Resources/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
     </list>
@@ -105,60 +97,38 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.PosMan [:App:net.silver.app.z_MainAppStart.main()].executor": "Run",
-    "Gradle.PosMan [:Gui:run].executor": "Run",
-    "Gradle.PosMan [:Utils:build].executor": "Run",
-    "Gradle.PosMan [build].executor": "Run",
-    "Gradle.PosMan [classes].executor": "Run",
-    "Gradle.PosMan [clean].executor": "Run",
-    "Gradle.PosMan [jar].executor": "Run",
-    "Gradle.PosMan [jlink].executor": "Run",
-    "Gradle.PosMan [jpackageImage].executor": "Run",
-    "Gradle.PosMan [jpackage].executor": "Run",
-    "Gradle.PosMan [runShadow].executor": "Run",
-    "Gradle.PosMan [run].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "actions.on.save"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.PosMan [:App:net.silver.app.z_MainAppStart.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [:Gui:run].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [:Utils:build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [classes].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [jlink].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [jpackageImage].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [jpackage].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [runShadow].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [run].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="net.silver.app" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.PosMan [run]">
-    <configuration name="PosMan [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="build" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Gradle.PosMan [jlinkZip]">
     <configuration name="PosMan [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -181,6 +151,50 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="PosMan [jar]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jar" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="PosMan [jlinkZip]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jlinkZip" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="PosMan [jpackageImage]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -193,28 +207,6 @@
         <option name="taskNames">
           <list>
             <option value="jpackageImage" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="PosMan [runShadow]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="runShadow" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -248,19 +240,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gradle.PosMan [build]" />
+      <item itemvalue="Gradle.PosMan [jar]" />
+      <item itemvalue="Gradle.PosMan [jlinkZip]" />
       <item itemvalue="Gradle.PosMan [clean]" />
       <item itemvalue="Gradle.PosMan [jpackageImage]" />
       <item itemvalue="Gradle.PosMan [run]" />
-      <item itemvalue="Gradle.PosMan [runShadow]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.PosMan [run]" />
-        <item itemvalue="Gradle.PosMan [runShadow]" />
-        <item itemvalue="Gradle.PosMan [clean]" />
+        <item itemvalue="Gradle.PosMan [jlinkZip]" />
         <item itemvalue="Gradle.PosMan [jpackageImage]" />
-        <item itemvalue="Gradle.PosMan [build]" />
+        <item itemvalue="Gradle.PosMan [jar]" />
+        <item itemvalue="Gradle.PosMan [clean]" />
+        <item itemvalue="Gradle.PosMan [run]" />
       </list>
     </recent_temporary>
   </component>

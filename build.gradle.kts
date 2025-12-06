@@ -1,6 +1,5 @@
 import net.silver.buildsrc.BuildMeta
-import org.beryx.jlink.JPackageImageTask
-import org.beryx.jlink.JlinkTask
+
 
 // --- PLUGINS ---
 plugins {
@@ -179,8 +178,7 @@ jlink {
         installerType = "msi"
         installerName = "${rootProject.name}-v$version-setup"
         icon = "Resources/src/main/resources/net/silver/resources/icons/appIcon.ico"
-        outputDir =
-            project.layout.buildDirectory.dir("Jpackage").map { it.asFile.absolutePath }.get() // Output directory
+        outputDir = BuildMeta.Paths.OUTPUT_IMAGE_DIR    // Output directory
 
         // **Required Metadata Properties (Working Syntax)**
         vendor = "SilverSolutions"
