@@ -44,7 +44,7 @@ pluginManagement {
 buildCache {
     local {
         // Using the RAM Disk on R: for maximum performance, ideal for your powerful systems.
-        directory = file("R:/PosMan/build-cache")
+        directory = file("R:/PosMan Build-cache")
         isEnabled = true
     }
 }
