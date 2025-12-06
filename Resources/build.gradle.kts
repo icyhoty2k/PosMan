@@ -1,9 +1,11 @@
+import net.silver.buildsrc.BuildMeta
+
 plugins {
     `java-library`
 }
 
 group = "net.silver.resources"
-version = rootProject.version
+version = BuildMeta.VERSION_PARTIAL_NO_BUILD_NUMBER
 
 java {
 //    withSourcesJar()   // generates -sources.jar

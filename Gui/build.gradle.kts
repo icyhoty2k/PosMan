@@ -2,6 +2,7 @@ import net.silver.buildsrc.BuildMeta
 
 plugins {
     java
+
 }
 
 

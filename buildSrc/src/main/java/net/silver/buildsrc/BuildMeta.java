@@ -32,7 +32,8 @@ public final class BuildMeta {
   public static final String VERSION_PARTIAL_NO_BUILD_NUMBER = VERSION_MAJOR + "." + VERSION_MINOR;
   //  =============================================================================================================
   public static final String ENCODING = "UTF-8";
-//=================================================================================================================
+
+  //=================================================================================================================
   public static final class PluginVersions {
     // Plugin IDs (the actual string used in the Gradle script)
     public static final String JAVA_MODULARITY_ID = "org.javamodularity.moduleplugin";
@@ -46,6 +47,7 @@ public final class BuildMeta {
     public static final String JLINK_VERSION = "3.1.4-rc";
     public static final String SHADOW_VERSION = "9.2.2";
   }
+
   private static final class LibsVersions {
 
 
@@ -62,12 +64,12 @@ public final class BuildMeta {
     public static final String JUNIT_JUPITER = "org.junit.jupiter:junit-jupiter-engine:" + LibsVersions.JUNIT;
     public static final String JUNIT_PLATFORM = "org.junit.platform:junit-platform-launcher:" + LibsVersions.JUNIT_PLATFORM;
     public static final String HIKARICP = "com.zaxxer:HikariCP:" + LibsVersions.HIKARICP;
-    public static final String MYSQL = "com.mysql:mysql-connector-j:"+ LibsVersions.MYSQL;
-//===================================JAVAFX=============================================================
-    public static final String BASE_JAVA_FX = "org.openjfx:javafx-base:" + JAVA_FX_VERSION +":"+ PLATFORM;
-    public static final String CONTROLS_JAVA_FX = "org.openjfx:javafx-controls:" + JAVA_FX_VERSION +":"+ PLATFORM;
-    public static final String FXML_JAVA_FX = "org.openjfx:javafx-fxml:" + JAVA_FX_VERSION +":"+ PLATFORM;
-    public static final String GRAPHICS_JAVA_FX = "org.openjfx:javafx-graphics:" + JAVA_FX_VERSION +":"+ PLATFORM;
+    public static final String MYSQL = "com.mysql:mysql-connector-j:" + LibsVersions.MYSQL;
+    //===================================JAVAFX=============================================================
+    public static final String BASE_JAVA_FX = "org.openjfx:javafx-base:" + JAVA_FX_VERSION + ":" + PLATFORM;
+    public static final String CONTROLS_JAVA_FX = "org.openjfx:javafx-controls:" + JAVA_FX_VERSION + ":" + PLATFORM;
+    public static final String FXML_JAVA_FX = "org.openjfx:javafx-fxml:" + JAVA_FX_VERSION + ":" + PLATFORM;
+    public static final String GRAPHICS_JAVA_FX = "org.openjfx:javafx-graphics:" + JAVA_FX_VERSION + ":" + PLATFORM;
     public static final List<String> JAVA_FX_MODULES = Arrays.asList("javafx.controls", "javafx.fxml", "javafx.graphics");
   }
 
@@ -81,58 +83,61 @@ public final class BuildMeta {
     private static final String RAM_DRIVE = "R:\\"; //If ramDrive is installed and configured to R:\
     private static final String MAIN_BUILD_AND_WORKING_DRIVE = RAM_DRIVE; //If ramDrive is installed and configured to R:\
     private static final String DEFAULT_WORKING_DIR = "WorkingDir"; //If ramDrive is installed and configured to R:\
-    public static final String OUTPUT_BUILD_DIR = MAIN_BUILD_AND_WORKING_DRIVE + APP_NAME+"\\"; //If ramDrive is installed and configured to R:\
+    public static final String OUTPUT_BUILD_DIR = MAIN_BUILD_AND_WORKING_DRIVE + APP_NAME + "\\"; //If ramDrive is installed and configured to R:\
     //    public static final File IDEA_OUTPUT = File("outputBuildDir\\ideaBuild");
   }
-  public static final class JVM_ARGS{
+
+  public static final class JVM_ARGS {
     private static final List<String> FAST_START_JVM_ARGS = Arrays.asList(
-    // -------------------------------
-    // Startup Optimization (AppCDS)
-    // -------------------------------
+        // -------------------------------
+        // Startup Optimization (AppCDS)
+        // -------------------------------
 
-    // -------------------------------
-    // Memory / Heap
-    // -------------------------------
-    "-Xms256m",                     // Minimal initial heap for fast startup
-    "-Xmx2048m",                    // Max heap suitable for medium-sized app
-    "-Xss2m",                       // Thread stack size per thread
+        // -------------------------------
+        // Memory / Heap
+        // -------------------------------
+        "-Xms256m",                     // Minimal initial heap for fast startup
+        "-Xmx2048m",                    // Max heap suitable for medium-sized app
+        "-Xss2m",                       // Thread stack size per thread
 
-    // -------------------------------
-    // JavaFX / Application tuning
-    // -------------------------------
-    "-Djavafx.animation.fullspeed=true",  // JavaFX animations run at full speed
-    "--enable-native-access=javafx.graphics", // Required for JavaFX + JDK 25
+        // -------------------------------
+        // JavaFX / Application tuning
+        // -------------------------------
+        "-Djavafx.animation.fullspeed=true",  // JavaFX animations run at full speed
+        "--enable-native-access=javafx.graphics", // Required for JavaFX + JDK 25
 
-    // -------------------------------
-    // Garbage Collection (fast UI response)
-    // -------------------------------
-    "-XX:+UseG1GC",                  // G1GC for predictable pause times
-    "-XX:MaxGCPauseMillis=50",       // Aggressive, minimal GC pause
-    "-XX:InitiatingHeapOccupancyPercent=50", // Start concurrent GC earlier
-    "-XX:ParallelGCThreads=2",       // Minimal GC threads for fast startup
-    "-XX:ConcGCThreads=2",           // Concurrency threads for G1GC
+        // -------------------------------
+        // Garbage Collection (fast UI response)
+        // -------------------------------
+        "-XX:+UseG1GC",                  // G1GC for predictable pause times
+        "-XX:MaxGCPauseMillis=50",       // Aggressive, minimal GC pause
+        "-XX:InitiatingHeapOccupancyPercent=50", // Start concurrent GC earlier
+        "-XX:ParallelGCThreads=2",       // Minimal GC threads for fast startup
+        "-XX:ConcGCThreads=2",           // Concurrency threads for G1GC
 
-    // -------------------------------
-    // JIT / Compiler tuning (fast startup)
-    // -------------------------------
-    "-XX:+TieredCompilation",        // Enable tiered JIT
-    "-XX:TieredStopAtLevel=1",       // Minimal compilation for ultra-fast startup
-//    "-XX:CompileThreshold=1",        // Compile critical methods immediately
-//    "-XX:+UseFastAccessorMethods",   // Optimize getter/setter methods
-    "-XX:CICompilerCount=2",         // Reduced compiler threads for faster startup
+        // -------------------------------
+        // JIT / Compiler tuning (fast startup)
+        // -------------------------------
+        "-XX:+TieredCompilation",        // Enable tiered JIT
+        "-XX:TieredStopAtLevel=1",       // Minimal compilation for ultra-fast startup
+        //    "-XX:CompileThreshold=1",        // Compile critical methods immediately
+        //    "-XX:+UseFastAccessorMethods",   // Optimize getter/setter methods
+        "-XX:CICompilerCount=2",         // Reduced compiler threads for faster startup
 
-    // -------------------------------
-    // Low-level / Miscellaneous optimizations
-    // -------------------------------
-    "-XX:+UseCompressedOops",        // Standard memory optimization
-    "-XX:+UseStringDeduplication",   // Reduce memory footprint
-    "-XX:+UnlockExperimentalVMOptions", // Required for low-level optimizations
-    "-XX:+AlwaysPreTouch",           // Touch memory early to reduce page faults
-    "-XX:CodeEntryAlignment=64",  // CPU cache alignment
-//    "--illegal-access=deny"
-    // Security & compatibility java8-16
-    "-XX:+IgnoreUnrecognizedVMOptions",
-    "-Dsun.io.useCanonCaches=true");
+        // -------------------------------
+        // Low-level / Miscellaneous optimizations
+        // -------------------------------
+        "-XX:+UseCompressedOops",        // Standard memory optimization
+        "-XX:+UseStringDeduplication",   // Reduce memory footprint
+        "-XX:+UnlockExperimentalVMOptions", // Required for low-level optimizations
+        "-XX:+AlwaysPreTouch",           // Touch memory early to reduce page faults
+        "-XX:CodeEntryAlignment=64",  // CPU cache alignment
+        //    "--illegal-access=deny"
+        // Security & compatibility java8-16
+        "-XX:+IgnoreUnrecognizedVMOptions",
+        //        "--enable-native-access=ALL-UNNAMED",
+        "-Dsun.io.useCanonCaches=true"
+    );
     public static final List<String> CURRENT_JVM_ARGS = FAST_START_JVM_ARGS;
 
   }

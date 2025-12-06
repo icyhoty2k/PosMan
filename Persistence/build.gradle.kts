@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "net.silver.persistence"
-version = rootProject.version
+version = BuildMeta.VERSION_PARTIAL_NO_BUILD_NUMBER
 
 java {
 //    withSourcesJar()

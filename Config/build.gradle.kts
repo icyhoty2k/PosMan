@@ -1,3 +1,5 @@
+import net.silver.buildsrc.BuildMeta
+
 plugins {
     `java-library`
     idea
@@ -5,8 +7,8 @@ plugins {
 //disable tests and hide test dirs src-test nd resources-test
 apply(from = rootDir.resolve("gradle/myScripts/disableTestDirAndTests.gradle.kts"))
 
-group = "net.silver.app"
-version = rootProject.version
+group = "net.silver.config"
+version = BuildMeta.VERSION_PARTIAL_NO_BUILD_NUMBER
 
 java {
 //    withSourcesJar()  // generates -sources.jar

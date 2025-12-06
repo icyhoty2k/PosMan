@@ -7,24 +7,20 @@ plugins {
     java
     application
     id(net.silver.buildsrc.BuildMeta.PluginVersions.JAVA_MODULARITY_ID) version net.silver.buildsrc.BuildMeta.PluginVersions.JAVA_MODULARITY_VERSION
-//    id(net.silver.buildsrc.BuildMeta.PluginVersions.JAVAFX_PLUGIN_ID) version net.silver.buildsrc.BuildMeta.PluginVersions.JAVAFX_PLUGIN_VERSION
     id(net.silver.buildsrc.BuildMeta.PluginVersions.JLINK_ID) version net.silver.buildsrc.BuildMeta.PluginVersions.JLINK_VERSION
     id(net.silver.buildsrc.BuildMeta.PluginVersions.SHADOW_ID) version net.silver.buildsrc.BuildMeta.PluginVersions.SHADOW_VERSION
 
-//    id("com.github.ben-manes.versions") version "0.53.0"
-//    id("com.dorongold.task-tree") version "4.0.1"
-//    id("com.osacky.doctor") version "0.12.1"
 }
 
 apply(from = "gradle/myScripts/globalManifest.gradle.kts")
 
-
+allprojects {
 
     // Global group (each module overrides if needed)
     group = BuildMeta.MAIN_GROUP
     version = BuildMeta.VERSION_PARTIAL_NO_BUILD_NUMBER
     layout.buildDirectory.set(file(BuildMeta.Paths.OUTPUT_BUILD_DIR + project.name))
-
+}
 
 subprojects {
     apply(plugin = "java")
@@ -60,35 +56,6 @@ subprojects {
     }
 }
 
-
-//test frameworks
-
-
-val jdkLocation: String = System.getProperty("org.gradle.java.home") ?: System.getenv("JAVA_HOME") ?: ""
-
-
-//idea {
-//    project {
-//        languageLevel = IdeaLanguageLevel(BuildMeta.JAVA_VERSION)
-//        // Use the project JDK (instead of Gradle JVM)
-//        jdkName = BuildMeta.JAVA_VERSION.toString()
-//        vcs = "Git"
-//    }
-//    module {
-//        isDownloadSources = true // defaults to false
-//        isDownloadJavadoc = true
-//        inheritOutputDirs = false
-////        outputDir = BuildMeta.Paths.IDEA_OUTPUT
-////        testOutputDir = ideaTest
-//        excludeDirs = excludeDirs + listOf(
-//            file("out"),
-//            file("build"),
-//            file(".gradle")
-//        )
-//    }
-//}
-
-
 dependencies {
     // SQLite, MySQL, HikariCP, SLF4J
 //    implementation("org.xerial:sqlite-jdbc:3.50.3.0")
@@ -101,6 +68,7 @@ dependencies {
     implementation(project(":App"))
     implementation(project(":Gui"))
     implementation(project(":Resources"))
+    implementation(project(":Services"))
 
     testImplementation(BuildMeta.Libs.JUNIT_API)// JUnit 5 API for compiling tests
     testImplementation(BuildMeta.Libs.JUNIT_JUPITER)// JUnit 5 Engine for running tests (runtime only)
@@ -121,8 +89,6 @@ tasks.test {
         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
     }
 }
-
-
 
 tasks.register<Exec>("dumbDatabase") {
     group = "[ivan]"
@@ -171,7 +137,7 @@ tasks.compileJava {
 application {
 //    mainModule.set(mainAppModule)
     mainClass.set(BuildMeta.MAIN_CLASS)
-//    applicationName.set("POS")
+    mainModule.set(BuildMeta.MAIN_MODULE)
     applicationDefaultJvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS;
 }
 jlink {
@@ -179,7 +145,7 @@ jlink {
     javaHome = BuildMeta.JDK_LOCATION
 //    imageZip.set(layout.buildDirectory.file("/distributions/${rootProject.name}-v$version-${javafx.platform.classifier}.zip"))
     imageZip.set(layout.buildDirectory.file("/distributions/${rootProject.name}-v$version-.zip"))
-moduleName = provider { BuildMeta.MAIN_MODULE }
+    moduleName = provider { BuildMeta.MAIN_MODULE }
     // --- 1. Module Exclusions (Optimized for Size & Startup) ---
     mergedModule {
         excludeRequires(
@@ -212,7 +178,7 @@ moduleName = provider { BuildMeta.MAIN_MODULE }
         // Required Installer Metadata
         installerType = "msi"
         installerName = "${rootProject.name}-v$version-setup"
-       icon="Resources/src/main/resources/net/silver/resources/icons/appIcon.ico"
+        icon = "Resources/src/main/resources/net/silver/resources/icons/appIcon.ico"
         outputDir =
             project.layout.buildDirectory.dir("Jpackage").map { it.asFile.absolutePath }.get() // Output directory
 
