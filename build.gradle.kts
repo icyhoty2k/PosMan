@@ -161,14 +161,7 @@ tasks.register<Copy>("copyAppModules") {
     into(appModulesDir)
 
     // --- Project Modules ---
-    from(project(":App").tasks.jar)
-    from(project(":Config").tasks.jar)
-    from(project(":Gui").tasks.jar)
-    from(project(":Logging").tasks.jar)
-    from(project(":Persistence").tasks.jar)
-    from(project(":Resources").tasks.jar)
-    from(project(":Services").tasks.jar)
-    from(project(":Utils").tasks.jar)
+    from(subprojects.map { it.tasks.named("jar") })
 
     // Add the merged module JAR
     from(tasks.named("createMergedModuleJar"))
@@ -232,7 +225,9 @@ tasks.register<Exec>("createCustomRuntime") {
         "java.naming",
         "javafx.controls",
         "javafx.graphics",
-        "javafx.fxml"
+        "javafx.fxml",
+        "jdk.unsupported",
+        "jdk.crypto.ec"
     ).joinToString(",")
 
     args(
@@ -263,7 +258,10 @@ tasks.register<Exec>("createCustomRuntime") {
         println("\nNote: Runtime optimized for startup speed over size")
     }
 }
-
+val mainJar = project(":App")
+    .tasks.named("jar", Jar::class.java)
+    .get()
+    .archiveFileName.get()
 /**
  * 4. NATIVE JPACKAGE: Creates the final application image.
  */
@@ -298,7 +296,7 @@ tasks.register<Exec>("createJPackageImage") {
         // Use --input and --main-jar instead of --module-path and --module
         // This puts all JARs on the classpath instead of module path
         "--input", appModulesDir.get().asFile.absolutePath,
-        "--main-jar", "App-1.0.jar",
+        "--main-jar", mainJar,
         "--main-class", BuildMeta.MAIN_CLASS,
 
         "--dest", outputDir,
@@ -358,41 +356,61 @@ tasks.register<Exec>("generateCDSArchive") {
     val outputDir = BuildMeta.Paths.OUTPUT_IMAGE_DIR
     val appName = "${rootProject.name}_v${project.version}"
     val appDir = file("$outputDir/$appName")
-    val javaExe = file("$appDir/runtime/bin/java.exe")
 
-    // Only run if the app was created
+    val runtimeAppDir = file("$outputDir/$appName/app")
+    val javaExe = file("$outputDir/$appName/runtime/bin/java.exe")
+
     onlyIf { appDir.exists() && javaExe.exists() }
 
-    workingDir = file("$appDir/app")
+    workingDir = runtimeAppDir
     executable = javaExe.absolutePath
+
+    // Build classpath from all jars in /app
+    val jarClasspath = runtimeAppDir
+        .listFiles()
+        ?.filter { it.extension == "jar" }
+        ?.joinToString(File.pathSeparator) { it.name }
+        ?: ""
 
     args(
         "-Xshare:dump",
         "-XX:SharedArchiveFile=app-cds.jsa",
-        "-cp", "App-1.0.jar"
+        "-cp", jarClasspath
     )
 
     doFirst {
         println("Generating CDS archive for faster startup...")
+        println("Classpath: $jarClasspath")
     }
 
     doLast {
-        val cdsFile = file("$appDir/app/app-cds.jsa")
-        if (cdsFile.exists()) {
-            println("✓ CDS archive created: ${cdsFile.name} (${cdsFile.length() / 1024}KB)")
-            println("  This will significantly reduce startup time!")
+        val cdsFile = File(runtimeAppDir, "app-cds.jsa")
 
-            // Update cfg file to use CDS
-            val cfgFile = file("$appDir/app/$appName.cfg")
+        if (cdsFile.exists()) {
+            println("✓ CDS archive created: app-cds.jsa (${cdsFile.length() / 1024} KB)")
+
+            // CFG file location
+            val cfgFile = File(runtimeAppDir, "$appName.cfg")
+
             if (cfgFile.exists()) {
                 val cfgContent = cfgFile.readText()
+
                 if (!cfgContent.contains("-Xshare:on")) {
-                    cfgFile.appendText("\njava-options=-Xshare:on\njava-options=-XX:SharedArchiveFile=\$APPDIR\\app-cds.jsa\n")
+                    cfgFile.appendText(
+                        """
+                        
+                        java-options=-Xshare:on
+                        java-options=-XX:SharedArchiveFile=${'$'}APPDIR/app-cds.jsa
+                        """.trimIndent()
+                    )
+
                     println("✓ Updated configuration to use CDS archive")
                 }
+            } else {
+                println("⚠ CFG file not found: ${cfgFile.absolutePath}")
             }
         } else {
-            println("✗ CDS archive creation failed")
+            println("✗ CDS archive creation failed — no app-cds.jsa produced")
         }
     }
 }
@@ -423,7 +441,7 @@ tasks.register<Exec>("createWindowsInstaller") {
 
         "--runtime-image", runtimeImageDir.get().asFile.absolutePath,
         "--input", appModulesDir.get().asFile.absolutePath,
-        "--main-jar", "App-1.0.jar",
+        "--main-jar", mainJar,
         "--main-class", BuildMeta.MAIN_CLASS,
         "--dest", outputDir,
         "--type", "msi", // or "exe"
