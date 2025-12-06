@@ -6,8 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="36acf23f-eb1d-401e-b55c-27ed8439cc21" name="Changes" comment="1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logging/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Logging/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Utils/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Utils/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,12 +38,6 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="PosMan" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="PosMan" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="application" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -91,7 +86,10 @@
   "keyToString": {
     "Gradle.PosMan [:App:net.silver.app.z_MainAppStart.main()].executor": "Run",
     "Gradle.PosMan [:Gui:run].executor": "Run",
+    "Gradle.PosMan [:Utils:build].executor": "Run",
     "Gradle.PosMan [build].executor": "Run",
+    "Gradle.PosMan [clean].executor": "Run",
+    "Gradle.PosMan [jar].executor": "Run",
     "Gradle.PosMan [jlink].executor": "Run",
     "Gradle.PosMan [jpackageImage].executor": "Run",
     "Gradle.PosMan [jpackage].executor": "Run",
@@ -112,13 +110,35 @@
       <recent name="net.silver.app" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.PosMan [run]">
+  <component name="RunManager" selected="Gradle.PosMan [build]">
+    <configuration name="PosMan [:Utils:build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value=":Utils:build" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="PosMan [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--stacktrace" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -135,7 +155,7 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="PosMan [jlink]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="PosMan [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -146,7 +166,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="jlink" />
+            <option value="clean" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -169,28 +189,6 @@
         <option name="taskNames">
           <list>
             <option value="jpackageImage" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
-    <configuration name="PosMan [jpackage]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="jpackage" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -225,11 +223,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.PosMan [run]" />
-        <item itemvalue="Gradle.PosMan [jpackageImage]" />
         <item itemvalue="Gradle.PosMan [build]" />
-        <item itemvalue="Gradle.PosMan [jpackage]" />
-        <item itemvalue="Gradle.PosMan [jlink]" />
+        <item itemvalue="Gradle.PosMan [:Utils:build]" />
+        <item itemvalue="Gradle.PosMan [run]" />
+        <item itemvalue="Gradle.PosMan [clean]" />
+        <item itemvalue="Gradle.PosMan [jpackageImage]" />
       </list>
     </recent_temporary>
   </component>
@@ -248,7 +246,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1764983523226</updated>
-      <workItem from="1764983524629" duration="9685000" />
+      <workItem from="1764983524629" duration="11683000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -274,7 +272,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764991400086</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="1">
+      <option name="closed" value="true" />
+      <created>1764993296265</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1764993296265</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -302,14 +308,20 @@
           <option name="totalLines" value="11717" />
           <option name="info" value="1" />
         </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1764993296286" />
+          <option name="linesCode" value="3710" />
+          <option name="totalLines" value="11716" />
+          <option name="info" value="1" />
+        </TimePoint>
       </list>
     </option>
     <option name="genericTimePoints">
       <list>
         <TimePoint>
-          <option name="timestamp" value="1764991400110" />
-          <option name="linesCode" value="3702" />
-          <option name="totalLines" value="11717" />
+          <option name="timestamp" value="1764993296286" />
+          <option name="linesCode" value="3710" />
+          <option name="totalLines" value="11716" />
           <option name="info" value="Dec 6, 2025" />
         </TimePoint>
       </list>

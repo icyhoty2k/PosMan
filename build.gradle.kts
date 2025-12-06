@@ -1,6 +1,6 @@
-
 import net.silver.buildsrc.BuildMeta
-
+import org.beryx.jlink.JPackageImageTask
+import org.beryx.jlink.JlinkTask
 
 // --- PLUGINS ---
 plugins {
@@ -180,7 +180,6 @@ jlink {
 //    imageZip.set(layout.buildDirectory.file("/distributions/${rootProject.name}-v$version-${javafx.platform.classifier}.zip"))
     imageZip.set(layout.buildDirectory.file("/distributions/${rootProject.name}-v$version-.zip"))
 moduleName = provider { BuildMeta.MAIN_MODULE }
-
     // --- 1. Module Exclusions (Optimized for Size & Startup) ---
     mergedModule {
         excludeRequires(
@@ -213,7 +212,7 @@ moduleName = provider { BuildMeta.MAIN_MODULE }
         // Required Installer Metadata
         installerType = "msi"
         installerName = "${rootProject.name}-v$version-setup"
-        icon = "src/main/resources/net/silver/posman/icons/appIcons/appIcon.ico"
+       icon="Resources/src/main/resources/net/silver/resources/icons/appIcon.ico"
         outputDir =
             project.layout.buildDirectory.dir("Jpackage").map { it.asFile.absolutePath }.get() // Output directory
 
@@ -248,9 +247,4 @@ tasks.named<JavaExec>("run") {
     mainClass.set(BuildMeta.MAIN_CLASS)
 
     jvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS;
-}
-
-
-tasks.named<org.beryx.jlink.JlinkTask>("jlink") {
-    dependsOn(tasks.named("jar"))
 }

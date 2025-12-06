@@ -21,6 +21,9 @@ dependencies {
     // SLF4J API only; your custom logger will be used at runtime
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     api(BuildMeta.Libs.SLF4J)
+    testImplementation(BuildMeta.Libs.JUNIT_API)// JUnit 5 API for compiling tests
+    testImplementation(BuildMeta.Libs.JUNIT_JUPITER)// JUnit 5 Engine for running tests (runtime only)
+    testRuntimeOnly(BuildMeta.Libs.JUNIT_PLATFORM)
 
 }
 
@@ -50,4 +53,13 @@ tasks.processResources {
 }
 tasks.withType<ProcessResources> {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
+    modularity.inferModulePath.set(true)
+    failOnNoDiscoveredTests = false
+}
+
+tasks.named<JavaCompile>("compileTestJava") {
+    modularity.inferModulePath.set(true)
 }
