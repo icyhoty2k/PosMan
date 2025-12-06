@@ -1,13 +1,39 @@
 import net.silver.buildsrc.BuildMeta
 import org.gradle.api.tasks.bundling.Jar
 import org.gradle.api.artifacts.ProjectDependency
+import java.io.ByteArrayOutputStream
+import java.io.File
 import java.util.zip.ZipFile
 
-// --- VARIABLES FOR NATIVE TASKS ---
-val runtimeImageDir = layout.buildDirectory.dir("runtime_image")
-val appModulesDir = layout.buildDirectory.dir("app_modules")
-val mergedJarsDir = layout.buildDirectory.dir("merged_jars_dir")
-val mergedModuleJarName = "${BuildMeta.MAIN_MODULE}.merged.module-${project.version}.jar"
+// =========================================================================
+// == GLOBAL UTILITIES (OS AGNOSTIC) =======================================
+// =========================================================================
+
+/**
+ * Dynamically determines the executable name with the correct OS extension.
+ * @param baseName The name of the tool (e.g., "jlink", "jpackage").
+ * @return The full executable path within the JDK bin directory.
+ */
+fun getJvmExecutable(baseName: String): String {
+    val osName = System.getProperty("os.name").lowercase()
+    val exeExtension = if (osName.contains("windows")) ".exe" else ""
+    return listOf(BuildMeta.JDK_LOCATION, "bin", "$baseName$exeExtension").joinToString(File.separator)
+}
+
+/**
+ * Check if a JAR file contains module-info.class
+ */
+fun File.isModularJar(): Boolean {
+    if (!exists() || !isFile || !name.endsWith(".jar")) return false
+    return try {
+        ZipFile(this).use { zip ->
+            zip.getEntry("module-info.class") != null
+        }
+    } catch (e: Exception) {
+        false
+    }
+}
+
 
 // --- PLUGINS ---
 plugins {
@@ -52,7 +78,12 @@ subprojects {
             .asFile
     }
 }
-
+// --- VARIABLES FOR NATIVE TASKS ---
+val runtimeImageDir = layout.buildDirectory.dir("runtime_image")
+val appModulesDir = layout.buildDirectory.dir("app_modules")
+val mergedJarsDir = layout.buildDirectory.dir("merged_jars_dir")
+val mergedModuleJarName = "${BuildMeta.MAIN_MODULE}.merged.module-${project.version}.jar"
+val resolvedRuntimeClasspath by lazy { configurations.runtimeClasspath.get().files }
 dependencies {
     // Modules of Project
     implementation(project(":App"))
@@ -69,24 +100,6 @@ dependencies {
     testImplementation(BuildMeta.Libs.JUNIT_API)
     testImplementation(BuildMeta.Libs.JUNIT_JUPITER)
     testRuntimeOnly(BuildMeta.Libs.JUNIT_PLATFORM)
-}
-
-// =========================================================================
-// == HELPER FUNCTIONS =====================================================
-// =========================================================================
-
-/**
- * Check if a JAR file contains module-info.class
- */
-fun File.isModularJar(): Boolean {
-    if (!exists() || !isFile || !name.endsWith(".jar")) return false
-    return try {
-        ZipFile(this).use { zip ->
-            zip.getEntry("module-info.class") != null
-        }
-    } catch (e: Exception) {
-        false
-    }
 }
 
 // =========================================================================
@@ -109,7 +122,7 @@ tasks.register<Jar>("createMergedModuleJar") {
     exclude("module-info.class", "META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA")
 
     // Get all runtime classpath files
-    val allRuntimeFiles = configurations.runtimeClasspath.get().files
+    val allRuntimeFiles = resolvedRuntimeClasspath
 
     // Filter external dependencies (exclude project dependencies)
     val externalDependencies = allRuntimeFiles.filter { file ->
@@ -158,6 +171,7 @@ tasks.register<Copy>("copyAppModules") {
     description = "Copies all module JARs (App + Dependencies) to the input directory for jpackage."
 
     delete(appModulesDir)
+
     into(appModulesDir)
 
     // --- Project Modules ---
@@ -169,10 +183,16 @@ tasks.register<Copy>("copyAppModules") {
     // --- External Dependencies (Modular JARs Only) ---
     val allRuntimeFiles = configurations.runtimeClasspath.get().files
     val modularJars = allRuntimeFiles.filter { file ->
-        // Include only modular JARs
-        file.name.startsWith("javafx-") ||
-                file.name.startsWith("HikariCP") ||
-                file.isModularJar()
+        val fileName = file.name.lowercase()
+
+        // 1. Include only platform-specific JavaFX JARs (e.g., -win.jar)
+        // This *excludes* the generic 'javafx-base-25.0.1.jar' files.
+        val isPlatformSpecificJavaFx = fileName.startsWith("javafx-") && fileName.contains("-win.jar")
+
+        // 2. Include other non-JavaFX modular dependencies (HikariCP, and any other modular JARs)
+        val isOtherModular = fileName.startsWith("hikaricp") || file.isModularJar()
+
+        isPlatformSpecificJavaFx || isOtherModular
     }
 
     from(modularJars)
@@ -207,14 +227,21 @@ tasks.register<Exec>("createCustomRuntime") {
 
     delete(runtimeImageDir)
 
-    executable = "${BuildMeta.JDK_LOCATION}/bin/jlink.exe"
+    // FIX: Use getJvmExecutable
+    executable = getJvmExecutable("jlink")
 
-    val jmodPath = "${BuildMeta.JDK_LOCATION}/jmods"
+    // FIX: Use File.separator
+    val jmodPath = File(BuildMeta.JDK_LOCATION, "jmods").absolutePath
 
     // Get JavaFX module JARs from classpath
     val javafxJars = configurations.runtimeClasspath.get().files
-        .filter { it.name.startsWith("javafx-") && it.name.contains("-win.jar") }
-        .joinToString(";") { it.absolutePath }
+        .filter {
+            it.name.startsWith("javafx-") && (it.name.contains("-win.jar") || it.name.contains("-linux.jar") || it.name.contains(
+                "-mac.jar"
+            ))
+        }
+        // FIX: Use File.pathSeparator
+        .joinToString(File.pathSeparator) { it.absolutePath }
 
     // Only include essential Java modules + JavaFX
     val modules = listOf(
@@ -232,16 +259,14 @@ tasks.register<Exec>("createCustomRuntime") {
 
     args(
         // Include both JDK jmods and JavaFX JARs
-        "--module-path", "$jmodPath;$javafxJars",
+        // FIX: Use File.pathSeparator
+        "--module-path", "$jmodPath${File.pathSeparator}$javafxJars",
         "--add-modules", modules,
         "--output", runtimeImageDir.get().asFile.absolutePath,
 
         // Optimization for FAST STARTUP (trading size for speed)
         "--no-header-files",
         "--no-man-pages",
-        // Note: Removed --strip-debug for better JIT optimization hints
-        // Note: Removed --compress for faster loading (no decompression overhead)
-        // Note: Removed --strip-java-debug-attributes for better runtime performance
 
         // Generate optimized code for current platform
         "--vm", "server"
@@ -250,7 +275,8 @@ tasks.register<Exec>("createCustomRuntime") {
     doFirst {
         println("Creating custom runtime with modules: $modules")
         println("Optimized for: FAST STARTUP")
-        println("Module path: $jmodPath;$javafxJars")
+        // FIX: Use File.pathSeparator in output
+        println("Module path: $jmodPath${File.pathSeparator}$javafxJars")
     }
 
     doLast {
@@ -258,10 +284,12 @@ tasks.register<Exec>("createCustomRuntime") {
         println("\nNote: Runtime optimized for startup speed over size")
     }
 }
+
 val mainJar = project(":App")
     .tasks.named("jar", Jar::class.java)
     .get()
     .archiveFileName.get()
+
 /**
  * 4. NATIVE JPACKAGE: Creates the final application image.
  */
@@ -272,15 +300,23 @@ tasks.register<Exec>("createJPackageImage") {
     dependsOn(tasks.named("createCustomRuntime"))
     dependsOn(tasks.named("copyAppModules"))
 
-    executable = "${BuildMeta.JDK_LOCATION}/bin/jpackage.exe"
+    // FIX: Use getJvmExecutable
+    executable = getJvmExecutable("jpackage")
 
     val outputDir = BuildMeta.Paths.OUTPUT_IMAGE_DIR
     val mainModule = BuildMeta.MAIN_MODULE
     val version = project.version.toString()
     val appName = "${rootProject.name}_v$version"
-    val appDir = file("$outputDir/$appName")
+    // FIX: Use File.separator
+    val appDir = file("$outputDir${File.separator}$appName")
     delete(appDir)
-    delete(file("$outputDir/$appName"))
+    // FIX: Use File.separator
+    delete(file("$outputDir${File.separator}$appName"))
+
+    // FIX: Use File.separator for icon path construction
+    val iconPath = listOf(
+        "Resources", "src", "main", "resources", "net", "silver", "resources", "icons", "appIcon.ico"
+    ).joinToString(File.separator)
 
     val jpackageArgs = mutableListOf(
         // 1. Application Details
@@ -288,7 +324,7 @@ tasks.register<Exec>("createJPackageImage") {
         "--app-version", version,
         "--vendor", "SilverSolutions",
         "--description", "POS Management Application",
-        "--icon", "Resources/src/main/resources/net/silver/resources/icons/appIcon.ico",
+        "--icon", iconPath,
 
         // 2. Runtime and Inputs
         "--runtime-image", runtimeImageDir.get().asFile.absolutePath,
@@ -321,11 +357,14 @@ tasks.register<Exec>("createJPackageImage") {
         println("Application image created at: $appDir")
 
         // --- Generate correct .cfg file ---
-        val cfgFile = file("$appDir/app/$appName.cfg")
+        // FIX: Use File.separator
+        val cfgFile = file("$appDir${File.separator}app${File.separator}$appName.cfg")
         val appJars =
             appModulesDir.get().asFile.listFiles { f -> f.extension == "jar" }?.sortedBy { it.name } ?: emptyList()
 
-        val classpathString = appJars.joinToString(";") { "\$APPDIR\\${it.name}" }
+        // FIX: Use File.pathSeparator. The path syntax (\\) is a necessary hack for Windows jpackage launchers,
+        // but the separator must be cross-platform, though Windows tends to accept ';'. We stick to pathSeparator.
+        val classpathString = appJars.joinToString(File.pathSeparator) { "\$APPDIR/${it.name}" }
 
         cfgFile.writeText(
             """
@@ -335,15 +374,15 @@ app.classpath=$classpathString
 
 [JavaOptions]
 ${BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS.joinToString("\n") { "java-options=$it" }}
-java-options=-Xshare:on
-java-options=-XX:SharedArchiveFile=${'$'}APPDIR/app-cds.jsa
 """.trimIndent()
         )
-
         println("✓ Generated correct .cfg file at: ${cfgFile.absolutePath}")
     }
 }
 
+/**
+ * 5a. Generate CDS Archive for Faster Startup (OPTIONAL BUT RECOMMENDED)
+ */
 /**
  * 5a. Generate CDS Archive for Faster Startup (OPTIONAL BUT RECOMMENDED)
  */
@@ -355,15 +394,22 @@ tasks.register<Exec>("generateCDSArchive") {
 
     val outputDir = BuildMeta.Paths.OUTPUT_IMAGE_DIR
     val appName = "${rootProject.name}_v${project.version}"
-    val appDir = file("$outputDir/$appName")
+    val appDir = file("$outputDir${File.separator}$appName")
+    val runtimeAppDir = file("$outputDir${File.separator}$appName${File.separator}app")
+    val cfgFile = file("$appDir${File.separator}app${File.separator}$appName.cfg")
+    // Dynamically determine java executable path
+    val javaExe = listOf(
+        outputDir,
+        appName,
+        "runtime",
+        "bin",
+        "java${if (System.getProperty("os.name").lowercase().contains("windows")) ".exe" else ""}"
+    ).joinToString(File.separator)
 
-    val runtimeAppDir = file("$outputDir/$appName/app")
-    val javaExe = file("$outputDir/$appName/runtime/bin/java.exe")
-
-    onlyIf { appDir.exists() && javaExe.exists() }
+    onlyIf { appDir.exists() && file(javaExe).exists() }
 
     workingDir = runtimeAppDir
-    executable = javaExe.absolutePath
+    executable = javaExe
 
     // Build classpath from all jars in /app
     val jarClasspath = runtimeAppDir
@@ -371,6 +417,14 @@ tasks.register<Exec>("generateCDSArchive") {
         ?.filter { it.extension == "jar" }
         ?.joinToString(File.pathSeparator) { it.name }
         ?: ""
+
+    // Define output streams
+    val stdOut = ByteArrayOutputStream()
+    val errOut = ByteArrayOutputStream()
+
+    // CRITICAL: Assign the output streams to the Exec task properties
+    standardOutput = stdOut
+    errorOutput = errOut
 
     args(
         "-Xshare:dump",
@@ -384,37 +438,51 @@ tasks.register<Exec>("generateCDSArchive") {
     }
 
     doLast {
+        println("\n--- CDS Generation Output ---")
+        val output = stdOut.toString() // Read the stream defined above
+        val error = errOut.toString() // Read the stream defined above
+
+        if (output.isNotBlank()) {
+            println("Standard Output:")
+            println(output.trim())
+        }
+
+        if (error.isNotBlank()) {
+            println("!! ERROR Output !!")
+            println(error.trim())
+        }
+
+        // Original verification logic
         val cdsFile = File(runtimeAppDir, "app-cds.jsa")
-
         if (cdsFile.exists()) {
+            cfgFile.appendText(
+                """
+                    
+java-options=-Xshare:on
+java-options=-XX:SharedArchiveFile=${'$'}APPDIR/app-cds.jsa 
+""".trimIndent()
+            )
             println("✓ CDS archive created: app-cds.jsa (${cdsFile.length() / 1024} KB)")
-
-            // CFG file location
-            val cfgFile = File(runtimeAppDir, "$appName.cfg")
-
-            if (cfgFile.exists()) {
-                val cfgContent = cfgFile.readText()
-
-                if (!cfgContent.contains("-Xshare:on")) {
-                    cfgFile.appendText(
-                        """
-                        
-                        java-options=-Xshare:on
-                        java-options=-XX:SharedArchiveFile=${'$'}APPDIR/app-cds.jsa
-                        """.trimIndent()
-                    )
-
-                    println("✓ Updated configuration to use CDS archive")
-                }
-            } else {
-                println("⚠ CFG file not found: ${cfgFile.absolutePath}")
-            }
+            // ... (rest of the CFG file update logic, which you can remove if it's already correct)
         } else {
             println("✗ CDS archive creation failed — no app-cds.jsa produced")
         }
     }
 }
+tasks.register<Copy>("includeCDSInInput") {
+    dependsOn("generateCDSArchive")
 
+    val outputDir = BuildMeta.Paths.OUTPUT_IMAGE_DIR
+    val appName = "${rootProject.name}_v${project.version}"
+    val cdsFile = file("$outputDir${File.separator}$appName${File.separator}app${File.separator}app-cds.jsa")
+
+    from(cdsFile)
+    into(appModulesDir)
+
+    doLast {
+        println("✓ Copied app-cds.jsa into input directory for jpackage")
+    }
+}
 /**
  * 5b. Create Windows Installer (MSI or EXE)
  */
@@ -424,30 +492,39 @@ tasks.register<Exec>("createWindowsInstaller") {
 
     dependsOn(tasks.named("createCustomRuntime"))
     dependsOn(tasks.named("copyAppModules"))
+    dependsOn(tasks.named("includeCDSInInput"))
 
-    executable = "${BuildMeta.JDK_LOCATION}/bin/jpackage.exe"
+    executable = getJvmExecutable("jpackage")
 
     val outputDir = BuildMeta.Paths.OUTPUT_IMAGE_DIR
-    val mainModule = BuildMeta.MAIN_MODULE
     val version = project.version.toString()
     val appName = "${rootProject.name}_v$version"
-    val appJars =
-        appModulesDir.get().asFile.listFiles { f -> f.extension == "jar" }?.sortedBy { it.name } ?: emptyList()
-    val classpathString = appJars.joinToString(";") { "\$APPDIR\\${it.name}" }
+    val appDirForResources = file("$outputDir${File.separator}$appName${File.separator}app")
+
+    val iconPath = listOf(
+        "Resources", "src", "main", "resources", "net", "silver", "resources", "icons", "appIcon.ico"
+    ).joinToString(File.separator)
+
+    // Combine current JVM args + CDS flags
+    val allJvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS + listOf(
+        "-Xshare:on",
+        "-XX:SharedArchiveFile=\$APPDIR/app-cds.jsa"
+    )
+
     val jpackageArgs = mutableListOf(
         "--name", appName,
         "--app-version", version,
         "--vendor", "SilverSolutions",
         "--description", "POS Management Application",
-        "--icon", "Resources/src/main/resources/net/silver/resources/icons/appIcon.ico",
-
+        "--icon", iconPath,
+        "--resource-dir", appDirForResources.absolutePath,
         "--runtime-image", runtimeImageDir.get().asFile.absolutePath,
         "--input", appModulesDir.get().asFile.absolutePath,
         "--main-class", BuildMeta.MAIN_CLASS,
+        "--main-jar", mainJar,
         "--dest", outputDir,
-        "--type", "msi", // or "exe"
+        "--type", "msi",
 
-        // Windows Installer Options
         "--win-menu",
         "--win-dir-chooser",
         "--win-per-user-install",
@@ -457,18 +534,38 @@ tasks.register<Exec>("createWindowsInstaller") {
         "--win-menu-group", rootProject.name
     )
 
-    BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS.forEach { jvmArg ->
+    // Add all JVM options to jpackage
+    allJvmArgs.forEach { jvmArg ->
         jpackageArgs.add("--java-options")
         jpackageArgs.add(jvmArg)
     }
-    jpackageArgs.add("--java-options")
-    jpackageArgs.add("-Dapp.classpath=$classpathString")
+
     args(jpackageArgs)
 
     doLast {
+        // Collect all jars + CDS
+        val appJars =
+            appModulesDir.get().asFile.listFiles { f -> f.extension == "jar" }?.sortedBy { it.name } ?: emptyList()
+        val classpath = (appJars.map { "\$APPDIR\\${it.name}" } + "\$APPDIR\\app-cds.jsa").joinToString(";")
+
+        // Write single-line classpath
+        val appCfgFile = file("$appDirForResources${File.separator}$appName.cfg")
+        appCfgFile.writeText(
+            """
+[Application]
+app.mainclass=${BuildMeta.MAIN_CLASS}
+app.classpath=$classpath
+
+[JavaOptions]
+${allJvmArgs.joinToString("\n") { "java-options=$it" }}
+""".trimIndent()
+        )
+
         println("Windows installer created at: $outputDir/$appName.msi")
+        println("✓ .cfg file now has SINGLE-LINE classpath including app-cds.jsa")
     }
 }
+
 
 // =========================================================================
 // == DIAGNOSTIC TASKS =====================================================
@@ -484,9 +581,11 @@ tasks.register("analyzeModuleDependencies") {
     doLast {
         println("\n=== Analyzing Module Dependencies ===\n")
 
-        val jdepsExec = "${BuildMeta.JDK_LOCATION}/bin/jdeps.exe"
+        // FIX: Use getJvmExecutable
+        val jdepsExec = getJvmExecutable("jdeps")
         val modulePath = configurations.runtimeClasspath.get().files
-            .joinToString(";") { it.absolutePath }
+            // FIX: Use File.pathSeparator
+            .joinToString(File.pathSeparator) { it.absolutePath }
 
         project.subprojects.forEach { subproject ->
             val jarTask = subproject.tasks.findByName("jar") as? Jar
@@ -529,7 +628,8 @@ tasks.register("verifyPackageStructure") {
     doLast {
         val outputDir = BuildMeta.Paths.OUTPUT_IMAGE_DIR
         val appName = "${rootProject.name}_v${project.version}"
-        val appDir = file("$outputDir/$appName")
+        // FIX: Use File.separator
+        val appDir = file("$outputDir${File.separator}$appName")
 
         if (!appDir.exists()) {
             println("ERROR: Application directory does not exist: ${appDir.absolutePath}")
@@ -544,15 +644,20 @@ tasks.register("verifyPackageStructure") {
         }
 
         // Check launcher in root
-        val launcherExe = file("$appDir/${appName}.exe")
+        val launcherName =
+            "$appName${if (System.getProperty("os.name").lowercase().contains("windows")) ".exe" else ""}"
+        // FIX: Use File.separator
+        val launcherExe = file("$appDir${File.separator}$launcherName")
         if (launcherExe.exists()) {
             println("\n✓ Launcher found: ${launcherExe.name}")
         } else {
-            println("\n✗ Launcher not found: ${appName}.exe")
+            // FIX: Use the correct expected name
+            println("\n✗ Launcher not found: $launcherName")
         }
 
         // Check app directory contents
-        val appSubDir = file("$appDir/app")
+        // FIX: Use File.separator
+        val appSubDir = file("$appDir${File.separator}app")
         if (appSubDir.exists()) {
             println("\n✓ App directory exists")
             println("Contents:")
@@ -562,7 +667,8 @@ tasks.register("verifyPackageStructure") {
         }
 
         // Check runtime
-        val runtimeDir = file("$appDir/runtime")
+        // FIX: Use File.separator
+        val runtimeDir = file("$appDir${File.separator}runtime")
         if (runtimeDir.exists()) {
             println("\n✓ Runtime directory exists")
         } else {
@@ -570,7 +676,8 @@ tasks.register("verifyPackageStructure") {
         }
 
         // Check for cfg file
-        val appCfg = file("$appDir/app/${appName}.cfg")
+        // FIX: Use File.separator
+        val appCfg = file("$appDir${File.separator}app${File.separator}$appName.cfg")
         if (appCfg.exists()) {
             println("\n✓ Configuration file found: ${appCfg.name}")
             println("Contents:")
@@ -580,7 +687,8 @@ tasks.register("verifyPackageStructure") {
         }
 
         // Check for CDS archive
-        val cdsFile = file("$appDir/app/app-cds.jsa")
+        // FIX: Use File.separator
+        val cdsFile = file("$appDir${File.separator}app${File.separator}app-cds.jsa")
         if (cdsFile.exists()) {
             println("\n✓ CDS archive found: ${cdsFile.name} (${cdsFile.length() / 1024}KB)")
         } else {
@@ -589,7 +697,8 @@ tasks.register("verifyPackageStructure") {
 
         println("\n=== Launch Instructions ===")
         println("To run the application:")
-        println("  ${appDir.absolutePath}\\${appName}.exe")
+        // FIX: Use File.separator in instruction
+        println("  ${appDir.absolutePath}${File.separator}$launcherName")
     }
 }
 
@@ -613,8 +722,9 @@ tasks.register("listRuntimeDependencies") {
                 var moduleName = ""
                 if (isModular) {
                     try {
-                        val jdepsExec = "${BuildMeta.JDK_LOCATION}/bin/jar.exe"
-                        val process = ProcessBuilder(jdepsExec, "--describe-module", "--file", file.absolutePath)
+                        // FIX: Use getJvmExecutable
+                        val jarExec = getJvmExecutable("jar")
+                        val process = ProcessBuilder(jarExec, "--describe-module", "--file", file.absolutePath)
                             .redirectErrorStream(true)
                             .start()
 
@@ -738,7 +848,8 @@ tasks.register("packageComplete") {
 
     doLast {
         println("\n=== Packaging Complete ===")
-        println("Application image: ${BuildMeta.Paths.OUTPUT_IMAGE_DIR}/${rootProject.name}_v${project.version}")
+        // FIX: Use File.separator
+        println("Application image: ${BuildMeta.Paths.OUTPUT_IMAGE_DIR}${File.separator}${rootProject.name}_v${project.version}")
         println("\nOptional optimizations:")
         println("- Run 'gradlew generateCDSArchive' for 30-50% faster startup")
         println("- Run 'gradlew createWindowsInstaller' to create MSI installer")
@@ -755,7 +866,8 @@ tasks.register("packageOptimized") {
 
     doLast {
         println("\n=== Optimized Packaging Complete ===")
-        println("Application image: ${BuildMeta.Paths.OUTPUT_IMAGE_DIR}/${rootProject.name}_v${project.version}")
+        // FIX: Use File.separator
+        println("Application image: ${BuildMeta.Paths.OUTPUT_IMAGE_DIR}${File.separator}${rootProject.name}_v${project.version}")
         println("✓ Startup optimized: No compression + CDS archive")
         println("✓ Expected startup improvement: 30-50% faster")
         println("\nTo create installer, run: gradlew createWindowsInstaller")

@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="36acf23f-eb1d-401e-b55c-27ed8439cc21" name="Changes" comment="1">
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
     </list>
@@ -111,48 +112,48 @@
     <option name="sortByType" value="true" />
     <option name="sortKey" value="BY_TYPE" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.PosMan [:App:net.silver.app.z_MainAppStart.main()].executor": "Run",
-    "Gradle.PosMan [:Gui:run].executor": "Run",
-    "Gradle.PosMan [:Utils:build].executor": "Run",
-    "Gradle.PosMan [build].executor": "Run",
-    "Gradle.PosMan [classes].executor": "Run",
-    "Gradle.PosMan [clean].executor": "Run",
-    "Gradle.PosMan [copyAppModules].executor": "Run",
-    "Gradle.PosMan [createCustomRuntime].executor": "Run",
-    "Gradle.PosMan [createJPackageImage].executor": "Run",
-    "Gradle.PosMan [createMergedModuleJar].executor": "Run",
-    "Gradle.PosMan [createWindowsInstaller].executor": "Run",
-    "Gradle.PosMan [generateCDSArchive].executor": "Run",
-    "Gradle.PosMan [jar].executor": "Run",
-    "Gradle.PosMan [jlinkZip].executor": "Run",
-    "Gradle.PosMan [jlink].executor": "Run",
-    "Gradle.PosMan [jpackageImage].executor": "Run",
-    "Gradle.PosMan [jpackage].executor": "Run",
-    "Gradle.PosMan [packageComplete].executor": "Run",
-    "Gradle.PosMan [packageOptimized].executor": "Run",
-    "Gradle.PosMan [runShadow].executor": "Run",
-    "Gradle.PosMan [run].executor": "Run",
-    "Gradle.PosMan [verifyPackageStructure].executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "actions.on.save"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.PosMan [:App:net.silver.app.z_MainAppStart.main()].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [:Gui:run].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [:Utils:build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [build].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [classes].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [copyAppModules].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [createCustomRuntime].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [createJPackageImage].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [createMergedModuleJar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [createWindowsInstaller].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [generateCDSArchive].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [jar].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [jlinkZip].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [jlink].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [jpackageImage].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [jpackage].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [packageComplete].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [packageOptimized].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [runShadow].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [run].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.PosMan [verifyPackageStructure].executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="net.silver.app" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.PosMan [packageOptimized]">
+  <component name="RunManager" selected="Gradle.PosMan [createWindowsInstaller]">
     <configuration name="PosMan [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -187,6 +188,28 @@
         <option name="taskNames">
           <list>
             <option value="createJPackageImage" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="PosMan [createWindowsInstaller]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="createWindowsInstaller" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -241,41 +264,19 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="PosMan [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="run" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
     <list>
+      <item itemvalue="Gradle.PosMan [createWindowsInstaller]" />
       <item itemvalue="Gradle.PosMan [createJPackageImage]" />
       <item itemvalue="Gradle.PosMan [generateCDSArchive]" />
       <item itemvalue="Gradle.PosMan [packageOptimized]" />
       <item itemvalue="Gradle.PosMan [clean]" />
-      <item itemvalue="Gradle.PosMan [run]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.PosMan [packageOptimized]" />
+        <item itemvalue="Gradle.PosMan [createWindowsInstaller]" />
         <item itemvalue="Gradle.PosMan [clean]" />
+        <item itemvalue="Gradle.PosMan [packageOptimized]" />
         <item itemvalue="Gradle.PosMan [generateCDSArchive]" />
-        <item itemvalue="Gradle.PosMan [run]" />
         <item itemvalue="Gradle.PosMan [createJPackageImage]" />
       </list>
     </recent_temporary>
@@ -296,6 +297,8 @@
       <option name="presentableId" value="Default" />
       <updated>1764983523226</updated>
       <workItem from="1764983524629" duration="13186000" />
+      <workItem from="1765036217232" duration="5532000" />
+      <workItem from="1765041898348" duration="403000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -393,7 +396,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765030685382</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="1">
+      <option name="closed" value="true" />
+      <created>1765031270666</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1765031270666</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -475,6 +486,12 @@
           <option name="totalLines" value="21646" />
           <option name="info" value="1" />
         </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765031270701" />
+          <option name="linesCode" value="6164" />
+          <option name="totalLines" value="21647" />
+          <option name="info" value="1" />
+        </TimePoint>
       </list>
     </option>
     <option name="genericTimePoints">
@@ -486,9 +503,9 @@
           <option name="info" value="Dec 6, 2025" />
         </TimePoint>
         <TimePoint>
-          <option name="timestamp" value="1765030685422" />
-          <option name="linesCode" value="6165" />
-          <option name="totalLines" value="21646" />
+          <option name="timestamp" value="1765031270701" />
+          <option name="linesCode" value="6164" />
+          <option name="totalLines" value="21647" />
           <option name="info" value="Dec 6, 2025" />
         </TimePoint>
       </list>
