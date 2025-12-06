@@ -18,14 +18,14 @@ plugins {
 
 apply(from = "gradle/myScripts/globalManifest.gradle.kts")
 
-allprojects {
+
 
     // Global group (each module overrides if needed)
     group = BuildMeta.MAIN_GROUP
     version = BuildMeta.VERSION_PARTIAL_NO_BUILD_NUMBER
     layout.buildDirectory.set(file(BuildMeta.Paths.OUTPUT_BUILD_DIR + project.name))
 
-}
+
 subprojects {
     apply(plugin = "java")
     apply(from = rootDir.resolve("gradle/myScripts/downloadSourcesAndJavadoc.gradle.kts"))

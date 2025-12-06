@@ -6,8 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="36acf23f-eb1d-401e-b55c-27ed8439cc21" name="Changes" comment="1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Gui/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Gui/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Services/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -230,9 +232,9 @@
       <list>
         <item itemvalue="Gradle.PosMan [clean]" />
         <item itemvalue="Gradle.PosMan [build]" />
-        <item itemvalue="Gradle.PosMan [jpackageImage]" />
         <item itemvalue="Gradle.PosMan [classes]" />
         <item itemvalue="Gradle.PosMan [run]" />
+        <item itemvalue="Gradle.PosMan [jpackageImage]" />
       </list>
     </recent_temporary>
   </component>
@@ -251,7 +253,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1764983523226</updated>
-      <workItem from="1764983524629" duration="11987000" />
+      <workItem from="1764983524629" duration="13186000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -293,7 +295,15 @@
       <option name="project" value="LOCAL" />
       <updated>1764995318805</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="1">
+      <option name="closed" value="true" />
+      <created>1764995650192</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1764995650192</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -333,14 +343,20 @@
           <option name="totalLines" value="11736" />
           <option name="info" value="1" />
         </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1764995650213" />
+          <option name="linesCode" value="3710" />
+          <option name="totalLines" value="11737" />
+          <option name="info" value="1" />
+        </TimePoint>
       </list>
     </option>
     <option name="genericTimePoints">
       <list>
         <TimePoint>
-          <option name="timestamp" value="1764995318829" />
+          <option name="timestamp" value="1764995650213" />
           <option name="linesCode" value="3710" />
-          <option name="totalLines" value="11736" />
+          <option name="totalLines" value="11737" />
           <option name="info" value="Dec 6, 2025" />
         </TimePoint>
       </list>

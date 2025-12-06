@@ -23,7 +23,7 @@ dependencies {
 }
 
 tasks.jar {
-    archiveBaseName.set(name)
+
     archiveVersion.set("$version")
     archiveClassifier.set("")
     manifest {
