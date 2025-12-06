@@ -431,7 +431,9 @@ tasks.register<Exec>("createWindowsInstaller") {
     val mainModule = BuildMeta.MAIN_MODULE
     val version = project.version.toString()
     val appName = "${rootProject.name}_v$version"
-
+    val appJars =
+        appModulesDir.get().asFile.listFiles { f -> f.extension == "jar" }?.sortedBy { it.name } ?: emptyList()
+    val classpathString = appJars.joinToString(";") { "\$APPDIR\\${it.name}" }
     val jpackageArgs = mutableListOf(
         "--name", appName,
         "--app-version", version,
@@ -441,7 +443,6 @@ tasks.register<Exec>("createWindowsInstaller") {
 
         "--runtime-image", runtimeImageDir.get().asFile.absolutePath,
         "--input", appModulesDir.get().asFile.absolutePath,
-        "--main-jar", mainJar,
         "--main-class", BuildMeta.MAIN_CLASS,
         "--dest", outputDir,
         "--type", "msi", // or "exe"
@@ -460,7 +461,8 @@ tasks.register<Exec>("createWindowsInstaller") {
         jpackageArgs.add("--java-options")
         jpackageArgs.add(jvmArg)
     }
-
+    jpackageArgs.add("--java-options")
+    jpackageArgs.add("-Dapp.classpath=$classpathString")
     args(jpackageArgs)
 
     doLast {
