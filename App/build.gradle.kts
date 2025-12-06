@@ -1,3 +1,5 @@
+import net.silver.buildsrc.BuildMeta
+
 plugins {
     `java-library`
 }
@@ -14,7 +16,10 @@ java {
 }
 
 dependencies {
-
+     implementation(project(":Gui"))
+     implementation(project(":Persistence"))
+     implementation(BuildMeta.Libs.GRAPHICS_JAVA_FX)
+    implementation(BuildMeta.Libs.BASE_JAVA_FX)
     // If App needs anything from utils, logging, or resources, add here:
 
 }

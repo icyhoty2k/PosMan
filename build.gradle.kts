@@ -6,9 +6,10 @@ import net.silver.buildsrc.BuildMeta;
 plugins {
     java
     idea
-    id("org.javamodularity.moduleplugin") version "2.0.0"
-    id("org.openjfx.javafxplugin") version "0.1.0"
-    id("org.beryx.jlink") version "3.1.4-rc"
+    id(net.silver.buildsrc.BuildMeta.PluginVersions.JAVA_MODULARITY_ID) version net.silver.buildsrc.BuildMeta.PluginVersions.JAVA_MODULARITY_VERSION
+    id(net.silver.buildsrc.BuildMeta.PluginVersions.JAVAFX_PLUGIN_ID) version net.silver.buildsrc.BuildMeta.PluginVersions.JAVAFX_PLUGIN_VERSION
+    id(net.silver.buildsrc.BuildMeta.PluginVersions.JLINK_ID) version net.silver.buildsrc.BuildMeta.PluginVersions.JLINK_VERSION
+    id(net.silver.buildsrc.BuildMeta.PluginVersions.SHADOW_ID) version net.silver.buildsrc.BuildMeta.PluginVersions.SHADOW_VERSION
 
 //    id("com.github.ben-manes.versions") version "0.53.0"
 //    id("com.dorongold.task-tree") version "4.0.1"
@@ -36,7 +37,6 @@ subprojects {
             vendor.set(JvmVendorSpec.MICROSOFT) // Microsoft JDK
             implementation.set(JvmImplementation.VENDOR_SPECIFIC)
         }
-        modularity.inferModulePath.set(true)
     }
     /**
      * Classic Javadoc task configuration (this affects BOTH:
@@ -167,6 +167,99 @@ tasks.compileJava {
     options.compilerArgs.add("-Xlint:unchecked")
 
 }
+javafx {
+    version = BuildMeta.JAVA_FX_VERSION
+    modules = BuildMeta.Libs.JAVA_FX_MODULES
+    setPlatform(BuildMeta.PLATFORM)
+}
+application {
+//    mainModule.set(mainAppModule)
+    mainClass.set(BuildMeta.MAIN_CLASS)
+//    applicationName.set("POS")
+    applicationDefaultJvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS;
+}
+jlink {
+    // Set the path to your desired JDK installation directory
+    javaHome = BuildMeta.JDK_LOCATION
+    imageZip.set(layout.buildDirectory.file("/distributions/${rootProject.name}-v$version-${javafx.platform.classifier}.zip"))
+
+    // --- 1. Module Exclusions (Optimized for Size & Startup) ---
+    mergedModule {
+        excludeRequires(
+            "org.slf4j",
+            "javafx.media",
+            "javafx.web",
+            "javafx.swing"
+        )
+    }
+    // --- 2. JLink Options (Maximizing Stripping, Optimization, and CDS) ---
+    options.set(
+        listOf(
+            "--strip-debug",
+//           "--compress", "1", // Fast compression level comment to use 0
+            "--no-header-files",
+            "--no-man-pages",
+            "--strip-java-debug-attributes",
+//            "--optimize",
+//            "--disable-service-loader",
+            "--bind-services",
+            "--ignore-signing-information",
+        )
+    )
+    launcher {
+        name = "${rootProject.name}_v$version"
+    }
+
+    // --- 3. JPackage Configuration (Metadata and Max Speed JVM Args) ---
+    jpackage {
+        // Required Installer Metadata
+        installerType = "msi"
+        installerName = "${rootProject.name}-v$version-setup"
+        icon = project.file("src/main/resources/net/silver/posman/icons/appIcons/appIcon.ico").toString()
+        outputDir =
+            project.layout.buildDirectory.dir("Jpackage").map { it.asFile.absolutePath }.get() // Output directory
+
+        // **Required Metadata Properties (Working Syntax)**
+        vendor = "SilverSolutions"
+        appVersion = project.version.toString() // Safe conversion
+        description = "POS Management Application"
+//        copyright = "© 2025 SilverSolutions"
+
+        // **Required Path and Resources (Working Syntax)**
+
+        // Installation path inside the program files directory
+//        resourceDir = project.file("src/main/resources/config") // Bundled configuration files
+
+        // JVM args - Maximally Tuned for Startup Speed
+        jvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS;
+
+        // Installer Options (Windows specific flags)
+        installerOptions = listOf(
+            "--win-menu",
+            "--win-dir-chooser",
+            "--win-per-user-install",
+            "--win-shortcut",
+//          "--win-console",
+            "--install-dir", rootProject.name,// Installation path inside the program files directory
+            "--win-upgrade-uuid", "783f982d-0a12-4e00-84c2-9e9f65c697c1"
+        )
+    }
+}
+tasks.named<JavaExec>("run") {
+//    mainModule.set(mainAppModule)
+    mainClass.set(BuildMeta.MAIN_CLASS)
+//    workingDir = outputWorkingDir
+//    classpath = sourceSets.main.get().runtimeClasspath
+    jvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS;
+}
+
+
+
+
+
+
+
+
 
 tasks.named<org.beryx.jlink.JlinkTask>("jlink") {
     dependsOn(tasks.named("jar"))

@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project version="4">
-  <component name="SharedFileColors">
-    <fileColor scope="Stage" color="Gray" />
-    <fileColor scope="FXMLView" color="Yellow" />
-    <fileColor scope="FXMLController" color="Green" />
-  </component>
-</project>
