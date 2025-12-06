@@ -47,6 +47,12 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="PosMan" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="PosMan" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="package" type="c8890929:TasksNode$1" />
               </path>
               <path>
@@ -119,6 +125,7 @@
     "Gradle.PosMan [createJPackageImage].executor": "Run",
     "Gradle.PosMan [createMergedModuleJar].executor": "Run",
     "Gradle.PosMan [createWindowsInstaller].executor": "Run",
+    "Gradle.PosMan [generateCDSArchive].executor": "Run",
     "Gradle.PosMan [jar].executor": "Run",
     "Gradle.PosMan [jlinkZip].executor": "Run",
     "Gradle.PosMan [jlink].executor": "Run",
@@ -146,7 +153,29 @@
       <recent name="net.silver.app" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.PosMan [run]">
+  <component name="RunManager" selected="Gradle.PosMan [packageOptimized]">
+    <configuration name="PosMan [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="PosMan [createJPackageImage]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -169,7 +198,7 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="PosMan [createWindowsInstaller]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="PosMan [generateCDSArchive]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -180,7 +209,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="createWindowsInstaller" />
+            <option value="generateCDSArchive" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -235,42 +264,20 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="PosMan [verifyPackageStructure]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="verifyPackageStructure" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Gradle.PosMan [createJPackageImage]" />
-      <item itemvalue="Gradle.PosMan [createWindowsInstaller]" />
+      <item itemvalue="Gradle.PosMan [generateCDSArchive]" />
       <item itemvalue="Gradle.PosMan [packageOptimized]" />
-      <item itemvalue="Gradle.PosMan [verifyPackageStructure]" />
+      <item itemvalue="Gradle.PosMan [clean]" />
       <item itemvalue="Gradle.PosMan [run]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.PosMan [run]" />
         <item itemvalue="Gradle.PosMan [packageOptimized]" />
+        <item itemvalue="Gradle.PosMan [generateCDSArchive]" />
+        <item itemvalue="Gradle.PosMan [clean]" />
+        <item itemvalue="Gradle.PosMan [run]" />
         <item itemvalue="Gradle.PosMan [createJPackageImage]" />
-        <item itemvalue="Gradle.PosMan [createWindowsInstaller]" />
-        <item itemvalue="Gradle.PosMan [verifyPackageStructure]" />
       </list>
     </recent_temporary>
   </component>
@@ -363,7 +370,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765024517555</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="1">
+      <option name="closed" value="true" />
+      <created>1765025200814</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1765025200814</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -427,6 +442,12 @@
           <option name="totalLines" value="21487" />
           <option name="info" value="1" />
         </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765025200857" />
+          <option name="linesCode" value="6165" />
+          <option name="totalLines" value="21605" />
+          <option name="info" value="1" />
+        </TimePoint>
       </list>
     </option>
     <option name="genericTimePoints">
@@ -438,9 +459,9 @@
           <option name="info" value="Dec 6, 2025" />
         </TimePoint>
         <TimePoint>
-          <option name="timestamp" value="1765024517601" />
+          <option name="timestamp" value="1765025200857" />
           <option name="linesCode" value="6165" />
-          <option name="totalLines" value="21487" />
+          <option name="totalLines" value="21605" />
           <option name="info" value="Dec 6, 2025" />
         </TimePoint>
       </list>

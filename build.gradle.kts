@@ -280,7 +280,8 @@ tasks.register<Exec>("createJPackageImage") {
     val mainModule = BuildMeta.MAIN_MODULE
     val version = project.version.toString()
     val appName = "${rootProject.name}_v$version"
-
+    val appDir = file("$outputDir/$appName")
+    delete(appDir)
     delete(file("$outputDir/$appName"))
 
     val jpackageArgs = mutableListOf(
@@ -319,7 +320,29 @@ tasks.register<Exec>("createJPackageImage") {
     }
 
     doLast {
-        println("Application image created at: $outputDir/$appName")
+        println("Application image created at: $appDir")
+
+        // --- Generate correct .cfg file ---
+        val cfgFile = file("$appDir/app/$appName.cfg")
+        val appJars =
+            appModulesDir.get().asFile.listFiles { f -> f.extension == "jar" }?.sortedBy { it.name } ?: emptyList()
+
+        val classpathString = appJars.joinToString(";") { "\$APPDIR\\${it.name}" }
+
+        cfgFile.writeText(
+            """
+[Application]
+app.mainclass=${BuildMeta.MAIN_CLASS}
+app.classpath=$classpathString
+
+[JavaOptions]
+${BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS.joinToString("\n") { "java-options=$it" }}
+java-options=-Xshare:on
+java-options=-XX:SharedArchiveFile=${'$'}APPDIR/app-cds.jsa
+""".trimIndent()
+        )
+
+        println("✓ Generated correct .cfg file at: ${cfgFile.absolutePath}")
     }
 }
 
