@@ -1,4 +1,4 @@
-import org.gradle.plugins.ide.idea.model.IdeaLanguageLevel
+
 import net.silver.buildsrc.BuildMeta
 
 
@@ -167,11 +167,7 @@ tasks.compileJava {
     options.compilerArgs.add("-Xlint:unchecked")
 
 }
-//javafx {
-//    version = BuildMeta.JAVA_FX_VERSION
-//    modules = BuildMeta.Libs.JAVA_FX_MODULES
-//    setPlatform(BuildMeta.PLATFORM)
-//}
+
 application {
 //    mainModule.set(mainAppModule)
     mainClass.set(BuildMeta.MAIN_CLASS)
@@ -183,6 +179,7 @@ jlink {
     javaHome = BuildMeta.JDK_LOCATION
 //    imageZip.set(layout.buildDirectory.file("/distributions/${rootProject.name}-v$version-${javafx.platform.classifier}.zip"))
     imageZip.set(layout.buildDirectory.file("/distributions/${rootProject.name}-v$version-.zip"))
+moduleName = provider { BuildMeta.MAIN_MODULE }
 
     // --- 1. Module Exclusions (Optimized for Size & Startup) ---
     mergedModule {
@@ -216,7 +213,7 @@ jlink {
         // Required Installer Metadata
         installerType = "msi"
         installerName = "${rootProject.name}-v$version-setup"
-        icon = project.file("src/main/resources/net/silver/posman/icons/appIcons/appIcon.ico").toString()
+        icon = "src/main/resources/net/silver/posman/icons/appIcons/appIcon.ico"
         outputDir =
             project.layout.buildDirectory.dir("Jpackage").map { it.asFile.absolutePath }.get() // Output directory
 
@@ -246,12 +243,12 @@ jlink {
         )
     }
 }
-//tasks.named<JavaExec>("run") {
-//
-//    mainClass.set(BuildMeta.MAIN_CLASS)
-//
-//    jvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS;
-//}
+tasks.named<JavaExec>("run") {
+
+    mainClass.set(BuildMeta.MAIN_CLASS)
+
+    jvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS;
+}
 
 
 tasks.named<org.beryx.jlink.JlinkTask>("jlink") {
