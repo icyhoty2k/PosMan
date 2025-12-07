@@ -6,7 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="36acf23f-eb1d-401e-b55c-27ed8439cc21" name="Changes" comment="1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -146,6 +145,7 @@
     "Gradle.PosMan [listRuntimeDependencies].executor": "Run",
     "Gradle.PosMan [outgoingVariants].executor": "Run",
     "Gradle.PosMan [packageComplete].executor": "Run",
+    "Gradle.PosMan [packageImageWithCDS].executor": "Run",
     "Gradle.PosMan [packageOptimizedReliable].executor": "Run",
     "Gradle.PosMan [packageOptimized].executor": "Run",
     "Gradle.PosMan [runShadow].executor": "Run",
@@ -318,7 +318,7 @@
       <workItem from="1765041898348" duration="403000" />
       <workItem from="1765069158176" duration="3000" />
       <workItem from="1765069384849" duration="3743000" />
-      <workItem from="1765096662882" duration="10863000" />
+      <workItem from="1765096662882" duration="11814000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -512,7 +512,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765102805907</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="1">
+      <option name="closed" value="true" />
+      <created>1765108887282</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1765108887282</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -677,6 +685,12 @@
           <option name="totalLines" value="21875" />
           <option name="info" value="1" />
         </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765108887316" />
+          <option name="linesCode" value="6162" />
+          <option name="totalLines" value="21965" />
+          <option name="info" value="1" />
+        </TimePoint>
       </list>
     </option>
     <option name="genericTimePoints">
@@ -700,9 +714,9 @@
           <option name="info" value="Dec 7, 2025" />
         </TimePoint>
         <TimePoint>
-          <option name="timestamp" value="1765102805944" />
+          <option name="timestamp" value="1765108887316" />
           <option name="linesCode" value="6162" />
-          <option name="totalLines" value="21875" />
+          <option name="totalLines" value="21965" />
           <option name="info" value="Dec 7, 2025" />
         </TimePoint>
       </list>
