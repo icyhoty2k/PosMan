@@ -39,6 +39,12 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="PosMan" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="package" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="PosMan" type="f1a62948:ProjectNode" />
                 <item name="Dependencies" type="6de06a37:ExternalSystemViewDefaultContributor$MyDependenciesNode" />
               </path>
             </expand>
@@ -427,7 +433,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765068582710</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="1">
+      <option name="closed" value="true" />
+      <created>1765080171135</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1765080171135</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -544,6 +558,12 @@
           <option name="totalLines" value="21770" />
           <option name="info" value="1" />
         </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765080171166" />
+          <option name="linesCode" value="6166" />
+          <option name="totalLines" value="21770" />
+          <option name="info" value="1" />
+        </TimePoint>
       </list>
     </option>
     <option name="genericTimePoints">
@@ -561,7 +581,7 @@
           <option name="info" value="Dec 6, 2025" />
         </TimePoint>
         <TimePoint>
-          <option name="timestamp" value="1765068582750" />
+          <option name="timestamp" value="1765080171166" />
           <option name="linesCode" value="6166" />
           <option name="totalLines" value="21770" />
           <option name="info" value="Dec 7, 2025" />
