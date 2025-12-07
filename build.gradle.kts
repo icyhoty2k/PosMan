@@ -259,31 +259,17 @@ tasks.register<Exec>("createCustomRuntime") {
 
     args(
         // Include both JDK jmods and JavaFX JARs
-        // optimize for fast startup
-        "--module-path",
-        "$jmodPath${File.pathSeparator}$javafxJars",
-        "--add-modules",
-        modules,
-        "--output",
-        runtimeImageDir.get().asFile.absolutePath,
-        "--compress",
-        "zip-0",      // Optimization for FAST STARTUP (trading size for speed) "zip-0" to "zip-9" smaller image bigger compression slower app startup zip-0 -> faster app startup
-        "--strip-debug",
-        "--strip-native-commands",
+        // FIX: Use File.pathSeparator
+        "--module-path", "$jmodPath${File.pathSeparator}$javafxJars",
+        "--add-modules", modules,
+        "--output", runtimeImageDir.get().asFile.absolutePath,
+
+        // Optimization for FAST STARTUP (trading size for speed)
         "--no-header-files",
         "--no-man-pages",
-        "--generate-jli-classes",
-        "auto",
-        "--bind-services",      // PERFORMANCE: Re-added for service discovery optimization
+
         // Generate optimized code for current platform
-        "--include-locales",
-        "en,bg",  // or your target locale(s), comma-separated
-        "--order-resources",
-        "**module-info.class,**resources.properties,**/*.class",
-        "--vm",
-        "server",
-        "--release-info",
-        "add:PROJECT_VERSION=${project.version}"
+        "--vm", "server"
     )
 
     doFirst {
