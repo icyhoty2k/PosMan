@@ -156,7 +156,7 @@
       <recent name="net.silver.app" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.PosMan [packageOptimized]">
+  <component name="RunManager" selected="Gradle.PosMan [run]">
     <configuration name="PosMan [copyAppModules]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -276,10 +276,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.PosMan [run]" />
         <item itemvalue="Gradle.PosMan [packageOptimized]" />
         <item itemvalue="Gradle.PosMan [generateCDSArchive]" />
         <item itemvalue="Gradle.PosMan [copyAppModules]" />
-        <item itemvalue="Gradle.PosMan [run]" />
         <item itemvalue="Gradle.PosMan [listRuntimeDependencies]" />
       </list>
     </recent_temporary>
