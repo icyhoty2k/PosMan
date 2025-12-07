@@ -1,0 +1,11 @@
+you must put this 'java-options=-Xlog:cds=info' in:
+R:/PosMan/Build/PosMan_v1.0/app/PosMan_v1.0.cfg 
+java-options=-Xlog:cds=info
+PosMan_v1.0.exe > startup.log 2>&1
+
+this will log with timestaps cds;
+
+if you want to test without cds remove:
+java-options=-Xshare:on
+java-options=-XX:SharedArchiveFile=$APPDIR\app-cds.jsa
+from: file:///R:/PosMan/Build/PosMan_v1.0/app/PosMan_v1.0.cfg 
