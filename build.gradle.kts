@@ -460,7 +460,7 @@ tasks.register<Exec>("generateCDSArchive") {
             val output = listProcess.inputStream.bufferedReader().use { it.readText() }
             val errors = listProcess.errorStream.bufferedReader().use { it.readText() }
 
-            val completed = listProcess.waitFor(15, TimeUnit.SECONDS)
+            val completed = listProcess.waitFor(30, TimeUnit.SECONDS)
 
             if (!completed) {
                 println("Process timed out, forcing termination...")

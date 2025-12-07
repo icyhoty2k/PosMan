@@ -7,7 +7,6 @@
     <list default="true" id="36acf23f-eb1d-401e-b55c-27ed8439cc21" name="Changes" comment="1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -170,7 +169,7 @@
       <recent name="net.silver.app" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.PosMan [generateCDSArchive]">
+  <component name="RunManager" selected="Gradle.PosMan [packageOptimized]">
     <configuration name="PosMan [analyzeModuleDependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -290,8 +289,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.PosMan [generateCDSArchive]" />
         <item itemvalue="Gradle.PosMan [packageOptimized]" />
+        <item itemvalue="Gradle.PosMan [generateCDSArchive]" />
         <item itemvalue="Gradle.PosMan [createJPackageImage]" />
         <item itemvalue="Gradle.PosMan [analyzeModuleDependencies]" />
         <item itemvalue="Gradle.PosMan [verifyPackageStructure]" />
@@ -318,7 +317,7 @@
       <workItem from="1765041898348" duration="403000" />
       <workItem from="1765069158176" duration="3000" />
       <workItem from="1765069384849" duration="3743000" />
-      <workItem from="1765096662882" duration="4594000" />
+      <workItem from="1765096662882" duration="4994000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -488,7 +487,23 @@
       <option name="project" value="LOCAL" />
       <updated>1765099253519</updated>
     </task>
-    <option name="localTasksCounter" value="22" />
+    <task id="LOCAL-00022" summary="1">
+      <option name="closed" value="true" />
+      <created>1765102296009</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1765102296009</updated>
+    </task>
+    <task id="LOCAL-00023" summary="1">
+      <option name="closed" value="true" />
+      <created>1765102311225</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1765102311225</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -635,6 +650,18 @@
           <option name="totalLines" value="21873" />
           <option name="info" value="1" />
         </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765102296044" />
+          <option name="linesCode" value="6162" />
+          <option name="totalLines" value="21875" />
+          <option name="info" value="1" />
+        </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765102311251" />
+          <option name="linesCode" value="6162" />
+          <option name="totalLines" value="21875" />
+          <option name="info" value="1" />
+        </TimePoint>
       </list>
     </option>
     <option name="genericTimePoints">
@@ -655,6 +682,12 @@
           <option name="timestamp" value="1765099253551" />
           <option name="linesCode" value="6166" />
           <option name="totalLines" value="21873" />
+          <option name="info" value="Dec 7, 2025" />
+        </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765102311251" />
+          <option name="linesCode" value="6162" />
+          <option name="totalLines" value="21875" />
           <option name="info" value="Dec 7, 2025" />
         </TimePoint>
       </list>
