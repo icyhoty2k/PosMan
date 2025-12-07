@@ -169,7 +169,7 @@
       <recent name="net.silver.app" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.PosMan [analyzeModuleDependencies]">
+  <component name="RunManager" selected="Gradle.PosMan [generateCDSArchive]">
     <configuration name="PosMan [analyzeModuleDependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -289,11 +289,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Gradle.PosMan [generateCDSArchive]" />
+        <item itemvalue="Gradle.PosMan [packageOptimized]" />
         <item itemvalue="Gradle.PosMan [analyzeModuleDependencies]" />
         <item itemvalue="Gradle.PosMan [verifyPackageStructure]" />
         <item itemvalue="Gradle.PosMan [run]" />
-        <item itemvalue="Gradle.PosMan [packageOptimized]" />
-        <item itemvalue="Gradle.PosMan [generateCDSArchive]" />
       </list>
     </recent_temporary>
   </component>
@@ -317,7 +317,7 @@
       <workItem from="1765041898348" duration="403000" />
       <workItem from="1765069158176" duration="3000" />
       <workItem from="1765069384849" duration="3743000" />
-      <workItem from="1765096662882" duration="310000" />
+      <workItem from="1765096662882" duration="2520000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -471,7 +471,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765081238775</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="1">
+      <option name="closed" value="true" />
+      <created>1765097007698</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1765097007698</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -606,6 +614,12 @@
           <option name="totalLines" value="21815" />
           <option name="info" value="1" />
         </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765097007745" />
+          <option name="linesCode" value="6166" />
+          <option name="totalLines" value="21781" />
+          <option name="info" value="1" />
+        </TimePoint>
       </list>
     </option>
     <option name="genericTimePoints">
@@ -623,9 +637,9 @@
           <option name="info" value="Dec 6, 2025" />
         </TimePoint>
         <TimePoint>
-          <option name="timestamp" value="1765081238806" />
+          <option name="timestamp" value="1765097007745" />
           <option name="linesCode" value="6166" />
-          <option name="totalLines" value="21815" />
+          <option name="totalLines" value="21781" />
           <option name="info" value="Dec 7, 2025" />
         </TimePoint>
       </list>
