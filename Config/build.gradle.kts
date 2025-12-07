@@ -3,6 +3,7 @@ import net.silver.buildsrc.BuildMeta
 plugins {
     `java-library`
     idea
+    id("com.github.gmazzo.buildconfig") version "6.0.6"
 }
 //disable tests and hide test dirs src-test nd resources-test
 apply(from = rootDir.resolve("gradle/myScripts/disableTestDirAndTests.gradle.kts"))
@@ -41,4 +42,14 @@ tasks.register("showModuleInfo") {
                     zipTree(jarFile).files.any { it.name == "module-info.class" }
         )
     }
+}
+buildConfig {
+    useJavaOutput()
+
+    packageName = "net.silver.config"
+    className = "BuildInfo"
+    buildConfigField("String", "VERSION", "\"${rootProject.version}\"")
+    buildConfigField("String", "APP_NAME", "\"PosMan\"")
+    buildConfigField("String", "APP_NAME2", "\"PosMan2\"")
+    buildConfigField("String", "COMPANY", "\"${BuildMeta.JAVA_VERSION}\"")
 }
