@@ -281,41 +281,6 @@ tasks.register<Exec>("createCustomRuntime") {
         // Generate optimized code for current platform
 
     )
-//    args(
-//        // Include both JDK jmods and JavaFX JARs
-//        // FIX: Use File.pathSeparator
-//        "--module-path", "$jmodPath${File.pathSeparator}$javafxJars",
-//        "--add-modules", modules,
-//        "--output", runtimeImageDir.get().asFile.absolutePath,
-//
-//        // Optimization for FAST STARTUP (trading size for speed)
-//        // optimize for fast startup
-//        "--module-path",
-//        "$jmodPath${File.pathSeparator}$javafxJars",
-//        "--add-modules",
-//        modules,
-//        "--output",
-//        runtimeImageDir.get().asFile.absolutePath,
-//        "--compress",
-//        "zip-0",      // Optimization for FAST STARTUP (trading size for speed) "zip-0" to "zip-9" smaller image bigger compression slower app startup zip-0 -> faster app startup
-//        "--strip-debug",
-//        "--strip-native-commands",
-//        "--no-header-files",
-//        "--no-man-pages",
-//
-//        "--generate-jli-classes",
-//        "auto",
-//        "--bind-services",      // PERFORMANCE: Re-added for service discovery optimization
-//        // Generate optimized code for current platform
-//        "--include-locales",
-//        "en,bg",  // or your target locale(s), comma-separated
-//        "--order-resources",
-//        "**module-info.class,**resources.properties,**/*.class",
-//        "--vm",
-//        "server",
-//        "--release-info",
-//        "add:PROJECT_VERSION=${project.version}"
-//    )
 
     doFirst {
         println("Creating custom runtime with modules: $modules")
@@ -642,6 +607,7 @@ tasks.register("analyzeModuleDependencies") {
                     val execResult = ProcessBuilder(
                         jdepsExec,
                         "--module-path", modulePath,
+                        "--multi-release", "25",
                         "-s", jarFile.absolutePath
                     ).redirectErrorStream(true)
                         .start()
