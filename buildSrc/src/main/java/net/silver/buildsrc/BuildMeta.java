@@ -114,17 +114,17 @@ public final class BuildMeta {
         "-XX:+UseG1GC",                  // G1GC for predictable pause times
         "-XX:MaxGCPauseMillis=50",       // Aggressive, minimal GC pause
         "-XX:InitiatingHeapOccupancyPercent=50", // Start concurrent GC earlier
-        "-XX:ParallelGCThreads=2",       // Minimal GC threads for fast startup
-        "-XX:ConcGCThreads=2",           // Concurrency threads for G1GC
+        //        "-XX:ParallelGCThreads=2",       // Minimal GC threads for fast startup
+        //        "-XX:ConcGCThreads=2",           // Concurrency threads for G1GC
 
         // -------------------------------
         // JIT / Compiler tuning (fast startup)
         // -------------------------------
         "-XX:+TieredCompilation",        // Enable tiered JIT
-        "-XX:TieredStopAtLevel=1",       // Minimal compilation for ultra-fast startup
+        //        "-XX:TieredStopAtLevel=1",       // Minimal compilation for ultra-fast startup
         //    "-XX:CompileThreshold=1",        // Compile critical methods immediately
         //    "-XX:+UseFastAccessorMethods",   // Optimize getter/setter methods
-        "-XX:CICompilerCount=2",         // Reduced compiler threads for faster startup
+        //        "-XX:CICompilerCount=2",         // Reduced compiler threads for faster startup
 
         // -------------------------------
         // Low-level / Miscellaneous optimizations

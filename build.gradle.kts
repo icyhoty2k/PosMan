@@ -417,17 +417,14 @@ tasks.register<Exec>("generateCDSArchive") {
 
     onlyIf { appDir.exists() && javaExe.exists() }
 
-    // CRITICAL: Run from appDir (parent of /app), not from /app itself
     workingDir = appDir
     executable = javaExe.absolutePath
 
-    // Build classpath with app/ prefix (matching .cfg file)
     val appJars = runtimeAppDir
         .listFiles { f -> f.extension == "jar" }
         ?.sortedBy { it.name }
         ?: emptyList()
 
-    // Use relative paths: app/jar-name.jar (matching $APPDIR in .cfg)
     val relativeClasspath = appJars.joinToString(File.pathSeparator) {
         "app${File.separator}${it.name}"
     }
@@ -442,9 +439,7 @@ tasks.register<Exec>("generateCDSArchive") {
         println("=== Generating CDS with matching classpath ===")
         println("Working dir: ${appDir.absolutePath}")
         println("Classpath JARs: ${appJars.size}")
-        println("Using relative paths matching .cfg format")
 
-        // Step 1: Create class list
         val classListFile = File(runtimeAppDir, "app-classes.lst")
 
         println("\nStep 1: Creating class list...")
@@ -453,11 +448,11 @@ tasks.register<Exec>("generateCDSArchive") {
                 javaExe.absolutePath,
                 "-Xshare:off",
                 "-XX:DumpLoadedClassList=${classListFile.absolutePath}",
-                "--enable-native-access=javafx.graphics",  // Suppress warning
+                "--enable-native-access=javafx.graphics",
                 "-cp", relativeClasspath,
                 BuildMeta.MAIN_CLASS
             )
-                .directory(appDir)  // Run from parent directory
+                .directory(appDir)
                 .redirectOutput(ProcessBuilder.Redirect.PIPE)
                 .redirectError(ProcessBuilder.Redirect.PIPE)
                 .start()
@@ -473,30 +468,27 @@ tasks.register<Exec>("generateCDSArchive") {
             }
 
             if (output.isNotBlank()) println("Output: ${output.take(500)}")
-            if (errors.isNotBlank() && !errors.contains("WARNING: A restricted method")) {
-                println("Errors: ${errors.take(500)}")
-            }
 
             if (classListFile.exists()) {
                 val classCount = classListFile.readLines().filter { it.isNotBlank() }.size
                 println("✓ Class list generated: ${classListFile.length()} bytes")
                 println("  Classes captured: $classCount")
             } else {
-                println("✗ Class list generation failed!")
                 throw GradleException("Failed to generate class list")
             }
         } catch (e: Exception) {
-            println("ERROR during class list generation: ${e.message}")
+            println("ERROR: ${e.message}")
             throw e
         }
     }
 
-    // Step 2: Create CDS archive with SAME relative classpath
+    // CRITICAL FIX: Add --enable-native-access to match runtime
     args(
         "-Xshare:dump",
-        "-XX:SharedArchiveFile=app${File.separator}app-cds.jsa",  // Relative path
-        "-XX:SharedClassListFile=app${File.separator}app-classes.lst",  // Relative path
-        "-cp", relativeClasspath  // Use relative paths
+        "-XX:SharedArchiveFile=app${File.separator}app-cds.jsa",
+        "-XX:SharedClassListFile=app${File.separator}app-classes.lst",
+        "--enable-native-access=javafx.graphics",  // MUST MATCH RUNTIME
+        "-cp", relativeClasspath
     )
 
     doLast {
@@ -504,24 +496,16 @@ tasks.register<Exec>("generateCDSArchive") {
         val output = stdOut.toString()
         val error = errOut.toString()
 
-        if (output.isNotBlank()) {
-            println("Output:")
-            println(output.trim())
-        }
-
-        if (error.isNotBlank()) {
-            println("Errors/Warnings:")
-            println(error.trim())
-        }
+        if (output.isNotBlank()) println("Output:\n${output.trim()}")
+        if (error.isNotBlank()) println("Warnings:\n${error.trim()}")
 
         val cdsFile = File(runtimeAppDir, "app-cds.jsa")
         val classListFile = File(runtimeAppDir, "app-classes.lst")
 
         if (cdsFile.exists()) {
-            println("✓ CDS archive created: ${cdsFile.length() / 1024} KB")
+            println("✓ CDS archive: ${cdsFile.length() / 1024} KB")
             println("✓ Class list: ${classListFile.length() / 1024} KB")
 
-            // Update .cfg ONLY if CDS was successful
             val cfgContent = cfgFile.readText()
             if (!cfgContent.contains("SharedArchiveFile")) {
                 cfgFile.appendText(
@@ -532,22 +516,20 @@ java-options=-XX:SharedArchiveFile=${'$'}APPDIR${File.separator}app-cds.jsa
 """.trimIndent()
                 )
                 println("✓ Configuration updated")
-            } else {
-                println("✓ Configuration already has CDS options")
             }
 
-            // Verify the archive
+            // Verify
             println("\n=== Verifying CDS Archive ===")
             try {
                 val verifyProcess = ProcessBuilder(
                     javaExe.absolutePath,
                     "-Xshare:on",
-                    "-XX:SharedArchiveFile=app${File.separator}app-cds.jsa",  // Relative path
+                    "-XX:SharedArchiveFile=app${File.separator}app-cds.jsa",
                     "--enable-native-access=javafx.graphics",
                     "-cp", relativeClasspath,
                     "-version"
                 )
-                    .directory(appDir)  // Same working directory
+                    .directory(appDir)
                     .redirectErrorStream(true)
                     .start()
 
@@ -555,18 +537,17 @@ java-options=-XX:SharedArchiveFile=${'$'}APPDIR${File.separator}app-cds.jsa
                 val exitCode = verifyProcess.waitFor()
 
                 if (exitCode == 0 && !verifyOutput.contains("[error]")) {
-                    println("✓ CDS archive verification PASSED")
-                    println(verifyOutput.lines().take(3).joinToString("\n"))
+                    println("✓✓✓ CDS VERIFICATION PASSED ✓✓✓")
+                    println(verifyOutput.lines().filter { it.contains("version") }.joinToString("\n"))
                 } else {
-                    println("⚠ CDS verification failed:")
+                    println("⚠ Verification output:")
                     println(verifyOutput)
                 }
             } catch (e: Exception) {
-                println("⚠ Could not verify CDS: ${e.message}")
+                println("⚠ Verification error: ${e.message}")
             }
 
         } else {
-            println("✗ CDS archive creation FAILED")
             throw GradleException("CDS archive was not created")
         }
     }
