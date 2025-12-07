@@ -404,22 +404,37 @@ tasks.register<Exec>("generateCDSArchive") {
     dependsOn(tasks.named("createJPackageImage"))
 
     val outputDir = BuildMeta.Paths.OUTPUT_IMAGE_DIR
+
     val appName = "${rootProject.name}_v${project.version}"
     val appDir = file("$outputDir${File.separator}$appName")
-    val runtimeAppDir = file("$appDir${File.separator}app")
+    val runtimeAppDir = file("$appDir${File.separator}app")  // This should be correct
     val cfgFile = file("$runtimeAppDir${File.separator}$appName.cfg")
-
     val javaExe = file(
         "$appDir${File.separator}runtime${File.separator}bin${File.separator}java${
             if (System.getProperty("os.name").lowercase().contains("windows")) ".exe" else ""
         }"
     )
 
-    onlyIf { appDir.exists() && javaExe.exists() }
+    onlyIf {
+        if (!appDir.exists()) {
+            println("ERROR: App directory does not exist: ${appDir.absolutePath}")
+            return@onlyIf false
+        }
+        if (!javaExe.exists()) {
+            println("ERROR: Java executable not found: ${javaExe.absolutePath}")
+            return@onlyIf false
+        }
+        if (!runtimeAppDir.exists()) {
+            println("ERROR: Runtime app directory does not exist: ${runtimeAppDir.absolutePath}")
+            return@onlyIf false
+        }
+        true
+    }
 
     workingDir = appDir
     executable = javaExe.absolutePath
 
+    // FIX: Add debug output and verify directory exists
     val appJars = runtimeAppDir
         .listFiles { f -> f.extension == "jar" }
         ?.sortedBy { it.name }
@@ -436,13 +451,39 @@ tasks.register<Exec>("generateCDSArchive") {
     errorOutput = errOut
 
     doFirst {
+        // Add this stabilization delay:
         println("=== Generating CDS with matching classpath ===")
         println("Working dir: ${appDir.absolutePath}")
-        println("Classpath JARs: ${appJars.size}")
+        println("App JAR dir: ${runtimeAppDir.absolutePath}")
+
+        // DEBUG: Verify directory and list files
+        if (!runtimeAppDir.exists()) {
+            throw GradleException("Runtime app directory does not exist: ${runtimeAppDir.absolutePath}")
+        }
+
+        println("Directory exists: ${runtimeAppDir.exists()}")
+        println("Directory contents:")
+        runtimeAppDir.listFiles()?.forEach {
+            println("  - ${it.name} (${if (it.isDirectory) "DIR" else "FILE"})")
+        }
+
+        // Re-scan for JARs with detailed output
+        val foundJars = runtimeAppDir.listFiles()?.filter { it.extension == "jar" } ?: emptyList()
+        println("\nJAR files found: ${foundJars.size}")
+        foundJars.forEach { println("  - ${it.name}") }
+
+        if (foundJars.isEmpty()) {
+            throw GradleException("No JAR files found in ${runtimeAppDir.absolutePath}")
+        }
+
+        println("\nClasspath JARs: ${foundJars.size}")
+        println("Relative classpath:\n  ${relativeClasspath.replace(File.pathSeparator, "\n  ")}")
 
         val classListFile = File(runtimeAppDir, "app-classes.lst")
 
-        println("\nStep 1: Creating class list...")
+        println("\nStep 1: Creating comprehensive class list...")
+        println("(This will take 20-30 seconds to capture all classes)")
+
         try {
             val listProcess = ProcessBuilder(
                 javaExe.absolutePath,
@@ -457,23 +498,71 @@ tasks.register<Exec>("generateCDSArchive") {
                 .redirectError(ProcessBuilder.Redirect.PIPE)
                 .start()
 
-            val output = listProcess.inputStream.bufferedReader().use { it.readText() }
-            val errors = listProcess.errorStream.bufferedReader().use { it.readText() }
+            // Capture output in real-time
+            val outputLines = mutableListOf<String>()
+            val outputCapture = Thread {
+                listProcess.inputStream.bufferedReader().use { reader ->
+                    reader.lines().forEach { line ->
+                        outputLines.add(line)
+                        if (line.contains("BuildMeta loaded") ||
+                            line.contains("Database Connection Pool") ||
+                            line.contains("TRACE")
+                        ) {
+                            println("  App: ${line.take(100)}")
+                        }
+                    }
+                }
+            }
+            outputCapture.start()
 
-            val completed = listProcess.waitFor(30, TimeUnit.SECONDS)
+            val errorLines = mutableListOf<String>()
+            val errorCapture = Thread {
+                listProcess.errorStream.bufferedReader().use { reader ->
+                    reader.lines().forEach { errorLines.add(it) }
+                }
+            }
+            errorCapture.start()
+
+            println("  Waiting for application to fully initialize...")
+            val completed = listProcess.waitFor(60, TimeUnit.SECONDS)
 
             if (!completed) {
-                println("Process timed out, forcing termination...")
+                println("  ⚠ Application still running after 30s, forcing shutdown...")
                 listProcess.destroyForcibly()
+                listProcess.waitFor(5, TimeUnit.SECONDS)
             }
 
-            if (output.isNotBlank()) println("Output: ${output.take(500)}")
+            outputCapture.join(2000)
+            errorCapture.join(2000)
 
             if (classListFile.exists()) {
-                val classCount = classListFile.readLines().filter { it.isNotBlank() }.size
-                println("✓ Class list generated: ${classListFile.length()} bytes")
-                println("  Classes captured: $classCount")
+                val allLines = classListFile.readLines()
+                val classCount = allLines.filter { it.isNotBlank() && !it.startsWith("#") }.size
+                val fileSize = classListFile.length() / 1024
+
+                println("  ✓ Class list generated: ${fileSize}KB")
+                println("  ✓ Classes captured: $classCount")
+
+                val javaBaseClasses = allLines.count { it.startsWith("java/") }
+                val javafxClasses = allLines.count { it.contains("javafx") }
+                val appClasses = allLines.count { it.contains("net/silver") }
+                val mysqlClasses = allLines.count { it.contains("mysql") || it.contains("hikari") }
+
+                println("\n  Class breakdown:")
+                println("    - JDK base: $javaBaseClasses")
+                println("    - JavaFX: $javafxClasses")
+                println("    - Application: $appClasses")
+                println("    - MySQL/HikariCP: $mysqlClasses")
+
+                if (classCount < 5000) {
+                    println("\n  ⚠ WARNING: Only $classCount classes (expected 9000+)")
+                    println("  ⚠ Application may not have fully initialized")
+                }
             } else {
+                println("\n--- CAPTURED APPLICATION ERRORS (Failure Path) ---")
+                errorLines.forEach { println("  [App Error]: $it") }
+                println("-------------------------------------------------")
+
                 throw GradleException("Failed to generate class list")
             }
         } catch (e: Exception) {
@@ -482,12 +571,11 @@ tasks.register<Exec>("generateCDSArchive") {
         }
     }
 
-    // CRITICAL FIX: Add --enable-native-access to match runtime
     args(
         "-Xshare:dump",
         "-XX:SharedArchiveFile=app${File.separator}app-cds.jsa",
         "-XX:SharedClassListFile=app${File.separator}app-classes.lst",
-        "--enable-native-access=javafx.graphics",  // MUST MATCH RUNTIME
+        "--enable-native-access=javafx.graphics",
         "-cp", relativeClasspath
     )
 
@@ -503,8 +591,26 @@ tasks.register<Exec>("generateCDSArchive") {
         val classListFile = File(runtimeAppDir, "app-classes.lst")
 
         if (cdsFile.exists()) {
-            println("✓ CDS archive: ${cdsFile.length() / 1024} KB")
-            println("✓ Class list: ${classListFile.length() / 1024} KB")
+            val cdsSizeMB = cdsFile.length() / (1024 * 1024)
+            val classCount = classListFile.readLines().filter { it.isNotBlank() && !it.startsWith("#") }.size
+
+            println("\n✓ CDS archive: ${cdsSizeMB}MB")
+            println("✓ Total classes: $classCount")
+
+            when {
+                cdsSizeMB < 15 -> {
+                    println("\n⚠ Archive small (${cdsSizeMB}MB) - may be incomplete")
+                    println("⚠ Expected: 35-45MB for full application")
+                }
+
+                cdsSizeMB in 15..30 -> {
+                    println("\n✓ Archive size normal (${cdsSizeMB}MB)")
+                }
+
+                else -> {
+                    println("\n✓✓ Comprehensive archive (${cdsSizeMB}MB)")
+                }
+            }
 
             val cfgContent = cfgFile.readText()
             if (!cfgContent.contains("SharedArchiveFile")) {
@@ -516,9 +622,9 @@ java-options=-XX:SharedArchiveFile=${'$'}APPDIR${File.separator}app-cds.jsa
 """.trimIndent()
                 )
                 println("✓ Configuration updated")
+                println("Application image created at: $appDir")
             }
 
-            // Verify
             println("\n=== Verifying CDS Archive ===")
             try {
                 val verifyProcess = ProcessBuilder(
@@ -538,10 +644,11 @@ java-options=-XX:SharedArchiveFile=${'$'}APPDIR${File.separator}app-cds.jsa
 
                 if (exitCode == 0 && !verifyOutput.contains("[error]")) {
                     println("✓✓✓ CDS VERIFICATION PASSED ✓✓✓")
-                    println(verifyOutput.lines().filter { it.contains("version") }.joinToString("\n"))
                 } else {
-                    println("⚠ Verification output:")
+                    println("⚠ Verification:")
                     println(verifyOutput)
+
+
                 }
             } catch (e: Exception) {
                 println("⚠ Verification error: ${e.message}")
@@ -923,29 +1030,11 @@ tasks.clean {
     delete(mergedJarsDir)
 }
 
-// Create a convenience task for full packaging
-tasks.register("packageComplete") {
-    group = "package"
-    description = "Creates complete application package (runtime + image)."
-
-    dependsOn(tasks.named("createJPackageImage"))
-
-    doLast {
-        println("\n=== Packaging Complete ===")
-        // FIX: Use File.separator
-        println("Application image: ${BuildMeta.Paths.OUTPUT_IMAGE_DIR}${File.separator}${rootProject.name}_v${project.version}")
-        println("\nOptional optimizations:")
-        println("- Run 'gradlew generateCDSArchive' for 30-50% faster startup")
-        println("- Run 'gradlew createWindowsInstaller' to create MSI installer")
-    }
-}
-
 // Create a convenience task for optimized package with CDS
-tasks.register("packageOptimized") {
+tasks.register("packageImageWithCDS") {
     group = "package"
-    description = "Creates optimized package with CDS archive for fastest startup."
+    description = "Creates optimized package with CDS archive for fastest startup. must run ,multiple times 2-3-4"
 
-    dependsOn(tasks.named("createJPackageImage"))
     dependsOn(tasks.named("generateCDSArchive"))
 
     doLast {

@@ -146,6 +146,7 @@
     "Gradle.PosMan [listRuntimeDependencies].executor": "Run",
     "Gradle.PosMan [outgoingVariants].executor": "Run",
     "Gradle.PosMan [packageComplete].executor": "Run",
+    "Gradle.PosMan [packageOptimizedReliable].executor": "Run",
     "Gradle.PosMan [packageOptimized].executor": "Run",
     "Gradle.PosMan [runShadow].executor": "Run",
     "Gradle.PosMan [run].executor": "Run",
@@ -169,29 +170,7 @@
       <recent name="net.silver.app" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.PosMan [packageOptimized]">
-    <configuration name="PosMan [analyzeModuleDependencies]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="analyzeModuleDependencies" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="Gradle.PosMan [packageImageWithCDS]">
     <configuration name="PosMan [createJPackageImage]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -236,6 +215,50 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
+    <configuration name="PosMan [packageImageWithCDS]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="packageImageWithCDS" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="PosMan [packageOptimizedReliable]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="packageOptimizedReliable" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="PosMan [packageOptimized]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -258,42 +281,20 @@
       <RunAsTest>false</RunAsTest>
       <method v="2" />
     </configuration>
-    <configuration name="PosMan [verifyPackageStructure]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="verifyPackageStructure" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <method v="2" />
-    </configuration>
     <list>
-      <item itemvalue="Gradle.PosMan [analyzeModuleDependencies]" />
       <item itemvalue="Gradle.PosMan [createJPackageImage]" />
-      <item itemvalue="Gradle.PosMan [verifyPackageStructure]" />
+      <item itemvalue="Gradle.PosMan [packageImageWithCDS]" />
+      <item itemvalue="Gradle.PosMan [packageOptimizedReliable]" />
       <item itemvalue="Gradle.PosMan [generateCDSArchive]" />
       <item itemvalue="Gradle.PosMan [packageOptimized]" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.PosMan [packageOptimized]" />
+        <item itemvalue="Gradle.PosMan [packageImageWithCDS]" />
         <item itemvalue="Gradle.PosMan [generateCDSArchive]" />
+        <item itemvalue="Gradle.PosMan [packageOptimized]" />
+        <item itemvalue="Gradle.PosMan [packageOptimizedReliable]" />
         <item itemvalue="Gradle.PosMan [createJPackageImage]" />
-        <item itemvalue="Gradle.PosMan [analyzeModuleDependencies]" />
-        <item itemvalue="Gradle.PosMan [verifyPackageStructure]" />
       </list>
     </recent_temporary>
   </component>
@@ -317,7 +318,7 @@
       <workItem from="1765041898348" duration="403000" />
       <workItem from="1765069158176" duration="3000" />
       <workItem from="1765069384849" duration="3743000" />
-      <workItem from="1765096662882" duration="4994000" />
+      <workItem from="1765096662882" duration="10863000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -503,7 +504,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765102311225</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="1">
+      <option name="closed" value="true" />
+      <created>1765102805907</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1765102805907</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -662,6 +671,12 @@
           <option name="totalLines" value="21875" />
           <option name="info" value="1" />
         </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765102805944" />
+          <option name="linesCode" value="6162" />
+          <option name="totalLines" value="21875" />
+          <option name="info" value="1" />
+        </TimePoint>
       </list>
     </option>
     <option name="genericTimePoints">
@@ -685,7 +700,7 @@
           <option name="info" value="Dec 7, 2025" />
         </TimePoint>
         <TimePoint>
-          <option name="timestamp" value="1765102311251" />
+          <option name="timestamp" value="1765102805944" />
           <option name="linesCode" value="6162" />
           <option name="totalLines" value="21875" />
           <option name="info" value="Dec 7, 2025" />
