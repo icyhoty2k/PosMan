@@ -18,7 +18,7 @@ public final class BuildMeta {
   public static final String APP_DESCRIPTION = "Pos Manager";
   public static final String MAIN_CLASS = "net.silver.app.z_MainAppStart";
   public static final String MAIN_MODULE = "net.silver.app";
-  public static final String JDK_LOCATION = "I:/14_JDKs/Microsoft/jdk-25.0.1+8";
+  public static final String JDK_LOCATION = "I:/14_JDKs/graalVM/graalvm-jdk-25_windows-x64_bin/graalvm-jdk-25.0.1+8.1";
   //used to calculate build number
   //  ============================================================================================================
   // its Major.minor.buildDate(fixes only)

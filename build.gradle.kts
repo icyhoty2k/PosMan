@@ -1,8 +1,9 @@
 import net.silver.buildsrc.BuildMeta
 import org.gradle.api.tasks.bundling.Jar
-import org.gradle.api.artifacts.ProjectDependency
+
 import java.io.ByteArrayOutputStream
 import java.io.File
+
 import java.util.zip.ZipFile
 import java.util.concurrent.TimeUnit
 
@@ -268,6 +269,7 @@ tasks.register<Exec>("createCustomRuntime") {
         "--no-header-files",
         "--no-man-pages",
         "--strip-debug",
+
 //        "--strip-native-commands", // this disables appcds
         "--generate-jli-classes", "auto",
         "--bind-services",      // PERFORMANCE: Re-added for service discovery optimization
@@ -488,6 +490,7 @@ tasks.register<Exec>("generateCDSArchive") {
             val listProcess = ProcessBuilder(
                 javaExe.absolutePath,
                 "-Xshare:off",
+                "-XX:-EnableJVMCI",
                 "-XX:DumpLoadedClassList=${classListFile.absolutePath}",
                 "--enable-native-access=javafx.graphics",
                 "-cp", relativeClasspath,
@@ -524,7 +527,7 @@ tasks.register<Exec>("generateCDSArchive") {
             errorCapture.start()
 
             println("  Waiting for application to fully initialize...")
-            val completed = listProcess.waitFor(60, TimeUnit.SECONDS)
+            val completed = listProcess.waitFor(300, TimeUnit.SECONDS)
 
             if (!completed) {
                 println("  ⚠ Application still running after 30s, forcing shutdown...")
@@ -573,6 +576,7 @@ tasks.register<Exec>("generateCDSArchive") {
 
     args(
         "-Xshare:dump",
+        "-XX:-EnableJVMCI",
         "-XX:SharedArchiveFile=app${File.separator}app-cds.jsa",
         "-XX:SharedClassListFile=app${File.separator}app-classes.lst",
         "--enable-native-access=javafx.graphics",
@@ -630,6 +634,7 @@ java-options=-XX:SharedArchiveFile=${'$'}APPDIR${File.separator}app-cds.jsa
                 val verifyProcess = ProcessBuilder(
                     javaExe.absolutePath,
                     "-Xshare:on",
+                    "-XX:-EnableJVMCI",
                     "-XX:SharedArchiveFile=app${File.separator}app-cds.jsa",
                     "--enable-native-access=javafx.graphics",
                     "-cp", relativeClasspath,
