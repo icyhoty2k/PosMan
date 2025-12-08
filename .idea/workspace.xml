@@ -4,13 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="36acf23f-eb1d-401e-b55c-27ed8439cc21" name="Changes" comment="1">
+    <list default="true" id="571d422d-fdec-40b1-a52d-fbb86f66d600" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/git_toolbox_prj.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/intellij-javadocs-4.0.1.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/kotlinc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/kotlinc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/batFiles/logProductionApp.txt" beforeDir="false" afterPath="$PROJECT_DIR$/batFiles/logProductionApp.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/gradle-daemon-jvm.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/gradle-daemon-jvm.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,32 +28,12 @@
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
-        <task path="$PROJECT_DIR$">
-          <activation />
-        </task>
         <projects_view>
           <tree_state>
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="PosMan" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="PosMan" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="PosMan" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="application" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="PosMan" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="package" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -59,54 +42,27 @@
       </state>
     </system>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Kotlin Class" />
-      </list>
-    </option>
-  </component>
-  <component name="FormatOnSaveOptions">
-    <option name="myRunOnSave" value="true" />
-  </component>
   <component name="Git.Settings">
-    <branch-grouping />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RESET_MODE" value="HARD" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;icyhoty2k&quot;
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "icyhoty2k"
   }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/icyhoty2k/PosMan&quot;,
-    &quot;accountId&quot;: &quot;2721b6e7-fa4b-4cc4-a1ac-4742f4a6d941&quot;
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/icyhoty2k/PosMan.git",
+    "accountId": "2721b6e7-fa4b-4cc4-a1ac-4742f4a6d941"
   }
-}</component>
-  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="I:\63_GradleLocalRepo\wrapper\dists\gradle-9.2.1-bin\2t0n5ozlw9xmuyvbp7dnzaxug\gradle-9.2.1" javaHome="D:\07_Programs\JetBrains\idea-2025.3.win\jbr" gradleVersion="9.2.1" />
-  <component name="NamedScopeManager">
-    <order>
-      <scope name="FXMLController" />
-      <scope name="FXMLView" />
-      <scope name="Stage" />
-    </order>
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectColorInfo">{
-  &quot;customColor&quot;: &quot;&quot;,
-  &quot;associatedIndex&quot;: 2
-}</component>
-  <component name="ProjectId" id="36Ry8nShjioTGFQtsKPyRbFSDPr" />
-  <component name="ProjectLevelVcsManager">
-    <OptionsSetting value="false" id="Update" />
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+}]]></component>
+  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="I:\63_GradleLocalRepo\wrapper\dists\gradle-9.2.1-bin\2t0n5ozlw9xmuyvbp7dnzaxug\gradle-9.2.1" javaHome="I:\14_JDKs\graalVM\graalvm-jdk-25_windows-x64_bin\graalvm-jdk-25.0.1+8.1" gradleVersion="9.2.1" />
+  <component name="ProjectColorInfo"><![CDATA[{
+  "customColor": "",
+  "associatedIndex": 2
+}]]></component>
+  <component name="ProjectId" id="36a6HYyS9282NdwJdmNdHe9JKgl" />
   <component name="ProjectViewState">
     <option name="abbreviatePackageNames" value="true" />
     <option name="compactDirectories" value="true" />
@@ -119,203 +75,13 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "Gradle.Configure Daemon JVM Criteria.executor": "Run",
-    "Gradle.PosMan [:App:net.silver.app.z_MainAppStart.main()].executor": "Run",
-    "Gradle.PosMan [:Gui:run].executor": "Run",
-    "Gradle.PosMan [:Utils:build].executor": "Run",
-    "Gradle.PosMan [analyzeModuleDependencies].executor": "Run",
-    "Gradle.PosMan [artifactTransforms].executor": "Run",
-    "Gradle.PosMan [buildEnvironment].executor": "Run",
-    "Gradle.PosMan [build].executor": "Run",
-    "Gradle.PosMan [classes].executor": "Run",
-    "Gradle.PosMan [clean].executor": "Run",
-    "Gradle.PosMan [copyAppModules].executor": "Run",
-    "Gradle.PosMan [createCustomRuntime].executor": "Run",
-    "Gradle.PosMan [createJPackageImage].executor": "Run",
-    "Gradle.PosMan [createMergedModuleJar].executor": "Run",
-    "Gradle.PosMan [createWindowsInstaller].executor": "Run",
-    "Gradle.PosMan [dependencies].executor": "Run",
-    "Gradle.PosMan [dependencyInsight].executor": "Run",
-    "Gradle.PosMan [generateCDSArchive].executor": "Run",
-    "Gradle.PosMan [help].executor": "Run",
-    "Gradle.PosMan [jar].executor": "Run",
-    "Gradle.PosMan [javaToolchains].executor": "Run",
-    "Gradle.PosMan [jlinkZip].executor": "Run",
-    "Gradle.PosMan [jlink].executor": "Run",
-    "Gradle.PosMan [jpackageImage].executor": "Run",
-    "Gradle.PosMan [jpackage].executor": "Run",
-    "Gradle.PosMan [kotlinDslAccessorsReport].executor": "Run",
-    "Gradle.PosMan [listRuntimeDependencies].executor": "Run",
-    "Gradle.PosMan [outgoingVariants].executor": "Run",
-    "Gradle.PosMan [packageComplete].executor": "Run",
-    "Gradle.PosMan [packageImageWithCDS].executor": "Run",
-    "Gradle.PosMan [packageOptimizedReliable].executor": "Run",
-    "Gradle.PosMan [packageOptimized].executor": "Run",
-    "Gradle.PosMan [runShadow].executor": "Run",
-    "Gradle.PosMan [run].executor": "Run",
-    "Gradle.PosMan [verifyPackageStructure].executor": "Run",
     "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Notification.DisplayName-DoNotAsk-Awesome Console X": "Awesome Console X",
-    "Notification.DoNotAsk-Awesome Console X": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "advanced.settings"
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle"
   }
 }]]></component>
-  <component name="RecentsManager">
-    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
-      <recent name="net.silver.app" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Gradle.PosMan [generateCDSArchive]">
-    <configuration name="PosMan [createCustomRuntime]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="createCustomRuntime" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="PosMan [createJPackageImage]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="createJPackageImage" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="PosMan [generateCDSArchive]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="generateCDSArchive" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="PosMan [packageImageWithCDS]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="packageImageWithCDS" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
-    <configuration name="PosMan [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="run" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Gradle.PosMan [createCustomRuntime]" />
-      <item itemvalue="Gradle.PosMan [run]" />
-      <item itemvalue="Gradle.PosMan [createJPackageImage]" />
-      <item itemvalue="Gradle.PosMan [packageImageWithCDS]" />
-      <item itemvalue="Gradle.PosMan [generateCDSArchive]" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Gradle.PosMan [generateCDSArchive]" />
-        <item itemvalue="Gradle.PosMan [createJPackageImage]" />
-        <item itemvalue="Gradle.PosMan [createCustomRuntime]" />
-        <item itemvalue="Gradle.PosMan [run]" />
-        <item itemvalue="Gradle.PosMan [packageImageWithCDS]" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -323,458 +89,15 @@
       </set>
     </attachedChunks>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="1" Folder0="$PROJECT_DIR$/App/src/main/java/net/silver/app" CustomDictionaries="1" CustomDictionary0="$PROJECT_DIR$/App/src/main/java/net/silver/app/z_MainAppStart.java" DefaultDictionary="project-level" UseSingleDictionary="true" transferred="false" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="36acf23f-eb1d-401e-b55c-27ed8439cc21" name="Changes" comment="" />
-      <created>1764983523226</created>
+      <changelist id="571d422d-fdec-40b1-a52d-fbb86f66d600" name="Changes" comment="" />
+      <created>1765232247900</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1764983523226</updated>
-      <workItem from="1764983524629" duration="13186000" />
-      <workItem from="1765036217232" duration="5532000" />
-      <workItem from="1765041898348" duration="403000" />
-      <workItem from="1765069158176" duration="3000" />
-      <workItem from="1765069384849" duration="3743000" />
-      <workItem from="1765096662882" duration="11814000" />
-      <workItem from="1765136845066" duration="572000" />
-      <workItem from="1765157826418" duration="604000" />
-      <workItem from="1765163125540" duration="229000" />
-      <workItem from="1765215051128" duration="68000" />
-      <workItem from="1765215138081" duration="16000" />
-      <workItem from="1765215162603" duration="32000" />
-      <workItem from="1765215202049" duration="43000" />
-      <workItem from="1765215253464" duration="132000" />
-      <workItem from="1765215438222" duration="7188000" />
+      <updated>1765232247900</updated>
+      <workItem from="1765232249416" duration="2071000" />
     </task>
-    <task id="LOCAL-00001" summary="1">
-      <option name="closed" value="true" />
-      <created>1764988922754</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1764988922754</updated>
-    </task>
-    <task id="LOCAL-00002" summary="1">
-      <option name="closed" value="true" />
-      <created>1764991286877</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1764991286877</updated>
-    </task>
-    <task id="LOCAL-00003" summary="1">
-      <option name="closed" value="true" />
-      <created>1764991400086</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1764991400086</updated>
-    </task>
-    <task id="LOCAL-00004" summary="1">
-      <option name="closed" value="true" />
-      <created>1764993296265</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1764993296265</updated>
-    </task>
-    <task id="LOCAL-00005" summary="1">
-      <option name="closed" value="true" />
-      <created>1764995318805</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1764995318805</updated>
-    </task>
-    <task id="LOCAL-00006" summary="1">
-      <option name="closed" value="true" />
-      <created>1764995650192</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1764995650192</updated>
-    </task>
-    <task id="LOCAL-00007" summary="1">
-      <option name="closed" value="true" />
-      <created>1765015495488</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1765015495488</updated>
-    </task>
-    <task id="LOCAL-00008" summary="1">
-      <option name="closed" value="true" />
-      <created>1765015630852</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1765015630852</updated>
-    </task>
-    <task id="LOCAL-00009" summary="1">
-      <option name="closed" value="true" />
-      <created>1765024517555</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1765024517555</updated>
-    </task>
-    <task id="LOCAL-00010" summary="1">
-      <option name="closed" value="true" />
-      <created>1765025200814</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1765025200814</updated>
-    </task>
-    <task id="LOCAL-00011" summary="1">
-      <option name="closed" value="true" />
-      <created>1765029167602</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1765029167602</updated>
-    </task>
-    <task id="LOCAL-00012" summary="1">
-      <option name="closed" value="true" />
-      <created>1765030685382</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1765030685382</updated>
-    </task>
-    <task id="LOCAL-00013" summary="1">
-      <option name="closed" value="true" />
-      <created>1765031270666</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1765031270666</updated>
-    </task>
-    <task id="LOCAL-00014" summary="1">
-      <option name="closed" value="true" />
-      <created>1765044975175</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1765044975175</updated>
-    </task>
-    <task id="LOCAL-00015" summary="1">
-      <option name="closed" value="true" />
-      <created>1765068313489</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1765068313489</updated>
-    </task>
-    <task id="LOCAL-00016" summary="1">
-      <option name="closed" value="true" />
-      <created>1765068582710</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1765068582710</updated>
-    </task>
-    <task id="LOCAL-00017" summary="1">
-      <option name="closed" value="true" />
-      <created>1765080171135</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1765080171135</updated>
-    </task>
-    <task id="LOCAL-00018" summary="1">
-      <option name="closed" value="true" />
-      <created>1765081047852</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1765081047852</updated>
-    </task>
-    <task id="LOCAL-00019" summary="1">
-      <option name="closed" value="true" />
-      <created>1765081238775</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1765081238775</updated>
-    </task>
-    <task id="LOCAL-00020" summary="1">
-      <option name="closed" value="true" />
-      <created>1765097007698</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1765097007698</updated>
-    </task>
-    <task id="LOCAL-00021" summary="1">
-      <option name="closed" value="true" />
-      <created>1765099253519</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1765099253519</updated>
-    </task>
-    <task id="LOCAL-00022" summary="1">
-      <option name="closed" value="true" />
-      <created>1765102296009</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1765102296009</updated>
-    </task>
-    <task id="LOCAL-00023" summary="1">
-      <option name="closed" value="true" />
-      <created>1765102311225</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1765102311225</updated>
-    </task>
-    <task id="LOCAL-00024" summary="1">
-      <option name="closed" value="true" />
-      <created>1765102805907</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1765102805907</updated>
-    </task>
-    <task id="LOCAL-00025" summary="1">
-      <option name="closed" value="true" />
-      <created>1765108887282</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1765108887282</updated>
-    </task>
-    <task id="LOCAL-00026" summary="1">
-      <option name="closed" value="true" />
-      <created>1765132107306</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1765132107306</updated>
-    </task>
-    <task id="LOCAL-00027" summary="1">
-      <option name="closed" value="true" />
-      <created>1765132563979</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1765132563979</updated>
-    </task>
-    <option name="localTasksCounter" value="28" />
     <servers />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="1" />
-    <option name="LAST_COMMIT_MESSAGE" value="1" />
-  </component>
-  <component name="com.gk646.codestats.settings.Save">
-    <option name="commitTimePoints">
-      <list>
-        <TimePoint>
-          <option name="timestamp" value="1764988922795" />
-          <option name="linesCode" value="3708" />
-          <option name="totalLines" value="11761" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1764991286902" />
-          <option name="linesCode" value="3708" />
-          <option name="totalLines" value="11715" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1764991400110" />
-          <option name="linesCode" value="3702" />
-          <option name="totalLines" value="11717" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1764993296286" />
-          <option name="linesCode" value="3710" />
-          <option name="totalLines" value="11716" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1764995318829" />
-          <option name="linesCode" value="3710" />
-          <option name="totalLines" value="11736" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1764995650213" />
-          <option name="linesCode" value="3710" />
-          <option name="totalLines" value="11737" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765015495523" />
-          <option name="linesCode" value="6164" />
-          <option name="totalLines" value="20953" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765015630879" />
-          <option name="linesCode" value="6164" />
-          <option name="totalLines" value="20953" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765024517601" />
-          <option name="linesCode" value="6165" />
-          <option name="totalLines" value="21487" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765025200857" />
-          <option name="linesCode" value="6165" />
-          <option name="totalLines" value="21605" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765029167643" />
-          <option name="linesCode" value="6165" />
-          <option name="totalLines" value="21628" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765030685422" />
-          <option name="linesCode" value="6165" />
-          <option name="totalLines" value="21646" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765031270701" />
-          <option name="linesCode" value="6164" />
-          <option name="totalLines" value="21647" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765044975208" />
-          <option name="linesCode" value="6165" />
-          <option name="totalLines" value="21760" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765068313530" />
-          <option name="linesCode" value="6165" />
-          <option name="totalLines" value="21760" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765068582750" />
-          <option name="linesCode" value="6166" />
-          <option name="totalLines" value="21770" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765080171166" />
-          <option name="linesCode" value="6166" />
-          <option name="totalLines" value="21770" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765081047878" />
-          <option name="linesCode" value="6166" />
-          <option name="totalLines" value="21815" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765081238806" />
-          <option name="linesCode" value="6166" />
-          <option name="totalLines" value="21815" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765097007745" />
-          <option name="linesCode" value="6166" />
-          <option name="totalLines" value="21781" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765099253551" />
-          <option name="linesCode" value="6166" />
-          <option name="totalLines" value="21873" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765102296044" />
-          <option name="linesCode" value="6162" />
-          <option name="totalLines" value="21875" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765102311251" />
-          <option name="linesCode" value="6162" />
-          <option name="totalLines" value="21875" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765102805944" />
-          <option name="linesCode" value="6162" />
-          <option name="totalLines" value="21875" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765108887316" />
-          <option name="linesCode" value="6162" />
-          <option name="totalLines" value="21965" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765132107370" />
-          <option name="linesCode" value="3959" />
-          <option name="totalLines" value="19590" />
-          <option name="info" value="1" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765132564008" />
-          <option name="linesCode" value="3959" />
-          <option name="totalLines" value="19590" />
-          <option name="info" value="1" />
-        </TimePoint>
-      </list>
-    </option>
-    <option name="genericTimePoints">
-      <list>
-        <TimePoint>
-          <option name="timestamp" value="1764995650213" />
-          <option name="linesCode" value="3710" />
-          <option name="totalLines" value="11737" />
-          <option name="info" value="Dec 6, 2025" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765044975208" />
-          <option name="linesCode" value="6165" />
-          <option name="totalLines" value="21760" />
-          <option name="info" value="Dec 6, 2025" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765099253551" />
-          <option name="linesCode" value="6166" />
-          <option name="totalLines" value="21873" />
-          <option name="info" value="Dec 7, 2025" />
-        </TimePoint>
-        <TimePoint>
-          <option name="timestamp" value="1765132564008" />
-          <option name="linesCode" value="3959" />
-          <option name="totalLines" value="19590" />
-          <option name="info" value="Dec 7, 2025" />
-        </TimePoint>
-      </list>
-    </option>
   </component>
 </project>

@@ -51,19 +51,14 @@ allprojects {
     version = BuildMeta.VERSION_PARTIAL_NO_BUILD_NUMBER
     layout.buildDirectory.set(file(BuildMeta.Paths.OUTPUT_BUILD_DIR + project.name))
     apply(plugin = "java-library")
-}
-
-subprojects {
-    apply(from = rootDir.resolve("gradle/myScripts/downloadSourcesAndJavadoc.gradle.kts"))
-
     java {
         toolchain {
             languageVersion = JavaLanguageVersion.of(BuildMeta.JAVA_VERSION)
-            vendor.set(JvmVendorSpec.MICROSOFT) // Microsoft JDK
-            implementation.set(JvmImplementation.VENDOR_SPECIFIC)
         }
     }
-
+    apply(from = rootDir.resolve("gradle/myScripts/downloadSourcesAndJavadoc.gradle.kts"))
+}
+subprojects {
     /**
      * Classic Javadoc task configuration
      */
@@ -406,7 +401,6 @@ tasks.register<Exec>("generateCDSArchive") {
     dependsOn(tasks.named("createJPackageImage"))
 
     val outputDir = BuildMeta.Paths.OUTPUT_IMAGE_DIR
-
     val appName = "${rootProject.name}_v${project.version}"
     val appDir = file("$outputDir${File.separator}$appName")
     val runtimeAppDir = file("$appDir${File.separator}app")  // This should be correct
