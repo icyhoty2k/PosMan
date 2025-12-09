@@ -25,7 +25,7 @@ public final class BuildMeta {
   //Major - breaking changes
   //Minor - gui enhancements and additions/removals and new functionality without braking changes
   //buildDate - only fixes and bug removal
-  private static final String VERSION_MAJOR = "1";
+  private static final String VERSION_MAJOR = "25";
   private static final String VERSION_MINOR = "0";
   private static final String VERSION_BUILD_NUMBER = String.valueOf(ChronoUnit.DAYS.between(InternalConstants.APP_BUILD_DATE, LocalDate.now()));
   public static final String VERSION_FULL = VERSION_MAJOR + "." + VERSION_MINOR + "." + VERSION_BUILD_NUMBER;
@@ -82,7 +82,7 @@ public final class BuildMeta {
     private static final String DEV_DRIVE = "I:\\";//Reference to devDrive
     private static final String RAM_DRIVE = "R:\\"; //If ramDrive is installed and configured to R:\
     private static final String MAIN_BUILD_AND_WORKING_DRIVE = RAM_DRIVE; //If ramDrive is installed and configured to R:\
-    private static final String DEFAULT_WORKING_DIR = "WorkingDir"; //If ramDrive is installed and configured to R:\
+    public static final String DEFAULT_WORKING_DIR = "WorkingDir"; //If ramDrive is installed and configured to R:\
     public static final String OUTPUT_BUILD_DIR = MAIN_BUILD_AND_WORKING_DRIVE + APP_NAME + "\\"; //If ramDrive is installed and configured to R:\
     public static final String OUTPUT_IMAGE_DIR = MAIN_BUILD_AND_WORKING_DRIVE + APP_NAME + "\\Build"; //If ramDrive is installed and configured to R:\
 

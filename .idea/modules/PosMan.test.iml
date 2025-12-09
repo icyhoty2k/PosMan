@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id="PosMan:test" external.linked.project.path="$MODULE_DIR$/../.." external.root.project.path="$MODULE_DIR$/../.." external.system.id="GRADLE" external.system.module.group="net.silver" external.system.module.type="sourceSet" external.system.module.version="25.0" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <output-test url="file://R:/PosMan/PosMan/classes/java/test" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../src/test">
+      <sourceFolder url="file://$MODULE_DIR$/../../src/test/java" isTestSource="true" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="PosMan.main" />
+    <orderEntry type="module" module-name="PosMan.App.main" />
+    <orderEntry type="module" module-name="PosMan.Config.main" />
+    <orderEntry type="module" module-name="PosMan.Gui.main" />
+    <orderEntry type="module" module-name="PosMan.Logging.main" />
+    <orderEntry type="module" module-name="PosMan.Persistence.main" />
+    <orderEntry type="module" module-name="PosMan.Resources.main" />
+    <orderEntry type="module" module-name="PosMan.Services.main" />
+    <orderEntry type="module" module-name="PosMan.Utils.main" />
+    <orderEntry type="library" name="Gradle: org.slf4j:slf4j-api:2.0.17" level="project" />
+    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-engine:5.14.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.junit.jupiter:junit-jupiter-api:5.14.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.junit.platform:junit-platform-engine:1.14.1" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Gradle: org.apiguardian:apiguardian-api:1.1.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.junit.platform:junit-platform-commons:1.14.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.opentest4j:opentest4j:1.3.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.junit.platform:junit-platform-launcher:1.14.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.openjfx:javafx-graphics:25.0.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.openjfx:javafx-graphics:win:25.0.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.openjfx:javafx-base:25.0.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.openjfx:javafx-base:win:25.0.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.openjfx:javafx-fxml:win:25.0.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.openjfx:javafx-controls:25.0.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.openjfx:javafx-controls:win:25.0.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.zaxxer:HikariCP:7.0.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.mysql:mysql-connector-j:9.5.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.google.protobuf:protobuf-java:4.31.1" level="project" />
+  </component>
+  <component name="TestModuleProperties" production-module="PosMan.main" />
+</module>

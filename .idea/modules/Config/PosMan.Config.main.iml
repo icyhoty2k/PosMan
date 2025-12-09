@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":Config:main" external.linked.project.path="$MODULE_DIR$/../../../Config" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="net.silver.config" external.system.module.type="sourceSet" external.system.module.version="25.0" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <output url="file://R:/PosMan/Config/classes/java/main" />
+    <exclude-output />
+    <content url="file://$MODULE_DIR$/../../../Config/src/main">
+      <sourceFolder url="file://$MODULE_DIR$/../../../Config/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/../../../Config/src/main/resources" type="java-resource" />
+    </content>
+    <content url="file://R:/PosMan/Config/generated/sources/buildConfig/main">
+      <sourceFolder url="file://R:/PosMan/Config/generated/sources/buildConfig/main" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+  </component>
+</module>

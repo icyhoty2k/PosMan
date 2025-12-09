@@ -1,44 +1,143 @@
-.gradle
-build/
-!gradle/wrapper/gradle-wrapper.jar
-!**/src/main/**/build/
-!**/src/test/**/build/
-.kotlin
+########################################
+# GRADLE
+########################################
 
-### IntelliJ IDEA ###
-.idea/modules.xml
-.idea/jarRepositories.xml
-.idea/compiler.xml
+# Gradle local caches (machine-specific, never sync)
+.gradle/
+
+# Build output directories
+build/
+
+# Keep Gradle wrapper JAR for portability
+!gradle/wrapper/gradle-wrapper.jar
+
+
+########################################
+# KOTLIN
+########################################
+
+# Kotlin compiler caches (local only)
+.kotlin/
+
+
+########################################
+# INTELLIJ IDEA (.idea)
+########################################
+# NOTICE:
+# We DO NOT ignore .idea/ globally.
+# → Everything is included except the unsafe files below.
+
+
+############### .idea FILES THAT MUST BE IGNORED ###############
+
+# 🔥 MACHINE-SPECIFIC: Intellij caches (indexes, autocomplete, search)
+.idea/caches/
+
+# 🔥 MACHINE-SPECIFIC: Library paths with ABSOLUTE file system references
 .idea/libraries/
-*.iws
-*.iml
-*.ipr
-out/
+
+# 🔥 MACHINE-SPECIFIC: Editor state, open tabs, tool window positions, paths, history
+.idea/workspace.xml
+
+# 🔥 MACHINE-SPECIFIC: Local tasks and context history
+#What tasks.xml stores:#Your current active task
+#Your local task contexts#Your time tracking#Your local working history#Automatically generated “Default task”, “Changelist #X”
+#Timer information #Local commit messages cache #Work-in-progress state unrelated to the project
+.idea/tasks.xml
+
+# 🔥 MACHINE-SPECIFIC: Temporary shelves (local-only patches)
+.idea/shelf/
+
+# 🔥 MACHINE-SPECIFIC: HTTP client request history
+.idea/httpRequests/
+
+# 🔥 MACHINE-SPECIFIC: Usage statistics
+.idea/usage.statistics.xml
+
+# 🔥 MACHINE-SPECIFIC: Migration data tied to local IDE state
+.idea/migration.xml
+
+# 🔥 MACHINE-SPECIFIC: Data Sources (database credentials, paths)
+.idea/dataSources/
+.idea/dataSources.local.xml
+
+# 🔥 MACHINE-SPECIFIC: UI designer internal generated resources
+.idea/uiDesigner.xml
+
+
+############### OPTIONAL IGNORE (SYNC ONLY IF YOU WANT) ###############
+
+# Run/Debug configurations:
+# Safe to sync if you want identical run configs.
+# If you DO want them synced → comment this line
+#.idea/runConfigurations/
+
+# Dictionaries:
+# Sync if you want shared spellcheck custom words
+# If you want to share → comment this line
+#.idea/dictionaries/
+
+# Scopes:
+# Safe to sync but optional
+# If you want to share → comment this line
+#.idea/scopes/
+
+
+############### FILES THAT REMAIN INCLUDED (SAFE) ###############
+# (You do NOT need to list these — they are included automatically)
+#
+# .idea/misc.xml               → JDK version, language level (SAFE)
+# .idea/modules.xml            → Module structure (SAFE)
+# .idea/*.iml                  → Module descriptors (SAFE)
+# .idea/compiler.xml           → Compiler settings (SAFE)
+# .idea/encodings.xml          → Charset settings (SAFE)
+# .idea/vcs.xml                → Git root mapping (SAFE)
+# .idea/gradle.xml             → Gradle integration (SAFE)
+# .idea/inspectionProfiles/    → Code inspection rules (SAFE)
+# .idea/codeStyles/            → Formatting settings (SAFE)
+# .idea/artifacts/             → Artifact build configurations (SAFE)
+
+
+########################################
+# JAVA & KOTLIN OUTPUT
+########################################
+
+/out/
 !**/src/main/**/out/
 !**/src/test/**/out/
 
-### Eclipse ###
-.apt_generated
+
+########################################
+# ECLIPSE (legacy – not used)
+########################################
+.apt_generated/
 .classpath
 .factorypath
 .project
-.settings
-.springBeans
-.sts4-cache
+.settings/
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
-### NetBeans ###
+
+########################################
+# NETBEANS (not used)
+########################################
 /nbproject/private/
 /nbbuild/
 /dist/
 /nbdist/
 /.nb-gradle/
 
-### VS Code ###
+
+########################################
+# VS CODE
+########################################
 .vscode/
 
-### Mac OS ###
-.DS_Store!/structure_exports/
-/structure_exports/
+
+########################################
+# OS JUNK FILES
+########################################
+.DS_Store
+Thumbs.db

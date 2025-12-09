@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PosMan.iml" filepath="$PROJECT_DIR$/.idea/modules/PosMan.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/App/PosMan.App.iml" filepath="$PROJECT_DIR$/.idea/modules/App/PosMan.App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/App/PosMan.App.main.iml" filepath="$PROJECT_DIR$/.idea/modules/App/PosMan.App.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/App/PosMan.App.test.iml" filepath="$PROJECT_DIR$/.idea/modules/App/PosMan.App.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Config/PosMan.Config.iml" filepath="$PROJECT_DIR$/.idea/modules/Config/PosMan.Config.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Config/PosMan.Config.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Config/PosMan.Config.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Config/PosMan.Config.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Config/PosMan.Config.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Gui/PosMan.Gui.iml" filepath="$PROJECT_DIR$/.idea/modules/Gui/PosMan.Gui.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Gui/PosMan.Gui.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Gui/PosMan.Gui.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Gui/PosMan.Gui.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Gui/PosMan.Gui.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Logging/PosMan.Logging.iml" filepath="$PROJECT_DIR$/.idea/modules/Logging/PosMan.Logging.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Logging/PosMan.Logging.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Logging/PosMan.Logging.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Logging/PosMan.Logging.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Logging/PosMan.Logging.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Persistence/PosMan.Persistence.iml" filepath="$PROJECT_DIR$/.idea/modules/Persistence/PosMan.Persistence.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Persistence/PosMan.Persistence.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Persistence/PosMan.Persistence.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Persistence/PosMan.Persistence.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Persistence/PosMan.Persistence.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Resources/PosMan.Resources.iml" filepath="$PROJECT_DIR$/.idea/modules/Resources/PosMan.Resources.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Resources/PosMan.Resources.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Resources/PosMan.Resources.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Resources/PosMan.Resources.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Resources/PosMan.Resources.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.iml" filepath="$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Utils/PosMan.Utils.iml" filepath="$PROJECT_DIR$/.idea/modules/Utils/PosMan.Utils.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Utils/PosMan.Utils.main.iml" filepath="$PROJECT_DIR$/.idea/modules/Utils/PosMan.Utils.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/Utils/PosMan.Utils.test.iml" filepath="$PROJECT_DIR$/.idea/modules/Utils/PosMan.Utils.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc/PosMan.buildSrc.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc/PosMan.buildSrc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc/PosMan.buildSrc.main.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc/PosMan.buildSrc.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/buildSrc/PosMan.buildSrc.test.iml" filepath="$PROJECT_DIR$/.idea/modules/buildSrc/PosMan.buildSrc.test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PosMan.main.iml" filepath="$PROJECT_DIR$/.idea/modules/PosMan.main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/PosMan.test.iml" filepath="$PROJECT_DIR$/.idea/modules/PosMan.test.iml" />
+    </modules>
+  </component>
+</project>

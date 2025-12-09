@@ -55,11 +55,11 @@ buildCache {
 // ------------------------------------------------------------
 // 📚 Subproject Inclusion (Modules)
 // ------------------------------------------------------------
-include("Logging")
-include("Utils")
-include("Persistence")
-include("Gui")
 include("App")
-include("Resources")
 include("Config")
+include("Gui")
+include("Logging")
+include("Persistence")
+include("Resources")
 include("Services")
+include("Utils")

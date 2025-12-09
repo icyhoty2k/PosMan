@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":App:test" external.linked.project.path="$MODULE_DIR$/../../../App" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="net.silver.app" external.system.module.type="sourceSet" external.system.module.version="25.0" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <output-test url="file://R:/PosMan/App/classes/java/test" />
+    <exclude-output />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="PosMan.App.main" />
+    <orderEntry type="module" module-name="PosMan.Gui.main" />
+    <orderEntry type="module" module-name="PosMan.Persistence.main" />
+    <orderEntry type="module-library">
+      <library name="Gradle: org.openjfx:javafx-graphics:win:25.0.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../63_GradleLocalRepo/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/25.0.1/55428e873de5ddbd40f3ea61f944ac84fd5d33d/javafx-graphics-25.0.1-win.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../63_GradleLocalRepo/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/25.0.1/7c4b44c313c5eaa648ea03573524822a28e76dbe/javafx-graphics-25.0.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-base:25.0.1" level="project" />
+    <orderEntry type="library" name="Gradle: org.openjfx:javafx-base:win:25.0.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.openjfx:javafx-graphics:25.0.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.openjfx:javafx-fxml:win:25.0.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.openjfx:javafx-controls:25.0.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.openjfx:javafx-controls:win:25.0.1" level="project" />
+    <orderEntry type="module" module-name="PosMan.Utils.main" scope="RUNTIME" />
+    <orderEntry type="module" module-name="PosMan.Resources.main" scope="RUNTIME" />
+    <orderEntry type="module" module-name="PosMan.Logging.main" scope="RUNTIME" />
+    <orderEntry type="module" module-name="PosMan.Config.main" scope="RUNTIME" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.mysql:mysql-connector-j:9.5.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.zaxxer:HikariCP:7.0.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.slf4j:slf4j-api:2.0.17" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.google.protobuf:protobuf-java:4.31.1" level="project" />
+  </component>
+  <component name="TestModuleProperties" production-module="PosMan.App.main" />
+</module>

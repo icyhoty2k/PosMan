@@ -39,6 +39,7 @@ fun File.isModularJar(): Boolean {
 
 // --- PLUGINS ---
 plugins {
+
     application
     id(net.silver.buildsrc.BuildMeta.PluginVersions.SHADOW_ID) version net.silver.buildsrc.BuildMeta.PluginVersions.SHADOW_VERSION
 }
@@ -985,6 +986,7 @@ application {
 tasks.named<JavaExec>("run") {
     mainClass.set(BuildMeta.MAIN_CLASS)
     jvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS
+    workingDir = file(BuildMeta.Paths.OUTPUT_BUILD_DIR + BuildMeta.Paths.DEFAULT_WORKING_DIR)
 }
 
 // =========================================================================

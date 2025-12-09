@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module external.linked.project.id=":Config:test" external.linked.project.path="$MODULE_DIR$/../../../Config" external.root.project.path="$MODULE_DIR$/../../.." external.system.id="GRADLE" external.system.module.group="net.silver.config" external.system.module.type="sourceSet" external.system.module.version="25.0" type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <output-test url="file://R:/PosMan/Config/classes/java/test" />
+    <exclude-output />
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="PosMan.Config.main" />
+  </component>
+  <component name="TestModuleProperties" production-module="PosMan.Config.main" />
+</module>
