@@ -145,10 +145,19 @@ bin/
 # Windows thumbnails
 Thumbs.db
 
+# Linux backup files
+*~
+# Vim swap files
+*.swp
+# Vim swap files
+*.swo
+# Log files
+# *.log
 
 #######################################################################
 #                             EXCLUDED FROM .gitignore
 #######################################################################
-!gradle/**
-!batFiles/**
-!dbDump/**
+# Keep entire Gradle wrapper directory
+!gradle/
+!batFiles/
+!dbDump/
