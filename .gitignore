@@ -64,6 +64,8 @@ build/
 # 🔥 MACHINE-SPECIFIC: UI designer internal generated resources
 .idea/uiDesigner.xml
 
+# 🔥 IntelliJ creates temporary files in that folder; ignoring .tmp avoids unnecessary commits.
+.idea/runConfigurations/*.tmp
 
 ############### OPTIONAL IGNORE (SYNC ONLY IF YOU WANT) ###############
 
@@ -103,9 +105,6 @@ build/
 ########################################
 
 /out/
-!**/src/main/**/out/
-!**/src/test/**/out/
-
 
 ########################################
 # ECLIPSE (legacy – not used)
@@ -136,8 +135,20 @@ bin/
 .vscode/
 
 
-########################################
-# OS JUNK FILES
-########################################
+#######################################################################
+#                             OPERATING SYSTEM
+#######################################################################
+
+# macOS
 .DS_Store
+
+# Windows thumbnails
 Thumbs.db
+
+
+#######################################################################
+#                             EXCLUDED FROM .gitignore
+#######################################################################
+!gradle/**
+!batFiles/**
+!dbDump/**
