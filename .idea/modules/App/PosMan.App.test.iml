@@ -8,6 +8,7 @@
     <orderEntry type="module" module-name="PosMan.App.main" />
     <orderEntry type="module" module-name="PosMan.Gui.main" />
     <orderEntry type="module" module-name="PosMan.Persistence.main" />
+    <orderEntry type="module" module-name="PosMan.Services.main" />
     <orderEntry type="module-library">
       <library name="Gradle: org.openjfx:javafx-graphics:win:25.0.1">
         <CLASSES>
@@ -31,8 +32,33 @@
     <orderEntry type="module" module-name="PosMan.Config.main" scope="RUNTIME" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.mysql:mysql-connector-j:9.5.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.zaxxer:HikariCP:7.0.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.github.moquette-io.moquette:moquette-broker:0.18.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.slf4j:slf4j-api:2.0.17" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.google.protobuf:protobuf-java:4.31.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.slf4j:slf4j-reload4j:1.7.36" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-codec-http:4.1.116.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-handler:4.1.116.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-codec-mqtt:4.1.116.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-codec:4.1.116.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-transport-native-epoll:linux-aarch_64:4.1.116.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-transport-native-epoll:linux-x86_64:4.1.116.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-transport-native-kqueue:osx-aarch_64:4.1.116.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-transport-native-kqueue:osx-x86_64:4.1.116.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-transport:4.1.116.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-buffer:4.1.116.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-common:4.1.116.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-tcnative-boringssl-static:linux-aarch_64:2.0.69.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-tcnative-boringssl-static:linux-x86_64:2.0.69.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-tcnative-boringssl-static:osx-aarch_64:2.0.69.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-tcnative-boringssl-static:osx-x86_64:2.0.69.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.h2database:h2-mvstore:2.1.214" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: commons-codec:commons-codec:1.15" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: ch.qos.reload4j:reload4j:1.2.19" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-transport-native-unix-common:4.1.116.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-resolver:4.1.116.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-transport-classes-epoll:4.1.116.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-transport-classes-kqueue:4.1.116.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-tcnative-classes:2.0.69.Final" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="PosMan.App.main" />
 </module>

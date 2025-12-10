@@ -52,10 +52,11 @@ public final class BuildMeta {
 
 
     private static final String HIKARICP = "7.0.2";
-    private static final String MYSQL = "9.5.0";
     private static final String SLF4J = "2.0.17";
     private static final String JUNIT = "5.14.1";
     private static final String JUNIT_PLATFORM = "1.14.1";
+    private static final String MYSQL = "9.5.0";
+    private static final String MOQUETTE = "0.18.0";
   }
 
   public static final class Libs {
@@ -65,6 +66,7 @@ public final class BuildMeta {
     public static final String JUNIT_PLATFORM = "org.junit.platform:junit-platform-launcher:" + LibsVersions.JUNIT_PLATFORM;
     public static final String HIKARICP = "com.zaxxer:HikariCP:" + LibsVersions.HIKARICP;
     public static final String MYSQL = "com.mysql:mysql-connector-j:" + LibsVersions.MYSQL;
+    public static final String MOQUETTE = "com.github.moquette-io.moquette:moquette-broker:" + LibsVersions.MOQUETTE;
     //===================================JAVAFX=============================================================
     public static final String BASE_JAVA_FX = "org.openjfx:javafx-base:" + JAVA_FX_VERSION + ":" + PLATFORM;
     public static final String CONTROLS_JAVA_FX = "org.openjfx:javafx-controls:" + JAVA_FX_VERSION + ":" + PLATFORM;
@@ -138,7 +140,9 @@ public final class BuildMeta {
         // Security & compatibility java8-16
         "-XX:+IgnoreUnrecognizedVMOptions",
         //        "--enable-native-access=ALL-UNNAMED",
-        "-Dsun.io.useCanonCaches=true"
+        "-Dsun.io.useCanonCaches=true",
+        "--add-reads", "net.silver.services=ALL-UNNAMED",
+        "--add-opens", "net.silver.services/net.silver.services=ALL-UNNAMED"
     );
     public static final List<String> CURRENT_JVM_ARGS = FAST_START_JVM_ARGS;
 

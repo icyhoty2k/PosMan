@@ -95,6 +95,9 @@ dependencies {
 
     implementation(BuildMeta.Libs.SLF4J)
 
+
+
+
     testImplementation(BuildMeta.Libs.JUNIT_API)
     testImplementation(BuildMeta.Libs.JUNIT_JUPITER)
     testRuntimeOnly(BuildMeta.Libs.JUNIT_PLATFORM)
@@ -115,7 +118,7 @@ tasks.register<Jar>("createMergedModuleJar") {
 
     archiveFileName.set(mergedModuleJarName)
     destinationDirectory.set(mergedJarsDir)
-
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     // Exclude module-info and signature files to prevent conflicts
     exclude("module-info.class", "META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA")
 
@@ -984,8 +987,22 @@ application {
 }
 
 tasks.named<JavaExec>("run") {
-    mainClass.set(BuildMeta.MAIN_CLASS)
-    jvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS
+    // Clear classpath — everything goes on module-path
+    classpath = files()
+
+    // Collect all JARs: subproject outputs + external dependencies
+    val projectJars = subprojects.mapNotNull { sub ->
+        (sub.tasks.findByName("jar") as? Jar)?.archiveFile?.get()?.asFile
+    }
+    val externalJars = configurations.runtimeClasspath.get().files
+    val allJars = (projectJars + externalJars).filter { it.name.endsWith(".jar") }.distinct()
+
+    // Build module path and launch module
+    jvmArgs = listOf(
+        "--module-path", allJars.joinToString(File.pathSeparator),
+        "--module", "${BuildMeta.MAIN_MODULE}/${BuildMeta.MAIN_CLASS}"
+    ) + BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS
+
     workingDir = file(BuildMeta.Paths.OUTPUT_BUILD_DIR)
 }
 

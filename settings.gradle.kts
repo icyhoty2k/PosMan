@@ -24,6 +24,11 @@ dependencyResolutionManagement {
         // Local repository for locally published artifacts (e.g., from `mvn install` or `publishToMavenLocal`).
         // Useful during local development and testing of internal libraries.
         mavenLocal()
+
+        maven {
+            // Use the explicit 'uri' method required by Kotlin DSL
+            url = uri("https://jitpack.io")
+        }
     }
 }
 
