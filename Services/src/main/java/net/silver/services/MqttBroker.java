@@ -2,6 +2,7 @@ package net.silver.services;
 
 import io.moquette.BrokerConstants;
 import io.moquette.broker.Server;
+import io.moquette.broker.config.IConfig;
 import io.moquette.broker.config.MemoryConfig;
 
 import java.io.File;
@@ -13,7 +14,7 @@ import java.util.Properties;
 public class MqttBroker {
 
   private Server mqttBroker;
-  private final int MQTT_PORT = 1883; // Standard MQTT port
+  private final String MQTT_PORT = "1883"; // Standard MQTT port
 
   private final String PERSISTENCE_PATH = "posman_mqtt_data"; // Local directory for Moquette's persistence
 
@@ -32,7 +33,8 @@ public class MqttBroker {
     Properties configProps = new Properties();
 
     // Network Configuration
-    configProps.setProperty(BrokerConstants.HOST, "0.0.0.0:" + MQTT_PORT); // Listen on all interfaces
+    configProps.setProperty(IConfig.HOST_PROPERTY_NAME, "0.0.0.0"); // Listen on all interfaces
+    configProps.setProperty(IConfig.PORT_PROPERTY_NAME, MQTT_PORT);
 
 
     // Persistence Configuration (Crucial for QoS 1 and 2 message reliability)
@@ -46,24 +48,24 @@ public class MqttBroker {
       }
 
       // Set persistence flag to true
-      configProps.setProperty(BrokerConstants.PERSISTENCE_ENABLED_PROPERTY_NAME, "true");
+      configProps.setProperty(IConfig.PERSISTENCE_ENABLED_PROPERTY_NAME, "true");
       // Set the absolute path for storing subscription and message data
-      configProps.setProperty(BrokerConstants.DATA_PATH_PROPERTY_NAME, dataPath.toAbsolutePath().toString());
+      configProps.setProperty(IConfig.DATA_PATH_PROPERTY_NAME, dataPath.toAbsolutePath().toString());
 
     } catch (Exception e) {
       System.err.println("Failed to configure persistence. Running without it.");
-      configProps.setProperty(BrokerConstants.PERSISTENCE_ENABLED_PROPERTY_NAME, "false");
+      configProps.setProperty(IConfig.PERSISTENCE_ENABLED_PROPERTY_NAME, "false");
     }
 
     // Optional: Enable WebSockets on a different port (e.g., for future web dashboard)
-    configProps.setProperty(BrokerConstants.WEB_SOCKET_PORT_PROPERTY_NAME, "8080");
+    configProps.setProperty(IConfig.WEB_SOCKET_PORT_PROPERTY_NAME, "8080");
 
     // --- 2. Initialize and Start the Server ---
     mqttBroker = new Server();
     try {
       // MemoryConfig loads settings from our Properties object
       mqttBroker.startServer(new MemoryConfig(configProps));
-      System.out.printf("Moquette broker started successfully on port %d.%n", MQTT_PORT);
+      System.out.printf("Moquette broker started successfully on port %s.%n", MQTT_PORT);
     } catch (IOException e) {
       System.err.println("CRITICAL ERROR: Failed to start Moquette broker. Port " + MQTT_PORT + " may be in use.");
       System.err.println("Details: " + e.getMessage());
