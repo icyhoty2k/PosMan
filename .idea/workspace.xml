@@ -5,8 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54866653-11b4-4950-8c28-cd472d6633e4" name="Changes" comment="1">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/App/PosMan.App.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/App/PosMan.App.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/App/PosMan.App.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/App/PosMan.App.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/PosMan.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/PosMan.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/PosMan.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/PosMan.test.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.main.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/MqttBroker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/MqttBroker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/src/main/java/net/silver/app/z_MainAppStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/main/java/net/silver/app/z_MainAppStart.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/Services/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -58,12 +68,6 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="PosMan" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="help" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="PosMan" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="package" type="c8890929:TasksNode$1" />
               </path>
             </expand>
@@ -98,13 +102,7 @@
     &quot;accountId&quot;: &quot;2721b6e7-fa4b-4cc4-a1ac-4742f4a6d941&quot;
   }
 }</component>
-  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="I:\63_GradleLocalRepo\wrapper\dists\gradle-9.2.1-bin\2t0n5ozlw9xmuyvbp7dnzaxug\gradle-9.2.1" javaHome="I:\14_JDKs\graalVM\graalvm-jdk-25_windows-x64_bin\graalvm-jdk-25.0.1+8.1" gradleVersion="9.2.1">
-    <option name="jvmArguments">
-      <list>
-        <option value="-Didea.gradle.download.sources.force=true" />
-      </list>
-    </option>
-  </component>
+  <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="I:\63_GradleLocalRepo\wrapper\dists\gradle-9.2.1-bin\2t0n5ozlw9xmuyvbp7dnzaxug\gradle-9.2.1" javaHome="I:\14_JDKs\graalVM\graalvm-jdk-25_windows-x64_bin\graalvm-jdk-25.0.1+8.1" gradleVersion="9.2.1" />
   <component name="MavenRunner">
     <option name="delegateBuildToMaven" value="true" />
   </component>
@@ -232,37 +230,12 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="PosMan [downloadSourcesAndJavadoc]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
-      <ExternalSystemSettings>
-        <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" />
-        <option name="taskDescriptions">
-          <list />
-        </option>
-        <option name="taskNames">
-          <list>
-            <option value="downloadSourcesAndJavadoc" />
-          </list>
-        </option>
-        <option name="vmOptions" />
-      </ExternalSystemSettings>
-      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
-      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
-      <ExternalSystemDebugDisabled>false</ExternalSystemDebugDisabled>
-      <DebugAllEnabled>false</DebugAllEnabled>
-      <RunAsTest>false</RunAsTest>
-      <GradleProfilingDisabled>false</GradleProfilingDisabled>
-      <GradleCoverageDisabled>false</GradleCoverageDisabled>
-      <method v="2" />
-    </configuration>
     <configuration name="PosMan [run]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--info" />
+        <option name="scriptParameters" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -282,19 +255,11 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="Gradle.PosMan [clean]" />
-      <item itemvalue="Gradle.PosMan [createJPackageImage]" />
-      <item itemvalue="Gradle.PosMan [downloadSourcesAndJavadoc]" />
-      <item itemvalue="Gradle.PosMan [build]" />
-      <item itemvalue="Gradle.PosMan [run]" />
-    </list>
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.PosMan [run]" />
         <item itemvalue="Gradle.PosMan [build]" />
         <item itemvalue="Gradle.PosMan [clean]" />
-        <item itemvalue="Gradle.PosMan [downloadSourcesAndJavadoc]" />
         <item itemvalue="Gradle.PosMan [createJPackageImage]" />
       </list>
     </recent_temporary>
@@ -316,7 +281,7 @@
       <workItem from="1765260199044" duration="11250000" />
       <workItem from="1765363766025" duration="1238000" />
       <workItem from="1765371061775" duration="13168000" />
-      <workItem from="1765384954043" duration="801000" />
+      <workItem from="1765384954043" duration="9389000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -366,7 +331,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765384553330</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="1">
+      <option name="closed" value="true" />
+      <created>1765385979781</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1765385979781</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -435,6 +408,12 @@
           <option name="totalLines" value="20546" />
           <option name="info" value="1" />
         </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765385979870" />
+          <option name="linesCode" value="4023" />
+          <option name="totalLines" value="20548" />
+          <option name="info" value="1" />
+        </TimePoint>
       </list>
     </option>
     <option name="genericTimePoints">
@@ -452,9 +431,9 @@
           <option name="info" value="Dec 9, 2025" />
         </TimePoint>
         <TimePoint>
-          <option name="timestamp" value="1765384553450" />
-          <option name="linesCode" value="4022" />
-          <option name="totalLines" value="20546" />
+          <option name="timestamp" value="1765385979870" />
+          <option name="linesCode" value="4023" />
+          <option name="totalLines" value="20548" />
           <option name="info" value="Dec 10, 2025" />
         </TimePoint>
       </list>

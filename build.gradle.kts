@@ -987,22 +987,8 @@ application {
 }
 
 tasks.named<JavaExec>("run") {
-    // Clear classpath — everything goes on module-path
-    classpath = files()
-
-    // Collect all JARs: subproject outputs + external dependencies
-    val projectJars = subprojects.mapNotNull { sub ->
-        (sub.tasks.findByName("jar") as? Jar)?.archiveFile?.get()?.asFile
-    }
-    val externalJars = configurations.runtimeClasspath.get().files
-    val allJars = (projectJars + externalJars).filter { it.name.endsWith(".jar") }.distinct()
-
-    // Build module path and launch module
-    jvmArgs = listOf(
-        "--module-path", allJars.joinToString(File.pathSeparator),
-        "--module", "${BuildMeta.MAIN_MODULE}/${BuildMeta.MAIN_CLASS}"
-    ) + BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS
-
+    mainClass.set(BuildMeta.MAIN_CLASS)
+    jvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS
     workingDir = file(BuildMeta.Paths.OUTPUT_BUILD_DIR)
 }
 

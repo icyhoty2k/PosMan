@@ -10,7 +10,7 @@ public class z_MainAppStart {
     final MqttBroker brokerService = new MqttBroker();
     brokerService.start();
     Application.launch(A_PosMan.class, args);
-
+    brokerService.stop();
     //Close database pool when app closes.
     MysqlDbPoolManager.shutdownPool();
 
