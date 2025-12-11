@@ -1,3 +1,4 @@
+import jdk.jfr.internal.JVM.exclude
 import net.silver.buildsrc.BuildMeta
 import sun.jvmstat.monitor.MonitoredVmUtil.jvmArgs
 
@@ -15,11 +16,15 @@ tasks.jar {
     archiveClassifier.set("")
 }
 
-
 dependencies {
-    implementation("org.apache.activemq:activemq-broker:6.2.0")
-    implementation("org.apache.activemq:activemq-client:6.2.0")
-    implementation("org.apache.activemq:activemq-mqtt:6.2.0")
+    implementation(platform("io.netty:netty-bom:4.1.128.Final"))
+    implementation("de.fraunhofer.iosb.io.moquette:moquette-broker:0.15.1") {
+
+        // <--- ADD THIS LINE --->
+        exclude(group = "org.slf4j", module = "slf4j-reload4j")
+    }
+
+
     testImplementation(BuildMeta.Libs.JUNIT_API)// JUnit 5 API for compiling tests
     testImplementation(BuildMeta.Libs.JUNIT_JUPITER)// JUnit 5 Engine for running tests (runtime only)
     testRuntimeOnly(BuildMeta.Libs.JUNIT_PLATFORM)

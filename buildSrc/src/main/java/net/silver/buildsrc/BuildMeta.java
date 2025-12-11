@@ -139,6 +139,8 @@ public final class BuildMeta {
         "-XX:+IgnoreUnrecognizedVMOptions",
         //        "--enable-native-access=ALL-UNNAMED",
         "-Dsun.io.useCanonCaches=true",
+        "--add-exports=jdk.unsupported/sun.misc=ALL-UNNAMED",
+        "-XX:+IgnoreUnrecognizedVMOptions",
         "--add-reads", "net.silver.services=ALL-UNNAMED",
         "--add-reads", "net.silver.app=ALL-UNNAMED"
     );

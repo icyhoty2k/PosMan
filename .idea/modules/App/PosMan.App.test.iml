@@ -32,22 +32,30 @@
     <orderEntry type="module" module-name="PosMan.Config.main" scope="RUNTIME" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.mysql:mysql-connector-j:9.5.0" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.zaxxer:HikariCP:7.0.2" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.apache.activemq:activemq-mqtt:6.2.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.apache.activemq:activemq-broker:6.2.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.apache.activemq:activemq-client:6.2.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: de.fraunhofer.iosb.io.moquette:moquette-broker:0.15.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.slf4j:slf4j-api:2.0.17" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.google.protobuf:protobuf-java:4.31.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.fusesource.mqtt-client:mqtt-client:1.16" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.apache.activemq.protobuf:activemq-protobuf:1.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.fusesource.hawtdispatch:hawtdispatch-transport:1.22" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.apache.activemq:activemq-openwire-legacy:6.2.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: jakarta.annotation:jakarta.annotation-api:2.1.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.20.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: jakarta.jms:jakarta.jms-api:3.1.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.fusesource.hawtbuf:hawtbuf:1.11" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: org.fusesource.hawtdispatch:hawtdispatch:1.22" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.20.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.20" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.dropwizard.metrics:metrics-jvm:3.2.2" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.librato.metrics:metrics-librato:5.1.4" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.librato.metrics:librato-java:2.1.3" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.bugsnag:bugsnag:3.8.0" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.dropwizard.metrics:metrics-core:3.2.5" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-codec-http:4.1.128.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-handler:4.1.128.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-codec-mqtt:4.1.128.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-codec:4.1.128.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-transport-native-epoll:linux-x86_64:4.1.128.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-transport:4.1.128.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-buffer:4.1.128.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-common:4.1.128.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.h2database:h2-mvstore:2.1.212" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: commons-codec:commons-codec:1.15" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.14.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.14.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: com.fasterxml.jackson.core:jackson-core:2.14.1" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-transport-native-unix-common:4.1.128.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-resolver:4.1.128.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-transport-classes-epoll:4.1.128.Final" level="project" />
   </component>
   <component name="TestModuleProperties" production-module="PosMan.App.main" />
 </module>

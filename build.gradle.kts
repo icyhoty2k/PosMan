@@ -963,6 +963,7 @@ tasks.test {
         exceptionFormat = org.gradle.api.tasks.testing.logging.TestExceptionFormat.FULL
         showStandardStreams = false
     }
+    jvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS
 }
 
 tasks.compileJava {
