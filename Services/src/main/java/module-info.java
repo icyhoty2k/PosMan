@@ -1,9 +1,11 @@
 open module net.silver.services {
+
+  requires io.netty.transport;
+  requires io.netty.codec.mqtt;
   requires io.netty.buffer;
-
-
-  // 1. Moquette: Use 'moquette' (the artifact name)
-
+  requires io.netty.handler;
+  requires io.netty.codec;
+  requires io.netty.common;
 
   exports net.silver.services;
 }
