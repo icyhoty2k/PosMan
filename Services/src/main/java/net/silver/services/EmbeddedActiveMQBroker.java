@@ -12,23 +12,21 @@ import java.nio.charset.StandardCharsets;
 
 public class EmbeddedActiveMQBroker {
 
-  private BrokerService broker;
-  private final String BROKER_NAME = "PosManMQTT";
+  private static final int MEMORY_USAGE = 4; // in megaBytes ,RAM usage
+  private static final int TEMP_SIZE = 1; // in megaBytes ,disk-based Temporary Store usage
+  private static final int STORAGE_SIZE = 1; // in megaBytes ,Store Usage
+  private static final String BROKER_NAME = "MQTTbrPosMan";
+  private static final BrokerService broker = new BrokerService();
 
-  public void start() {
+  public static void start() {
     try {
-      broker = new BrokerService();
       broker.setBrokerName(BROKER_NAME);
-
       // --- Configuration for Embedded Client Use ---
-
       // 1. Core Settings (Essential for lightweight use)
       broker.setPersistent(false); // **CRITICAL:** Use in-memory store, prevents disk writes.
       broker.setUseJmx(false);     // Disable JMX to save resources (no external management).
       broker.setDeleteAllMessagesOnStartup(true); // Clean slate on every start.
-
       // 2. Add Connectors (Protocols)
-
       // A. VM Connector: Ultra-fast communication within the same JVM (PosMan components)
       TransportConnector vmConnector = new TransportConnector();
       vmConnector.setUri(new URI("vm://" + BROKER_NAME));
@@ -37,7 +35,9 @@ public class EmbeddedActiveMQBroker {
       // B. MQTT Connector: For communication with external devices (e.g., IoT, scanners)
       // Uses standard MQTT port 1883
       TransportConnector mqttConnector = new TransportConnector();
-      mqttConnector.setUri(new URI("mqtt://localhost:1883"));
+      mqttConnector.setUri(new URI("mqtt://localhost:1883?"));
+
+
       broker.addConnector(mqttConnector);
 
       // C. OpenWire/TCP Connector: (Optional) For standard JMS clients
@@ -48,7 +48,9 @@ public class EmbeddedActiveMQBroker {
       // 3. System Limits (Optional but good practice)
       SystemUsage usage = broker.getSystemUsage();
       // Set memory usage limit (e.g., 256MB)
-      usage.getMemoryUsage().setLimit(1024L * 1024 * 256);
+      usage.getMemoryUsage().setLimit(1024L * 1024 * MEMORY_USAGE);
+      usage.getTempUsage().setLimit(1024L * 1024 * TEMP_SIZE);
+      usage.getStoreUsage().setLimit(1024L * 1024 * STORAGE_SIZE);
 
       // 4. Interceptors (Optional: For monitoring/logging messages)
       // You can add custom interceptors here if needed, but we'll skip for now.
@@ -59,10 +61,14 @@ public class EmbeddedActiveMQBroker {
             public void send(ProducerBrokerExchange exchange,
                              org.apache.activemq.command.Message msg)
                 throws Exception {
+              String payload = new String(msg.getContent().getData(), StandardCharsets.UTF_8);
+              String trimmedPayload = payload.trim();
               System.out.println("MQTT: " + msg.getDestination() +
-                                     " | payload=" + new String(msg.getContent().getData(), StandardCharsets.UTF_8));
+                                     " | payload= \"" + trimmedPayload + "\"");
+
               super.send(exchange, msg);
               System.out.println(usage.getMemoryUsage());
+
             }
           }
       });
@@ -81,13 +87,11 @@ public class EmbeddedActiveMQBroker {
    * Stops the embedded ActiveMQ broker.
    */
   public void stop() {
-    if (broker != null) {
-      try {
-        broker.stop();
-        System.out.println("🛑 ActiveMQ Broker '" + BROKER_NAME + "' stopped.");
-      } catch (Exception e) {
-        System.err.println("❌ Error stopping ActiveMQ broker: " + e.getMessage());
-      }
+    try {
+      broker.stop();
+      System.out.println("🛑 ActiveMQ Broker '" + BROKER_NAME + "' stopped.");
+    } catch (Exception e) {
+      System.err.println("❌ Error stopping ActiveMQ broker: " + e.getMessage());
     }
   }
 }

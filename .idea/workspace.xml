@@ -5,10 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54866653-11b4-4950-8c28-cd472d6633e4" name="Changes" comment="1">
-      <change afterPath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/EmbeddedMqttClient.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/App/src/main/java/net/silver/app/z_MainAppStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/main/java/net/silver/app/z_MainAppStart.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/Services/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/EmbeddedActiveMQBroker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/EmbeddedActiveMQBroker.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/MqttBroker.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +43,12 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="PosMan" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="[ivan]" type="c8890929:TasksNode$1" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="PosMan" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="application" type="c8890929:TasksNode$1" />
               </path>
               <path>
@@ -49,12 +56,6 @@
                 <item name="PosMan" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
                 <item name="build" type="c8890929:TasksNode$1" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="PosMan" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="help" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -95,9 +96,6 @@
   }
 }</component>
   <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="I:\63_GradleLocalRepo\wrapper\dists\gradle-9.2.1-bin\2t0n5ozlw9xmuyvbp7dnzaxug\gradle-9.2.1" javaHome="I:\14_JDKs\graalVM\graalvm-jdk-25_windows-x64_bin\graalvm-jdk-25.0.1+8.1" gradleVersion="9.2.1" />
-  <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/../../63_GradleLocalRepo/wrapper/dists/gradle-9.2.1-all/2lbhfocpgk6niea1fja7mj8kz/gradle-9.2.1/src/kotlin-dsl/org/gradle/kotlin/dsl/ProjectExtensions.kt" root0="SKIP_INSPECTION" />
-  </component>
   <component name="MavenRunner">
     <option name="delegateBuildToMaven" value="true" />
   </component>
@@ -130,6 +128,7 @@
   "keyToString": {
     "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
     "Gradle.PosMan [build].executor": "Run",
+    "Gradle.PosMan [classes].executor": "Run",
     "Gradle.PosMan [clean].executor": "Run",
     "Gradle.PosMan [createJPackageImage].executor": "Run",
     "Gradle.PosMan [listRuntimeDependencies].executor": "Run",
@@ -173,7 +172,7 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="PosMan [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="PosMan [classes]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -184,7 +183,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="clean" />
+            <option value="classes" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -198,7 +197,7 @@
       <GradleCoverageDisabled>false</GradleCoverageDisabled>
       <method v="2" />
     </configuration>
-    <configuration name="PosMan [createJPackageImage]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+    <configuration name="PosMan [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -209,7 +208,7 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="createJPackageImage" />
+            <option value="clean" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -253,7 +252,7 @@
         <option name="executionName" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="externalSystemIdString" value="GRADLE" />
-        <option name="scriptParameters" value="--info" />
+        <option name="scriptParameters" value="" />
         <option name="taskDescriptions">
           <list />
         </option>
@@ -274,7 +273,7 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Gradle.PosMan [createJPackageImage]" />
+      <item itemvalue="Gradle.PosMan [classes]" />
       <item itemvalue="Gradle.PosMan [build]" />
       <item itemvalue="Gradle.PosMan [clean]" />
       <item itemvalue="Gradle.PosMan [listRuntimeDependencies]" />
@@ -283,10 +282,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.PosMan [run]" />
-        <item itemvalue="Gradle.PosMan [listRuntimeDependencies]" />
-        <item itemvalue="Gradle.PosMan [createJPackageImage]" />
         <item itemvalue="Gradle.PosMan [clean]" />
+        <item itemvalue="Gradle.PosMan [classes]" />
         <item itemvalue="Gradle.PosMan [build]" />
+        <item itemvalue="Gradle.PosMan [listRuntimeDependencies]" />
       </list>
     </recent_temporary>
   </component>
