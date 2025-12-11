@@ -5,9 +5,6 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="PosMan.Services" options="-Xlint:deprecation" />
-      <module name="PosMan.Services.main" options="-Xlint:deprecation" />
-      <module name="PosMan.Services.test" options="-Xlint:deprecation" />
       <module name="PosMan.main" options="-Xlint:unchecked -Xlint:deprecation" />
     </option>
   </component>

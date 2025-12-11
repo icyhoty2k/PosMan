@@ -40,15 +40,15 @@ tasks.test {
 //        )
 //    )
 //}
-tasks.withType<JavaCompile>().configureEach {
-    options.compilerArgs.add(
-        // Use -Xlint:none to suppress all warnings, including deprecation,
-        // which gives you a clean build.
-        // options.compilerArgs.addAll(listOf("-Xlint:none"))
-
-        // Alternatively, use -Xlint:deprecation to get details, but this
-        // will still cause the warning message to appear in the output.
-        // For a clean terminal output, use the code below:
-        "-Xlint:deprecation"
-    )
-}
+//tasks.withType<JavaCompile>().configureEach {
+//    options.compilerArgs.add(
+//        // Use -Xlint:none to suppress all warnings, including deprecation,
+//        // which gives you a clean build.
+//        // options.compilerArgs.addAll(listOf("-Xlint:none"))
+//
+//        // Alternatively, use -Xlint:deprecation to get details, but this
+//        // will still cause the warning message to appear in the output.
+//        // For a clean terminal output, use the code below:
+//        "-Xlint:deprecation"
+//    )
+//}
