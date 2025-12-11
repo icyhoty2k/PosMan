@@ -1,19 +1,20 @@
 package net.silver.services;
 
+import org.apache.activemq.broker.BrokerFilter;
+import org.apache.activemq.broker.BrokerPlugin;
 import org.apache.activemq.broker.BrokerService;
+import org.apache.activemq.broker.ProducerBrokerExchange;
 import org.apache.activemq.broker.TransportConnector;
 import org.apache.activemq.usage.SystemUsage;
 
 import java.net.URI;
+import java.nio.charset.StandardCharsets;
 
 public class EmbeddedActiveMQBroker {
 
   private BrokerService broker;
-  private final String BROKER_NAME = "PosManEmbeddedBroker";
+  private final String BROKER_NAME = "PosManMQTT";
 
-  /**
-   * Imperatively configures and starts the ActiveMQ broker.
-   */
   public void start() {
     try {
       broker = new BrokerService();
@@ -52,7 +53,19 @@ public class EmbeddedActiveMQBroker {
       // 4. Interceptors (Optional: For monitoring/logging messages)
       // You can add custom interceptors here if needed, but we'll skip for now.
       // broker.setDestinationInterceptors(new DestinationInterceptor[]{...});
-
+      broker.setPlugins(new BrokerPlugin[]{
+          parent -> new BrokerFilter(parent) {
+            @Override
+            public void send(ProducerBrokerExchange exchange,
+                             org.apache.activemq.command.Message msg)
+                throws Exception {
+              System.out.println("MQTT: " + msg.getDestination() +
+                                     " | payload=" + new String(msg.getContent().getData(), StandardCharsets.UTF_8));
+              super.send(exchange, msg);
+              System.out.println(usage.getMemoryUsage());
+            }
+          }
+      });
       broker.start();
       System.out.println("✅ ActiveMQ Broker '" + BROKER_NAME + "' started.");
       System.out.println("   - Internal VM Connector: vm://" + BROKER_NAME);

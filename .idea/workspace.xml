@@ -5,23 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54866653-11b4-4950-8c28-cd472d6633e4" name="Changes" comment="1">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/App/PosMan.App.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/App/PosMan.App.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/App/PosMan.App.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/App/PosMan.App.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Gui/PosMan.Gui.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Gui/PosMan.Gui.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/PosMan.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/PosMan.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/PosMan.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/PosMan.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/App/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/main/java/net/silver/app/z_MainAppStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/main/java/net/silver/app/z_MainAppStart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Services/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Logging/src/main/java/net/silver/log/Log.java" beforeDir="false" afterPath="$PROJECT_DIR$/Logging/src/main/java/net/silver/log/Log.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/Services/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/SocketServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/EmbeddedActiveMQBroker.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/EmbeddedActiveMQBroker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/EmbeddedActiveMQBroker.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,6 +101,9 @@
       <scope name="Stage" />
     </order>
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
 }</component>
@@ -150,7 +140,7 @@
     "settings.editor.selected.configurable": "actions.on.save"
   }
 }]]></component>
-  <component name="RunManager" selected="Gradle.PosMan [createJPackageImage]">
+  <component name="RunManager" selected="Gradle.PosMan [run]">
     <configuration name="PosMan [build]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -285,8 +275,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.PosMan [createJPackageImage]" />
         <item itemvalue="Gradle.PosMan [run]" />
+        <item itemvalue="Gradle.PosMan [createJPackageImage]" />
         <item itemvalue="Gradle.PosMan [listRuntimeDependencies]" />
         <item itemvalue="Gradle.PosMan [clean]" />
         <item itemvalue="Gradle.PosMan [build]" />
@@ -311,7 +301,7 @@
       <workItem from="1765356665646" duration="15000" />
       <workItem from="1765356689033" duration="20000" />
       <workItem from="1765404103253" duration="6007000" />
-      <workItem from="1765434513070" duration="4171000" />
+      <workItem from="1765434513070" duration="8711000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -353,7 +343,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765356707837</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="1">
+      <option name="closed" value="true" />
+      <created>1765442263343</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1765442263343</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -416,6 +414,12 @@
           <option name="totalLines" value="16810" />
           <option name="info" value="1" />
         </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765442263389" />
+          <option name="linesCode" value="4000" />
+          <option name="totalLines" value="16971" />
+          <option name="info" value="1" />
+        </TimePoint>
       </list>
     </option>
     <option name="genericTimePoints">
@@ -433,10 +437,10 @@
           <option name="info" value="Dec 9, 2025" />
         </TimePoint>
         <TimePoint>
-          <option name="timestamp" value="1765356707901" />
-          <option name="linesCode" value="3959" />
-          <option name="totalLines" value="16810" />
-          <option name="info" value="Dec 10, 2025" />
+          <option name="timestamp" value="1765442328109" />
+          <option name="linesCode" value="4000" />
+          <option name="totalLines" value="16971" />
+          <option name="info" value="Dec 11, 2025" />
         </TimePoint>
       </list>
     </option>
