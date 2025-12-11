@@ -115,7 +115,7 @@ tasks.register<Jar>("createMergedModuleJar") {
 
     archiveFileName.set(mergedModuleJarName)
     destinationDirectory.set(mergedJarsDir)
-
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     // Exclude module-info and signature files to prevent conflicts
     exclude("module-info.class", "META-INF/*.SF", "META-INF/*.DSA", "META-INF/*.RSA")
 
@@ -987,6 +987,7 @@ tasks.named<JavaExec>("run") {
     mainClass.set(BuildMeta.MAIN_CLASS)
     jvmArgs = BuildMeta.JVM_ARGS.CURRENT_JVM_ARGS
     workingDir = file(BuildMeta.Paths.OUTPUT_BUILD_DIR)
+    modularity.inferModulePath.set(true)
 }
 
 // =========================================================================

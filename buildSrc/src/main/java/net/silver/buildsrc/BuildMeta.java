@@ -138,7 +138,8 @@ public final class BuildMeta {
         // Security & compatibility java8-16
         "-XX:+IgnoreUnrecognizedVMOptions",
         //        "--enable-native-access=ALL-UNNAMED",
-        "-Dsun.io.useCanonCaches=true"
+        "-Dsun.io.useCanonCaches=true",
+        "--add-reads", "net.silver.services=ALL-UNNAMED"
     );
     public static final List<String> CURRENT_JVM_ARGS = FAST_START_JVM_ARGS;
 

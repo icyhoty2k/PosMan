@@ -13,7 +13,17 @@
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-controls:25.0.1" level="project" />
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-controls:win:25.0.1" level="project" />
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:25.0.1" level="project" />
-    <orderEntry type="library" name="Gradle: org.openjfx:javafx-graphics:win:25.0.1" level="project" />
+    <orderEntry type="module-library">
+      <library name="Gradle: org.openjfx:javafx-graphics:win:25.0.1">
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/../../../../../63_GradleLocalRepo/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/25.0.1/55428e873de5ddbd40f3ea61f944ac84fd5d33d/javafx-graphics-25.0.1-win.jar!/" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="jar://$MODULE_DIR$/../../../../../63_GradleLocalRepo/caches/modules-2/files-2.1/org.openjfx/javafx-graphics/25.0.1/7c4b44c313c5eaa648ea03573524822a28e76dbe/javafx-graphics-25.0.1-javadoc.jar!/" />
+        </JAVADOC>
+        <SOURCES />
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-base:25.0.1" level="project" />
     <orderEntry type="library" name="Gradle: org.openjfx:javafx-base:win:25.0.1" level="project" />
     <orderEntry type="module" module-name="PosMan.Logging.main" />
