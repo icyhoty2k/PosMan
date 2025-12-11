@@ -139,7 +139,8 @@ public final class BuildMeta {
         "-XX:+IgnoreUnrecognizedVMOptions",
         //        "--enable-native-access=ALL-UNNAMED",
         "-Dsun.io.useCanonCaches=true",
-        "--add-reads", "net.silver.services=ALL-UNNAMED"
+        "--add-reads", "net.silver.services=ALL-UNNAMED",
+        "--add-reads", "net.silver.app=ALL-UNNAMED"
     );
     public static final List<String> CURRENT_JVM_ARGS = FAST_START_JVM_ARGS;
 

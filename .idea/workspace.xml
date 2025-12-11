@@ -4,7 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54866653-11b4-4950-8c28-cd472d6633e4" name="Changes" comment="1" />
+    <list default="true" id="54866653-11b4-4950-8c28-cd472d6633e4" name="Changes" comment="1">
+      <change afterPath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/EmbeddedMqttClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/Services/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" beforeDir="false" afterPath="$PROJECT_DIR$/buildSrc/src/main/java/net/silver/buildsrc/BuildMeta.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -63,6 +68,13 @@
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="FormatOnSaveOptions">
     <option name="myRunOnSave" value="true" />
@@ -271,8 +283,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Gradle.PosMan [run]" />
-        <item itemvalue="Gradle.PosMan [createJPackageImage]" />
         <item itemvalue="Gradle.PosMan [listRuntimeDependencies]" />
+        <item itemvalue="Gradle.PosMan [createJPackageImage]" />
         <item itemvalue="Gradle.PosMan [clean]" />
         <item itemvalue="Gradle.PosMan [build]" />
       </list>
@@ -296,7 +308,7 @@
       <workItem from="1765356665646" duration="15000" />
       <workItem from="1765356689033" duration="20000" />
       <workItem from="1765404103253" duration="6007000" />
-      <workItem from="1765434513070" duration="9034000" />
+      <workItem from="1765434513070" duration="10189000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -354,7 +366,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765447054995</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="1">
+      <option name="closed" value="true" />
+      <created>1765447455368</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1765447455368</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -429,6 +449,12 @@
           <option name="totalLines" value="16985" />
           <option name="info" value="1" />
         </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765447455387" />
+          <option name="linesCode" value="4013" />
+          <option name="totalLines" value="16985" />
+          <option name="info" value="1" />
+        </TimePoint>
       </list>
     </option>
     <option name="genericTimePoints">
@@ -447,6 +473,12 @@
         </TimePoint>
         <TimePoint>
           <option name="timestamp" value="1765447055012" />
+          <option name="linesCode" value="4013" />
+          <option name="totalLines" value="16985" />
+          <option name="info" value="Dec 11, 2025" />
+        </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765447455387" />
           <option name="linesCode" value="4013" />
           <option name="totalLines" value="16985" />
           <option name="info" value="Dec 11, 2025" />
