@@ -14,5 +14,8 @@ open module net.silver.services {
   requires moquette.broker;
 
 
+  requires jakarta.messaging;
+  requires java.naming;
+
   exports net.silver.services;
 }

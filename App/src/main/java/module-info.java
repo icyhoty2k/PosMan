@@ -5,5 +5,6 @@ open module net.silver.app {
   requires net.silver.persistence;
   requires net.silver.services;
 
+
   exports net.silver.app;
 }
