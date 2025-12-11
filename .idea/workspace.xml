@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54866653-11b4-4950-8c28-cd472d6633e4" name="Changes" comment="1">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Logging/src/main/java/net/silver/log/Log.java" beforeDir="false" afterPath="$PROJECT_DIR$/Logging/src/main/java/net/silver/log/Log.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/Services/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/EmbeddedActiveMQBroker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/EmbeddedActiveMQBroker.java" afterDir="false" />
-    </list>
+    <list default="true" id="54866653-11b4-4950-8c28-cd472d6633e4" name="Changes" comment="1" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -301,7 +296,7 @@
       <workItem from="1765356665646" duration="15000" />
       <workItem from="1765356689033" duration="20000" />
       <workItem from="1765404103253" duration="6007000" />
-      <workItem from="1765434513070" duration="8711000" />
+      <workItem from="1765434513070" duration="9034000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -351,7 +346,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765442263343</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="1">
+      <option name="closed" value="true" />
+      <created>1765447054995</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1765447054995</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -420,6 +423,12 @@
           <option name="totalLines" value="16971" />
           <option name="info" value="1" />
         </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765447055012" />
+          <option name="linesCode" value="4013" />
+          <option name="totalLines" value="16985" />
+          <option name="info" value="1" />
+        </TimePoint>
       </list>
     </option>
     <option name="genericTimePoints">
@@ -437,9 +446,9 @@
           <option name="info" value="Dec 9, 2025" />
         </TimePoint>
         <TimePoint>
-          <option name="timestamp" value="1765442328109" />
-          <option name="linesCode" value="4000" />
-          <option name="totalLines" value="16971" />
+          <option name="timestamp" value="1765447055012" />
+          <option name="linesCode" value="4013" />
+          <option name="totalLines" value="16985" />
           <option name="info" value="Dec 11, 2025" />
         </TimePoint>
       </list>
