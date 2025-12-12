@@ -5,9 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54866653-11b4-4950-8c28-cd472d6633e4" name="Changes" comment="1">
-      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Services/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/MQTTBroker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/MQTTBroker.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -100,6 +101,10 @@
   }
 }</component>
   <component name="GradleScriptDefinitionsStorage" workingDir="$PROJECT_DIR$" gradleHome="I:\63_GradleLocalRepo\wrapper\dists\gradle-9.2.1-bin\2t0n5ozlw9xmuyvbp7dnzaxug\gradle-9.2.1" javaHome="I:\14_JDKs\graalVM\graalvm-jdk-25_windows-x64_bin\graalvm-jdk-25.0.1+8.1" gradleVersion="9.2.1" />
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$PROJECT_DIR$/../../63_GradleLocalRepo/caches/modules-2/files-2.1/io.netty/netty-transport/4.2.7.Final/477c473691b0de4e797d4abeb127b982cbe6191/netty-transport-4.2.7.Final-sources.jar!/io/netty/channel/nio/NioEventLoopGroup.java" root0="SKIP_INSPECTION" />
+    <setting file="jar://$PROJECT_DIR$/../../63_GradleLocalRepo/caches/modules-2/files-2.1/io.netty/netty-transport/4.2.7.Final/477c473691b0de4e797d4abeb127b982cbe6191/netty-transport-4.2.7.Final-sources.jar!/io/netty/channel/nio/NioIoHandler.java" root0="SKIP_INSPECTION" />
+  </component>
   <component name="MavenRunner">
     <option name="delegateBuildToMaven" value="true" />
   </component>
@@ -111,7 +116,8 @@
     </order>
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
+    <option name="showPreview" value="true" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -128,32 +134,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showModules" value="false" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_MARK_IGNORED_FILES_AS_EXCLUDED&quot;: &quot;true&quot;,
-    &quot;Gradle.PosMan [build].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PosMan [classes].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PosMan [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PosMan [createJPackageImage].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PosMan [listRuntimeDependencies].executor&quot;: &quot;Run&quot;,
-    &quot;Gradle.PosMan [run].executor&quot;: &quot;Run&quot;,
-    &quot;JavaClassFindUsagesOptions.isDerivedClasses&quot;: &quot;true&quot;,
-    &quot;JavaClassFindUsagesOptions.isFieldsUsages&quot;: &quot;true&quot;,
-    &quot;JavaClassFindUsagesOptions.isMethodsUsages&quot;: &quot;true&quot;,
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;I:/10_JavaSources/PosMan/settings.gradle.kts&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Libraries&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.24395859&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;actions.on.save&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_MARK_IGNORED_FILES_AS_EXCLUDED": "true",
+    "Gradle.PosMan [build].executor": "Run",
+    "Gradle.PosMan [classes].executor": "Run",
+    "Gradle.PosMan [clean].executor": "Run",
+    "Gradle.PosMan [createJPackageImage].executor": "Run",
+    "Gradle.PosMan [listRuntimeDependencies].executor": "Run",
+    "Gradle.PosMan [run].executor": "Run",
+    "JavaClassFindUsagesOptions.isDerivedClasses": "true",
+    "JavaClassFindUsagesOptions.isFieldsUsages": "true",
+    "JavaClassFindUsagesOptions.isMethodsUsages": "true",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "I:/10_JavaSources/PosMan/settings.gradle.kts",
+    "project.structure.last.edited": "Libraries",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.24395859",
+    "settings.editor.selected.configurable": "Errors"
   }
-}</component>
-  <component name="RunManager" selected="Gradle.PosMan [createJPackageImage]">
+}]]></component>
+  <component name="RunManager" selected="Gradle.PosMan [run]">
     <configuration name="PosMan [classes]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -262,8 +268,8 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.PosMan [createJPackageImage]" />
         <item itemvalue="Gradle.PosMan [run]" />
+        <item itemvalue="Gradle.PosMan [createJPackageImage]" />
         <item itemvalue="Gradle.PosMan [classes]" />
         <item itemvalue="Gradle.PosMan [clean]" />
       </list>
@@ -291,7 +297,8 @@
       <workItem from="1765470657126" duration="44000" />
       <workItem from="1765477587962" duration="4875000" />
       <workItem from="1765482736517" duration="14000" />
-      <workItem from="1765490615260" duration="5414000" />
+      <workItem from="1765490615260" duration="5471000" />
+      <workItem from="1765541103589" duration="7053000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -381,7 +388,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765495728931</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="1">
+      <option name="closed" value="true" />
+      <created>1765496129189</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1765496129189</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -480,6 +495,12 @@
           <option name="totalLines" value="22644" />
           <option name="info" value="1" />
         </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765496129213" />
+          <option name="linesCode" value="4361" />
+          <option name="totalLines" value="22644" />
+          <option name="info" value="1" />
+        </TimePoint>
       </list>
     </option>
     <option name="genericTimePoints">
@@ -509,7 +530,7 @@
           <option name="info" value="Dec 11, 2025" />
         </TimePoint>
         <TimePoint>
-          <option name="timestamp" value="1765495728966" />
+          <option name="timestamp" value="1765496129213" />
           <option name="linesCode" value="4361" />
           <option name="totalLines" value="22644" />
           <option name="info" value="Dec 12, 2025" />

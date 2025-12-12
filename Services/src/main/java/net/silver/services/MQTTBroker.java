@@ -6,6 +6,7 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.nio.NioIoHandler;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.mqtt.*;
+import io.netty.util.AttributeKey;
 
 
 import java.util.ArrayList;
@@ -19,7 +20,12 @@ import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.LongAdder;
 
-
+/* Info
+ * It correctly addresses requirement to:
+ * avoid false disconnects on dozed mobile devices by relying on the OS/TCP stack.
+ *
+ *
+ */
 public class MQTTBroker {
 
   private static final boolean DEBUG_AUTO_REPORT = false;
@@ -28,6 +34,9 @@ public class MQTTBroker {
 
   // Metrics tracking object
   private final BrokerMetrics metrics = new BrokerMetrics();
+  // New: Map to store active client channels keyed by their unique Client ID
+  private final Map<String, Channel> activeClients = new ConcurrentHashMap<>();
+  public static final AttributeKey<String> CLIENT_ID_KEY = AttributeKey.valueOf("clientId");
 
   public void start(int port) throws Exception {
     // Correct, modern, non-deprecated Netty EventLoopGroup setup
@@ -125,6 +134,7 @@ public class MQTTBroker {
       return new MqttConnAckMessage(fixedHeader, variableHeader);
     }
 
+
     @Override
     public void channelActive(ChannelHandlerContext ctx) {
       metrics.incrementConnections();
@@ -133,7 +143,15 @@ public class MQTTBroker {
     @Override
     public void channelInactive(ChannelHandlerContext ctx) {
       metrics.decrementConnections();
-
+      // --- NEW: Client ID and Active Client Cleanup ---
+      // 1. Retrieve the Client ID stored during CONNECT
+      String clientId = ctx.channel().attr(CLIENT_ID_KEY).get();
+      if (clientId != null) {
+        // 2. Remove the channel from the active client list
+        // Use remove(key, value) to ensure we only remove the current channel
+        // (important if the old channel closure hasn't fully propagated yet)
+        activeClients.remove(clientId, ctx.channel());
+      }
       // Remove channel from all topics
       subscriptions.values().forEach(list -> {
         if (list.remove(ctx.channel())) {
@@ -178,6 +196,9 @@ public class MQTTBroker {
         case
             DISCONNECT ->
             ctx.close();
+        case
+            UNSUBSCRIBE ->
+            handleUnsubscribe(ctx, (MqttUnsubscribeMessage) mqttMsg); // <-- NEW CASE
         default -> {
           // Ignore unsupported (QoS2, etc.)
         }
@@ -212,9 +233,28 @@ public class MQTTBroker {
         ctx.close();
         return;
       }
-
+      String clientId = msg.payload().clientIdentifier();
+      // 1. Check for Duplicate Client ID
+      Channel existingChannel = activeClients.get(clientId);
+      if (existingChannel != null && existingChannel.isActive()) {
+        System.err.println("Client ID conflict: Closing old connection for ID: " + clientId);
+        // Force the old client to disconnect
+        existingChannel.close();
+      }
+      // 2. Client ID must be present (for a non-clean session, but we enforce it anyway)
+      if (clientId == null || clientId.trim().isEmpty()) {
+        metrics.incrementConnectFailures();
+        MqttConnAckMessage refusal = createConnAck(MqttConnectReturnCode.CONNECTION_REFUSED_IDENTIFIER_REJECTED);
+        ctx.writeAndFlush(refusal);
+        ctx.close();
+        return;
+      }
       // Accept
       metrics.incrementConnectSuccesses();
+      // 3. Store the new connection
+      activeClients.put(clientId, ctx.channel());
+      // 4. Attach Client ID to the Channel (makes cleanup much easier later)
+      ctx.channel().attr(CLIENT_ID_KEY).set(clientId);
       MqttConnAckMessage ack = createConnAck(MqttConnectReturnCode.CONNECTION_ACCEPTED);
       ctx.writeAndFlush(ack);
     }
@@ -246,6 +286,34 @@ public class MQTTBroker {
       MqttMessageIdVariableHeader variableHeader = MqttMessageIdVariableHeader.from(msg.variableHeader().messageId());
       MqttSubAckPayload payload = new MqttSubAckPayload(grantedQoS);
       MqttSubAckMessage ack = new MqttSubAckMessage(fixedHeader, variableHeader, payload);
+
+      ctx.writeAndFlush(ack);
+    }
+
+    private void handleUnsubscribe(ChannelHandlerContext ctx, MqttUnsubscribeMessage msg) {
+      List<String> topics = msg.payload().topics(); // Get list of topics to unsubscribe from
+
+      for (String topic : topics) {
+        List<Channel> channels = subscriptions.get(topic);
+        if (channels != null) {
+          // Remove the specific channel from the subscription list
+          if (channels.remove(ctx.channel())) {
+            metrics.decrementSubscription();
+          }
+
+          // Cleanup: If the list is empty, remove the topic entry entirely
+          if (channels.isEmpty()) {
+            subscriptions.remove(topic);
+            metrics.removeTopic(topic);
+          }
+        }
+      }
+
+      // Acknowledge unsubscription with a UNSUBACK packet
+      MqttFixedHeader fixedHeader = new MqttFixedHeader(MqttMessageType.UNSUBACK, false,
+          MqttQoS.AT_MOST_ONCE, false, 0);
+      MqttMessageIdVariableHeader variableHeader = MqttMessageIdVariableHeader.from(msg.variableHeader().messageId());
+      MqttUnsubAckMessage ack = new MqttUnsubAckMessage(fixedHeader, variableHeader);
 
       ctx.writeAndFlush(ack);
     }
@@ -538,7 +606,5 @@ public class MQTTBroker {
     }
   }
 
-  public static void main(String[] args) throws Exception {
-    new MQTTBroker().start(1883);
-  }
+
 }
