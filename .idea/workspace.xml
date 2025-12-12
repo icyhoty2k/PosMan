@@ -5,8 +5,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54866653-11b4-4950-8c28-cd472d6633e4" name="Changes" comment="1">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/MQTTBroker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/MQTTBroker.java" afterDir="false" />
     </list>
@@ -298,7 +296,7 @@
       <workItem from="1765477587962" duration="4875000" />
       <workItem from="1765482736517" duration="14000" />
       <workItem from="1765490615260" duration="5471000" />
-      <workItem from="1765541103589" duration="7053000" />
+      <workItem from="1765541103589" duration="8530000" />
     </task>
     <task id="LOCAL-00001" summary="1">
       <option name="closed" value="true" />
@@ -396,7 +394,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765496129189</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="1">
+      <option name="closed" value="true" />
+      <created>1765548607233</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1765548607233</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -501,6 +507,12 @@
           <option name="totalLines" value="22644" />
           <option name="info" value="1" />
         </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765548607354" />
+          <option name="linesCode" value="4402" />
+          <option name="totalLines" value="22710" />
+          <option name="info" value="1" />
+        </TimePoint>
       </list>
     </option>
     <option name="genericTimePoints">
@@ -533,6 +545,12 @@
           <option name="timestamp" value="1765496129213" />
           <option name="linesCode" value="4361" />
           <option name="totalLines" value="22644" />
+          <option name="info" value="Dec 12, 2025" />
+        </TimePoint>
+        <TimePoint>
+          <option name="timestamp" value="1765548607354" />
+          <option name="linesCode" value="4402" />
+          <option name="totalLines" value="22710" />
           <option name="info" value="Dec 12, 2025" />
         </TimePoint>
       </list>

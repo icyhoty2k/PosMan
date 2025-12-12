@@ -20,11 +20,12 @@ import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.LongAdder;
 
-/* Info
- * It correctly addresses requirement to:
+/* Info REQUIREMENTS
+ * current requirement are:
  * avoid false disconnects on dozed mobile devices by relying on the OS/TCP stack.
- *
- *
+ * Non-anonymous connections disabled (required Client ID)
+ * Duplicate connection handling
+ * A robust, mobile-friendly disconnection policy
  */
 public class MQTTBroker {
 
