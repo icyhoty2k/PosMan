@@ -48,17 +48,17 @@ public class MQTTBroker {
     startMetricsReporter();
 
     ServerBootstrap b = new ServerBootstrap();
-    b.group(boss, worker)
-        .channel(NioServerSocketChannel.class)
-        .childHandler(new ChannelInitializer<SocketChannel>() {
-          @Override
-          protected void initChannel(SocketChannel ch) {
-            ChannelPipeline p = ch.pipeline();
-            p.addLast("mqttDecoder", new MqttDecoder(256 * 1024)); // 256 KB limit
-            p.addLast("mqttEncoder", MqttEncoder.INSTANCE);
-            p.addLast("handler", new BrokerHandler());
-          }
-        });
+    b.group(boss, worker).channel(NioServerSocketChannel.class).childHandler(new ChannelInitializer<SocketChannel>() {
+      @Override protected void initChannel(SocketChannel ch) {
+        ChannelPipeline p = ch.pipeline();
+        // --- ADD THIS LINE FOR DSCP ---
+        ch.config().setTrafficClass(0x68); //Class: AF3 (Medium-High Priority)
+        // -----------------------------
+        p.addLast("mqttDecoder", new MqttDecoder(256 * 1024)); // 256 KB limit
+        p.addLast("mqttEncoder", MqttEncoder.INSTANCE);
+        p.addLast("handler", new BrokerHandler());
+      }
+    });
 
     try {
       ChannelFuture f = b.bind(port).sync();
@@ -76,8 +76,7 @@ public class MQTTBroker {
     }
     Timer timer = new Timer("MetricsReporter", true);
     timer.scheduleAtFixedRate(new TimerTask() {
-      @Override
-      public void run() {
+      @Override public void run() {
         System.out.println("\n" + metrics.getReport());
       }
     }, 10000, 10000); // Report every 10 seconds
@@ -129,20 +128,17 @@ public class MQTTBroker {
 
     // Helper to create a standard CONNACK response
     private MqttConnAckMessage createConnAck(MqttConnectReturnCode code) {
-      MqttFixedHeader fixedHeader = new MqttFixedHeader(MqttMessageType.CONNACK, false,
-          MqttQoS.AT_MOST_ONCE, false, 0);
+      MqttFixedHeader fixedHeader = new MqttFixedHeader(MqttMessageType.CONNACK, false, MqttQoS.AT_MOST_ONCE, false, 0);
       MqttConnAckVariableHeader variableHeader = new MqttConnAckVariableHeader(code, false);
       return new MqttConnAckMessage(fixedHeader, variableHeader);
     }
 
 
-    @Override
-    public void channelActive(ChannelHandlerContext ctx) {
+    @Override public void channelActive(ChannelHandlerContext ctx) {
       metrics.incrementConnections();
     }
 
-    @Override
-    public void channelInactive(ChannelHandlerContext ctx) {
+    @Override public void channelInactive(ChannelHandlerContext ctx) {
       metrics.decrementConnections();
       // --- NEW: Client ID and Active Client Cleanup ---
       // 1. Retrieve the Client ID stored during CONNECT
@@ -171,8 +167,7 @@ public class MQTTBroker {
     }
 
     // REFACTOR: Using non-deprecated channelRead(ctx, msg)
-    @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) {
+    @Override public void channelRead(ChannelHandlerContext ctx, Object msg) {
       // Manual type check and cast (replaces what SimpleChannelInboundHandler did automatically)
       if (!(msg instanceof MqttMessage)) {
         ctx.fireChannelRead(msg);
@@ -214,9 +209,7 @@ public class MQTTBroker {
       String protocolName = msg.variableHeader().name();
 
       // SUPPORT MQTT 3.0 / 3.1 / 3.1.1
-      boolean validProtocol =
-          (version == 3 && protocolName.equals("MQIsdp")) ||
-              (version == 4 && protocolName.equals("MQTT"));
+      boolean validProtocol = (version == 3 && protocolName.equals("MQIsdp")) || (version == 4 && protocolName.equals("MQTT"));
 
       if (!validProtocol) {
         metrics.incrementConnectFailures();
@@ -267,11 +260,10 @@ public class MQTTBroker {
         String topic = subscription.topicFilter(); // Using non-deprecated method
 
         // Store subscription, adding topic to metrics if new
-        List<Channel> list = subscriptions
-                                 .computeIfAbsent(topic, k -> {
-                                   metrics.addTopic(k);
-                                   return new CopyOnWriteArrayList<>();
-                                 });
+        List<Channel> list = subscriptions.computeIfAbsent(topic, k -> {
+          metrics.addTopic(k);
+          return new CopyOnWriteArrayList<>();
+        });
 
         // Avoid duplicates
         if (!list.contains(ctx.channel())) {
@@ -311,8 +303,7 @@ public class MQTTBroker {
       }
 
       // Acknowledge unsubscription with a UNSUBACK packet
-      MqttFixedHeader fixedHeader = new MqttFixedHeader(MqttMessageType.UNSUBACK, false,
-          MqttQoS.AT_MOST_ONCE, false, 0);
+      MqttFixedHeader fixedHeader = new MqttFixedHeader(MqttMessageType.UNSUBACK, false, MqttQoS.AT_MOST_ONCE, false, 0);
       MqttMessageIdVariableHeader variableHeader = MqttMessageIdVariableHeader.from(msg.variableHeader().messageId());
       MqttUnsubAckMessage ack = new MqttUnsubAckMessage(fixedHeader, variableHeader);
 
@@ -357,12 +348,10 @@ public class MQTTBroker {
     }
 
     private void handlePingReq(ChannelHandlerContext ctx) {
-      MqttMessage pingResp = new MqttMessage(
-          new MqttFixedHeader(MqttMessageType.PINGRESP, false,
-              MqttQoS.AT_MOST_ONCE, false, 0)
-      );
+      MqttMessage pingResp = new MqttMessage(new MqttFixedHeader(MqttMessageType.PINGRESP, false, MqttQoS.AT_MOST_ONCE, false, 0));
       ctx.writeAndFlush(pingResp);
     }
+
   }
 
   // Metrics tracking class
@@ -520,10 +509,8 @@ public class MQTTBroker {
       sb.append(String.format("  Failed:                 %d\n\n", getTotalConnectFailures()));
 
       sb.append("MESSAGE STATISTICS:\n");
-      sb.append(String.format("  Messages Received:      %d (%.2f msg/s)\n",
-          getMessagesReceived(), getMessagesReceivedPerSecond()));
-      sb.append(String.format("  Messages Sent:          %d (%.2f msg/s)\n",
-          getMessagesSent(), getMessagesSentPerSecond()));
+      sb.append(String.format("  Messages Received:      %d (%.2f msg/s)\n", getMessagesReceived(), getMessagesReceivedPerSecond()));
+      sb.append(String.format("  Messages Sent:          %d (%.2f msg/s)\n", getMessagesSent(), getMessagesSentPerSecond()));
       sb.append(String.format("  Bytes Received:         %s\n", formatBytes(getBytesReceived())));
       sb.append(String.format("  Bytes Sent:             %s\n\n", formatBytes(getBytesSent())));
 
@@ -533,15 +520,9 @@ public class MQTTBroker {
 
       if (!topicStats.isEmpty()) {
         sb.append("TOP 10 TOPICS BY ACTIVITY:\n");
-        topicStats.values().stream()
-            .sorted((a, b) -> Long.compare(b.getPublishCount(), a.getPublishCount()))
-            .limit(10)
-            .forEach(stats -> {
-              sb.append(String.format("  %-30s | Publishes: %d | Last: %s\n",
-                  truncate(stats.getTopic(), 30),
-                  stats.getPublishCount(),
-                  stats.getLastPublishTime()));
-            });
+        topicStats.values().stream().sorted((a, b) -> Long.compare(b.getPublishCount(), a.getPublishCount())).limit(10).forEach(stats -> {
+          sb.append(String.format("  %-30s | Publishes: %d | Last: %s\n", truncate(stats.getTopic(), 30), stats.getPublishCount(), stats.getLastPublishTime()));
+        });
       }
 
       sb.append("═══════════════════════════════════════════════════════\n");
@@ -564,6 +545,7 @@ public class MQTTBroker {
     private String truncate(String str, int length) {
       return str.length() <= length ? str : str.substring(0, length - 3) + "...";
     }
+
   }
 
   // Topic statistics class
@@ -605,6 +587,7 @@ public class MQTTBroker {
       }
       return (secondsAgo / 3600) + "h ago";
     }
+
   }
 
 
