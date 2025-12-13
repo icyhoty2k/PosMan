@@ -2,7 +2,7 @@ package net.silver.services;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
+
 import io.netty.channel.*;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.nio.NioIoHandler;
@@ -10,6 +10,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.mqtt.*;
 import io.netty.util.AttributeKey;
 import io.netty.util.ReferenceCountUtil;
+import net.silver.log.slf4j.SilverLogger;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -72,7 +73,7 @@ public class MQTTBroker {
   /** Maximum topic length per MQTT 3.1.1 spec */
   private static final int MAX_TOPIC_LENGTH = 65535;
 
-  private static final Logger LOGGER = new Logger(MQTTBroker.class.getSimpleName());
+  private static final SilverLogger LOGGER = new SilverLogger("MQTTBroker.class");
 
   // ============================================================================
   // CORE DATA STRUCTURES
@@ -140,7 +141,7 @@ public class MQTTBroker {
 
     startMetricsReporter();
 
-    // CRITICAL: Register JVM shutdown hook to release LWT ByteBufs on abnormal termination
+    // CRITICAL: Register JVM shutdown hook to release LWT ByteBuffs on abnormal termination
     // Without this, abrupt JVM exit would leak native memory from unreleased LWT payloads
     Runtime.getRuntime().addShutdownHook(new Thread(this::releaseAllWillMessages, "BrokerShutdownHook"));
 
@@ -202,7 +203,7 @@ public class MQTTBroker {
   }
 
   /**
-   * Emergency cleanup: Releases all ByteBufs associated with LWT messages.
+   * Emergency cleanup: Releases all ByteBuffs associated with LWT messages.
    * Called by JVM shutdown hook to prevent native memory leaks.
    * <p>
    * CRITICAL: Without this, abrupt termination leaks native buffers!
@@ -859,31 +860,6 @@ public class MQTTBroker {
     @Override public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) {
       LOGGER.error("Channel exception: " + cause.getMessage());
       ctx.close();
-    }
-
-  }
-
-  // ============================================================================
-  // LOGGER (Simple Console Logger)
-  // ============================================================================
-
-  private static class Logger {
-    private final String tag;
-
-    public Logger(String tag) {
-      this.tag = "[" + tag + "]";
-    }
-
-    public void info(String message) {
-      System.out.println(tag + " INFO: " + message);
-    }
-
-    public void warn(String message) {
-      System.err.println(tag + " WARN: " + message);
-    }
-
-    public void error(String message) {
-      System.err.println(tag + " ERROR: " + message);
     }
 
   }

@@ -17,5 +17,6 @@
     <orderEntry type="library" name="Gradle: io.netty:netty-common:4.2.7.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-transport-native-unix-common:4.2.7.Final" level="project" />
     <orderEntry type="library" name="Gradle: io.netty:netty-resolver:4.2.7.Final" level="project" />
+    <orderEntry type="module" module-name="PosMan.Logging.main" />
   </component>
 </module>

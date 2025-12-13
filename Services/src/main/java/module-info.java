@@ -6,6 +6,7 @@ open module net.silver.services {
   requires io.netty.handler;
   requires io.netty.codec;
   requires io.netty.common;
+  requires net.silver.log;
 
   exports net.silver.services;
 }
