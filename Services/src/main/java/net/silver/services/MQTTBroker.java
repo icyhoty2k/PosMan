@@ -249,8 +249,8 @@ public class MQTTBroker {
       return true;
     }
 
-    String[] filterLevels = filter.split("/");
-    String[] topicLevels = topic.split("/");
+    String[] filterLevels = filter.split("/", -1);
+    String[] topicLevels = topic.split("/", -1);
 
     for (int i = 0; i < filterLevels.length; i++) {
       String filterLevel = filterLevels[i];
@@ -408,7 +408,7 @@ public class MQTTBroker {
           }
         } finally {
           // CRITICAL: Always release the LWT ByteBuf (balances retain from handleConnect)
-          ReferenceCountUtil.safeRelease(willMsg.payload());
+          ReferenceCountUtil.safeRelease(willMsg);
         }
       }
 

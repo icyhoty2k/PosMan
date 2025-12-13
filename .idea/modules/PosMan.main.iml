@@ -26,14 +26,14 @@
     <orderEntry type="library" scope="RUNTIME" name="Gradle: org.openjfx:javafx-controls:win:25.0.1" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.zaxxer:HikariCP:7.0.2" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.mysql:mysql-connector-j:9.5.0" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-codec-mqtt:4.2.7.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-handler:4.2.7.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-transport:4.2.7.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-buffer:4.2.7.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-codec-mqtt:4.2.8.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-handler:4.2.8.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-transport:4.2.8.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-buffer:4.2.8.Final" level="project" />
     <orderEntry type="library" scope="RUNTIME" name="Gradle: com.google.protobuf:protobuf-java:4.31.1" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-codec-base:4.2.7.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-common:4.2.7.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-transport-native-unix-common:4.2.7.Final" level="project" />
-    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-resolver:4.2.7.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-codec-base:4.2.8.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-common:4.2.8.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-transport-native-unix-common:4.2.8.Final" level="project" />
+    <orderEntry type="library" scope="RUNTIME" name="Gradle: io.netty:netty-resolver:4.2.8.Final" level="project" />
   </component>
 </module>

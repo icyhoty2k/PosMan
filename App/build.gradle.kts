@@ -20,6 +20,7 @@ dependencies {
     implementation(project(":Gui"))
     implementation(project(":Persistence"))
     implementation(project(":Services"))
+    implementation(project(":Logging"))
     implementation(BuildMeta.Libs.GRAPHICS_JAVA_FX)
     implementation(BuildMeta.Libs.BASE_JAVA_FX)
     // If App needs anything from utils, logging, or resources, add here:
