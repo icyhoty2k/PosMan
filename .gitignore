@@ -67,6 +67,7 @@ build/
 # 🔥 IntelliJ creates temporary files in that folder; ignoring .tmp avoids unnecessary commits.
 .idea/runConfigurations/*.tmp
 
+.idea/workspace.xml
 ############### OPTIONAL IGNORE (SYNC ONLY IF YOU WANT) ###############
 
 # Run/Debug configurations:
