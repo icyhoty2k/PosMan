@@ -5,18 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="54866653-11b4-4950-8c28-cd472d6633e4" name="Changes" comment="1">
-      <change beforePath="$PROJECT_DIR$/.idea/modules/App/PosMan.App.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/App/PosMan.App.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/App/PosMan.App.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/App/PosMan.App.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Gui/PosMan.Gui.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Gui/PosMan.Gui.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/PosMan.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/PosMan.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/PosMan.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/PosMan.test.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.main.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.main.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.test.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/Services/PosMan.Services.test.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/App/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/App/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/App/src/main/java/net/silver/app/z_MainAppStart.java" beforeDir="false" afterPath="$PROJECT_DIR$/App/src/main/java/net/silver/app/z_MainAppStart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Services/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/Services/build.gradle.kts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/MQTTBroker.java" beforeDir="false" afterPath="$PROJECT_DIR$/Services/src/main/java/net/silver/services/MQTTBroker.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,12 +36,6 @@
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="PosMan" type="f1a62948:ProjectNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="PosMan" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="[ivan]" type="c8890929:TasksNode$1" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
@@ -113,6 +97,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="jar://$PROJECT_DIR$/../../63_GradleLocalRepo/caches/modules-2/files-2.1/io.netty/netty-transport/4.2.7.Final/477c473691b0de4e797d4abeb127b982cbe6191/netty-transport-4.2.7.Final-sources.jar!/io/netty/channel/nio/NioEventLoopGroup.java" root0="SKIP_INSPECTION" />
     <setting file="jar://$PROJECT_DIR$/../../63_GradleLocalRepo/caches/modules-2/files-2.1/io.netty/netty-transport/4.2.7.Final/477c473691b0de4e797d4abeb127b982cbe6191/netty-transport-4.2.7.Final-sources.jar!/io/netty/channel/nio/NioIoHandler.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/../../63_GradleLocalRepo/wrapper/dists/gradle-9.2.1-all/2lbhfocpgk6niea1fja7mj8kz/gradle-9.2.1/src/kotlin-dsl/org/gradle/kotlin/dsl/ProjectExtensions.kt" root0="SKIP_INSPECTION" />
   </component>
   <component name="MavenRunner">
     <option name="delegateBuildToMaven" value="true" />

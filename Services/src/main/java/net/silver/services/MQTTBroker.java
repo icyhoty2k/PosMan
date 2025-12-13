@@ -10,6 +10,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.mqtt.*;
 import io.netty.util.AttributeKey;
 import io.netty.util.ReferenceCountUtil;
+import net.silver.log.Log;
 import net.silver.log.slf4j.SilverLogger;
 
 import java.util.*;
@@ -73,6 +74,10 @@ public class MQTTBroker {
   /** Maximum topic length per MQTT 3.1.1 spec */
   private static final int MAX_TOPIC_LENGTH = 65535;
 
+  //dedicated thread to start the broker
+  private static Thread brokerThread;
+  //only one broker instance needed
+  private static final MQTTBroker broker = new MQTTBroker();
   private static final SilverLogger LOGGER = new SilverLogger("MQTTBroker.class");
 
   // ============================================================================
@@ -134,7 +139,7 @@ public class MQTTBroker {
    *
    * @throws Exception if unable to bind port or initialize Netty
    */
-  public void start(int port) throws Exception {
+  private void start(int port) throws Exception {
     // Modern Netty 4.1+ EventLoopGroup setup (non-deprecated)
     MultiThreadIoEventLoopGroup boss = new MultiThreadIoEventLoopGroup(1, NioIoHandler.newFactory());
     MultiThreadIoEventLoopGroup worker = new MultiThreadIoEventLoopGroup(NioIoHandler.newFactory());
@@ -179,6 +184,46 @@ public class MQTTBroker {
 
       LOGGER.info("Broker fully stopped.");
     }
+  }
+
+  /**
+   * Starts the MQTT broker on the specified port.
+   * <p>
+   * BLOCKING METHOD: This method is non-blocking because its uses a dedicated thread
+   * Use this method otherwise main app PosMan will not show gui
+   *
+   * @param port TCP port to bind (standard MQTT port is 1883)
+   *
+   * @throws RuntimeException if unable to bind port or initialize Netty
+   */
+  public static void startMqttBrokerAsync(int port) {
+    brokerThread = new Thread(() -> {
+      Log.info("Starting MQTT Broker on a background thread...");
+
+      try {
+        // This call blocks the brokerThread until the broker is manually shut down.
+        broker.start(port);
+      } catch (Exception e) {
+        // IMPORTANT: If broker fails to start, log the error.
+        Log.error("MQTT Broker failed to start: " + e.getMessage());
+        throw new RuntimeException("Broker startup error", e);
+      }
+    }, "MQTT-Broker-Thread");
+
+    // Start the dedicated thread
+    brokerThread.setDaemon(true); // Optional: Broker won't prevent JVM exit if main app crashes
+    brokerThread.start();
+  }
+
+  public static void shutdownApplicationResources() {
+    Log.info("JavaFX Application closed. Shutting down resources...");
+    // Initiate Netty's graceful shutdown procedure (in MQTTBroker.start's finally block)
+    // By interrupting the thread that holds the blocking sync() call, we signal it to close.
+    if (brokerThread != null && brokerThread.isAlive()) {
+      Log.info("Signaling MQTT Broker thread to shut down...");
+      brokerThread.interrupt();
+    }
+    Log.info("All resources shut down.");
   }
 
   /**
@@ -353,7 +398,7 @@ public class MQTTBroker {
     int id = packetIdGenerator.getAndIncrement();
     if (id > 65535) {
       packetIdGenerator.compareAndSet(id, 1);
-      return 1;
+      return packetIdGenerator.updateAndGet(x -> x >= 65535 ? 1 : x + 1);
     }
     return id;
   }
@@ -788,8 +833,12 @@ public class MQTTBroker {
       // ========================================================================
 
       if (msg.fixedHeader().qosLevel() == MqttQoS.AT_LEAST_ONCE) {
-        MqttFixedHeader pubAckHeader = new MqttFixedHeader(MqttMessageType.PUBACK, false, MqttQoS.AT_MOST_ONCE, false, 0);
-        MqttPubAckMessage pubAck = new MqttPubAckMessage(pubAckHeader, MqttMessageIdVariableHeader.from(msg.variableHeader().packetId()));
+        MqttFixedHeader pubAckHeader = new MqttFixedHeader(
+            MqttMessageType.PUBACK, false, MqttQoS.AT_MOST_ONCE, false, 0);
+        MqttPubAckMessage pubAck = new MqttPubAckMessage(
+            pubAckHeader,
+            MqttMessageIdVariableHeader.from(msg.variableHeader().packetId())
+        );
         ctx.writeAndFlush(pubAck);
       }
 
@@ -800,46 +849,46 @@ public class MQTTBroker {
       int deliveredCount = 0;
       Set<Channel> recipients = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
-      // CRITICAL: Retain message before fan-out (refCount +1)
-      // This ensures the ByteBuf survives the entire loop
-      msg.retain();
-
       try {
         // PHASE 1: Match and collect recipients - O(N×M)
         for (Map.Entry<String, Set<Channel>> entry : subscriptions.entrySet()) {
-          String subscriptionFilter = entry.getKey();
-          if (topicMatches(subscriptionFilter, publishedTopic)) {
+          if (topicMatches(entry.getKey(), publishedTopic)) {
             recipients.addAll(entry.getValue());
           }
         }
 
-        // PHASE 2: Write to all recipients - O(R)
-        for (Channel ch : recipients) {
-          if (ch.isActive()) {
-            // CRITICAL: Use duplicate() for zero-copy fan-out
-            // - Creates new message with independent ByteBuf view
-            // - Each duplicate has refCount=1
-            // - write() transfers ownership to pipeline (auto-release on completion)
-            ch.write(msg.duplicate());
-            deliveredCount++;
-          }
-        }
+        deliveredCount = recipients.size();
 
-        // PHASE 3: Flush all pending writes
         if (deliveredCount > 0) {
+          // CRITICAL: Retain message once per recipient
+          // This ensures the underlying ByteBuf survives all writes
+          msg.retain(deliveredCount);
+
+          // PHASE 2: Write to all recipients - O(R)
+          for (Channel ch : recipients) {
+            if (ch.isActive()) {
+              // ✅ Use duplicate() for zero-copy fan-out
+              // Each duplicate has refCount=1 and is released by Netty after write
+              ch.write(msg.duplicate());
+            }
+          }
+
+          // PHASE 3: Flush all pending writes
           recipients.forEach(Channel::flush);
         }
 
       } catch (Exception e) {
-        LOGGER.error("Error during message fan-out: " + e.getMessage());
-      } finally {
-        // CRITICAL: Release the retained message (balances retain() above)
-        msg.release();
+        LOGGER.error("Error during message fan-out: " + e.getMessage(), e);
       }
 
+      // ✅ DO NOT call msg.release() here
+      // Netty automatically releases the original message after channelRead
+      // The retained duplicates are released independently by the pipeline
+
       metrics.addMessagesSent(deliveredCount);
-      metrics.addBytesSent(payloadSize * deliveredCount);
+      metrics.addBytesSent((long) payloadSize * deliveredCount);
     }
+
 
     // --------------------------------------------------------------------------
     // PING HANDLER
